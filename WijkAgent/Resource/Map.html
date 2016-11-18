@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map-canvas {
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_KoTwmJxEhKi9PsGY0BGECANCLQzEyRE&sensor=false">
+
+    </script>
+    <script type="text/javascript">
+
+     var map;
+     function initialize(Latitude, Longitude, zoom) {
+       var mapOptions = {
+         center: new google.maps.LatLng(Latitude, Longitude),
+         zoom: zoom,
+         //minZoom: zoom
+       };
+
+       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+     }
+
+    function AddMarker(Latitude, Longitude) {
+
+      var latlng = new google.maps.LatLng(Latitude, Longitude);
+
+      var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: "test",
+          //icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+      });
+    }
+
+    function drawPolygon(latitude, longitude){
+      //splitten van string naar een array
+      var lat_split = latitude.split(" ");
+      var lon_split = longitude.split(" ");
+      //nieuwe array aanmaken
+      var districtCoord = [];
+      for (var i=0; i < lat_split.length; i++) {
+        //pushen in de array ik omdat er een komma inzit wat een punt moet zijn replace ik dat en maak ik er een float van zodat er geen fouten komen
+        districtCoord.push(new google.maps.LatLng(parseFloat(lat_split[i].replace(",", ".")), parseFloat(lon_split[i].replace(",", "."))));
+      }
+
+      var polygon = new google.maps.Polygon({
+        paths: districtCoord,
+        strokeColor:'#FF0000',
+        fillOpacity: 0
+      });
+      //teken
+      polygon.setMap(map);
+    }
+    </script>
+</head>
+<body>
+    <div id="map-canvas">
+        <script type="text/javascript">
+        </script>
+    </div>
+</body>
+</html>  
