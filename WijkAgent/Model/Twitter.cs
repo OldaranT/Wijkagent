@@ -30,8 +30,8 @@ namespace TwitterAPI.Model
         #region Hier worden de tweets gezocht
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
-            //Pak de datum van vandaag
-            DateTime _today = DateTime.Now.AddDays(-24);
+            //Pak de datum van gisteren
+            DateTime _today = DateTime.Now.AddDays(-1);
             int _todayDay = _today.Day;
             int _todayMonth = _today.Month;
             int _todayYear = _today.Year;
