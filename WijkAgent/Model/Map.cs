@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TwitterAPI.Model;
+using System.Device.Location;
 
 namespace WijkAgent.Model
 {
@@ -15,7 +16,7 @@ namespace WijkAgent.Model
         public double defaultLongtitude = 5.3465267;
         public double defaultZoom = 7;
         public WebBrowser wb;
-        
+
 
         public Map()
         {
@@ -49,21 +50,21 @@ namespace WijkAgent.Model
             //de punten van de wijk
             List<double> _latitudePoints = _district.lat;
             List<double> _longitudePoints = _district.lon;
-            
+
             //kijken of de goede coordinaten er zijn
             //Ze moeten dezelfde lengte hebben en allebij minimaal 3 punten anders is het geen geldige polygoon
-            if(_latitudePoints.Count != _longitudePoints.Count || _latitudePoints.Count < 3 || _longitudePoints.Count < 3 )
+            if (_latitudePoints.Count != _longitudePoints.Count || _latitudePoints.Count < 3 || _longitudePoints.Count < 3)
             {
                 MessageBox.Show("Er zijn geen geldige coordinaten voor deze wijk bekend");
             }
 
             //middelpunt van de wijk
-            double _centerLat =_latitudePoints.Min() + ((_latitudePoints.Max() - _latitudePoints.Min()) / 2);
+            double _centerLat = _latitudePoints.Min() + ((_latitudePoints.Max() - _latitudePoints.Min()) / 2);
             double _centerLong = _longitudePoints.Min() + ((_longitudePoints.Max() - _longitudePoints.Min()) / 2);
 
-            Object[] _initArgs = new Object[3] { _centerLat, _centerLong, 16 };
+            Object[] _initArgs = new Object[3] { _centerLat, _centerLong, setZoom() };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
-            wb.Document.InvokeScript("initialize", _initArgs);
+            this.wb.Document.InvokeScript("initialize", _initArgs);
 
             //wijk tekenenen
             drawDistrict(_latitudePoints, _longitudePoints);
@@ -87,33 +88,38 @@ namespace WijkAgent.Model
 
         public void getTwitterMessages(double _centerLong, double _centerLat, double _pointLat, double _pointLong)
         {
-            //het midden min een punt Altijd het eerste punt wordt meegegeven maar dat maakt niet uit want het is een vierkant dus alle afstanden zijn gelijk
-            double _rLon = _centerLong - _pointLong;
-            double _rLat = _centerLat - _pointLat;
+            //berekening om de aantal km voor de radius te berekenen. Vragen hier die geocoordinate klasse aan
+            var _centerCoord = new GeoCoordinate(_centerLat, _centerLong);
+            var _puntCoord = new GeoCoordinate(_pointLat, _pointLong);
 
-            //berekening om de aantal km voor de radius te berekenen
-            double a = Math.Sqrt((Math.Sin(_rLat / 2))) + Math.Cos(_pointLat) * Math.Sqrt((Math.Sin(_rLon / 2)));
-            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double aantalKm = 6.373 * c;
-            
+            //is in meters moet naar km
+            double _aantalKm = (_centerCoord.GetDistanceTo(_puntCoord) / 1000);
+
             //krijg de tweets van de coordinaten
-            Twitter twitter = new Twitter();
-            twitter.SearchResults(_centerLat, _centerLong, aantalKm, 100);
-            twitter.printTweetList();
-            foreach (Tweet t in twitter.tweetsList)
+            Twitter _twitter = new Twitter();
+            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 100);
+            _twitter.printTweetList();
+
+            foreach (Tweet t in _twitter.tweetsList)
             {
-                Marker m = new Marker(t.id, t.latitude, t.longitude);
-                addMarker(m);
+                Marker _m = new Marker(t.id, t.latitude, t.longitude);
+                addMarker(_m);
             }
         }
 
-        public void addMarker(Marker m)
+        public void addMarker(Marker _m)
         {
-            Object[] args = new Object[2];
-            args[0] = m.latitude;
-            args[1] = m.longtitude;
+            Object[] _markerArgs = new Object[2];
+            _markerArgs[0] = _m.latitude;
+            _markerArgs[1] = _m.longtitude;
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
-            wb.Document.InvokeScript("AddMarker", args);
+            wb.Document.InvokeScript("AddMarker", _markerArgs);
+        }
+
+        public int setZoom()
+        {
+            //moet nog gemaakt worden
+            return 16;
         }
     }
 }
