@@ -54,7 +54,7 @@ namespace TwitterAPI.Model
                 if (matchingtweets.Coordinates != null)
                 {
                     var _user = matchingtweets.CreatedBy.Name.ToJson();
-                    var _date = matchingtweets.CreatedAt.ToLongDateString() + " - " + matchingtweets.CreatedAt.ToLongTimeString();
+                    var _date = matchingtweets.CreatedAt;
                     var _message = matchingtweets.ToString();
                     var _latitude = matchingtweets.Coordinates.Latitude;
                     var _longitude = matchingtweets.Coordinates.Longitude;

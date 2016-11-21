@@ -13,12 +13,12 @@ namespace TwitterAPI.Model
         public double longitude { get; set; }
         public string user { get; set; }
         public string message { get; set; }
-        public string date { get; set; }
+        public DateTime date { get; set; }
         public DateTime pastTime { get; set; }
         public DateTime nowTime { get; set; }
 
 
-        public Tweet(int _id, double _latitude, double _longitude, string _user, string _message, string _date, DateTime _pastTime, DateTime _nowTime)
+        public Tweet(int _id, double _latitude, double _longitude, string _user, string _message, DateTime _date, DateTime _pastTime, DateTime _nowTime)
         {
             id = _id;
             latitude = _latitude;
