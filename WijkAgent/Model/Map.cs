@@ -46,11 +46,8 @@ namespace WijkAgent.Model
             
         }
 
-        public void changeDistrict(District _district)
+        public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
-            //de punten van de wijk
-            List<double> _latitudePoints = _district.lat;
-            List<double> _longitudePoints = _district.lon;
 
             //kijken of de goede coordinaten er zijn
             //Ze moeten dezelfde lengte hebben en allebij minimaal 3 punten anders is het geen geldige polygoon
@@ -70,7 +67,7 @@ namespace WijkAgent.Model
             //wijk tekenenen
             drawDistrict(_latitudePoints, _longitudePoints);
 
-            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 100);
+            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 5000);
             //debug console
             this.twitter.printTweetList();
             //de markers plaatsen
@@ -78,7 +75,6 @@ namespace WijkAgent.Model
 
             //voor debuggen radius
             double _test = Math.Floor(calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong) * 1000);
-            Console.WriteLine("test: " + _test);
             Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
             this.wb.Document.InvokeScript("SetCircle", _circleArgs);
 

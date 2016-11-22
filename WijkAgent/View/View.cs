@@ -28,6 +28,7 @@ namespace WijkAgent
 
         public View()
         {
+            modelClass = new ModelClass();
             policeBlue = Color.FromArgb(0, 70, 130);
             policeGold = Color.FromArgb(190, 150, 90);
             buttonFont = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
@@ -37,7 +38,6 @@ namespace WijkAgent
             this.SetTopLevel(true);
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.WindowState = FormWindowState.Maximized;
-            modelClass = new ModelClass();
 
             //init funcite aanroepen
             modelClass.map.initialize();
@@ -195,14 +195,16 @@ namespace WijkAgent
             Console.WriteLine(clickedButton.Text.ToString());
             
             int idDistrict = Convert.ToInt32(clickedButton.Name);
+            List<double> latitudeList = new List<double>();
+            List<double> longtitudeList = new List<double>();
 
             //Open database connectie
             modelClass.databaseConnectie.conn.Open();
 
             //Selectie Query die de namen van allke province selecteer en ordered.
-            string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
+            string stm = "SELECT * FROM coordinate WHERE iddistrict = @iddistrict ORDER BY idcoordinate DESC";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            cmd.Parameters.AddWithValue("@idcity", idDistrict);
+            cmd.Parameters.AddWithValue("@iddistrict", idDistrict);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
 
@@ -210,24 +212,11 @@ namespace WijkAgent
             // Hier word de database lijst uitgelezen
             while (modelClass.databaseConnectie.rdr.Read())
             {
+                latitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(2)));
+                longtitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(3)));
             }
+            modelClass.map.changeDistrict(latitudeList, longtitudeList);
             modelClass.databaseConnectie.conn.Close();
-
-            //if (clickedButton.Text.ToString() == "Spoolde")
-            //{
-            //    Console.WriteLine("Ja dit is Spoolde");
-            //    //de wijk veranderen
-            //    map.changeDistrict(modelClass.districtList1[2]);
-
-            //}
-
-            //else if (clickedButton.Text.ToString() == "Diezerpoort")
-            //{
-            //    Console.WriteLine("Ja dit is Diezerpoort");
-            //    //de wijk veranderen
-            //    map.changeDistrict(modelClass.districtList1[1]);
-
-            //}
         }
         //Als de terug button wordt ingedruk op de city tab
         private void go_to_province_panel_button_from_city_tab_Click(object sender, EventArgs e)
