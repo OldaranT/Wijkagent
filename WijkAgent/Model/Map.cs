@@ -15,11 +15,12 @@ namespace WijkAgent.Model
         public double defaultLongtitude = 5.3465267;
         public double defaultZoom = 7;
         public WebBrowser wb;
+        public Twitter twitter;
 
 
         public Map()
         {
-
+            twitter = new Twitter();
         }
 
         public void initialize()
@@ -69,13 +70,11 @@ namespace WijkAgent.Model
             //wijk tekenenen
             drawDistrict(_latitudePoints, _longitudePoints);
 
-            //twitter berichten ophalen
-            Twitter _twitter = new Twitter();
-            _twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 100);
+            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 100);
             //debug console
-            _twitter.printTweetList();
+            this.twitter.printTweetList();
             //de markers plaatsen
-            _twitter.setTwitterMarkers(this.wb);
+            this.twitter.setTwitterMarkers(this.wb);
 
             //voor debuggen radius
             double _test = Math.Floor(calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong) * 1000);
@@ -94,7 +93,6 @@ namespace WijkAgent.Model
             //de 2 lane string meesturen zodat de wijk getekend kan worden
             Object[] _polyargs = new Object[2] { _strLatitude, _strLongtitude };
             this.wb.Document.InvokeScript("drawPolygon", _polyargs);
-
         }
 
         public double calculateRadiusKm(List<double> _latitudePoints, List<double> _longitudePoints, double _centerLat, double _centerLong)

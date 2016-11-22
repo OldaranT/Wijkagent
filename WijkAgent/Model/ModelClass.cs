@@ -15,6 +15,7 @@ namespace WijkAgent.Model
         public List<District> districtList1;
         public List<District> districtList2;
         public List<District> districtList3;
+        public Map map;
 
         public ModelClass()
         {
@@ -44,6 +45,7 @@ namespace WijkAgent.Model
             provincesList.Add(province2);
             provincesList.Add(province3);
 
+            map = new Map();
         }
 
         public void printAllData()
