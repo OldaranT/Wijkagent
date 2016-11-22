@@ -48,6 +48,24 @@
       });
     }
 
+    //om de radius te testen
+    function SetCircle(lat, longi, rad) {
+      var latlng = new google.maps.LatLng(lat, longi);
+
+      var Circle = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+          center: latlng,
+          map: map,
+          radius: parseInt(rad),
+      });
+      Circle.setMap(map);
+    }
+
+
     function drawPolygon(latitude, longitude){
       //splitten van string naar een array
       var lat_split = latitude.split(" ");

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Tweetinvi;
 using Tweetinvi.Models;
 using Tweetinvi.Parameters;
@@ -87,6 +89,17 @@ namespace WijkAgent.Model
                 {
                     Console.Write(tweets.id + "\t" + tweets.user + "\n" + tweets.message + "\n" + tweets.date + "\n" + tweets.latitude + " - " + tweets.longitude + "\n\n");
                 }
+            }
+        }
+        #endregion
+
+        #region Hier worden de markers gemaakt voor op de kaart
+        public void setTwitterMarkers(WebBrowser _wb)
+        {
+            foreach (Tweet t in this.tweetsList)
+            {
+                Marker _m = new Marker(t.id, t.latitude, t.longitude, 'T');
+                _m.addMarker(_wb);
             }
         }
         #endregion
