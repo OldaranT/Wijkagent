@@ -57,6 +57,7 @@ namespace TwitterAPI.Model
                     var _message = matchingtweets.ToString();
                     var _latitude = matchingtweets.Coordinates.Latitude;
                     var _longitude = matchingtweets.Coordinates.Longitude;
+         
 
                     //Add tweets to list
                     AddTweets(new Tweet(_counter, _latitude, _longitude, _user, _message, _date));
