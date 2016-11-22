@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(View));
             this.main_menu_panel = new System.Windows.Forms.Panel();
             this.main_menu_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.main_menu_panel_for_label = new System.Windows.Forms.Panel();
@@ -42,6 +41,7 @@
             this.province_panel_label = new System.Windows.Forms.Label();
             this.go_to_main_menu_panel_button = new System.Windows.Forms.Button();
             this.map_panel = new System.Windows.Forms.Panel();
+            this.refresh_waypoints_buttons = new System.Windows.Forms.Button();
             this.main_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.main_menu_tabcontrol = new System.Windows.Forms.TabControl();
             this.main_menu_tab = new System.Windows.Forms.TabPage();
@@ -61,7 +61,6 @@
             this.district_scroll_panel = new System.Windows.Forms.Panel();
             this.go_to_city_panel_button_from_district_tab = new System.Windows.Forms.Button();
             this.twitter_panel = new System.Windows.Forms.Panel();
-            this.refresh_waypoints_buttons = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -250,6 +249,19 @@
             this.map_panel.Name = "map_panel";
             this.map_panel.Size = new System.Drawing.Size(822, 657);
             this.map_panel.TabIndex = 2;
+            // 
+            // refresh_waypoints_buttons
+            // 
+            this.refresh_waypoints_buttons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.refresh_waypoints_buttons.BackColor = System.Drawing.Color.Transparent;
+            this.refresh_waypoints_buttons.BackgroundImage = global::WijkAgent.Properties.Resources.refresh_button_icon_self_made;
+            this.refresh_waypoints_buttons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refresh_waypoints_buttons.ForeColor = System.Drawing.Color.Transparent;
+            this.refresh_waypoints_buttons.Location = new System.Drawing.Point(778, 0);
+            this.refresh_waypoints_buttons.Name = "refresh_waypoints_buttons";
+            this.refresh_waypoints_buttons.Size = new System.Drawing.Size(44, 40);
+            this.refresh_waypoints_buttons.TabIndex = 0;
+            this.refresh_waypoints_buttons.UseVisualStyleBackColor = false;
             // 
             // main_table_layout_panel
             // 
@@ -495,19 +507,6 @@
             this.twitter_panel.Name = "twitter_panel";
             this.twitter_panel.Size = new System.Drawing.Size(173, 657);
             this.twitter_panel.TabIndex = 3;
-            // 
-            // refresh_waypoints_buttons
-            // 
-            this.refresh_waypoints_buttons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.refresh_waypoints_buttons.BackColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_buttons.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("refresh_waypoints_buttons.BackgroundImage")));
-            this.refresh_waypoints_buttons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.refresh_waypoints_buttons.ForeColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_buttons.Location = new System.Drawing.Point(778, 0);
-            this.refresh_waypoints_buttons.Name = "refresh_waypoints_buttons";
-            this.refresh_waypoints_buttons.Size = new System.Drawing.Size(44, 40);
-            this.refresh_waypoints_buttons.TabIndex = 0;
-            this.refresh_waypoints_buttons.UseVisualStyleBackColor = false;
             // 
             // View
             // 
