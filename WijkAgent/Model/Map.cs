@@ -97,7 +97,7 @@ namespace WijkAgent.Model
 
             //krijg de tweets van de coordinaten
             Twitter _twitter = new Twitter();
-            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 100);
+            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 1000);
             _twitter.printTweetList();
 
             foreach (Tweet t in _twitter.tweetsList)
