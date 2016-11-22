@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TwitterAPI.Model;
 using System.Device.Location;
 
 namespace WijkAgent.Model

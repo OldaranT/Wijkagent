@@ -7,7 +7,7 @@ using Tweetinvi;
 using Tweetinvi.Models;
 using Tweetinvi.Parameters;
 
-namespace TwitterAPI.Model
+namespace WijkAgent.Model
 {
     class Twitter
     {
