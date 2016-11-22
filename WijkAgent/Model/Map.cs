@@ -59,8 +59,8 @@ namespace WijkAgent.Model
             }
 
             //middelpunt van de wijk
-            double _centerLat = _latitudePoints.Min() + ((_latitudePoints.Max() - _latitudePoints.Min()) / 2);
-            double _centerLong = _longitudePoints.Min() + ((_longitudePoints.Max() - _longitudePoints.Min()) / 2);
+            double _centerLat = _latitudePoints.Sum() / _latitudePoints.Count();
+            double _centerLong = _longitudePoints.Sum() / _latitudePoints.Count();
 
             Object[] _initArgs = new Object[3] { _centerLat, _centerLong, setZoom() };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
@@ -71,20 +71,14 @@ namespace WijkAgent.Model
 
             //twitter berichten ophalen
             Twitter _twitter = new Twitter();
-            //berekening om de aantal km voor de radius te berekenen. Vragen hier die geocoordinate klasse aan
-            var _centerCoord = new GeoCoordinate(_centerLat, _centerLong);
-            //hoogste lat en laagste long is de rechter bovenhoek van de vierkant
-            var _puntCoord = new GeoCoordinate(_latitudePoints.Max(), _longitudePoints.Min());
-            //is in meters moet naar km
-            double _aantalKm = (_centerCoord.GetDistanceTo(_puntCoord) / 1000);
-            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 100);
+            _twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 100);
             //debug console
             _twitter.printTweetList();
             //de markers plaatsen
             _twitter.setTwitterMarkers(this.wb);
 
             //voor debuggen radius
-            double _test = Math.Floor(_aantalKm * 1000);
+            double _test = Math.Floor(calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong) * 1000);
             Console.WriteLine("test: " + _test);
             Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
             this.wb.Document.InvokeScript("SetCircle", _circleArgs);
@@ -101,6 +95,30 @@ namespace WijkAgent.Model
             Object[] _polyargs = new Object[2] { _strLatitude, _strLongtitude };
             this.wb.Document.InvokeScript("drawPolygon", _polyargs);
 
+        }
+
+        public double calculateRadiusKm(List<double> _latitudePoints, List<double> _longitudePoints, double _centerLat, double _centerLong)
+        {
+            //wordt eerst berekend in meters
+            double _metresFromCenterToCorner = 0;
+            //geocoordinate klasse gebruiken. Deze klasse heeft methoe om de distance te berekenen tussen 2 gps coordinaten
+            var _centerCoord = new GeoCoordinate(_centerLat, _centerLong);
+            for (int i = 0; i < _longitudePoints.Count(); i++)
+            {
+                var _puntCoord = new GeoCoordinate(_latitudePoints[i], _longitudePoints[i]);
+                //methode om de afstand te berekenen dit doe ik voor elk punt om te kijken welke het verst van het midden punt af ligt
+                var _distance = _centerCoord.GetDistanceTo(_puntCoord);
+
+                if(_distance > _metresFromCenterToCorner)
+                {
+                    _metresFromCenterToCorner = _distance;
+                }
+            }
+
+            //is in meters moet naar km
+            double _radiusKm = (_metresFromCenterToCorner / 1000);
+
+            return _radiusKm;
         }
 
         public int setZoom()
