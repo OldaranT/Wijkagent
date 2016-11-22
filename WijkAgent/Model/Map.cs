@@ -102,18 +102,9 @@ namespace WijkAgent.Model
 
             foreach (Tweet t in _twitter.tweetsList)
             {
-                Marker _m = new Marker(t.id, t.latitude, t.longitude);
-                addMarker(_m);
+                Marker _m = new Marker(t.id, t.latitude, t.longitude, 'T');
+                _m.addMarker(this.wb);
             }
-        }
-
-        public void addMarker(Marker _m)
-        {
-            Object[] _markerArgs = new Object[2];
-            _markerArgs[0] = _m.latitude;
-            _markerArgs[1] = _m.longtitude;
-            //invokescript heeft voor de argumenten een object nodig waar deze in staan
-            wb.Document.InvokeScript("AddMarker", _markerArgs);
         }
 
         public int setZoom()
