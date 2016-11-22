@@ -15,11 +15,12 @@ namespace WijkAgent.Model
         public double defaultLongtitude = 5.3465267;
         public double defaultZoom = 7;
         public WebBrowser wb;
+        public Twitter twitter;
 
 
         public Map()
         {
-
+            twitter = new Twitter();
         }
 
         public void initialize()
@@ -96,11 +97,10 @@ namespace WijkAgent.Model
             double _aantalKm = (_centerCoord.GetDistanceTo(_puntCoord) / 1000);
 
             //krijg de tweets van de coordinaten
-            Twitter _twitter = new Twitter();
-            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 100);
-            _twitter.printTweetList();
+            twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 100);
+            twitter.printTweetList();
 
-            foreach (Tweet t in _twitter.tweetsList)
+            foreach (Tweet t in twitter.tweetsList)
             {
                 Marker _m = new Marker(t.id, t.latitude, t.longitude);
                 addMarker(_m);

@@ -15,7 +15,6 @@ namespace WijkAgent
     {
         
         private ModelClass modelClass;
-        Map map = new Map();
         private bool provinceButtonsCreated = false;
         private bool cityButtonsCreated = false;
         private bool districtButtonsCreated = false;
@@ -24,6 +23,7 @@ namespace WijkAgent
         private Color policeBlue;
         private Color policeGold;
         private Font buttonFont;
+        private LoadingScreen loadingScreen;
 
         public View()
         {
@@ -39,14 +39,16 @@ namespace WijkAgent
             modelClass = new ModelClass();
 
             //init funcite aanroepen
-            map.initialize();
+            modelClass.map.initialize();
 
             //wb is de webbrowser waar de map in staat. Ook even dezelfde breedte/hoogte geven ;)
-            map.wb.Dock = DockStyle.Fill;
-            map_panel.Controls.Add(map.wb);
+            modelClass.map.wb.Dock = DockStyle.Fill;
+            map_panel.Controls.Add(modelClass.map.wb);
 
-
-            //Console.ReadLine();
+            //Voegt methodes van Loading class toe aan de events in de Twitter class
+            loadingScreen = new LoadingScreen();
+            modelClass.map.twitter.startTwitterSearch += loadingScreen.ShowLoadingScreen;
+            modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
         }
 
@@ -153,7 +155,6 @@ namespace WijkAgent
                 cityButtonsCreated = true;
             }
 
-
             main_menu_tabcontrol.SelectTab(2);
         }
 
@@ -163,7 +164,7 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-            if (!districtButtonsCreated)
+            if (!districtButtonsCreated) 
             {
                 if (clickedButton.Text == "Zwolle")
                 {
@@ -225,7 +226,7 @@ namespace WijkAgent
             {
                 Console.WriteLine("Ja dit is Spoolde");
                 //de wijk veranderen
-                map.changeDistrict(modelClass.districtList1[2]);
+                modelClass.map.changeDistrict(modelClass.districtList1[2]);
 
 
                 //Twitter twitter = new Twitter();
@@ -238,7 +239,7 @@ namespace WijkAgent
             {
                 Console.WriteLine("Ja dit is Diezerpoort");
                 //de wijk veranderen
-                map.changeDistrict(modelClass.districtList1[1]);
+                modelClass.map.changeDistrict(modelClass.districtList1[1]);
 
 
                 //Twitter twitter = new Twitter();

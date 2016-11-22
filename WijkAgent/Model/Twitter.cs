@@ -9,9 +9,13 @@ using Tweetinvi.Parameters;
 
 namespace WijkAgent.Model
 {
+    public delegate void TwitterSearch();
+
     class Twitter
     {
         public List<Tweet> tweetsList = new List<Tweet>();
+        public event TwitterSearch startTwitterSearch;
+        public event TwitterSearch doneTwitterSearch;
 
         //Twitter API user
         private string consumerKey = "fNPtDmFBih08YN8q79VQkGWwO";
@@ -30,6 +34,9 @@ namespace WijkAgent.Model
         #region Hier worden de tweets gezocht
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
+            if(startTwitterSearch != null)
+                startTwitterSearch();
+
             //Pak de datum van gisteren
             DateTime _today = DateTime.Now.AddDays(-1);
             int _todayDay = _today.Day;
@@ -67,6 +74,8 @@ namespace WijkAgent.Model
                     _counter++;
                 }
             }
+            if (doneTwitterSearch != null)
+                doneTwitterSearch();
         }
         #endregion
 
