@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TwitterAPI.Model;
 using WijkAgent.Model;
 
 namespace WijkAgent
@@ -22,9 +21,15 @@ namespace WijkAgent
         private bool districtButtonsCreated = false;
         private int buttonSizeX;
         private int buttonSizeY;
+        private Color policeBlue;
+        private Color policeGold;
+        private Font buttonFont;
 
         public View()
         {
+            policeBlue = Color.FromArgb(0, 70, 130);
+            policeGold = Color.FromArgb(190, 150, 90);
+            buttonFont = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
             buttonSizeX = 300;
             buttonSizeY = 75;
             InitializeComponent();
@@ -39,7 +44,7 @@ namespace WijkAgent
             //wb is de webbrowser waar de map in staat. Ook even dezelfde breedte/hoogte geven ;)
             map.wb.Dock = DockStyle.Fill;
             map_panel.Controls.Add(map.wb);
-            
+
 
             //Console.ReadLine();
 
@@ -47,7 +52,26 @@ namespace WijkAgent
 
         private void View_Load(object sender, EventArgs e)
         {
+            main_menu_panel_for_label.BackColor = policeBlue;
+            province_panel_for_label.BackColor = policeBlue;
+            city_panel_for_label.BackColor = policeBlue;
+            district_panel_for_label.BackColor = policeBlue;
 
+            go_to_province_panel_button_from_main_menu_tab.BackColor = policeBlue;
+            go_to_province_panel_button_from_main_menu_tab.ForeColor = Color.White;
+            go_to_province_panel_button_from_main_menu_tab.Font = buttonFont;
+
+            go_to_main_menu_panel_button.BackColor = policeBlue;
+            go_to_main_menu_panel_button.ForeColor = Color.White;
+            go_to_main_menu_panel_button.Font = buttonFont;
+
+            go_to_province_panel_button_from_city_tab.BackColor = policeBlue;
+            go_to_province_panel_button_from_city_tab.ForeColor = Color.White;
+            go_to_province_panel_button_from_city_tab.Font = buttonFont;
+
+            go_to_city_panel_button_from_district_tab.BackColor = policeBlue;
+            go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
+            go_to_city_panel_button_from_district_tab.Font = buttonFont;
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -59,10 +83,7 @@ namespace WijkAgent
                     Button buttonCreate = new Button();
                     buttonCreate.Text = p.provinceName;
                     buttonCreate.Name = p.provinceName.ToLower();
-                    buttonCreate.Location = new Point(0, provnice_scroll_panel.Controls.Count * buttonSizeY);
-                    buttonCreate.Size = new Size(buttonSizeX, buttonSizeY);
-                    buttonCreate.Dock = DockStyle.Top;
-                    buttonCreate.BackColor = SystemColors.ControlLight;
+                    buttonLayout(buttonCreate);
 
                     provnice_scroll_panel.Controls.Add(buttonCreate);
                     buttonCreate.Click += ProvinceButton_Click;
@@ -94,10 +115,7 @@ namespace WijkAgent
                         Button buttonCreate = new Button();
                         buttonCreate.Text = c.cityName;
                         buttonCreate.Name = c.cityName.ToLower();
-                        buttonCreate.Location = new Point(0, city_scroll_panel.Controls.Count * buttonSizeY);
-                        buttonCreate.Size = new Size(buttonSizeX, buttonSizeY);
-                        buttonCreate.Dock = DockStyle.Top;
-                        buttonCreate.BackColor = SystemColors.ControlLight;
+                        buttonLayout(buttonCreate);
 
                         city_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += CityButton_Click;
@@ -111,10 +129,7 @@ namespace WijkAgent
                         Button buttonCreate = new Button();
                         buttonCreate.Text = c.cityName;
                         buttonCreate.Name = c.cityName.ToLower();
-                        buttonCreate.Location = new Point(0, city_scroll_panel.Controls.Count * buttonSizeY);
-                        buttonCreate.Size = new Size(buttonSizeX, buttonSizeY);
-                        buttonCreate.Dock = DockStyle.Top;
-                        buttonCreate.BackColor = SystemColors.ControlLight;
+                        buttonLayout(buttonCreate);
 
                         city_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += CityButton_Click;
@@ -128,10 +143,7 @@ namespace WijkAgent
                         Button buttonCreate = new Button();
                         buttonCreate.Text = c.cityName;
                         buttonCreate.Name = c.cityName.ToLower();
-                        buttonCreate.Location = new Point(0, city_scroll_panel.Controls.Count * buttonSizeY);
-                        buttonCreate.Size = new Size(buttonSizeX, buttonSizeY);
-                        buttonCreate.Dock = DockStyle.Top;
-                        buttonCreate.BackColor = SystemColors.ControlLight;
+                        buttonLayout(buttonCreate);
 
                         city_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += CityButton_Click;
@@ -160,10 +172,7 @@ namespace WijkAgent
                         Button buttonCreate = new Button();
                         buttonCreate.Text = d.districtName;
                         buttonCreate.Name = d.districtName.ToLower();
-                        buttonCreate.Location = new Point(0, city_scroll_panel.Controls.Count * buttonSizeY);
-                        buttonCreate.Size = new Size(buttonSizeX, buttonSizeY);
-                        buttonCreate.Dock = DockStyle.Top;
-                        buttonCreate.BackColor = SystemColors.ControlLight;
+                        buttonLayout(buttonCreate);
 
                         district_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += DistrictButton_Click;
@@ -177,10 +186,7 @@ namespace WijkAgent
                         Button buttonCreate = new Button();
                         buttonCreate.Text = d.districtName;
                         buttonCreate.Name = d.districtName.ToLower();
-                        buttonCreate.Location = new Point(0, city_scroll_panel.Controls.Count * buttonSizeY);
-                        buttonCreate.Size = new Size(buttonSizeX, buttonSizeY);
-                        buttonCreate.Dock = DockStyle.Top;
-                        buttonCreate.BackColor = SystemColors.ControlLight;
+                        buttonLayout(buttonCreate);
 
                         district_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += DistrictButton_Click;
@@ -194,10 +200,7 @@ namespace WijkAgent
                         Button buttonCreate = new Button();
                         buttonCreate.Text = d.districtName;
                         buttonCreate.Name = d.districtName.ToLower();
-                        buttonCreate.Location = new Point(0, city_scroll_panel.Controls.Count * buttonSizeY);
-                        buttonCreate.Size = new Size(buttonSizeX, buttonSizeY);
-                        buttonCreate.Dock = DockStyle.Top;
-                        buttonCreate.BackColor = SystemColors.ControlLight;
+                        buttonLayout(buttonCreate);
 
                         district_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += DistrictButton_Click;
@@ -260,6 +263,19 @@ namespace WijkAgent
             district_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(2);
             districtButtonsCreated = false;
+
+        }
+
+        private void buttonLayout(Button _button)
+        {
+            _button.Size = new Size(buttonSizeX, buttonSizeY);
+            _button.Dock = DockStyle.Top;
+            _button.BackColor = policeBlue;
+            _button.ForeColor = Color.White;
+            _button.Font = buttonFont;
+            _button.FlatStyle = FlatStyle.Flat;
+            _button.FlatAppearance.BorderColor = policeGold;
+            _button.FlatAppearance.BorderSize = 1;
 
         }
     }

@@ -86,6 +86,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="View\LoadingScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\LoadingScreen.Designer.cs">
+      <DependentUpon>LoadingScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Controller\ViewController.cs" />
     <Compile Include="Model\City.cs" />
     <Compile Include="Model\District.cs" />

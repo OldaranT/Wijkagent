@@ -18,7 +18,7 @@ namespace WijkAgent.Model
 
         public ModelClass()
         {
-            District district1 = new District("Beurkum", new List<double> { 52.500385, 52.503833, 52.509658, 52.507072 }, new List<double> { 6.055248, 6.047266, 6.055119, 6.066792 });
+            District district1 = new District("Berkum", new List<double> { 52.500385, 52.503833, 52.509658, 52.507072 }, new List<double> { 6.055248, 6.047266, 6.055119, 6.066792 });
             District district2 = new District("Diezerpoort", new List<double> { 52.507914, 52.507773, 52.526227, 52.528619 }, new List<double> { 6.080343, 6.117903, 6.104799, 6.074473 });
             District district3 = new District("Spoolde", new List<double> { 52.500385, 52.503833, 52.509658, 52.507072 }, new List<double> { 6.055248, 6.047266, 6.055119, 6.066792 });
             District district4 = new District("Bloemenbuurt", new List<double> { 52.500385, 52.503833, 52.509658, 52.507072 }, new List<double> { 6.055248, 6.047266, 6.055119, 6.066792 });

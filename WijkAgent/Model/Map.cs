@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TwitterAPI.Model;
 using System.Device.Location;
 
 namespace WijkAgent.Model
@@ -43,6 +42,7 @@ namespace WijkAgent.Model
             Object[] _initArgs = new Object[3] { defaultLatitude, defaultLongtitude, defaultZoom };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             this.wb.Document.InvokeScript("initialize", _initArgs);
+            
         }
 
         public void changeDistrict(District _district)
