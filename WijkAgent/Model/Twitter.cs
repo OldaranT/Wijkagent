@@ -30,8 +30,8 @@ namespace TwitterAPI.Model
         #region Hier worden de tweets gezocht
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
-            //Pak de datum van vandaag
-            DateTime _today = DateTime.Now;
+            //Pak de datum van gisteren
+            DateTime _today = DateTime.Now.AddDays(-1);
             int _todayDay = _today.Day;
             int _todayMonth = _today.Month;
             int _todayYear = _today.Year;
@@ -42,7 +42,8 @@ namespace TwitterAPI.Model
                 GeoCode = new GeoCode(latitude, longitude, radius, DistanceMeasure.Kilometers),
                 MaximumNumberOfResults = maxResults,
                 FilterTweetsNotContainingGeoInformation = true,
-                Since = new DateTime(_todayYear, _todayMonth, _todayDay)
+                Since = new DateTime(_todayYear, _todayMonth, _todayDay),
+                Until = DateTime.Now
             };
 
             var tweets = Search.SearchTweets(searchParameter);
@@ -53,14 +54,15 @@ namespace TwitterAPI.Model
                 if (matchingtweets.Coordinates != null)
                 {
                     var _user = matchingtweets.CreatedBy.Name.ToJson();
-                    var _date = matchingtweets.CreatedAt.ToLongDateString() + " - " + matchingtweets.CreatedAt.ToLongTimeString();
+                    var _date = matchingtweets.CreatedAt;
                     var _message = matchingtweets.ToString();
                     var _latitude = matchingtweets.Coordinates.Latitude;
                     var _longitude = matchingtweets.Coordinates.Longitude;
-         
+                    var _pastTime = matchingtweets.CreatedAt;
+                    var _nowTime = DateTime.Now.AddHours(-24);
 
                     //Add tweets to list
-                    AddTweets(new Tweet(_counter, _latitude, _longitude, _user, _message, _date));
+                    AddTweets(new Tweet(_counter, _latitude, _longitude, _user, _message, _date, _pastTime, _nowTime));
 
                     _counter++;
                 }
@@ -78,9 +80,13 @@ namespace TwitterAPI.Model
         #region Hier worden alle tweets geprint
         public void printTweetList()
         {
+
             foreach (Tweet tweets in tweetsList)
             {
-                Console.Write(tweets.id + "\t" + tweets.user + "\n" + tweets.message + "\n" + tweets.date + "\n" + tweets.latitude + " - " + tweets.longitude + "\n\n");
+                if (tweets.pastTime> tweets.nowTime)
+                {
+                    Console.Write(tweets.id + "\t" + tweets.user + "\n" + tweets.message + "\n" + tweets.date + "\n" + tweets.latitude + " - " + tweets.longitude + "\n\n");
+                }
             }
         }
         #endregion
