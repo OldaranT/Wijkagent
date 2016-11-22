@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TwitterAPI.Model;
 using System.Device.Location;
 
 namespace WijkAgent.Model
@@ -16,11 +15,12 @@ namespace WijkAgent.Model
         public double defaultLongtitude = 5.3465267;
         public double defaultZoom = 7;
         public WebBrowser wb;
+        public Twitter twitter;
 
 
         public Map()
         {
-
+            twitter = new Twitter();
         }
 
         public void initialize()
@@ -60,8 +60,8 @@ namespace WijkAgent.Model
             }
 
             //middelpunt van de wijk
-            double _centerLat = _latitudePoints.Min() + ((_latitudePoints.Max() - _latitudePoints.Min()) / 2);
-            double _centerLong = _longitudePoints.Min() + ((_longitudePoints.Max() - _longitudePoints.Min()) / 2);
+            double _centerLat = _latitudePoints.Sum() / _latitudePoints.Count();
+            double _centerLong = _longitudePoints.Sum() / _latitudePoints.Count();
 
             Object[] _initArgs = new Object[3] { _centerLat, _centerLong, setZoom() };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
@@ -70,8 +70,17 @@ namespace WijkAgent.Model
             //wijk tekenenen
             drawDistrict(_latitudePoints, _longitudePoints);
 
-            //twitter berichten ophalen
-            getTwitterMessages(_centerLong, _centerLat, _latitudePoints[0], _longitudePoints[0]);
+            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 100);
+            //debug console
+            this.twitter.printTweetList();
+            //de markers plaatsen
+            this.twitter.setTwitterMarkers(this.wb);
+
+            //voor debuggen radius
+            double _test = Math.Floor(calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong) * 1000);
+            Console.WriteLine("test: " + _test);
+            Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
+            this.wb.Document.InvokeScript("SetCircle", _circleArgs);
 
         }
 
@@ -84,37 +93,30 @@ namespace WijkAgent.Model
             //de 2 lane string meesturen zodat de wijk getekend kan worden
             Object[] _polyargs = new Object[2] { _strLatitude, _strLongtitude };
             this.wb.Document.InvokeScript("drawPolygon", _polyargs);
-
         }
 
-        public void getTwitterMessages(double _centerLong, double _centerLat, double _pointLat, double _pointLong)
+        public double calculateRadiusKm(List<double> _latitudePoints, List<double> _longitudePoints, double _centerLat, double _centerLong)
         {
-            //berekening om de aantal km voor de radius te berekenen. Vragen hier die geocoordinate klasse aan
+            //wordt eerst berekend in meters
+            double _metresFromCenterToCorner = 0;
+            //geocoordinate klasse gebruiken. Deze klasse heeft methoe om de distance te berekenen tussen 2 gps coordinaten
             var _centerCoord = new GeoCoordinate(_centerLat, _centerLong);
-            var _puntCoord = new GeoCoordinate(_pointLat, _pointLong);
+            for (int i = 0; i < _longitudePoints.Count(); i++)
+            {
+                var _puntCoord = new GeoCoordinate(_latitudePoints[i], _longitudePoints[i]);
+                //methode om de afstand te berekenen dit doe ik voor elk punt om te kijken welke het verst van het midden punt af ligt
+                var _distance = _centerCoord.GetDistanceTo(_puntCoord);
+
+                if(_distance > _metresFromCenterToCorner)
+                {
+                    _metresFromCenterToCorner = _distance;
+                }
+            }
 
             //is in meters moet naar km
-            double _aantalKm = (_centerCoord.GetDistanceTo(_puntCoord) / 1000);
+            double _radiusKm = (_metresFromCenterToCorner / 1000);
 
-            //krijg de tweets van de coordinaten
-            Twitter _twitter = new Twitter();
-            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 100);
-            _twitter.printTweetList();
-
-            foreach (Tweet t in _twitter.tweetsList)
-            {
-                Marker _m = new Marker(t.id, t.latitude, t.longitude);
-                addMarker(_m);
-            }
-        }
-
-        public void addMarker(Marker _m)
-        {
-            Object[] _markerArgs = new Object[2];
-            _markerArgs[0] = _m.latitude;
-            _markerArgs[1] = _m.longtitude;
-            //invokescript heeft voor de argumenten een object nodig waar deze in staan
-            wb.Document.InvokeScript("AddMarker", _markerArgs);
+            return _radiusKm;
         }
 
         public int setZoom()

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TwitterAPI.Model;
 using WijkAgent.Model;
 using MySql.Data.MySqlClient;
 
@@ -17,7 +16,6 @@ namespace WijkAgent
     {
         
         private ModelClass modelClass;
-        Map map = new Map();
         private bool provinceButtonsCreated = false;
         private bool cityButtonsCreated = false;
         private bool districtButtonsCreated = false;
@@ -26,6 +24,7 @@ namespace WijkAgent
         private Color policeBlue;
         private Color policeGold;
         private Font buttonFont;
+        private LoadingScreen loadingScreen;
 
         public View()
         {
@@ -41,14 +40,16 @@ namespace WijkAgent
             modelClass = new ModelClass();
 
             //init funcite aanroepen
-            map.initialize();
+            modelClass.map.initialize();
 
             //wb is de webbrowser waar de map in staat. Ook even dezelfde breedte/hoogte geven ;)
-            map.wb.Dock = DockStyle.Fill;
-            map_panel.Controls.Add(map.wb);
+            modelClass.map.wb.Dock = DockStyle.Fill;
+            map_panel.Controls.Add(modelClass.map.wb);
 
-
-            //Console.ReadLine();
+            //Voegt methodes van Loading class toe aan de events in de Twitter class
+            loadingScreen = new LoadingScreen();
+            modelClass.map.twitter.startTwitterSearch += loadingScreen.ShowLoadingScreen;
+            modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
         }
 
@@ -146,7 +147,6 @@ namespace WijkAgent
                 cityButtonsCreated = true;
             }
 
-
             main_menu_tabcontrol.SelectTab(2);
         }
 
@@ -156,7 +156,7 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-            if (!districtButtonsCreated)
+            if (!districtButtonsCreated) 
             {
                 int idCity = Convert.ToInt32(clickedButton.Name);
 
@@ -193,7 +193,7 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-
+            
             int idDistrict = Convert.ToInt32(clickedButton.Name);
 
             //Open database connectie
