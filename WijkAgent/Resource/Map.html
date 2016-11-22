@@ -25,6 +25,7 @@
     <script type="text/javascript">
 
      var map;
+     var markers = [];
 
      function initialize(Latitude, Longitude, zoom) {
        var mapOptions = {
@@ -37,7 +38,6 @@
      }
 
     function AddMarker(Latitude, Longitude, color, label, title) {
-
       var latlng = new google.maps.LatLng(Latitude, Longitude);
 
       var marker = new google.maps.Marker({
@@ -46,6 +46,7 @@
           title: title,
           icon: 'http://maps.google.com/mapfiles/ms/icons/'+color+'-dot.png',
       });
+      markers.push(marker);
     }
 
     //om de radius te testen
@@ -72,8 +73,10 @@
       var lon_split = longitude.split(" ");
       //nieuwe array aanmaken
       var districtCoord = [];
+      var bounds = new google.maps.LatLngBounds();
       for (var i=0; i < lat_split.length; i++) {
         //pushen in de array ik omdat er een komma inzit wat een punt moet zijn replace ik dat en maak ik er een float van zodat er geen fouten komen
+        bounds.extend(new google.maps.LatLng(parseFloat(lat_split[i].replace(",", ".")), parseFloat(lon_split[i].replace(",", "."))));
         districtCoord.push(new google.maps.LatLng(parseFloat(lat_split[i].replace(",", ".")), parseFloat(lon_split[i].replace(",", "."))));
       }
 
@@ -84,6 +87,13 @@
       });
       //teken
       polygon.setMap(map);
+      map.fitBounds(bounds)
+    }
+
+    function clearMarkers(){
+      for(i=0; i<markers.length; i++){
+        markers[i].setMap(null);
+      } 
     }
 
     </script>

@@ -48,6 +48,9 @@ namespace WijkAgent.Model
 
         public void changeDistrict(District _district)
         {
+            //standaard zoom deze wordt later berekend op de grootte van de wijk. als er toch niet iets verkeerd gaat wordt deze zoom gebruikt
+            int _zoom = 14;
+
             //de punten van de wijk
             List<double> _latitudePoints = _district.lat;
             List<double> _longitudePoints = _district.lon;
@@ -63,14 +66,18 @@ namespace WijkAgent.Model
             double _centerLat = _latitudePoints.Sum() / _latitudePoints.Count();
             double _centerLong = _longitudePoints.Sum() / _latitudePoints.Count();
 
-            Object[] _initArgs = new Object[3] { _centerLat, _centerLong, setZoom() };
+            Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             this.wb.Document.InvokeScript("initialize", _initArgs);
+
+            //eerst de wijk leeg maken van markers 
+            this.wb.Document.InvokeScript("clearMarkers");
+            this.twitter.tweetsList.Clear();
 
             //wijk tekenenen
             drawDistrict(_latitudePoints, _longitudePoints);
 
-            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 100);
+            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 2000);
             //debug console
             this.twitter.printTweetList();
             //de markers plaatsen
@@ -117,12 +124,6 @@ namespace WijkAgent.Model
             double _radiusKm = (_metresFromCenterToCorner / 1000);
 
             return _radiusKm;
-        }
-
-        public int setZoom()
-        {
-            //moet nog gemaakt worden
-            return 16;
         }
     }
 }
