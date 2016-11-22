@@ -15,9 +15,11 @@ namespace WijkAgent.Model
         public List<District> districtList1;
         public List<District> districtList2;
         public List<District> districtList3;
+        public SQLConnection databaseConnectie;
 
         public ModelClass()
         {
+            databaseConnectie = new SQLConnection();
             District district1 = new District("Berkum", new List<double> { 52.500385, 52.503833, 52.509658, 52.507072 }, new List<double> { 6.055248, 6.047266, 6.055119, 6.066792 });
             District district2 = new District("Diezerpoort", new List<double> { 52.507914, 52.507773, 52.526227, 52.528619 }, new List<double> { 6.080343, 6.117903, 6.104799, 6.074473 });
             District district3 = new District("Spoolde", new List<double> { 52.500385, 52.503833, 52.509658, 52.507072 }, new List<double> { 6.055248, 6.047266, 6.055119, 6.066792 });

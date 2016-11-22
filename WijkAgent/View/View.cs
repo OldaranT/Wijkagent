@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TwitterAPI.Model;
 using WijkAgent.Model;
+using MySql.Data.MySqlClient;
 
 namespace WijkAgent
 {
@@ -79,16 +80,25 @@ namespace WijkAgent
         {
             if (!provinceButtonsCreated) {
 
-                foreach (Province p in modelClass.provincesList)
+                //Open database connectie
+                modelClass.databaseConnectie.conn.Open();
+
+                //Selectie Query die de namen van allke province selecteer en ordered.
+                string stm = "SELECT * FROM province ORDER BY name DESC";
+                MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+                // Hier word de database lijst uitgelezen
+                while (modelClass.databaseConnectie.rdr.Read())
                 {
                     Button buttonCreate = new Button();
-                    buttonCreate.Text = p.provinceName;
-                    buttonCreate.Name = p.provinceName.ToLower();
+                    buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(1);
+                    buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
                     buttonLayout(buttonCreate);
-
                     provnice_scroll_panel.Controls.Add(buttonCreate);
                     buttonCreate.Click += ProvinceButton_Click;
                 }
+                modelClass.databaseConnectie.conn.Close();
                 provinceButtonsCreated = true;
             }
             
@@ -109,48 +119,30 @@ namespace WijkAgent
             Console.WriteLine(clickedButton.Text.ToString());
             if (!cityButtonsCreated)
             {
-                if(clickedButton.Text == "Overijssel")
-                {
-                    foreach (City c in modelClass.cityList1)
+                    int idProvince = Convert.ToInt32(clickedButton.Name);
+
+                    //Open database connectie
+                    modelClass.databaseConnectie.conn.Open();
+
+                    //Selectie Query die de namen van allke province selecteer en ordered.
+                    string stm = "SELECT * FROM city WHERE idprovince = @idprovince ORDER BY name DESC";
+                    MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                    cmd.Parameters.AddWithValue("@idprovince", idProvince);
+                    modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+                    // Hier word de database lijst uitgelezen
+                    while (modelClass.databaseConnectie.rdr.Read())
                     {
                         Button buttonCreate = new Button();
-                        buttonCreate.Text = c.cityName;
-                        buttonCreate.Name = c.cityName.ToLower();
+                        buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
+                        buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
                         buttonLayout(buttonCreate);
-
                         city_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += CityButton_Click;
                     }
+                    modelClass.databaseConnectie.conn.Close();
 
-                }
-                else if(clickedButton.Text == "Flevoland")
-                {
-                    foreach (City c in modelClass.cityList2)
-                    {
-                        Button buttonCreate = new Button();
-                        buttonCreate.Text = c.cityName;
-                        buttonCreate.Name = c.cityName.ToLower();
-                        buttonLayout(buttonCreate);
-
-                        city_scroll_panel.Controls.Add(buttonCreate);
-                        buttonCreate.Click += CityButton_Click;
-                    }
-
-                }
-                else if (clickedButton.Text == "Noord-Holland")
-                {
-                    foreach (City c in modelClass.cityList3)
-                    {
-                        Button buttonCreate = new Button();
-                        buttonCreate.Text = c.cityName;
-                        buttonCreate.Name = c.cityName.ToLower();
-                        buttonLayout(buttonCreate);
-
-                        city_scroll_panel.Controls.Add(buttonCreate);
-                        buttonCreate.Click += CityButton_Click;
-                    }
-
-                }
+                
                 cityButtonsCreated = true;
             }
 
@@ -166,48 +158,28 @@ namespace WijkAgent
             Console.WriteLine(clickedButton.Text.ToString());
             if (!districtButtonsCreated)
             {
-                if (clickedButton.Text == "Zwolle")
+                int idCity = Convert.ToInt32(clickedButton.Name);
+
+                //Open database connectie
+                modelClass.databaseConnectie.conn.Open();
+
+                //Selectie Query die de namen van allke province selecteer en ordered.
+                string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
+                MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                cmd.Parameters.AddWithValue("@idcity", idCity);
+                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+                // Hier word de database lijst uitgelezen
+                while (modelClass.databaseConnectie.rdr.Read())
                 {
-                    foreach (District d in modelClass.districtList1)
-                    {
-                        Button buttonCreate = new Button();
-                        buttonCreate.Text = d.districtName;
-                        buttonCreate.Name = d.districtName.ToLower();
-                        buttonLayout(buttonCreate);
-
-                        district_scroll_panel.Controls.Add(buttonCreate);
-                        buttonCreate.Click += DistrictButton_Click;
-                    }
-
+                    Button buttonCreate = new Button();
+                    buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
+                    buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
+                    buttonLayout(buttonCreate);
+                    district_scroll_panel.Controls.Add(buttonCreate);
+                    buttonCreate.Click += DistrictButton_Click;
                 }
-                else if (clickedButton.Text == "Almere")
-                {
-                    foreach (District d in modelClass.districtList2)
-                    {
-                        Button buttonCreate = new Button();
-                        buttonCreate.Text = d.districtName;
-                        buttonCreate.Name = d.districtName.ToLower();
-                        buttonLayout(buttonCreate);
-
-                        district_scroll_panel.Controls.Add(buttonCreate);
-                        buttonCreate.Click += DistrictButton_Click;
-                    }
-
-                }
-                else if (clickedButton.Text == "Amsterdam")
-                {
-                    foreach (District d in modelClass.districtList3)
-                    {
-                        Button buttonCreate = new Button();
-                        buttonCreate.Text = d.districtName;
-                        buttonCreate.Name = d.districtName.ToLower();
-                        buttonLayout(buttonCreate);
-
-                        district_scroll_panel.Controls.Add(buttonCreate);
-                        buttonCreate.Click += DistrictButton_Click;
-                    }
-
-                }
+                modelClass.databaseConnectie.conn.Close();
                 districtButtonsCreated = true;
             }
 
@@ -222,31 +194,40 @@ namespace WijkAgent
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
 
-            if (clickedButton.Text.ToString() == "Spoolde")
+            int idDistrict = Convert.ToInt32(clickedButton.Name);
+
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+
+            //Selectie Query die de namen van allke province selecteer en ordered.
+            string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
+            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            cmd.Parameters.AddWithValue("@idcity", idDistrict);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+
+            
+            // Hier word de database lijst uitgelezen
+            while (modelClass.databaseConnectie.rdr.Read())
             {
-                Console.WriteLine("Ja dit is Spoolde");
-                //de wijk veranderen
-                map.changeDistrict(modelClass.districtList1[2]);
-
-
-                //Twitter twitter = new Twitter();
-                //twitter.SearchResults(modelClass.districtList1[2].lat[3], modelClass.districtList1[2].lon[3], 4, 10000);
-                //twitter.printTweetList();
-
             }
+            modelClass.databaseConnectie.conn.Close();
 
-            else if (clickedButton.Text.ToString() == "Diezerpoort")
-            {
-                Console.WriteLine("Ja dit is Diezerpoort");
-                //de wijk veranderen
-                map.changeDistrict(modelClass.districtList1[1]);
+            //if (clickedButton.Text.ToString() == "Spoolde")
+            //{
+            //    Console.WriteLine("Ja dit is Spoolde");
+            //    //de wijk veranderen
+            //    map.changeDistrict(modelClass.districtList1[2]);
 
+            //}
 
-                //Twitter twitter = new Twitter();
-                //twitter.SearchResults(modelClass.districtList1[2].lat[3], modelClass.districtList1[2].lon[3], 4, 10000);
-                //twitter.printTweetList();
+            //else if (clickedButton.Text.ToString() == "Diezerpoort")
+            //{
+            //    Console.WriteLine("Ja dit is Diezerpoort");
+            //    //de wijk veranderen
+            //    map.changeDistrict(modelClass.districtList1[1]);
 
-            }
+            //}
         }
         //Als de terug button wordt ingedruk op de city tab
         private void go_to_province_panel_button_from_city_tab_Click(object sender, EventArgs e)
