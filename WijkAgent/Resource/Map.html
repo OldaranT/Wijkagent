@@ -36,17 +36,35 @@
        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
      }
 
-    function AddMarker(Latitude, Longitude) {
+    function AddMarker(Latitude, Longitude, color, label, title) {
 
       var latlng = new google.maps.LatLng(Latitude, Longitude);
 
       var marker = new google.maps.Marker({
           position: latlng,
           map: map,
-          title: "test",
-          //icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+          title: title,
+          icon: 'http://maps.google.com/mapfiles/ms/icons/'+color+'-dot.png',
       });
     }
+
+    //om de radius te testen
+    function SetCircle(lat, longi, rad) {
+      var latlng = new google.maps.LatLng(lat, longi);
+
+      var Circle = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+          center: latlng,
+          map: map,
+          radius: parseInt(rad),
+      });
+      Circle.setMap(map);
+    }
+
 
     function drawPolygon(latitude, longitude){
       //splitten van string naar een array
