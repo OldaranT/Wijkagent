@@ -16,5 +16,17 @@ namespace WijkAgent
         {
             InitializeComponent();
         }
+
+        //Methode om scherm te laten zien
+        public void ShowLoadingScreen()
+        {
+            this.Show();
+        }
+
+        //Methode om scherm te verbergen
+        public void HideLoadingScreen()
+        {
+            this.Hide();
+        }
     }
 }

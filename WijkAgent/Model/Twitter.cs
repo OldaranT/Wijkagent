@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Tweetinvi;
 using Tweetinvi.Models;
 using Tweetinvi.Parameters;
 
 namespace WijkAgent.Model
 {
-    class Twitter
+    public delegate void TwitterSearch();
+
+    public class Twitter
     {
         public List<Tweet> tweetsList = new List<Tweet>();
+        public event TwitterSearch startTwitterSearch;
+        public event TwitterSearch doneTwitterSearch;
 
         //Twitter API user
         private string consumerKey = "fNPtDmFBih08YN8q79VQkGWwO";
@@ -27,9 +33,12 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region Hier worden de tweets gezocht
+        #region SearchTweets_Method
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
+          if(startTwitterSearch != null)
+                startTwitterSearch();     
+
             //Pak de datum van gisteren
             DateTime today = DateTime.Now.AddDays(-1);
             int todayDay = today.Day;
@@ -66,6 +75,8 @@ namespace WijkAgent.Model
                     counter++;
                 }
             }
+            if (doneTwitterSearch != null)
+                doneTwitterSearch();
         }
         #endregion
 
@@ -86,6 +97,17 @@ namespace WijkAgent.Model
                 {
                     Console.Write(tweets.id + "\t" + tweets.user + "\n" + tweets.message + "\n" + tweets.date + "\n" + tweets.latitude + " - " + tweets.longitude + "\n\n");
                 }
+            }
+        }
+        #endregion
+
+        #region PlaceTwitterWaypointOnMap_method
+        public void setTwitterMarkers(WebBrowser _wb)
+        {
+            foreach (Tweet t in this.tweetsList)
+            {
+                Marker _m = new Marker(t.id, t.latitude, t.longitude, 'T');
+                _m.addMarker(_wb);
             }
         }
         #endregion

@@ -42,6 +42,7 @@
             this.province_panel_label = new System.Windows.Forms.Label();
             this.go_to_main_menu_panel_button = new System.Windows.Forms.Button();
             this.map_panel = new System.Windows.Forms.Panel();
+            this.refresh_waypoints_button = new System.Windows.Forms.Button();
             this.main_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.main_menu_tabcontrol = new System.Windows.Forms.TabControl();
             this.main_menu_tab = new System.Windows.Forms.TabPage();
@@ -71,6 +72,7 @@
             this.province_panel.SuspendLayout();
             this.province_table_layout_panel.SuspendLayout();
             this.province_panel_for_label.SuspendLayout();
+            this.map_panel.SuspendLayout();
             this.main_table_layout_panel.SuspendLayout();
             this.main_menu_tabcontrol.SuspendLayout();
             this.main_menu_tab.SuspendLayout();
@@ -106,7 +108,7 @@
             this.main_menu_table_layout_panel.Controls.Add(this.main_menu_scroll_panel, 0, 1);
             this.main_menu_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.main_menu_table_layout_panel.Margin = new System.Windows.Forms.Padding(4);
+            this.main_menu_table_layout_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.main_menu_table_layout_panel.Name = "main_menu_table_layout_panel";
             this.main_menu_table_layout_panel.RowCount = 3;
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -145,10 +147,10 @@
             this.main_menu_scroll_panel.AutoScroll = true;
             this.main_menu_scroll_panel.Controls.Add(this.go_to_province_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_menu_scroll_panel.Location = new System.Drawing.Point(4, 68);
-            this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(4);
+            this.main_menu_scroll_panel.Location = new System.Drawing.Point(3, 66);
+            this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.main_menu_scroll_panel.Name = "main_menu_scroll_panel";
-            this.main_menu_scroll_panel.Size = new System.Drawing.Size(155, 510);
+            this.main_menu_scroll_panel.Size = new System.Drawing.Size(157, 514);
             this.main_menu_scroll_panel.TabIndex = 2;
             // 
             // go_to_province_panel_button_from_main_menu_tab
@@ -160,7 +162,7 @@
             this.go_to_province_panel_button_from_main_menu_tab.Location = new System.Drawing.Point(0, 0);
             this.go_to_province_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.go_to_province_panel_button_from_main_menu_tab.Name = "go_to_province_panel_button_from_main_menu_tab";
-            this.go_to_province_panel_button_from_main_menu_tab.Size = new System.Drawing.Size(155, 75);
+            this.go_to_province_panel_button_from_main_menu_tab.Size = new System.Drawing.Size(157, 92);
             this.go_to_province_panel_button_from_main_menu_tab.TabIndex = 2;
             this.go_to_province_panel_button_from_main_menu_tab.Text = "Selecteer Wijk";
             this.go_to_province_panel_button_from_main_menu_tab.UseVisualStyleBackColor = false;
@@ -245,12 +247,27 @@
             // map_panel
             // 
             this.map_panel.BackColor = System.Drawing.Color.White;
+            this.map_panel.Controls.Add(this.refresh_waypoints_button);
             this.map_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.map_panel.Location = new System.Drawing.Point(180, 2);
             this.map_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.map_panel.Name = "map_panel";
             this.map_panel.Size = new System.Drawing.Size(822, 657);
             this.map_panel.TabIndex = 2;
+            // 
+            // refresh_waypoints_button
+            // 
+            this.refresh_waypoints_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.refresh_waypoints_button.BackColor = System.Drawing.Color.Transparent;
+            this.refresh_waypoints_button.BackgroundImage = global::WijkAgent.Properties.Resources.refresh_button_icon_self_made;
+            this.refresh_waypoints_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refresh_waypoints_button.ForeColor = System.Drawing.Color.Transparent;
+            this.refresh_waypoints_button.Location = new System.Drawing.Point(778, 0);
+            this.refresh_waypoints_button.Name = "refresh_waypoints_button";
+            this.refresh_waypoints_button.Size = new System.Drawing.Size(44, 40);
+            this.refresh_waypoints_button.TabIndex = 0;
+            this.refresh_waypoints_button.UseVisualStyleBackColor = false;
+            this.refresh_waypoints_button.Click += new System.EventHandler(this.refresh_waypoints_button_Click);
             // 
             // main_table_layout_panel
             // 
@@ -527,7 +544,7 @@
             // 
             // twitter_logo
             // 
-            this.twitter_logo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("twitter_logo.BackgroundImage")));
+            this.twitter_logo.BackgroundImage = global::WijkAgent.Properties.Resources.twitter_company_statistics__1_;
             this.twitter_logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.twitter_logo.Dock = System.Windows.Forms.DockStyle.Top;
             this.twitter_logo.Location = new System.Drawing.Point(0, 0);
@@ -555,6 +572,7 @@
             this.province_table_layout_panel.ResumeLayout(false);
             this.province_panel_for_label.ResumeLayout(false);
             this.province_panel_for_label.PerformLayout();
+            this.map_panel.ResumeLayout(false);
             this.main_table_layout_panel.ResumeLayout(false);
             this.main_menu_tabcontrol.ResumeLayout(false);
             this.main_menu_tab.ResumeLayout(false);
@@ -610,6 +628,7 @@
         private System.Windows.Forms.Panel twitter_messages;
         private System.Windows.Forms.Panel twitter_trending;
         private System.Windows.Forms.Panel twitter_logo;
+        private System.Windows.Forms.Button refresh_waypoints_button;
     }
 }
 

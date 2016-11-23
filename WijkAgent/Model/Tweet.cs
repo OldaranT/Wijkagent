@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WijkAgent.Model
 {
-    class Tweet
+    public class Tweet
     {
         public int id { get; set; }
         public double latitude { get; set; }
@@ -16,7 +16,6 @@ namespace WijkAgent.Model
         public DateTime date { get; set; }
         public DateTime pastTime { get; set; }
         public DateTime nowTime { get; set; }
-
 
         public Tweet(int _id, double _latitude, double _longitude, string _user, string _message, DateTime _date, DateTime _pastTime, DateTime _nowTime)
         {
@@ -28,7 +27,6 @@ namespace WijkAgent.Model
             date = _date;
             pastTime = _pastTime;
             nowTime = _nowTime;
-
         }
     }
 }
