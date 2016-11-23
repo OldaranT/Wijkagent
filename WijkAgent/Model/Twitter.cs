@@ -13,7 +13,7 @@ namespace WijkAgent.Model
 {
     public delegate void TwitterSearch();
 
-    class Twitter
+    public class Twitter
     {
         public List<Tweet> tweetsList = new List<Tweet>();
         public event TwitterSearch startTwitterSearch;
@@ -33,7 +33,7 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region Hier worden de tweets gezocht
+        #region SearchTweets_Method
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
           if(startTwitterSearch != null)
@@ -102,7 +102,7 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region Hier worden de markers gemaakt voor op de kaart
+        #region PlaceTwitterWaypointOnMap_method
         public void setTwitterMarkers(WebBrowser _wb)
         {
             foreach (Tweet t in this.tweetsList)

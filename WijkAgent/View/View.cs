@@ -12,10 +12,11 @@ using MySql.Data.MySqlClient;
 
 namespace WijkAgent
 {
+    public delegate void RefreshButtonClick(); 
+
     public partial class View : Form
     {
-        
-        private ModelClass modelClass;
+        public ModelClass modelClass;
         private bool provinceButtonsCreated = false;
         private bool cityButtonsCreated = false;
         private bool districtButtonsCreated = false;
@@ -25,6 +26,9 @@ namespace WijkAgent
         private Color policeGold;
         private Font buttonFont;
         private LoadingScreen loadingScreen;
+
+        //events
+        public event RefreshButtonClick OnRefreshButtonClick;
 
         public View()
         {
@@ -51,6 +55,7 @@ namespace WijkAgent
             modelClass.map.twitter.startTwitterSearch += loadingScreen.ShowLoadingScreen;
             modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
+            refresh_waypoints_button.Hide();
         }
 
         private void View_Load(object sender, EventArgs e)
@@ -253,9 +258,14 @@ namespace WijkAgent
             }
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
             modelClass.databaseConnectie.conn.Close();
+
+            //Controleerd of er een wijk is geselecteerd
+            if (modelClass.map.districtSelected)
+                refresh_waypoints_button.Show();
         }
         #endregion
 
+        #region BackToProvincePanelFromCityPanelButton_Clicked
         //Als de terug button wordt ingedruk op de city tab
         private void go_to_province_panel_button_from_city_tab_Click(object sender, EventArgs e)
         {
@@ -264,7 +274,9 @@ namespace WijkAgent
             main_menu_tabcontrol.SelectTab(1);
             cityButtonsCreated = false;
         }
+        #endregion
 
+        #region BackToCityPanelFromDistrictPanelButton_Clicked
         private void go_to_city_panel_button_from_district_tab_Click(object sender, EventArgs e)
         {
             //cleared alles in stad scroll panel
@@ -272,6 +284,7 @@ namespace WijkAgent
             main_menu_tabcontrol.SelectTab(2);
             districtButtonsCreated = false;
         }
+        #endregion
 
         #region GeneratedButtonStyle_Method
         private void buttonLayout(Button _button)
@@ -284,6 +297,14 @@ namespace WijkAgent
             _button.FlatStyle = FlatStyle.Flat;
             _button.FlatAppearance.BorderColor = policeGold;
             _button.FlatAppearance.BorderSize = 1;
+        }
+        #endregion
+
+        #region RefreshButton_Clicked
+        private void refresh_waypoints_button_Click(object sender, EventArgs e)
+        {
+            if (OnRefreshButtonClick != null)
+                OnRefreshButtonClick();
         }
         #endregion
     }

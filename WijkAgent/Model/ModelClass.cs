@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WijkAgent.Model
 {
-    class ModelClass
+    public class ModelClass
     {
         public SQLConnection databaseConnectie;
         public Map map;
