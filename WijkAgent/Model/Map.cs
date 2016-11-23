@@ -15,6 +15,7 @@ namespace WijkAgent.Model
         public double defaultLongtitude = 5.3465267;
         public double defaultZoom = 7;
         public WebBrowser wb;
+        public Twitter _twitter = new Twitter();
 
 
         public Map()
@@ -86,6 +87,11 @@ namespace WijkAgent.Model
 
         }
 
+        public void getTrendingTopic()
+        {
+
+        }
+
         public void getTwitterMessages(double _centerLong, double _centerLat, double _pointLat, double _pointLong)
         {
             //berekening om de aantal km voor de radius te berekenen. Vragen hier die geocoordinate klasse aan
@@ -96,8 +102,7 @@ namespace WijkAgent.Model
             double _aantalKm = (_centerCoord.GetDistanceTo(_puntCoord) / 1000);
 
             //krijg de tweets van de coordinaten
-            Twitter _twitter = new Twitter();
-            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 1000);
+            _twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 10000);
             _twitter.printTweetList();
 
             foreach (Tweet t in _twitter.tweetsList)

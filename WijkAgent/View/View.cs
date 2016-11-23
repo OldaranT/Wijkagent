@@ -244,8 +244,9 @@ namespace WijkAgent
                 //Twitter twitter = new Twitter();
                 //twitter.SearchResults(modelClass.districtList1[2].lat[3], modelClass.districtList1[2].lon[3], 4, 10000);
                 //twitter.printTweetList();
-
             }
+
+            this.twitter_messages.Invalidate();
         }
         //Als de terug button wordt ingedruk op de city tab
         private void go_to_province_panel_button_from_city_tab_Click(object sender, EventArgs e)
@@ -277,6 +278,25 @@ namespace WijkAgent
             _button.FlatAppearance.BorderColor = policeGold;
             _button.FlatAppearance.BorderSize = 1;
 
+        }
+
+        private void twitter_messages_Paint(object sender, PaintEventArgs e)
+        {
+            int x = 20;
+            int y = 20;
+            foreach (var tweets in map._twitter.tweetsList)
+            {
+                Rectangle rec = new Rectangle(x, y, 200, 150);
+                
+                e.Graphics.DrawString(tweets.user + "\n" + tweets.message + "\n" + tweets.date , new Font("Calibri", 12), new SolidBrush(Color.Black), rec);
+                y += 170;
+            }
+            this.AutoScroll = true;
+        }
+
+        private void twitter_trending_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("Willempie", new Font("Calibri", 12), new SolidBrush(Color.Black), 20, 10);
         }
     }
 }

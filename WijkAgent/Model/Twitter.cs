@@ -31,10 +31,10 @@ namespace WijkAgent.Model
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
             //Pak de datum van gisteren
-            DateTime _today = DateTime.Now.AddDays(-1);
-            int _todayDay = _today.Day;
-            int _todayMonth = _today.Month;
-            int _todayYear = _today.Year;
+            DateTime today = DateTime.Now.AddDays(-1);
+            int todayDay = today.Day;
+            int todayMonth = today.Month;
+            int todayYear = today.Year;
 
             //Zoeken op tweets
             var searchParameter = new SearchTweetsParameters("")
@@ -42,29 +42,28 @@ namespace WijkAgent.Model
                 GeoCode = new GeoCode(latitude, longitude, radius, DistanceMeasure.Kilometers),
                 MaximumNumberOfResults = maxResults,
                 FilterTweetsNotContainingGeoInformation = true,
-                Since = new DateTime(_todayYear, _todayMonth, _todayDay),
-                Until = DateTime.Now
+                Since = new DateTime(todayYear, todayMonth, todayDay),
             };
 
             var tweets = Search.SearchTweets(searchParameter);
 
-            int _counter = 1;
+            int counter = 1;
             foreach (var matchingtweets in tweets)
             {
                 if (matchingtweets.Coordinates != null)
                 {
-                    var _user = matchingtweets.CreatedBy.Name.ToJson();
-                    var _date = matchingtweets.CreatedAt;
-                    var _message = matchingtweets.ToString();
-                    var _latitude = matchingtweets.Coordinates.Latitude;
-                    var _longitude = matchingtweets.Coordinates.Longitude;
-                    var _pastTime = matchingtweets.CreatedAt;
-                    var _nowTime = DateTime.Now.AddHours(-24);
+                    var user = matchingtweets.CreatedBy.Name.ToJson();
+                    var date = matchingtweets.CreatedAt;
+                    var message = matchingtweets.ToString();
+                    var tweetLatitude = matchingtweets.Coordinates.Latitude;
+                    var tweetLongitude = matchingtweets.Coordinates.Longitude;
+                    var pastTime = matchingtweets.CreatedAt;
+                    var nowTime = DateTime.Now.AddHours(-24);
 
                     //Add tweets to list
-                    AddTweets(new Tweet(_counter, _latitude, _longitude, _user, _message, _date, _pastTime, _nowTime));
+                    AddTweets(new Tweet(counter, tweetLatitude, tweetLongitude, user, message, date, pastTime, nowTime));
 
-                    _counter++;
+                    counter++;
                 }
             }
         }
