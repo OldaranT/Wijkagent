@@ -77,41 +77,53 @@ namespace WijkAgent
             go_to_city_panel_button_from_district_tab.Font = buttonFont;
         }
 
+        #region SelectDestrictButtonOnMainMenu_Clicked
         private void button1_Click_1(object sender, EventArgs e)
         {
             if (!provinceButtonsCreated) {
-
-                //Open database connectie
-                modelClass.databaseConnectie.conn.Open();
-
-                //Selectie Query die de namen van allke province selecteer en ordered.
-                string stm = "SELECT * FROM province ORDER BY name DESC";
-                MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-
-                // Hier word de database lijst uitgelezen
-                while (modelClass.databaseConnectie.rdr.Read())
+                try
                 {
-                    Button buttonCreate = new Button();
-                    buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(1);
-                    buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
-                    buttonLayout(buttonCreate);
-                    provnice_scroll_panel.Controls.Add(buttonCreate);
-                    buttonCreate.Click += ProvinceButton_Click;
+                    //Open database connectie
+                    modelClass.databaseConnectie.conn.Open();
+
+                    //Selectie Query die de namen van allke province selecteer en ordered.
+                    string stm = "SELECT * FROM province ORDER BY name DESC";
+                    MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                    modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+                    // Hier word de database lijst uitgelezen
+                    while (modelClass.databaseConnectie.rdr.Read())
+                    {
+                        Button buttonCreate = new Button();
+                        buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(1);
+                        buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
+                        buttonLayout(buttonCreate);
+                        provnice_scroll_panel.Controls.Add(buttonCreate);
+                        buttonCreate.Click += ProvinceButton_Click;
+                    }
+                    modelClass.databaseConnectie.conn.Close();
+                    provinceButtonsCreated = true;
+                } catch (Exception ex)
+                {
+                    //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                    Console.WriteLine(ex.Message);
+                    Label labelCreate = new Label();
+                    labelCreate.Width = 200;
+                    labelCreate.Height = 200;
+                    labelCreate.Text = "Kon geen verbinding maken met de database.";
+                    provnice_scroll_panel.Controls.Add(labelCreate);
                 }
-                modelClass.databaseConnectie.conn.Close();
-                provinceButtonsCreated = true;
             }
-            
             main_menu_tabcontrol.SelectTab(1);
         }
+        #endregion
 
         private void go_to_main_menu_panel_button_Click(object sender, EventArgs e)
         {
-
             main_menu_tabcontrol.SelectTab(0);
-
         }
+
+        #region GeneratedProvinceButton_Clicked
         //Kijkt of er een ProvinceGenerated Button is ingedrukt.
         public void ProvinceButton_Click(object sender, EventArgs e)
         {
@@ -120,6 +132,8 @@ namespace WijkAgent
             Console.WriteLine(clickedButton.Text.ToString());
             if (!cityButtonsCreated)
             {
+                try
+                {
                     int idProvince = Convert.ToInt32(clickedButton.Name);
 
                     //Open database connectie
@@ -143,13 +157,24 @@ namespace WijkAgent
                     }
                     modelClass.databaseConnectie.conn.Close();
 
-                
-                cityButtonsCreated = true;
+                    cityButtonsCreated = true;
+                } catch (Exception ex)
+                {
+                    //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                    Console.WriteLine(ex.Message);
+                    Label labelCreate = new Label();
+                    labelCreate.Width = 200;
+                    labelCreate.Height = 200;
+                    labelCreate.Text = "Kon geen verbinding maken met de database.";
+                    provnice_scroll_panel.Controls.Add(labelCreate);
+                }
             }
 
             main_menu_tabcontrol.SelectTab(2);
         }
+        #endregion
 
+        #region GeneratedCityButton_Clicked
         //Kijkt of er een CityGenerated Button is ingedrukt.
         public void CityButton_Click(object sender, EventArgs e)
         {
@@ -158,35 +183,48 @@ namespace WijkAgent
             Console.WriteLine(clickedButton.Text.ToString());
             if (!districtButtonsCreated) 
             {
-                int idCity = Convert.ToInt32(clickedButton.Name);
-
-                //Open database connectie
-                modelClass.databaseConnectie.conn.Open();
-
-                //Selectie Query die de namen van allke province selecteer en ordered.
-                string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
-                MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-                cmd.Parameters.AddWithValue("@idcity", idCity);
-                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-
-                // Hier word de database lijst uitgelezen
-                while (modelClass.databaseConnectie.rdr.Read())
+                try
                 {
-                    Button buttonCreate = new Button();
-                    buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
-                    buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
-                    buttonLayout(buttonCreate);
-                    district_scroll_panel.Controls.Add(buttonCreate);
-                    buttonCreate.Click += DistrictButton_Click;
-                }
-                modelClass.databaseConnectie.conn.Close();
-                districtButtonsCreated = true;
-            }
+                    int idCity = Convert.ToInt32(clickedButton.Name);
 
+                    //Open database connectie
+                    modelClass.databaseConnectie.conn.Open();
+
+                    //Selectie Query die de namen van allke province selecteer en ordered.
+                    string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
+                    MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                    cmd.Parameters.AddWithValue("@idcity", idCity);
+                    modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+                    // Hier word de database lijst uitgelezen
+                    while (modelClass.databaseConnectie.rdr.Read())
+                    {
+                        Button buttonCreate = new Button();
+                        buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
+                        buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
+                        buttonLayout(buttonCreate);
+                        district_scroll_panel.Controls.Add(buttonCreate);
+                        buttonCreate.Click += DistrictButton_Click;
+                    }
+                    modelClass.databaseConnectie.conn.Close();
+                    districtButtonsCreated = true;
+                } catch (Exception ex)
+                {
+                    //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                    Console.WriteLine(ex.Message);
+                    Label labelCreate = new Label();
+                    labelCreate.Width = 200;
+                    labelCreate.Height = 200;
+                    labelCreate.Text = "Kon geen verbinding maken met de database.";
+                    provnice_scroll_panel.Controls.Add(labelCreate);
+                }
+            }
 
             main_menu_tabcontrol.SelectTab(3);
         }
+        #endregion
 
+        #region GeneratedDistrictButton_Clicked
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
@@ -207,8 +245,6 @@ namespace WijkAgent
             cmd.Parameters.AddWithValue("@iddistrict", idDistrict);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
-
-            
             // Hier word de database lijst uitgelezen
             while (modelClass.databaseConnectie.rdr.Read())
             {
@@ -218,6 +254,8 @@ namespace WijkAgent
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
             modelClass.databaseConnectie.conn.Close();
         }
+        #endregion
+
         //Als de terug button wordt ingedruk op de city tab
         private void go_to_province_panel_button_from_city_tab_Click(object sender, EventArgs e)
         {
@@ -225,7 +263,6 @@ namespace WijkAgent
             city_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(1);
             cityButtonsCreated = false;
-
         }
 
         private void go_to_city_panel_button_from_district_tab_Click(object sender, EventArgs e)
@@ -234,9 +271,9 @@ namespace WijkAgent
             district_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(2);
             districtButtonsCreated = false;
-
         }
 
+        #region GeneratedButtonStyle_Method
         private void buttonLayout(Button _button)
         {
             _button.Size = new Size(buttonSizeX, buttonSizeY);
@@ -247,7 +284,7 @@ namespace WijkAgent
             _button.FlatStyle = FlatStyle.Flat;
             _button.FlatAppearance.BorderColor = policeGold;
             _button.FlatAppearance.BorderSize = 1;
-
         }
+        #endregion
     }
 }
