@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WijkAgent.Model;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace WijkAgent
 {
@@ -23,6 +24,7 @@ namespace WijkAgent
         private int buttonSizeX;
         private int buttonSizeY;
         private Color policeBlue;
+        private Color policeHoverBlue;
         private Color policeGold;
         private Font buttonFont;
         private LoadingScreen loadingScreen;
@@ -34,6 +36,7 @@ namespace WijkAgent
         {
             modelClass = new ModelClass();
             policeBlue = Color.FromArgb(0, 70, 130);
+            policeHoverBlue = Color.FromArgb(0, 70, 180);
             policeGold = Color.FromArgb(190, 150, 90);
             buttonFont = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
             buttonSizeX = 300;
@@ -103,7 +106,7 @@ namespace WijkAgent
                         buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(1);
                         buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
                         buttonLayout(buttonCreate);
-                        provnice_scroll_panel.Controls.Add(buttonCreate);
+                        province_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += ProvinceButton_Click;
                     }
                     modelClass.databaseConnectie.conn.Close();
@@ -116,7 +119,7 @@ namespace WijkAgent
                     labelCreate.Width = 200;
                     labelCreate.Height = 200;
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    provnice_scroll_panel.Controls.Add(labelCreate);
+                    province_scroll_panel.Controls.Add(labelCreate);
                 }
             }
             main_menu_tabcontrol.SelectTab(1);
@@ -171,7 +174,7 @@ namespace WijkAgent
                     labelCreate.Width = 200;
                     labelCreate.Height = 200;
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    provnice_scroll_panel.Controls.Add(labelCreate);
+                    province_scroll_panel.Controls.Add(labelCreate);
                 }
             }
 
@@ -221,7 +224,7 @@ namespace WijkAgent
                     labelCreate.Width = 200;
                     labelCreate.Height = 200;
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    provnice_scroll_panel.Controls.Add(labelCreate);
+                    province_scroll_panel.Controls.Add(labelCreate);
                 }
             }
 
@@ -233,6 +236,11 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
+
+            //twitterTrendingList
+            List<string> trendingTweetWord = new List<string>();
+
+            twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
@@ -257,6 +265,57 @@ namespace WijkAgent
                 longtitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(3)));
             }
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
+
+            //twitter trending
+            var _tekst = "";
+
+            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            {
+                _tekst += tweets.message + " ";
+            }
+
+            var words =
+            Regex.Split(_tekst, @"\W+")
+            .Where(s => s.Length > 3)
+            .GroupBy(s => s)
+            .OrderByDescending(g => g.Count());
+
+            foreach (var word in words)
+            {
+                trendingTweetWord.Add(word.Key);
+            }
+
+            Label trendingTweetLabel = new Label();
+            trendingTweetLabel.Text = trendingTweetWord[0];
+
+            twitter_trending_panel.Controls.Add(trendingTweetLabel);
+
+            //twitter aanroep
+
+            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            {
+                string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                Label tweetMessageLabel = new Label();
+                tweetMessageLabel.Text = tweetMessage;
+                tweetMessageLabel.Name = Convert.ToString(tweets.id);
+                tweetMessageLabel.AutoSize = true;
+                tweetMessageLabel.MinimumSize = new Size(275, 0);
+                tweetMessageLabel.MaximumSize = new Size(275, 0);
+                tweetMessageLabel.Font = new Font("Calibri", 16);
+                tweetMessageLabel.BorderStyle = BorderStyle.Fixed3D;
+                tweetMessageLabel.ForeColor = Color.White;
+                tweetMessageLabel.BackColor = policeBlue;
+                tweetMessageLabel.Dock = DockStyle.Top;
+
+                tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
+
+                tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+
+
+                twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+            }
+
+
             modelClass.databaseConnectie.conn.Close();
 
             //Controleerd of er een wijk is geselecteerd
@@ -300,32 +359,36 @@ namespace WijkAgent
         }
         #endregion
 
+        #region GeneratedTextBoxStyle_Method
+        private void textBoxLayout(TextBox _textbox)
+        {
+            _textbox.Size = new Size(buttonSizeX, buttonSizeY);
+            _textbox.Dock = DockStyle.Top;
+        }
+        #endregion
+
         #region RefreshButton_Clicked
         private void refresh_waypoints_button_Click(object sender, EventArgs e)
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
         }
+        #endregion
 
-
-        private void twitter_messages_Paint(object sender, PaintEventArgs e)
+        #region OnHoverTwitterMessage
+        private void on_enter_hover_twitter_message(object sender, EventArgs e)
         {
-            int x = 20;
-            int y = 20;
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
-            {
-                Rectangle rec = new Rectangle(x, y, 200, 150);
-                
-                e.Graphics.DrawString(tweets.user + "\n" + tweets.message + "\n" + tweets.date , new Font("Calibri", 12), new SolidBrush(Color.Black), rec);
-                y += 170;
-            }
-            this.AutoScroll = true;
+            Label hoverTweet = (Label)sender;
+            hoverTweet.BackColor = policeGold;
+
         }
-
-        private void twitter_trending_Paint(object sender, PaintEventArgs e)
+        private void on_exit_hover_twitter_message(object sender, EventArgs e)
         {
-            e.Graphics.DrawString("Willempie", new Font("Calibri", 12), new SolidBrush(Color.Black), 20, 10);
+            Label hoverTweet = (Label)sender;
+            hoverTweet.BackColor = policeBlue;
+
         }
         #endregion
+
     }
 }

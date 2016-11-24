@@ -36,8 +36,8 @@ namespace WijkAgent.Model
         #region SearchTweets_Method
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
-          if(startTwitterSearch != null)
-                startTwitterSearch();     
+            if (startTwitterSearch != null)
+                startTwitterSearch();
 
             //Pak de datum van gisteren
             DateTime today = DateTime.Now.AddDays(-1);
@@ -88,7 +88,7 @@ namespace WijkAgent.Model
             {
                 tweetsList.Add(_tweet);
             }
-            
+
         }
         #endregion
 
@@ -98,7 +98,7 @@ namespace WijkAgent.Model
 
             foreach (Tweet tweets in tweetsList)
             {
-                if (tweets.pastTime> tweets.nowTime)
+                if (tweets.pastTime > tweets.nowTime)
                 {
                     Console.Write(tweets.id + "\t" + tweets.user + "\n" + tweets.message + "\n" + tweets.date + "\n" + tweets.latitude + " - " + tweets.longitude + "\n\n");
                 }
@@ -116,6 +116,26 @@ namespace WijkAgent.Model
             }
         }
         #endregion
+
+        //back-up
+
+        //    #region GetTrendingTopic
+        //    public string getTrendingTopic(string _tekst)
+        //    {
+        //        var words =
+        //        Regex.Split(_tekst, @"\W+")
+        //.Where(s => s.Length > 3)
+        //.GroupBy(s => s)
+        //.OrderByDescending(g => g.Count());
+
+        //        foreach (var word in words)
+        //        {
+        //            trendingTekst.Add(word.Key);
+        //        }
+
+        //        return trendingTekst[0];
+        //    }
+        //    #endregion
 
     }
 }
