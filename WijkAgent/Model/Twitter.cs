@@ -112,7 +112,7 @@ namespace WijkAgent.Model
             foreach (Tweet t in this.tweetsList)
             {
                 Marker _m = new Marker(t.id, t.latitude, t.longitude, 'T');
-                _m.addMarker(_wb);
+                _m.addMarkerToMap(_wb);
             }
         }
         #endregion
