@@ -106,7 +106,7 @@ namespace WijkAgent
                         buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(1);
                         buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
                         buttonLayout(buttonCreate);
-                        provnice_scroll_panel.Controls.Add(buttonCreate);
+                        province_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += ProvinceButton_Click;
                     }
                     modelClass.databaseConnectie.conn.Close();
@@ -119,7 +119,7 @@ namespace WijkAgent
                     labelCreate.Width = 200;
                     labelCreate.Height = 200;
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    provnice_scroll_panel.Controls.Add(labelCreate);
+                    province_scroll_panel.Controls.Add(labelCreate);
                 }
             }
             main_menu_tabcontrol.SelectTab(1);
@@ -174,7 +174,7 @@ namespace WijkAgent
                     labelCreate.Width = 200;
                     labelCreate.Height = 200;
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    provnice_scroll_panel.Controls.Add(labelCreate);
+                    province_scroll_panel.Controls.Add(labelCreate);
                 }
             }
 
@@ -224,7 +224,7 @@ namespace WijkAgent
                     labelCreate.Width = 200;
                     labelCreate.Height = 200;
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    provnice_scroll_panel.Controls.Add(labelCreate);
+                    province_scroll_panel.Controls.Add(labelCreate);
                 }
             }
 
