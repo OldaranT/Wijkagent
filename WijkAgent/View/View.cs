@@ -241,6 +241,7 @@ namespace WijkAgent
             List<string> trendingTweetWord = new List<string>();
 
             twitter_messages_scroll_panel.Controls.Clear();
+            twitter_trending_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
@@ -295,6 +296,10 @@ namespace WijkAgent
             foreach (var tweets in modelClass.map.twitter.tweetsList)
             {
                 string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                foreach (string link in tweets.links)
+                {
+                    tweetMessage += "\n" + link;
+                }
                 Label tweetMessageLabel = new Label();
                 tweetMessageLabel.Text = tweetMessage;
                 tweetMessageLabel.Name = Convert.ToString(tweets.id);
