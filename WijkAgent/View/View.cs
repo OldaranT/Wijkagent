@@ -282,7 +282,6 @@ namespace WijkAgent
 
                 tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
 
-
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
             }
 
@@ -360,7 +359,6 @@ namespace WijkAgent
 
         }
         #endregion
-
 
         private void twitter_trending_Paint(object sender, PaintEventArgs e)
         {
