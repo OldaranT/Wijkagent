@@ -24,7 +24,6 @@ namespace WijkAgent
         private int buttonSizeX;
         private int buttonSizeY;
         private Color policeBlue;
-        private Color policeHoverBlue;
         private Color policeGold;
         private Font buttonFont;
         private LoadingScreen loadingScreen;
@@ -36,7 +35,6 @@ namespace WijkAgent
         {
             modelClass = new ModelClass();
             policeBlue = Color.FromArgb(0, 70, 130);
-            policeHoverBlue = Color.FromArgb(0, 70, 180);
             policeGold = Color.FromArgb(190, 150, 90);
             buttonFont = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
             buttonSizeX = 300;
@@ -245,7 +243,9 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-            
+
+            int twitterLabelSizeX = 275;
+            int twitterLabelSizeY = 0;
             int idDistrict = Convert.ToInt32(clickedButton.Name);
             List<double> latitudeList = new List<double>();
             List<double> longtitudeList = new List<double>();
@@ -304,13 +304,14 @@ namespace WijkAgent
                 tweetMessageLabel.Text = tweetMessage;
                 tweetMessageLabel.Name = Convert.ToString(tweets.id);
                 tweetMessageLabel.AutoSize = true;
-                tweetMessageLabel.MinimumSize = new Size(275, 0);
-                tweetMessageLabel.MaximumSize = new Size(275, 0);
+                tweetMessageLabel.MinimumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
+                tweetMessageLabel.MaximumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
                 tweetMessageLabel.Font = new Font("Calibri", 16);
                 tweetMessageLabel.BorderStyle = BorderStyle.Fixed3D;
                 tweetMessageLabel.ForeColor = Color.White;
                 tweetMessageLabel.BackColor = policeBlue;
                 tweetMessageLabel.Dock = DockStyle.Top;
+                
 
                 tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
 

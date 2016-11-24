@@ -13,7 +13,7 @@ namespace WijkAgent.Model
     {
         public double defaultLatitude = 52.2814566;
         public double defaultLongtitude = 5.3465267;
-        public double defaultZoom = 7;
+        public double defaultZoom = 8;
         public WebBrowser wb;
 
 
