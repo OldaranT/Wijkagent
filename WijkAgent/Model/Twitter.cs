@@ -84,7 +84,12 @@ namespace WijkAgent.Model
         #region Hier worden de tweets toegevoegd aan een list
         public void AddTweets(Tweet _tweet)
         {
-            tweetsList.Add(_tweet);
+            //controleren of de tweet wel van vandaag is
+            if (_tweet.pastTime > _tweet.nowTime)
+            {
+                tweetsList.Add(_tweet);
+            }
+            
         }
         #endregion
 

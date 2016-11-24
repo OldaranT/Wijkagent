@@ -32,6 +32,7 @@ namespace WijkAgent.Model
 
             //url openen
             this.wb.Navigate(_url);
+            this.wb.ScriptErrorsSuppressed = true;
 
             //Kijken of het geladen is zo nee blijf doorladen
             while (this.wb.ReadyState != WebBrowserReadyState.Complete)
@@ -48,6 +49,8 @@ namespace WijkAgent.Model
 
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
+            //aantal twitter resultaten
+            int _twitterResults = 5000;
             //standaard zoom deze wordt later berekend op de grootte van de wijk. als er toch niet iets verkeerd gaat wordt deze zoom gebruikt
             int _zoom = 14;
 
@@ -73,12 +76,12 @@ namespace WijkAgent.Model
             //wijk tekenenen
             drawDistrict(_latitudePoints, _longitudePoints);
 
-            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), 5000);
+            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), _twitterResults);
+            //de markers plaatsen
+            this.twitter.setTwitterMarkers(this.wb);
 
             //debug console
             this.twitter.printTweetList();
-            //de markers plaatsen
-            this.twitter.setTwitterMarkers(this.wb);
 
             //voor debuggen radius
             double _test = Math.Floor(calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong) * 1000);
