@@ -242,9 +242,6 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-
-            int twitterLabelSizeX = 275;
-            int twitterLabelSizeY = 0;
             int idDistrict = Convert.ToInt32(clickedButton.Name);
             List<double> latitudeList = new List<double>();
             List<double> longtitudeList = new List<double>();
@@ -266,54 +263,56 @@ namespace WijkAgent
             }
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
 
-            //twitter trending
-            var _tekst = "";
-
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            if (!modelClass.map.twitter.tweetsList.Any())
             {
-                _tekst += tweets.message + " ";
-            }
-
-            var words =
-            Regex.Split(_tekst, @"\W+")
-            .Where(s => s.Length > 3)
-            .GroupBy(s => s)
-            .OrderByDescending(g => g.Count());
-
-            foreach (var word in words)
-            {
-                trendingTweetWord.Add(word.Key);
-            }
-
-            Label trendingTweetLabel = new Label();
-            trendingTweetLabel.Text = trendingTweetWord[0];
-
-            twitter_trending_panel.Controls.Add(trendingTweetLabel);
-
-            //twitter aanroep
-
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
-            {
-                string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                string infoMessage = ("Er zijn geen tweets in deze wijk.");
                 Label tweetMessageLabel = new Label();
-                tweetMessageLabel.Text = tweetMessage;
-                tweetMessageLabel.Name = Convert.ToString(tweets.id);
-                tweetMessageLabel.AutoSize = true;
-                tweetMessageLabel.MinimumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
-                tweetMessageLabel.MaximumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
-                tweetMessageLabel.Font = new Font("Calibri", 16);
-                tweetMessageLabel.BorderStyle = BorderStyle.Fixed3D;
-                tweetMessageLabel.ForeColor = Color.White;
-                tweetMessageLabel.BackColor = policeBlue;
-                tweetMessageLabel.Dock = DockStyle.Top;
-                
-
-                tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
-
-                tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
-
-
+                tweetMessageLabel.Text = infoMessage;
+                twitterLabelLayout(tweetMessageLabel);
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+            }
+            else
+            {
+
+                //twitter trending
+                var _tekst = "";
+
+                foreach (var tweets in modelClass.map.twitter.tweetsList)
+                {
+                    _tekst += tweets.message + " ";
+                }
+
+                var words =
+                Regex.Split(_tekst, @"\W+")
+                .Where(s => s.Length > 3)
+                .GroupBy(s => s)
+                .OrderByDescending(g => g.Count());
+
+                foreach (var word in words)
+                {
+                    trendingTweetWord.Add(word.Key);
+                }
+
+                Label trendingTweetLabel = new Label();
+                trendingTweetLabel.Text = trendingTweetWord[0];
+
+                twitter_trending_panel.Controls.Add(trendingTweetLabel);
+
+                //twitter aanroep
+                foreach (var tweets in modelClass.map.twitter.tweetsList)
+                {
+                    string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                    Label tweetMessageLabel = new Label();
+                    tweetMessageLabel.Text = tweetMessage;
+                    tweetMessageLabel.Name = Convert.ToString(tweets.id);
+                    twitterLabelLayout(tweetMessageLabel);
+
+                    //Als de muis over twitter label hovert wordt die goud.
+                    tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
+                    tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+
+                    twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+                }
             }
 
 
@@ -361,10 +360,18 @@ namespace WijkAgent
         #endregion
 
         #region GeneratedTextBoxStyle_Method
-        private void textBoxLayout(TextBox _textbox)
+        private void twitterLabelLayout(Label _label)
         {
-            _textbox.Size = new Size(buttonSizeX, buttonSizeY);
-            _textbox.Dock = DockStyle.Top;
+            int twitterLabelSizeX = 275;
+            int twitterLabelSizeY = 0;
+            _label.AutoSize = true;
+            _label.MinimumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
+            _label.MaximumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
+            _label.Font = new Font("Calibri", 16);
+            _label.BorderStyle = BorderStyle.Fixed3D;
+            _label.ForeColor = Color.White;
+            _label.BackColor = policeBlue;
+            _label.Dock = DockStyle.Top;
         }
         #endregion
 
