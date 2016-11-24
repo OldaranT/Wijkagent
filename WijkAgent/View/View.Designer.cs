@@ -561,7 +561,6 @@
             this.twitter_trending_panel.Name = "twitter_trending_panel";
             this.twitter_trending_panel.Size = new System.Drawing.Size(126, 49);
             this.twitter_trending_panel.TabIndex = 1;
-            this.twitter_trending_panel.Paint += new System.Windows.Forms.PaintEventHandler(this.twitter_trending_Paint);
             // 
             // twitter_logo_panel
             // 

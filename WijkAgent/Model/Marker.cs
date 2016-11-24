@@ -47,7 +47,7 @@ namespace WijkAgent.Model
             }
         }
 
-        public void addMarker(WebBrowser wb)
+        public void addMarkerToMap(WebBrowser wb)
         {
             Object[] _markerArgs = new Object[5];
             _markerArgs[0] = this.latitude;
