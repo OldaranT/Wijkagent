@@ -24,7 +24,7 @@ namespace WijkAgent
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 View view = new View();
-                ViewController viewController = new ViewController();
+                ViewController viewController = new ViewController(view);
                 Application.Run(view);
             }
         }

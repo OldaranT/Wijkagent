@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace WijkAgent.Model
 {
-    class SQLConnection
+    public class SQLConnection
     {
         public MySqlConnection conn;
         public MySqlDataReader rdr;

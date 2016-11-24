@@ -9,18 +9,26 @@ using System.Device.Location;
 
 namespace WijkAgent.Model
 {
-    class Map
+    public class Map
     {
         public double defaultLatitude = 52.2814566;
         public double defaultLongtitude = 5.3465267;
         public double defaultZoom = 7;
         public WebBrowser wb;
-        public Twitter twitter;
 
+
+        //Onthouden wat de laatst geselecteerd wijk was
+        public List<double> currentLatitudePoints;
+        public List<double> currentLongitudePoints;
+
+        public Twitter twitter;
+        public bool districtSelected = false;
 
         public Map()
         {
             twitter = new Twitter();
+            currentLatitudePoints = new List<double>();
+            currentLongitudePoints = new List<double>();
         }
 
         public void initialize()
@@ -47,8 +55,11 @@ namespace WijkAgent.Model
             
         }
 
+        #region ChangeDisctrict_Method
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
+            currentLatitudePoints = _latitudePoints;
+            currentLongitudePoints = _longitudePoints;
             //aantal twitter resultaten
             int _twitterResults = 5000;
             //standaard zoom deze wordt later berekend op de grootte van de wijk. als er toch niet iets verkeerd gaat wordt deze zoom gebruikt
@@ -56,40 +67,47 @@ namespace WijkAgent.Model
 
             //kijken of de goede coordinaten er zijn
             //Ze moeten dezelfde lengte hebben en allebij minimaal 3 punten anders is het geen geldige polygoon
-            if (_latitudePoints.Count != _longitudePoints.Count || _latitudePoints.Count < 3 || _longitudePoints.Count < 3)
+            if (currentLatitudePoints.Count != currentLongitudePoints.Count || currentLatitudePoints.Count < 3 || currentLongitudePoints.Count < 3)
             {
                 MessageBox.Show("Er zijn geen geldige coordinaten voor deze wijk bekend");
             }
+            else
+            {
 
-            //middelpunt van de wijk
-            double _centerLat = _latitudePoints.Sum() / _latitudePoints.Count();
-            double _centerLong = _longitudePoints.Sum() / _latitudePoints.Count();
+                //middelpunt van de wijk
+                double _centerLat = currentLatitudePoints.Sum() / currentLatitudePoints.Count();
+                double _centerLong = currentLongitudePoints.Sum() / currentLatitudePoints.Count();
 
-            Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
-            //invokescript heeft voor de argumenten een object nodig waar deze in staan
-            this.wb.Document.InvokeScript("initialize", _initArgs);
+                Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
+                //invokescript heeft voor de argumenten een object nodig waar deze in staan
+                this.wb.Document.InvokeScript("initialize", _initArgs);
 
-            //eerst de wijk leeg maken van markers 
-            this.wb.Document.InvokeScript("clearMarkers");
-            this.twitter.tweetsList.Clear();
+                //eerst de wijk leeg maken van markers 
+                this.wb.Document.InvokeScript("clearMarkers");
+                this.twitter.tweetsList.Clear();
 
-            //wijk tekenenen
-            drawDistrict(_latitudePoints, _longitudePoints);
+                //wijk tekenenen
+                drawDistrict(currentLatitudePoints, currentLongitudePoints);
 
-            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), _twitterResults);
-            //de markers plaatsen
-            this.twitter.setTwitterMarkers(this.wb);
+                this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), _twitterResults);
+                //de markers plaatsen
+                this.twitter.setTwitterMarkers(this.wb);
 
-            //debug console
-            this.twitter.printTweetList();
+                //debug console
+                this.twitter.printTweetList();
 
-            //voor debuggen radius
-            double _test = Math.Floor(calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong) * 1000);
-            Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
-            this.wb.Document.InvokeScript("SetCircle", _circleArgs);
+                //voor debuggen radius
+                double _test = Math.Floor(calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong) * 1000);
+                Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
+                this.wb.Document.InvokeScript("SetCircle", _circleArgs);
 
+                //Er is een wijk geselecteerd
+                districtSelected = true;
+            }
         }
+        #endregion
 
+        #region DrawDistrict_Method
         public void drawDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
             ///maak 2 lange strings van alle coordinaten, lat en long apart
@@ -100,13 +118,23 @@ namespace WijkAgent.Model
             Object[] _polyargs = new Object[2] { _strLatitude, _strLongtitude };
             this.wb.Document.InvokeScript("drawPolygon", _polyargs);
         }
+        #endregion
 
+
+        public void getTrendingTopic()
+        {
+
+        }
+
+        #region CalculateRadiusInKm_Method
         public double calculateRadiusKm(List<double> _latitudePoints, List<double> _longitudePoints, double _centerLat, double _centerLong)
         {
             //wordt eerst berekend in meters
             double _metresFromCenterToCorner = 0;
             //geocoordinate klasse gebruiken. Deze klasse heeft methoe om de distance te berekenen tussen 2 gps coordinaten
             var _centerCoord = new GeoCoordinate(_centerLat, _centerLong);
+
+            //foreach (Tweet t in _twitter.tweetsList)
             for (int i = 0; i < _longitudePoints.Count(); i++)
             {
                 var _puntCoord = new GeoCoordinate(_latitudePoints[i], _longitudePoints[i]);
@@ -124,5 +152,6 @@ namespace WijkAgent.Model
 
             return _radiusKm;
         }
+        #endregion
     }
 }
