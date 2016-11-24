@@ -23,6 +23,7 @@ namespace WijkAgent
         private int buttonSizeX;
         private int buttonSizeY;
         private Color policeBlue;
+        private Color policeHoverBlue;
         private Color policeGold;
         private Font buttonFont;
         private LoadingScreen loadingScreen;
@@ -34,6 +35,7 @@ namespace WijkAgent
         {
             modelClass = new ModelClass();
             policeBlue = Color.FromArgb(0, 70, 130);
+            policeHoverBlue = Color.FromArgb(0, 70, 180);
             policeGold = Color.FromArgb(190, 150, 90);
             buttonFont = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
             buttonSizeX = 300;
@@ -233,6 +235,7 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
+            twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
@@ -257,6 +260,33 @@ namespace WijkAgent
                 longtitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(3)));
             }
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
+
+            //twitter aanroep
+
+            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            {
+                string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                Label tweetMessageLabel = new Label();
+                tweetMessageLabel.Text = tweetMessage;
+                tweetMessageLabel.Name = Convert.ToString(tweets.id);
+                tweetMessageLabel.AutoSize = true;
+                tweetMessageLabel.MinimumSize = new Size(275, 0);
+                tweetMessageLabel.MaximumSize = new Size(275, 0);
+                tweetMessageLabel.Font = new Font("Calibri", 16);
+                tweetMessageLabel.BorderStyle = BorderStyle.Fixed3D;
+                tweetMessageLabel.ForeColor = Color.White;
+                tweetMessageLabel.BackColor = policeBlue;
+                tweetMessageLabel.Dock = DockStyle.Top;
+
+                tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
+
+                tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+
+
+                twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+            }
+
+
             modelClass.databaseConnectie.conn.Close();
 
             //Controleerd of er een wijk is geselecteerd
@@ -300,32 +330,41 @@ namespace WijkAgent
         }
         #endregion
 
+        #region GeneratedTextBoxStyle_Method
+        private void textBoxLayout(TextBox _textbox)
+        {
+            _textbox.Size = new Size(buttonSizeX, buttonSizeY);
+            _textbox.Dock = DockStyle.Top;
+        }
+        #endregion
+
         #region RefreshButton_Clicked
         private void refresh_waypoints_button_Click(object sender, EventArgs e)
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
         }
+        #endregion
 
-
-        private void twitter_messages_Paint(object sender, PaintEventArgs e)
+        #region OnHoverTwitterMessage
+        private void on_enter_hover_twitter_message(object sender, EventArgs e)
         {
-            int x = 20;
-            int y = 20;
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
-            {
-                Rectangle rec = new Rectangle(x, y, 200, 150);
-                
-                e.Graphics.DrawString(tweets.user + "\n" + tweets.message + "\n" + tweets.date , new Font("Calibri", 12), new SolidBrush(Color.Black), rec);
-                y += 170;
-            }
-            this.AutoScroll = true;
+            Label hoverTweet = (Label)sender;
+            hoverTweet.BackColor = policeGold;
+
         }
+        private void on_exit_hover_twitter_message(object sender, EventArgs e)
+        {
+            Label hoverTweet = (Label)sender;
+            hoverTweet.BackColor = policeBlue;
+
+        }
+        #endregion
+
 
         private void twitter_trending_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawString("Willempie", new Font("Calibri", 12), new SolidBrush(Color.Black), 20, 10);
         }
-        #endregion
     }
 }
