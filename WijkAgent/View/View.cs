@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WijkAgent.Model;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace WijkAgent
 {
@@ -235,6 +236,10 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
+
+            //twitterTrendingList
+            List<string> trendingTweetWord = new List<string>();
+
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
@@ -260,6 +265,30 @@ namespace WijkAgent
                 longtitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(3)));
             }
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
+
+            //twitter trending
+            var _tekst = "";
+
+            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            {
+                _tekst += tweets.message + " ";
+            }
+
+            var words =
+            Regex.Split(_tekst, @"\W+")
+            .Where(s => s.Length > 3)
+            .GroupBy(s => s)
+            .OrderByDescending(g => g.Count());
+
+            foreach (var word in words)
+            {
+                trendingTweetWord.Add(word.Key);
+            }
+
+            Label trendingTweetLabel = new Label();
+            trendingTweetLabel.Text = trendingTweetWord[0];
+
+            twitter_trending_panel.Controls.Add(trendingTweetLabel);
 
             //twitter aanroep
 
@@ -361,10 +390,5 @@ namespace WijkAgent
         }
         #endregion
 
-
-        private void twitter_trending_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawString("Willempie", new Font("Calibri", 12), new SolidBrush(Color.Black), 20, 10);
-        }
     }
 }
