@@ -40,6 +40,7 @@ namespace WijkAgent.Model
 
             //url openen
             this.wb.Navigate(_url);
+            this.wb.ScriptErrorsSuppressed = true;
 
             //Kijken of het geladen is zo nee blijf doorladen
             while (this.wb.ReadyState != WebBrowserReadyState.Complete)
@@ -59,6 +60,8 @@ namespace WijkAgent.Model
         {
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
+            //aantal twitter resultaten
+            int _twitterResults = 5000;
             //standaard zoom deze wordt later berekend op de grootte van de wijk. als er toch niet iets verkeerd gaat wordt deze zoom gebruikt
             int _zoom = 14;
 
@@ -68,36 +71,39 @@ namespace WijkAgent.Model
             {
                 MessageBox.Show("Er zijn geen geldige coordinaten voor deze wijk bekend");
             }
+            else
+            {
 
-            //middelpunt van de wijk
-            double _centerLat = currentLatitudePoints.Sum() / currentLatitudePoints.Count();
-            double _centerLong = currentLongitudePoints.Sum() / currentLatitudePoints.Count();
+                //middelpunt van de wijk
+                double _centerLat = currentLatitudePoints.Sum() / currentLatitudePoints.Count();
+                double _centerLong = currentLongitudePoints.Sum() / currentLatitudePoints.Count();
 
-            Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
-            //invokescript heeft voor de argumenten een object nodig waar deze in staan
-            this.wb.Document.InvokeScript("initialize", _initArgs);
+                Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
+                //invokescript heeft voor de argumenten een object nodig waar deze in staan
+                this.wb.Document.InvokeScript("initialize", _initArgs);
 
-            //eerst de wijk leeg maken van markers 
-            this.wb.Document.InvokeScript("clearMarkers");
-            this.twitter.tweetsList.Clear();
+                //eerst de wijk leeg maken van markers 
+                this.wb.Document.InvokeScript("clearMarkers");
+                this.twitter.tweetsList.Clear();
 
-            //wijk tekenenen
-            drawDistrict(currentLatitudePoints, currentLongitudePoints);
+                //wijk tekenenen
+                drawDistrict(currentLatitudePoints, currentLongitudePoints);
 
-            this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong), 5000);
+                this.twitter.SearchResults(_centerLat, _centerLong, calculateRadiusKm(_latitudePoints, _longitudePoints, _centerLat, _centerLong), _twitterResults);
+                //de markers plaatsen
+                this.twitter.setTwitterMarkers(this.wb);
 
-            //debug console
-            this.twitter.printTweetList();
-            //de markers plaatsen
-            this.twitter.setTwitterMarkers(this.wb);
+                //debug console
+                this.twitter.printTweetList();
 
-            //voor debuggen radius
-            double _test = Math.Floor(calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong) * 1000);
-            Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
-            this.wb.Document.InvokeScript("SetCircle", _circleArgs);
+                //voor debuggen radius
+                double _test = Math.Floor(calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong) * 1000);
+                Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
+                this.wb.Document.InvokeScript("SetCircle", _circleArgs);
 
-            //Er is een wijk geselecteerd
-            districtSelected = true;
+                //Er is een wijk geselecteerd
+                districtSelected = true;
+            }
         }
         #endregion
 
@@ -127,15 +133,6 @@ namespace WijkAgent.Model
             double _metresFromCenterToCorner = 0;
             //geocoordinate klasse gebruiken. Deze klasse heeft methoe om de distance te berekenen tussen 2 gps coordinaten
             var _centerCoord = new GeoCoordinate(_centerLat, _centerLong);
-
-            //var _puntCoord = new GeoCoordinate(_pointLat, _pointLong);
-
-            ////is in meters moet naar km
-            //double _aantalKm = (_centerCoord.GetDistanceTo(_puntCoord) / 1000);
-
-            ////krijg de tweets van de coordinaten
-            //_twitter.SearchResults(_centerLat, _centerLong, _aantalKm, 10000);
-            //_twitter.printTweetList();
 
             //foreach (Tweet t in _twitter.tweetsList)
             for (int i = 0; i < _longitudePoints.Count(); i++)
