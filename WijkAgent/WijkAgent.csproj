@@ -97,12 +97,9 @@
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Controller\ViewController.cs" />
-    <Compile Include="Model\City.cs" />
-    <Compile Include="Model\District.cs" />
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\ModelClass.cs" />
-    <Compile Include="Model\Province.cs" />
     <Compile Include="Model\SQLConnection.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\Twitter.cs" />
