@@ -28,6 +28,8 @@ namespace WijkAgent
         private Color policeGold;
         private Font buttonFont;
         private LoadingScreen loadingScreen;
+        //laats geklikte label
+        private Label lastClickedLabel;
 
         //events
         public event RefreshButtonClick OnRefreshButtonClick;
@@ -308,8 +310,8 @@ namespace WijkAgent
                 tweetMessageLabel.Dock = DockStyle.Top;
 
                 tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
-
                 tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+                tweetMessageLabel.Click += TweetMessageOnClick;
 
 
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
@@ -380,13 +382,32 @@ namespace WijkAgent
         {
             Label hoverTweet = (Label)sender;
             hoverTweet.BackColor = policeGold;
-
         }
         private void on_exit_hover_twitter_message(object sender, EventArgs e)
         {
             Label hoverTweet = (Label)sender;
-            hoverTweet.BackColor = policeBlue;
+            if(hoverTweet != lastClickedLabel){
+                hoverTweet.BackColor = policeBlue;
+            }
+            
 
+        }
+        #endregion
+
+        #region OnTwitterMessageClick
+        private void TweetMessageOnClick(object sender, EventArgs e)
+        {
+            if(lastClickedLabel != null)
+            {
+                lastClickedLabel.BackColor = policeBlue;
+            }
+
+            Label _label = (Label)sender;
+            lastClickedLabel = _label;
+            //label naam is het id van de tweet maar ik wil het in een int hebben dus parse ik hem
+            int _labelId = Int32.Parse(_label.Name);
+            //kleur veranderen van de label
+            modelClass.map.hightlightMarker(_labelId);
         }
         #endregion
 

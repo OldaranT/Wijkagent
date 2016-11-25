@@ -61,7 +61,7 @@ namespace WijkAgent.Model
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
             //aantal twitter resultaten
-            int _twitterResults = 5000;
+            int _twitterResults = 2000;
             //standaard zoom deze wordt later berekend op de grootte van de wijk. als er toch niet iets verkeerd gaat wordt deze zoom gebruikt
             int _zoom = 14;
 
@@ -99,7 +99,7 @@ namespace WijkAgent.Model
                 //voor debuggen radius
                 double _test = Math.Floor(calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong) * 1000);
                 Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
-                this.wb.Document.InvokeScript("SetCircle", _circleArgs);
+                this.wb.Document.InvokeScript("SetCircle", _circleArgs); 
 
                 //Er is een wijk geselecteerd
                 districtSelected = true;
@@ -151,6 +151,16 @@ namespace WijkAgent.Model
             double _radiusKm = (_metresFromCenterToCorner / 1000);
 
             return _radiusKm;
+        }
+        #endregion
+
+        #region hightlightMarker
+        public void hightlightMarker(int _id)
+        {
+            //stuur het id mee naar een functie in javascript
+            Object[] _markerArgs = new Object[1] { _id };
+            this.wb.Document.InvokeScript("hightlightMarker", _markerArgs);
+            Console.WriteLine("js call success");
         }
         #endregion
     }
