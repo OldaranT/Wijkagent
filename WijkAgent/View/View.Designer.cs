@@ -585,7 +585,6 @@
             this.twitter_trending_panel.Location = new System.Drawing.Point(3, 67);
             this.twitter_trending_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.twitter_trending_panel.Name = "twitter_trending_panel";
-
             this.twitter_trending_panel.Size = new System.Drawing.Size(167, 94);
 
             this.twitter_trending_panel.TabIndex = 1;
