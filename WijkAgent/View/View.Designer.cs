@@ -42,6 +42,7 @@
             this.province_panel_label = new System.Windows.Forms.Label();
             this.go_to_main_menu_panel_button = new System.Windows.Forms.Button();
             this.map_panel = new System.Windows.Forms.Panel();
+            this.refresh_waypoints_button = new System.Windows.Forms.Button();
             this.main_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.main_menu_tabcontrol = new System.Windows.Forms.TabControl();
             this.main_menu_tab = new System.Windows.Forms.TabPage();
@@ -63,7 +64,6 @@
             this.twitter_panel = new System.Windows.Forms.Panel();
             this.twitter_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.twitter_messages_scroll_panel = new System.Windows.Forms.Panel();
-            this.refresh_waypoints_button = new System.Windows.Forms.Button();
             this.twitter_trending_panel = new System.Windows.Forms.Panel();
             this.twitter_trending_topic_label = new System.Windows.Forms.Label();
             this.twitter_logo_panel = new System.Windows.Forms.Panel();
@@ -98,10 +98,10 @@
             this.main_menu_panel.Controls.Add(this.main_menu_table_layout_panel);
             this.main_menu_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_panel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.main_menu_panel.Location = new System.Drawing.Point(3, 2);
-            this.main_menu_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.main_menu_panel.Location = new System.Drawing.Point(2, 2);
+            this.main_menu_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.main_menu_panel.Name = "main_menu_panel";
-            this.main_menu_panel.Size = new System.Drawing.Size(163, 648);
+            this.main_menu_panel.Size = new System.Drawing.Size(121, 524);
             this.main_menu_panel.TabIndex = 0;
             // 
             // main_menu_table_layout_panel
@@ -112,13 +112,13 @@
             this.main_menu_table_layout_panel.Controls.Add(this.main_menu_scroll_panel, 0, 1);
             this.main_menu_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.main_menu_table_layout_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.main_menu_table_layout_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.main_menu_table_layout_panel.Name = "main_menu_table_layout_panel";
             this.main_menu_table_layout_panel.RowCount = 3;
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.main_menu_table_layout_panel.Size = new System.Drawing.Size(163, 648);
+            this.main_menu_table_layout_panel.Size = new System.Drawing.Size(121, 524);
             this.main_menu_table_layout_panel.TabIndex = 0;
             // 
             // main_menu_panel_for_label
@@ -127,10 +127,10 @@
             this.main_menu_panel_for_label.Controls.Add(this.main_menu_label);
             this.main_menu_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_panel_for_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.main_menu_panel_for_label.Location = new System.Drawing.Point(3, 2);
-            this.main_menu_panel_for_label.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.main_menu_panel_for_label.Location = new System.Drawing.Point(2, 2);
+            this.main_menu_panel_for_label.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.main_menu_panel_for_label.Name = "main_menu_panel_for_label";
-            this.main_menu_panel_for_label.Size = new System.Drawing.Size(157, 60);
+            this.main_menu_panel_for_label.Size = new System.Drawing.Size(117, 48);
             this.main_menu_panel_for_label.TabIndex = 1;
             // 
             // main_menu_label
@@ -141,8 +141,9 @@
             this.main_menu_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.main_menu_label.ForeColor = System.Drawing.Color.White;
             this.main_menu_label.Location = new System.Drawing.Point(0, 0);
+            this.main_menu_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.main_menu_label.Name = "main_menu_label";
-            this.main_menu_label.Size = new System.Drawing.Size(175, 62);
+            this.main_menu_label.Size = new System.Drawing.Size(141, 50);
             this.main_menu_label.TabIndex = 0;
             this.main_menu_label.Text = "Welkom,\r\nAgent Henk.";
             // 
@@ -151,10 +152,10 @@
             this.main_menu_scroll_panel.AutoScroll = true;
             this.main_menu_scroll_panel.Controls.Add(this.go_to_province_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_menu_scroll_panel.Location = new System.Drawing.Point(3, 66);
-            this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.main_menu_scroll_panel.Location = new System.Drawing.Point(2, 54);
+            this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.main_menu_scroll_panel.Name = "main_menu_scroll_panel";
-            this.main_menu_scroll_panel.Size = new System.Drawing.Size(157, 514);
+            this.main_menu_scroll_panel.Size = new System.Drawing.Size(117, 415);
             this.main_menu_scroll_panel.TabIndex = 2;
             // 
             // go_to_province_panel_button_from_main_menu_tab
@@ -164,9 +165,9 @@
             this.go_to_province_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.go_to_province_panel_button_from_main_menu_tab.ForeColor = System.Drawing.Color.White;
             this.go_to_province_panel_button_from_main_menu_tab.Location = new System.Drawing.Point(0, 0);
-            this.go_to_province_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.go_to_province_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.go_to_province_panel_button_from_main_menu_tab.Name = "go_to_province_panel_button_from_main_menu_tab";
-            this.go_to_province_panel_button_from_main_menu_tab.Size = new System.Drawing.Size(157, 92);
+            this.go_to_province_panel_button_from_main_menu_tab.Size = new System.Drawing.Size(117, 75);
             this.go_to_province_panel_button_from_main_menu_tab.TabIndex = 2;
             this.go_to_province_panel_button_from_main_menu_tab.Text = "Selecteer Wijk";
             this.go_to_province_panel_button_from_main_menu_tab.UseVisualStyleBackColor = false;
@@ -178,10 +179,10 @@
             this.province_panel.Controls.Add(this.province_table_layout_panel);
             this.province_panel.Controls.Add(this.go_to_main_menu_panel_button);
             this.province_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.province_panel.Location = new System.Drawing.Point(3, 2);
-            this.province_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.province_panel.Location = new System.Drawing.Point(2, 2);
+            this.province_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.province_panel.Name = "province_panel";
-            this.province_panel.Size = new System.Drawing.Size(163, 648);
+            this.province_panel.Size = new System.Drawing.Size(121, 524);
             this.province_panel.TabIndex = 2;
             // 
             // province_table_layout_panel
@@ -192,22 +193,22 @@
             this.province_table_layout_panel.Controls.Add(this.province_panel_for_label, 0, 0);
             this.province_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.province_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.province_table_layout_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.province_table_layout_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.province_table_layout_panel.Name = "province_table_layout_panel";
             this.province_table_layout_panel.RowCount = 2;
             this.province_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.province_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.province_table_layout_panel.Size = new System.Drawing.Size(163, 573);
+            this.province_table_layout_panel.Size = new System.Drawing.Size(121, 463);
             this.province_table_layout_panel.TabIndex = 5;
             // 
             // province_scroll_panel
             // 
             this.province_scroll_panel.AutoScroll = true;
             this.province_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.province_scroll_panel.Location = new System.Drawing.Point(3, 59);
-            this.province_scroll_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.province_scroll_panel.Location = new System.Drawing.Point(2, 48);
+            this.province_scroll_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.province_scroll_panel.Name = "province_scroll_panel";
-            this.province_scroll_panel.Size = new System.Drawing.Size(157, 512);
+            this.province_scroll_panel.Size = new System.Drawing.Size(117, 413);
             this.province_scroll_panel.TabIndex = 0;
             // 
             // province_panel_for_label
@@ -216,10 +217,10 @@
             this.province_panel_for_label.Controls.Add(this.province_panel_label);
             this.province_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.province_panel_for_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.province_panel_for_label.Location = new System.Drawing.Point(3, 2);
-            this.province_panel_for_label.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.province_panel_for_label.Location = new System.Drawing.Point(2, 2);
+            this.province_panel_for_label.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.province_panel_for_label.Name = "province_panel_for_label";
-            this.province_panel_for_label.Size = new System.Drawing.Size(157, 53);
+            this.province_panel_for_label.Size = new System.Drawing.Size(117, 42);
             this.province_panel_for_label.TabIndex = 1;
             // 
             // province_panel_label
@@ -230,8 +231,9 @@
             this.province_panel_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.province_panel_label.ForeColor = System.Drawing.Color.White;
             this.province_panel_label.Location = new System.Drawing.Point(0, 0);
+            this.province_panel_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.province_panel_label.Name = "province_panel_label";
-            this.province_panel_label.Size = new System.Drawing.Size(262, 31);
+            this.province_panel_label.Size = new System.Drawing.Size(214, 25);
             this.province_panel_label.TabIndex = 0;
             this.province_panel_label.Text = "Kies een provincie:";
             // 
@@ -239,10 +241,10 @@
             // 
             this.go_to_main_menu_panel_button.BackColor = System.Drawing.SystemColors.ControlLight;
             this.go_to_main_menu_panel_button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.go_to_main_menu_panel_button.Location = new System.Drawing.Point(0, 573);
-            this.go_to_main_menu_panel_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.go_to_main_menu_panel_button.Location = new System.Drawing.Point(0, 463);
+            this.go_to_main_menu_panel_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.go_to_main_menu_panel_button.Name = "go_to_main_menu_panel_button";
-            this.go_to_main_menu_panel_button.Size = new System.Drawing.Size(163, 75);
+            this.go_to_main_menu_panel_button.Size = new System.Drawing.Size(121, 61);
             this.go_to_main_menu_panel_button.TabIndex = 4;
             this.go_to_main_menu_panel_button.Text = "Terug";
             this.go_to_main_menu_panel_button.UseVisualStyleBackColor = false;
@@ -253,10 +255,10 @@
             this.map_panel.BackColor = System.Drawing.Color.White;
             this.map_panel.Controls.Add(this.refresh_waypoints_button);
             this.map_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map_panel.Location = new System.Drawing.Point(180, 2);
-            this.map_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.map_panel.Location = new System.Drawing.Point(135, 2);
+            this.map_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.map_panel.Name = "map_panel";
-            this.map_panel.Size = new System.Drawing.Size(822, 657);
+            this.map_panel.Size = new System.Drawing.Size(617, 533);
             this.map_panel.TabIndex = 2;
             // 
             // refresh_waypoints_button
@@ -266,10 +268,10 @@
             this.refresh_waypoints_button.BackgroundImage = global::WijkAgent.Properties.Resources.refresh_button_icon_self_made;
             this.refresh_waypoints_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.refresh_waypoints_button.ForeColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_button.Location = new System.Drawing.Point(779, 0);
-            this.refresh_waypoints_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.refresh_waypoints_button.Location = new System.Drawing.Point(585, 0);
+            this.refresh_waypoints_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.refresh_waypoints_button.Name = "refresh_waypoints_button";
-            this.refresh_waypoints_button.Size = new System.Drawing.Size(44, 39);
+            this.refresh_waypoints_button.Size = new System.Drawing.Size(33, 32);
             this.refresh_waypoints_button.TabIndex = 0;
             this.refresh_waypoints_button.UseVisualStyleBackColor = false;
             this.refresh_waypoints_button.Click += new System.EventHandler(this.refresh_waypoints_button_Click);
@@ -290,7 +292,7 @@
             this.main_table_layout_panel.Name = "main_table_layout_panel";
             this.main_table_layout_panel.RowCount = 1;
             this.main_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.main_table_layout_panel.Size = new System.Drawing.Size(1184, 661);
+            this.main_table_layout_panel.Size = new System.Drawing.Size(888, 537);
             this.main_table_layout_panel.TabIndex = 3;
             // 
             // main_menu_tabcontrol
@@ -308,7 +310,7 @@
             this.main_menu_tabcontrol.Name = "main_menu_tabcontrol";
             this.main_menu_tabcontrol.Padding = new System.Drawing.Point(0, 0);
             this.main_menu_tabcontrol.SelectedIndex = 0;
-            this.main_menu_tabcontrol.Size = new System.Drawing.Size(177, 661);
+            this.main_menu_tabcontrol.Size = new System.Drawing.Size(133, 537);
             this.main_menu_tabcontrol.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.main_menu_tabcontrol.TabIndex = 0;
             // 
@@ -317,10 +319,10 @@
             this.main_menu_tab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.main_menu_tab.Controls.Add(this.main_menu_panel);
             this.main_menu_tab.Location = new System.Drawing.Point(4, 5);
-            this.main_menu_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.main_menu_tab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.main_menu_tab.Name = "main_menu_tab";
-            this.main_menu_tab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.main_menu_tab.Size = new System.Drawing.Size(169, 652);
+            this.main_menu_tab.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.main_menu_tab.Size = new System.Drawing.Size(125, 528);
             this.main_menu_tab.TabIndex = 0;
             this.main_menu_tab.Text = "Menu";
             this.main_menu_tab.UseVisualStyleBackColor = true;
@@ -329,10 +331,10 @@
             // 
             this.province_tab.Controls.Add(this.province_panel);
             this.province_tab.Location = new System.Drawing.Point(4, 5);
-            this.province_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.province_tab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.province_tab.Name = "province_tab";
-            this.province_tab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.province_tab.Size = new System.Drawing.Size(169, 652);
+            this.province_tab.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.province_tab.Size = new System.Drawing.Size(125, 528);
             this.province_tab.TabIndex = 1;
             this.province_tab.Text = "Province";
             this.province_tab.UseVisualStyleBackColor = true;
@@ -341,9 +343,9 @@
             // 
             this.city_tab.Controls.Add(this.city_panel);
             this.city_tab.Location = new System.Drawing.Point(4, 5);
-            this.city_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.city_tab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.city_tab.Name = "city_tab";
-            this.city_tab.Size = new System.Drawing.Size(169, 652);
+            this.city_tab.Size = new System.Drawing.Size(125, 528);
             this.city_tab.TabIndex = 2;
             this.city_tab.UseVisualStyleBackColor = true;
             // 
@@ -355,9 +357,9 @@
             this.city_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.city_panel.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.city_panel.Location = new System.Drawing.Point(0, 0);
-            this.city_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.city_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.city_panel.Name = "city_panel";
-            this.city_panel.Size = new System.Drawing.Size(169, 652);
+            this.city_panel.Size = new System.Drawing.Size(125, 528);
             this.city_panel.TabIndex = 0;
             // 
             // city_table_layout_panel
@@ -368,12 +370,12 @@
             this.city_table_layout_panel.Controls.Add(this.city_scroll_panel, 0, 1);
             this.city_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.city_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.city_table_layout_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.city_table_layout_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.city_table_layout_panel.Name = "city_table_layout_panel";
             this.city_table_layout_panel.RowCount = 2;
             this.city_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.city_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.city_table_layout_panel.Size = new System.Drawing.Size(169, 577);
+            this.city_table_layout_panel.Size = new System.Drawing.Size(125, 467);
             this.city_table_layout_panel.TabIndex = 1;
             // 
             // city_panel_for_label
@@ -382,10 +384,10 @@
             this.city_panel_for_label.Controls.Add(this.city_panel_label);
             this.city_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.city_panel_for_label.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.city_panel_for_label.Location = new System.Drawing.Point(3, 2);
-            this.city_panel_for_label.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.city_panel_for_label.Location = new System.Drawing.Point(2, 2);
+            this.city_panel_for_label.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.city_panel_for_label.Name = "city_panel_for_label";
-            this.city_panel_for_label.Size = new System.Drawing.Size(163, 53);
+            this.city_panel_for_label.Size = new System.Drawing.Size(121, 42);
             this.city_panel_for_label.TabIndex = 0;
             // 
             // city_panel_label
@@ -396,8 +398,9 @@
             this.city_panel_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.city_panel_label.ForeColor = System.Drawing.Color.White;
             this.city_panel_label.Location = new System.Drawing.Point(0, 0);
+            this.city_panel_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.city_panel_label.Name = "city_panel_label";
-            this.city_panel_label.Size = new System.Drawing.Size(200, 31);
+            this.city_panel_label.Size = new System.Drawing.Size(163, 25);
             this.city_panel_label.TabIndex = 0;
             this.city_panel_label.Text = "Kies een stad:";
             // 
@@ -405,20 +408,20 @@
             // 
             this.city_scroll_panel.AutoScroll = true;
             this.city_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.city_scroll_panel.Location = new System.Drawing.Point(3, 59);
-            this.city_scroll_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.city_scroll_panel.Location = new System.Drawing.Point(2, 48);
+            this.city_scroll_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.city_scroll_panel.Name = "city_scroll_panel";
-            this.city_scroll_panel.Size = new System.Drawing.Size(163, 516);
+            this.city_scroll_panel.Size = new System.Drawing.Size(121, 417);
             this.city_scroll_panel.TabIndex = 1;
             // 
             // go_to_province_panel_button_from_city_tab
             // 
             this.go_to_province_panel_button_from_city_tab.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.go_to_province_panel_button_from_city_tab.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.go_to_province_panel_button_from_city_tab.Location = new System.Drawing.Point(0, 577);
-            this.go_to_province_panel_button_from_city_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.go_to_province_panel_button_from_city_tab.Location = new System.Drawing.Point(0, 467);
+            this.go_to_province_panel_button_from_city_tab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.go_to_province_panel_button_from_city_tab.Name = "go_to_province_panel_button_from_city_tab";
-            this.go_to_province_panel_button_from_city_tab.Size = new System.Drawing.Size(169, 75);
+            this.go_to_province_panel_button_from_city_tab.Size = new System.Drawing.Size(125, 61);
             this.go_to_province_panel_button_from_city_tab.TabIndex = 0;
             this.go_to_province_panel_button_from_city_tab.Text = "Terug";
             this.go_to_province_panel_button_from_city_tab.UseVisualStyleBackColor = true;
@@ -428,9 +431,9 @@
             // 
             this.district_tab.Controls.Add(this.district_panel);
             this.district_tab.Location = new System.Drawing.Point(4, 5);
-            this.district_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.district_tab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.district_tab.Name = "district_tab";
-            this.district_tab.Size = new System.Drawing.Size(169, 652);
+            this.district_tab.Size = new System.Drawing.Size(125, 528);
             this.district_tab.TabIndex = 3;
             this.district_tab.UseVisualStyleBackColor = true;
             // 
@@ -441,9 +444,9 @@
             this.district_panel.Controls.Add(this.go_to_city_panel_button_from_district_tab);
             this.district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.district_panel.Location = new System.Drawing.Point(0, 0);
-            this.district_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.district_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.district_panel.Name = "district_panel";
-            this.district_panel.Size = new System.Drawing.Size(169, 652);
+            this.district_panel.Size = new System.Drawing.Size(125, 528);
             this.district_panel.TabIndex = 0;
             // 
             // district_table_layout_panel
@@ -454,22 +457,22 @@
             this.district_table_layout_panel.Controls.Add(this.district_scroll_panel, 0, 1);
             this.district_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.district_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.district_table_layout_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.district_table_layout_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.district_table_layout_panel.Name = "district_table_layout_panel";
             this.district_table_layout_panel.RowCount = 2;
             this.district_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.district_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.district_table_layout_panel.Size = new System.Drawing.Size(169, 577);
+            this.district_table_layout_panel.Size = new System.Drawing.Size(125, 467);
             this.district_table_layout_panel.TabIndex = 1;
             // 
             // district_panel_for_label
             // 
             this.district_panel_for_label.Controls.Add(this.district_panel_label);
             this.district_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.district_panel_for_label.Location = new System.Drawing.Point(3, 2);
-            this.district_panel_for_label.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.district_panel_for_label.Location = new System.Drawing.Point(2, 2);
+            this.district_panel_for_label.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.district_panel_for_label.Name = "district_panel_for_label";
-            this.district_panel_for_label.Size = new System.Drawing.Size(163, 53);
+            this.district_panel_for_label.Size = new System.Drawing.Size(121, 42);
             this.district_panel_for_label.TabIndex = 0;
             // 
             // district_panel_label
@@ -480,8 +483,9 @@
             this.district_panel_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.district_panel_label.ForeColor = System.Drawing.Color.White;
             this.district_panel_label.Location = new System.Drawing.Point(0, 0);
+            this.district_panel_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.district_panel_label.Name = "district_panel_label";
-            this.district_panel_label.Size = new System.Drawing.Size(194, 31);
+            this.district_panel_label.Size = new System.Drawing.Size(158, 25);
             this.district_panel_label.TabIndex = 0;
             this.district_panel_label.Text = "Kies een wijk:";
             // 
@@ -489,10 +493,10 @@
             // 
             this.district_scroll_panel.AutoScroll = true;
             this.district_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.district_scroll_panel.Location = new System.Drawing.Point(3, 59);
-            this.district_scroll_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.district_scroll_panel.Location = new System.Drawing.Point(2, 48);
+            this.district_scroll_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.district_scroll_panel.Name = "district_scroll_panel";
-            this.district_scroll_panel.Size = new System.Drawing.Size(163, 516);
+            this.district_scroll_panel.Size = new System.Drawing.Size(121, 417);
             this.district_scroll_panel.TabIndex = 1;
             // 
             // go_to_city_panel_button_from_district_tab
@@ -500,10 +504,10 @@
             this.go_to_city_panel_button_from_district_tab.BackColor = System.Drawing.Color.White;
             this.go_to_city_panel_button_from_district_tab.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.go_to_city_panel_button_from_district_tab.ForeColor = System.Drawing.Color.Black;
-            this.go_to_city_panel_button_from_district_tab.Location = new System.Drawing.Point(0, 577);
-            this.go_to_city_panel_button_from_district_tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.go_to_city_panel_button_from_district_tab.Location = new System.Drawing.Point(0, 467);
+            this.go_to_city_panel_button_from_district_tab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.go_to_city_panel_button_from_district_tab.Name = "go_to_city_panel_button_from_district_tab";
-            this.go_to_city_panel_button_from_district_tab.Size = new System.Drawing.Size(169, 75);
+            this.go_to_city_panel_button_from_district_tab.Size = new System.Drawing.Size(125, 61);
             this.go_to_city_panel_button_from_district_tab.TabIndex = 0;
             this.go_to_city_panel_button_from_district_tab.Text = "Terug";
             this.go_to_city_panel_button_from_district_tab.UseVisualStyleBackColor = false;
@@ -514,10 +518,10 @@
             this.twitter_panel.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.twitter_panel.Controls.Add(this.twitter_table_layout_panel);
             this.twitter_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_panel.Location = new System.Drawing.Point(1008, 2);
-            this.twitter_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.twitter_panel.Location = new System.Drawing.Point(756, 2);
+            this.twitter_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.twitter_panel.Name = "twitter_panel";
-            this.twitter_panel.Size = new System.Drawing.Size(173, 657);
+            this.twitter_panel.Size = new System.Drawing.Size(130, 533);
             this.twitter_panel.TabIndex = 3;
             // 
             // twitter_table_layout_panel
@@ -529,19 +533,12 @@
             this.twitter_table_layout_panel.Controls.Add(this.twitter_logo_panel, 0, 0);
             this.twitter_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.twitter_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.twitter_table_layout_panel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.twitter_table_layout_panel.Name = "twitter_table_layout_panel";
-            this.twitter_table_layout_panel.RowCount = 3;
-            this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.twitter_table_layout_panel.Margin = new System.Windows.Forms.Padding(4);
             this.twitter_table_layout_panel.Name = "twitter_table_layout_panel";
             this.twitter_table_layout_panel.RowCount = 3;
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.twitter_table_layout_panel.Size = new System.Drawing.Size(173, 657);
+            this.twitter_table_layout_panel.Size = new System.Drawing.Size(130, 533);
             this.twitter_table_layout_panel.TabIndex = 0;
             // 
             // twitter_messages_scroll_panel
@@ -549,31 +546,12 @@
             this.twitter_messages_scroll_panel.AutoScroll = true;
             this.twitter_messages_scroll_panel.BackColor = System.Drawing.Color.PowderBlue;
             this.twitter_messages_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(3, 132);
-            this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(2, 134);
+            this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.twitter_messages_scroll_panel.Name = "twitter_messages_scroll_panel";
-            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(167, 523);
-            this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(3, 165);
-            this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.twitter_messages_scroll_panel.Name = "twitter_messages_scroll_panel";
-            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(167, 490);
+            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(126, 397);
             this.twitter_messages_scroll_panel.TabIndex = 2;
             this.twitter_messages_scroll_panel.TabStop = true;
-            // 
-            // refresh_waypoints_button
-            // 
-            this.refresh_waypoints_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.refresh_waypoints_button.BackColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_button.BackgroundImage = global::WijkAgent.Properties.Resources.refresh_button_icon_self_made;
-            this.refresh_waypoints_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.refresh_waypoints_button.ForeColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_button.Location = new System.Drawing.Point(779, 0);
-            this.refresh_waypoints_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.refresh_waypoints_button.Name = "refresh_waypoints_button";
-            this.refresh_waypoints_button.Size = new System.Drawing.Size(44, 39);
-            this.refresh_waypoints_button.TabIndex = 0;
-            this.refresh_waypoints_button.UseVisualStyleBackColor = false;
-            this.refresh_waypoints_button.Click += new System.EventHandler(this.refresh_waypoints_button_Click);
             // 
             // twitter_trending_panel
             // 
@@ -582,11 +560,10 @@
             this.twitter_trending_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.twitter_trending_panel.Controls.Add(this.twitter_trending_topic_label);
             this.twitter_trending_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_trending_panel.Location = new System.Drawing.Point(3, 67);
-            this.twitter_trending_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.twitter_trending_panel.Location = new System.Drawing.Point(2, 55);
+            this.twitter_trending_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.twitter_trending_panel.Name = "twitter_trending_panel";
-            this.twitter_trending_panel.Size = new System.Drawing.Size(167, 94);
-
+            this.twitter_trending_panel.Size = new System.Drawing.Size(126, 75);
             this.twitter_trending_panel.TabIndex = 1;
             // 
             // twitter_trending_topic_label
@@ -596,8 +573,9 @@
             this.twitter_trending_topic_label.Dock = System.Windows.Forms.DockStyle.Top;
             this.twitter_trending_topic_label.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.twitter_trending_topic_label.Location = new System.Drawing.Point(0, 0);
+            this.twitter_trending_topic_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.twitter_trending_topic_label.Name = "twitter_trending_topic_label";
-            this.twitter_trending_topic_label.Size = new System.Drawing.Size(190, 35);
+            this.twitter_trending_topic_label.Size = new System.Drawing.Size(158, 27);
             this.twitter_trending_topic_label.TabIndex = 0;
             this.twitter_trending_topic_label.Text = "Trending topics:\r\n";
             // 
@@ -606,20 +584,20 @@
             this.twitter_logo_panel.BackgroundImage = global::WijkAgent.Properties.Resources.twitter_company_statistics__1_;
             this.twitter_logo_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.twitter_logo_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_logo_panel.Location = new System.Drawing.Point(3, 2);
-            this.twitter_logo_panel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.twitter_logo_panel.Location = new System.Drawing.Point(2, 2);
+            this.twitter_logo_panel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.twitter_logo_panel.Name = "twitter_logo_panel";
-            this.twitter_logo_panel.Size = new System.Drawing.Size(167, 61);
+            this.twitter_logo_panel.Size = new System.Drawing.Size(126, 49);
             this.twitter_logo_panel.TabIndex = 0;
             // 
             // View
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 661);
+            this.ClientSize = new System.Drawing.Size(888, 537);
             this.Controls.Add(this.main_table_layout_panel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "View";
             this.Text = "WijkAgent";
             this.Load += new System.EventHandler(this.View_Load);
