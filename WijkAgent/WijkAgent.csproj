@@ -97,12 +97,9 @@
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Controller\ViewController.cs" />
-    <Compile Include="Model\City.cs" />
-    <Compile Include="Model\District.cs" />
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\ModelClass.cs" />
-    <Compile Include="Model\Province.cs" />
     <Compile Include="Model\SQLConnection.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\Twitter.cs" />
@@ -147,6 +144,10 @@
   <ItemGroup>
     <None Include="Resources\refresh-button-icon-self-made.png" />
     <None Include="Resources\twitter-company-statistics %281%29.jpg" />
+    <None Include="Resources\gray-background-4.jpg" />
+    <None Include="Resources\gray-background-41.jpg" />
+    <None Include="Resources\labelbackground.png" />
+    <None Include="Resources\twitter.png" />
     <Content Include="Resource\Map.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
