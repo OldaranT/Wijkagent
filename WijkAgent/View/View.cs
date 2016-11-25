@@ -239,7 +239,6 @@ namespace WijkAgent
             List<string> trendingTweetWord = new List<string>();
 
             twitter_messages_scroll_panel.Controls.Clear();
-            twitter_trending_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
@@ -276,7 +275,7 @@ namespace WijkAgent
             }
 
             var words =
-            Regex.Split(_tekst, @"\W+")
+            Regex.Split(_tekst.ToLower(), @"\W+")
             .Where(s => s.Length > 3)
             .GroupBy(s => s)
             .OrderByDescending(g => g.Count());
@@ -286,10 +285,7 @@ namespace WijkAgent
                 trendingTweetWord.Add(word.Key);
             }
 
-            Label trendingTweetLabel = new Label();
-            trendingTweetLabel.Text = trendingTweetWord[0];
-
-            twitter_trending_panel.Controls.Add(trendingTweetLabel);
+            twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
 
             //twitter aanroep
 

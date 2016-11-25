@@ -147,6 +147,10 @@
   <ItemGroup>
     <None Include="Resources\refresh-button-icon-self-made.png" />
     <None Include="Resources\twitter-company-statistics %281%29.jpg" />
+    <None Include="Resources\gray-background-4.jpg" />
+    <None Include="Resources\gray-background-41.jpg" />
+    <None Include="Resources\labelbackground.png" />
+    <None Include="Resources\twitter.png" />
     <Content Include="Resource\Map.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
