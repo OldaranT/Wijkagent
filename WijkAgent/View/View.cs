@@ -142,6 +142,9 @@ namespace WijkAgent
             {
                 try
                 {
+                    //Alles opschonen
+                    city_scroll_panel.Controls.Clear();
+
                     int idProvince = Convert.ToInt32(clickedButton.Name);
 
                     //Open database connectie
@@ -319,8 +322,9 @@ namespace WijkAgent
                 }
             }
 
-
             modelClass.databaseConnectie.conn.Close();
+
+            main_menu_tabcontrol.SelectTab(0);
 
             //Controleerd of er een wijk is geselecteerd
             if (modelClass.map.districtSelected)
