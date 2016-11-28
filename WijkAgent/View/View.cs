@@ -297,8 +297,9 @@ namespace WijkAgent
                 foreach(var word in words){
                     trendingTweetWord.Add(word.Key);
                 }
-                
-                twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+
+                //WEGVOORDEMO!!!!
+                //twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
 
 
                 //twitter aanroep
@@ -318,7 +319,8 @@ namespace WijkAgent
                     tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
                     tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
 
-                    twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+                    //WEGVOORDEMO!!!!
+                    //twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
                 }
             }
 
@@ -326,9 +328,10 @@ namespace WijkAgent
 
             main_menu_tabcontrol.SelectTab(0);
 
+            //WEGVOORDEMO!!!!
             //Controleerd of er een wijk is geselecteerd
-            if (modelClass.map.districtSelected)
-                refresh_waypoints_button.Show();
+            //if (modelClass.map.districtSelected)
+            //    refresh_waypoints_button.Show();
         }
         #endregion
 
