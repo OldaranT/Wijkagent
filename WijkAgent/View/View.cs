@@ -128,10 +128,12 @@ namespace WijkAgent
         }
         #endregion
 
+        #region backToMainMenuPanelButton_Clicked
         private void go_to_main_menu_panel_button_Click(object sender, EventArgs e)
         {
             main_menu_tabcontrol.SelectTab(0);
         }
+        #endregion
 
         #region GeneratedProvinceButton_Clicked
         //Kijkt of er een ProvinceGenerated Button is ingedrukt.

@@ -93,6 +93,16 @@ namespace WijkAgent.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap politie_categorie {
+            get {
+                object obj = ResourceManager.GetObject("politie-categorie", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap refresh_button_icon_self_made {
             get {
                 object obj = ResourceManager.GetObject("refresh-button-icon-self-made", resourceCulture);

@@ -8,7 +8,7 @@ namespace WijkAgent.Controller
 {
     class ViewController
     {
-        private View view;
+        public View view;
 
         public ViewController(View _view)
         {
