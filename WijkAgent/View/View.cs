@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace WijkAgent
 {
-    public delegate void RefreshButtonClick(); 
+    public delegate void RefreshButtonClick();
 
     public partial class View : Form
     {
@@ -27,6 +27,8 @@ namespace WijkAgent
         private Color policeGold;
         private Font buttonFont;
         private LoadingScreen loadingScreen;
+        //laats geklikte label
+        private Label lastClickedLabel;
 
         //events
         public event RefreshButtonClick OnRefreshButtonClick;
@@ -86,7 +88,8 @@ namespace WijkAgent
         #region SelectDestrictButtonOnMainMenu_Clicked
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (!provinceButtonsCreated) {
+            if (!provinceButtonsCreated)
+            {
                 try
                 {
                     //Open database connectie
@@ -109,7 +112,8 @@ namespace WijkAgent
                     }
                     modelClass.databaseConnectie.conn.Close();
                     provinceButtonsCreated = true;
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
                     Console.WriteLine(ex.Message);
@@ -124,10 +128,12 @@ namespace WijkAgent
         }
         #endregion
 
+        #region backToMainMenuPanelButton_Clicked
         private void go_to_main_menu_panel_button_Click(object sender, EventArgs e)
         {
             main_menu_tabcontrol.SelectTab(0);
         }
+        #endregion
 
         #region GeneratedProvinceButton_Clicked
         //Kijkt of er een ProvinceGenerated Button is ingedrukt.
@@ -140,6 +146,9 @@ namespace WijkAgent
             {
                 try
                 {
+                    //Alles opschonen
+                    city_scroll_panel.Controls.Clear();
+
                     int idProvince = Convert.ToInt32(clickedButton.Name);
 
                     //Open database connectie
@@ -164,7 +173,8 @@ namespace WijkAgent
                     modelClass.databaseConnectie.conn.Close();
 
                     cityButtonsCreated = true;
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
                     Console.WriteLine(ex.Message);
@@ -187,7 +197,7 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-            if (!districtButtonsCreated) 
+            if (!districtButtonsCreated)
             {
                 try
                 {
@@ -214,7 +224,8 @@ namespace WijkAgent
                     }
                     modelClass.databaseConnectie.conn.Close();
                     districtButtonsCreated = true;
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
                     Console.WriteLine(ex.Message);
@@ -242,9 +253,6 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-
-            int twitterLabelSizeX = 275;
-            int twitterLabelSizeY = 0;
             int idDistrict = Convert.ToInt32(clickedButton.Name);
             List<double> latitudeList = new List<double>();
             List<double> longtitudeList = new List<double>();
@@ -266,59 +274,62 @@ namespace WijkAgent
             }
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
 
-            //twitter trending
-            var _tekst = "";
-
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            if (!modelClass.map.twitter.tweetsList.Any())
             {
-                _tekst += tweets.message + " ";
-            }
-
-            var words =
-            Regex.Split(_tekst, @"\W+")
-            .Where(s => s.Length > 3)
-            .GroupBy(s => s)
-            .OrderByDescending(g => g.Count());
-
-            foreach (var word in words)
-            {
-                trendingTweetWord.Add(word.Key);
-            }
-
-            Label trendingTweetLabel = new Label();
-            trendingTweetLabel.Text = trendingTweetWord[0];
-
-            twitter_trending_panel.Controls.Add(trendingTweetLabel);
-
-            //twitter aanroep
-
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
-            {
-                string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                string infoMessage = ("Er zijn geen tweets in deze wijk.");
                 Label tweetMessageLabel = new Label();
-                tweetMessageLabel.Text = tweetMessage;
-                tweetMessageLabel.Name = Convert.ToString(tweets.id);
-                tweetMessageLabel.AutoSize = true;
-                tweetMessageLabel.MinimumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
-                tweetMessageLabel.MaximumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
-                tweetMessageLabel.Font = new Font("Calibri", 16);
-                tweetMessageLabel.BorderStyle = BorderStyle.Fixed3D;
-                tweetMessageLabel.ForeColor = Color.White;
-                tweetMessageLabel.BackColor = policeBlue;
-                tweetMessageLabel.Dock = DockStyle.Top;
-                
-
-                tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
-
-                tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
-
-
+                tweetMessageLabel.Text = infoMessage;
+                twitterLabelLayout(tweetMessageLabel);
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
             }
+            else
+            {
+                //twitter trending
+                var _tekst = "";
 
+                foreach (var tweets in modelClass.map.twitter.tweetsList)
+                {
+                    _tekst += tweets.message + " ";
+                }
+
+                var words =
+                Regex.Split(_tekst.ToLower(), @"\W+")
+                .Where(s => s.Length > 3)
+                .GroupBy(s => s)
+                .OrderByDescending(g => g.Count());
+
+                foreach(var word in words){
+                    trendingTweetWord.Add(word.Key);
+                }
+                
+                twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+
+                //twitter aanroep
+                foreach (var tweets in modelClass.map.twitter.tweetsList)
+                {
+                    string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                    foreach (string link in tweets.links)
+                    {
+                        tweetMessage += "\n" + link;
+                    }
+                    Label tweetMessageLabel = new Label();
+                    tweetMessageLabel.Text = tweetMessage;
+                    tweetMessageLabel.Name = Convert.ToString(tweets.id);
+                    twitterLabelLayout(tweetMessageLabel);
+
+                    //Als de muis over twitter label hovert wordt die goud.
+                    tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
+                    tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+                    //onclick label voor de marker highlight
+                    tweetMessageLabel.Click += TweetMessageOnClick;
+                    twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+                }
+            }
+            
             modelClass.TweetsToDb(modelClass.databaseConnectie);
-
             modelClass.databaseConnectie.conn.Close();
+
+            main_menu_tabcontrol.SelectTab(0);
 
             //Controleerd of er een wijk is geselecteerd
             if (modelClass.map.districtSelected)
@@ -362,10 +373,18 @@ namespace WijkAgent
         #endregion
 
         #region GeneratedTextBoxStyle_Method
-        private void textBoxLayout(TextBox _textbox)
+        private void twitterLabelLayout(Label _label)
         {
-            _textbox.Size = new Size(buttonSizeX, buttonSizeY);
-            _textbox.Dock = DockStyle.Top;
+            int twitterLabelSizeX = 275;
+            int twitterLabelSizeY = 0;
+            _label.AutoSize = true;
+            _label.MinimumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
+            _label.MaximumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
+            _label.Font = new Font("Calibri", 16);
+            _label.BorderStyle = BorderStyle.Fixed3D;
+            _label.ForeColor = Color.White;
+            _label.BackColor = policeBlue;
+            _label.Dock = DockStyle.Top;
         }
         #endregion
 
@@ -382,15 +401,33 @@ namespace WijkAgent
         {
             Label hoverTweet = (Label)sender;
             hoverTweet.BackColor = policeGold;
-
         }
         private void on_exit_hover_twitter_message(object sender, EventArgs e)
         {
             Label hoverTweet = (Label)sender;
-            hoverTweet.BackColor = policeBlue;
+            if(hoverTweet != lastClickedLabel){
+                hoverTweet.BackColor = policeBlue;
+            }
+            
 
         }
         #endregion
 
+        #region OnTwitterMessageClick
+        private void TweetMessageOnClick(object sender, EventArgs e)
+        {
+            if(lastClickedLabel != null)
+            {
+                lastClickedLabel.BackColor = policeBlue;
+            }
+
+            Label _label = (Label)sender;
+            lastClickedLabel = _label;
+            //label naam is het id van de tweet maar ik wil het in een int hebben dus parse ik hem
+            int _labelId = Int32.Parse(_label.Name);
+            //kleur veranderen van de label
+            modelClass.map.hightlightMarker(_labelId);
+        }
+        #endregion
     }
 }

@@ -90,19 +90,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\LogInScreenController.cs" />
+    <Compile Include="View\LogInScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\LogInScreen.Designer.cs">
+      <DependentUpon>LogInScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\LoadingScreen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\LoadingScreen.Designer.cs">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Controller\ViewController.cs" />
-    <Compile Include="Model\City.cs" />
-    <Compile Include="Model\District.cs" />
+    <Compile Include="Controller\ViewController.cs" />
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\ModelClass.cs" />
-    <Compile Include="Model\Province.cs" />
     <Compile Include="Model\SQLConnection.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\Twitter.cs" />
@@ -114,6 +118,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="View\LogInScreen.resx">
+      <DependentUpon>LogInScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -147,6 +154,11 @@
   <ItemGroup>
     <None Include="Resources\refresh-button-icon-self-made.png" />
     <None Include="Resources\twitter-company-statistics %281%29.jpg" />
+    <None Include="Resources\gray-background-4.jpg" />
+    <None Include="Resources\gray-background-41.jpg" />
+    <None Include="Resources\labelbackground.png" />
+    <None Include="Resources\twitter.png" />
+    <None Include="Resources\politie-categorie.jpg" />
     <Content Include="Resource\Map.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

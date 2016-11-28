@@ -36,10 +36,6 @@ namespace WijkAgent.Model
                     this.color = "blue";
                     this.label = "Twitter"; 
                     break;
-                case 'I':
-                    this.color = "white";
-                    this.label = "Instagram";
-                    break;
                 default:
                     this.color = "red";
                     this.label = "Unknown";
@@ -53,7 +49,7 @@ namespace WijkAgent.Model
             _markerArgs[0] = this.latitude;
             _markerArgs[1] = this.longtitude;
             _markerArgs[2] = this.color;
-            _markerArgs[4] = this.label;
+            _markerArgs[4] = this.id;
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             wb.Document.InvokeScript("AddMarker", _markerArgs);
         }
