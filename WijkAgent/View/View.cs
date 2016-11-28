@@ -92,7 +92,7 @@ namespace WijkAgent
                     //Open database connectie
                     modelClass.databaseConnectie.conn.Open();
 
-                    //Selectie Query die de namen van allke province selecteer en ordered.
+                    //Selectie Query die de namen van alle province selecteer en ordered.
                     string stm = "SELECT * FROM province ORDER BY name DESC";
                     MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
                     modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
@@ -316,6 +316,7 @@ namespace WijkAgent
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
             }
 
+            modelClass.TweetsToDb(modelClass.databaseConnectie);
 
             modelClass.databaseConnectie.conn.Close();
 

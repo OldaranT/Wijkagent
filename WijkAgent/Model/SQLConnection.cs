@@ -11,14 +11,17 @@ namespace WijkAgent.Model
     {
         public MySqlConnection conn;
         public MySqlDataReader rdr;
+        public MySqlDataAdapter insrt;
+        
         public MySqlCommand cmd;
-        string myConnectionString;
+        public string myConnectionString;
 
         public SQLConnection()
         {
             myConnectionString = "server=127.0.0.1;port=3307;uid=root;" +
                         "pwd=usbw;database=wijkagent;";
             rdr = null;
+            insrt = null;
 
             try
             {
