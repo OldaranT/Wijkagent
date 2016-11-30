@@ -246,9 +246,7 @@ namespace WijkAgent
         public void DistrictButton_Click(object sender, EventArgs e)
         {
 
-            //twitterTrendingList
-            List<string> trendingTweetWord = new List<string>();
-            List<string> trendingTags = new List<string>();
+            
 
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
@@ -285,61 +283,13 @@ namespace WijkAgent
                 tweetMessageLabel.Text = infoMessage;
                 twitterLabelLayout(tweetMessageLabel);
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
+                twitter_trending_topic_label.Text = infoMessage;
             }
             else
             {
                 //twitter trending
-                var _tekst = "";
-
-                foreach (var tweets in modelClass.map.twitter.tweetsList)
-                {
-                    _tekst += tweets.message + " ";
-                }
-
-                var words =
-                Regex.Split(_tekst.ToLower(), @"\W+")
-                .Where(s => s.Length > 3)
-                .GroupBy(s => s)
-                .OrderByDescending(g => g.Count());
-
-                var tagsMessage =
-                    from tweet in modelClass.map.twitter.tweetsList
-                    where tweet.message.Contains("#")
-                    select tweet.message;
-
-                string messageTagsString = "";
-
-                foreach(string tagMessageWord in tagsMessage)
-                {
-                    messageTagsString += tagMessageWord + " ";
-                }
-
-                var tagsMessageSplit =
-                    Regex.Split(messageTagsString.ToLower(), @"\s+");
-
-                var tags = tagsMessageSplit
-                    .Where(a => a.StartsWith("#"))
-                    .GroupBy(s => s)
-                    .OrderByDescending(g => g.Count());
-
-                foreach(var tag in tags)
-                {
-                    trendingTags.Add(tag.Key);
-                }
-                    
-
-                foreach (var word in words){
-                    trendingTweetWord.Add(word.Key);
-                }
-                
-                
-                twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
-                twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
-                // debugging 
-                foreach (string word in trendingTweetWord)
-                {
-                    Console.WriteLine(word);
-                }
+                TwitterTrending();
 
                 //twitter aanroep
                 foreach (var tweets in modelClass.map.twitter.tweetsList)
@@ -474,5 +424,77 @@ namespace WijkAgent
             Environment.Exit(0);
         }
         #endregion
+
+        public void TwitterTrending()
+        {
+            //twitterTrendingList
+            List<string> trendingTweetWord = new List<string>();
+            List<string> trendingTags = new List<string>();
+
+            var _tekst = "";
+
+            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            {
+                _tekst += tweets.message + " ";
+            }
+
+            var words =
+            Regex.Split(_tekst.ToLower(), @"\W+")
+            .Where(s => s.Length > 3)
+            .GroupBy(s => s)
+            .OrderByDescending(g => g.Count());
+
+            var tagsMessage =
+                from tweet in modelClass.map.twitter.tweetsList
+                where tweet.message.Contains("#")
+                select tweet.message;
+
+            string messageTagsString = "";
+
+            foreach (string tagMessageWord in tagsMessage)
+            {
+                messageTagsString += tagMessageWord + " ";
+            }
+
+            var tagsMessageSplit =
+                Regex.Split(messageTagsString.ToLower(), @"\s+");
+
+            var tags = tagsMessageSplit
+                .Where(a => a.StartsWith("#"))
+                .GroupBy(s => s)
+                .OrderByDescending(g => g.Count());
+
+            foreach (var tag in tags)
+            {
+                trendingTags.Add(tag.Key);
+            }
+
+
+            foreach (var word in words)
+            {
+                trendingTweetWord.Add(word.Key);
+            }
+
+
+            twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+            int _tagCount = trendingTags.Count();
+            if(_tagCount == 0)
+            {
+                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
+            }
+            else if(_tagCount < 3)
+            {
+                twitter_trending_tag_label.Text = "Trending tags:\n";
+                for (int i = 0; i < _tagCount; i++)
+                {
+                    twitter_trending_tag_label.Text += (i + 1) + ": " + trendingTags[i] + "\n";
+                }
+            }
+            else
+            {
+                twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
+            }
+        }
+
     }
 }
