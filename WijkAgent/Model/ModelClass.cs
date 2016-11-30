@@ -35,9 +35,10 @@ namespace WijkAgent.Model
                 datetime = tweet.date;
 
                 databaseConnectie.conn.Open();
-                string stm = "SELECT * FROM twitter WHERE message = @message";
+                string stm = "SELECT * FROM twitter WHERE user = @user AND datetime = @datetime";
                 MySqlCommand cmd = new MySqlCommand(stm, databaseConnectie.conn);
-                cmd.Parameters.AddWithValue("@message", message);
+                cmd.Parameters.AddWithValue("@user", user);
+                cmd.Parameters.AddWithValue("@datetime", datetime);
                 databaseConnectie.rdr = cmd.ExecuteReader();
 
                 //Controleert of het twitter bericht al in de database staat
