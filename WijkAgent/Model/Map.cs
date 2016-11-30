@@ -11,8 +11,8 @@ namespace WijkAgent.Model
 {
     public class Map
     {
-        public double defaultLatitude = 52.2814566;
-        public double defaultLongtitude = 5.3465267;
+        public double defaultLatitude = 52.701800;
+        public double defaultLongtitude = 5.389761;
         public double defaultZoom = 8;
         public WebBrowser wb;
 
@@ -160,7 +160,6 @@ namespace WijkAgent.Model
             //stuur het id mee naar een functie in javascript
             Object[] _markerArgs = new Object[1] { _id };
             this.wb.Document.InvokeScript("hightlightMarker", _markerArgs);
-            Console.WriteLine("js call success");
         }
         #endregion
     }

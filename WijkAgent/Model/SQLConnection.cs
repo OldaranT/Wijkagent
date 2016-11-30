@@ -16,8 +16,8 @@ namespace WijkAgent.Model
 
         public SQLConnection()
         {
-            myConnectionString = "server=127.0.0.1;port=3307;uid=root;" +
-                        "pwd=usbw;database=wijkagent;";
+            myConnectionString = "server=michelvaartjes.nl;uid=micheic28_agent;" +
+                        "pwd=kek420;database=micheic28_wijkagent;";
             rdr = null;
 
             try
