@@ -32,6 +32,8 @@
             this.logIn_button_panel = new System.Windows.Forms.Panel();
             this.logIn_button_tableLayout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.logIn_button = new System.Windows.Forms.Button();
+            this.stayLoggedIn_checkbox = new System.Windows.Forms.CheckBox();
+            this.Wrong_LogIn = new System.Windows.Forms.Label();
             this.logIn_picterbox_panel = new System.Windows.Forms.Panel();
             this.logIn_picturebox = new System.Windows.Forms.PictureBox();
             this.logIn_input_panel = new System.Windows.Forms.Panel();
@@ -40,8 +42,6 @@
             this.logIn_password_label = new System.Windows.Forms.Label();
             this.logIn_username_textbox = new System.Windows.Forms.TextBox();
             this.logIn_password_textbox = new System.Windows.Forms.TextBox();
-            this.stayLoggedIn_checkbox = new System.Windows.Forms.CheckBox();
-            this.Wrong_LogIn = new System.Windows.Forms.Label();
             this.logIn_button_panel.SuspendLayout();
             this.logIn_button_tableLayout_panel.SuspendLayout();
             this.logIn_picterbox_panel.SuspendLayout();
@@ -87,6 +87,26 @@
             this.logIn_button.Text = "Log In";
             this.logIn_button.UseVisualStyleBackColor = true;
             this.logIn_button.Click += new System.EventHandler(this.logIn_button_Click);
+            // 
+            // stayLoggedIn_checkbox
+            // 
+            this.stayLoggedIn_checkbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.stayLoggedIn_checkbox.AutoSize = true;
+            this.stayLoggedIn_checkbox.Location = new System.Drawing.Point(229, 4);
+            this.stayLoggedIn_checkbox.Name = "stayLoggedIn_checkbox";
+            this.stayLoggedIn_checkbox.Size = new System.Drawing.Size(157, 17);
+            this.stayLoggedIn_checkbox.TabIndex = 1;
+            this.stayLoggedIn_checkbox.Text = "Gebruikersnaam onthouden";
+            this.stayLoggedIn_checkbox.UseVisualStyleBackColor = true;
+            // 
+            // Wrong_LogIn
+            // 
+            this.Wrong_LogIn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Wrong_LogIn.AutoSize = true;
+            this.Wrong_LogIn.Location = new System.Drawing.Point(308, 68);
+            this.Wrong_LogIn.Name = "Wrong_LogIn";
+            this.Wrong_LogIn.Size = new System.Drawing.Size(0, 13);
+            this.Wrong_LogIn.TabIndex = 2;
             // 
             // logIn_picterbox_panel
             // 
@@ -175,26 +195,6 @@
             this.logIn_password_textbox.Size = new System.Drawing.Size(117, 20);
             this.logIn_password_textbox.TabIndex = 3;
             // 
-            // stayLoggedIn_checkbox
-            // 
-            this.stayLoggedIn_checkbox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.stayLoggedIn_checkbox.AutoSize = true;
-            this.stayLoggedIn_checkbox.Location = new System.Drawing.Point(229, 4);
-            this.stayLoggedIn_checkbox.Name = "stayLoggedIn_checkbox";
-            this.stayLoggedIn_checkbox.Size = new System.Drawing.Size(157, 17);
-            this.stayLoggedIn_checkbox.TabIndex = 1;
-            this.stayLoggedIn_checkbox.Text = "Gebruikersnaam onthouden";
-            this.stayLoggedIn_checkbox.UseVisualStyleBackColor = true;
-            // 
-            // Wrong_LogIn
-            // 
-            this.Wrong_LogIn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Wrong_LogIn.AutoSize = true;
-            this.Wrong_LogIn.Location = new System.Drawing.Point(308, 68);
-            this.Wrong_LogIn.Name = "Wrong_LogIn";
-            this.Wrong_LogIn.Size = new System.Drawing.Size(0, 13);
-            this.Wrong_LogIn.TabIndex = 2;
-            // 
             // LogInScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,6 +207,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LogInScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "log In ";
             this.logIn_button_panel.ResumeLayout(false);
             this.logIn_button_tableLayout_panel.ResumeLayout(false);
