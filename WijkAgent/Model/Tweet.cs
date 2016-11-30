@@ -25,8 +25,11 @@ namespace WijkAgent.Model
             id = _id;
             latitude = _latitude;
             longitude = _longitude;
-            user = _user;
+
+            //quotes verwijderen
+            user = _user.Replace("\"", "");
             links = new List<string>();
+
             foreach (string word in _message.Split(' '))
             {
                 if (word.StartsWith("http"))
