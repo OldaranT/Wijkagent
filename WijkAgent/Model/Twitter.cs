@@ -64,8 +64,8 @@ namespace WijkAgent.Model
                     var user = matchingtweets.CreatedBy.Name.ToJson();
                     var date = matchingtweets.CreatedAt;
                     var message = matchingtweets.ToString();
-                    var tweetLatitude = matchingtweets.Coordinates.Latitude;
-                    var tweetLongitude = matchingtweets.Coordinates.Longitude;
+                    double tweetLatitude = matchingtweets.Coordinates.Latitude;
+                    double tweetLongitude = matchingtweets.Coordinates.Longitude;
                     var pastTime = matchingtweets.CreatedAt;
                     var nowTime = DateTime.Now.AddHours(-24);
 

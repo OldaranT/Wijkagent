@@ -21,6 +21,7 @@ namespace WijkAgent.Controller
         {
             //refreshed alles in de laatst geselecteerd wijk om nieuwe tweets weer te geven.
             view.modelClass.map.changeDistrict(view.modelClass.map.currentLatitudePoints, view.modelClass.map.currentLongitudePoints);
+            view.modelClass.TweetsToDb();
         }
         #endregion
     }
