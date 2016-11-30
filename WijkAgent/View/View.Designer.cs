@@ -67,6 +67,14 @@
             this.twitter_trending_panel = new System.Windows.Forms.Panel();
             this.twitter_trending_topic_label = new System.Windows.Forms.Label();
             this.twitter_logo_panel = new System.Windows.Forms.Panel();
+            this.map_tabcontrol = new System.Windows.Forms.TabControl();
+            this.map_tab = new System.Windows.Forms.TabPage();
+            this.history_tab = new System.Windows.Forms.TabPage();
+            this.twitter_tabcontrol = new System.Windows.Forms.TabControl();
+            this.twitter_tab = new System.Windows.Forms.TabPage();
+            this.history_option_tab = new System.Windows.Forms.TabPage();
+            this.twitter_trending_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
+            this.twitter_trending_tag_label = new System.Windows.Forms.Label();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -90,6 +98,11 @@
             this.twitter_panel.SuspendLayout();
             this.twitter_table_layout_panel.SuspendLayout();
             this.twitter_trending_panel.SuspendLayout();
+            this.map_tabcontrol.SuspendLayout();
+            this.map_tab.SuspendLayout();
+            this.twitter_tabcontrol.SuspendLayout();
+            this.twitter_tab.SuspendLayout();
+            this.twitter_trending_table_layout_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_menu_panel
@@ -99,7 +112,7 @@
             this.main_menu_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_panel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.main_menu_panel.Location = new System.Drawing.Point(2, 2);
-            this.main_menu_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.main_menu_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_panel.Name = "main_menu_panel";
             this.main_menu_panel.Size = new System.Drawing.Size(121, 524);
             this.main_menu_panel.TabIndex = 0;
@@ -255,10 +268,10 @@
             this.map_panel.BackColor = System.Drawing.Color.White;
             this.map_panel.Controls.Add(this.refresh_waypoints_button);
             this.map_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map_panel.Location = new System.Drawing.Point(135, 2);
+            this.map_panel.Location = new System.Drawing.Point(2, 2);
             this.map_panel.Margin = new System.Windows.Forms.Padding(2);
             this.map_panel.Name = "map_panel";
-            this.map_panel.Size = new System.Drawing.Size(599, 533);
+            this.map_panel.Size = new System.Drawing.Size(591, 524);
             this.map_panel.TabIndex = 2;
             // 
             // refresh_waypoints_button
@@ -268,7 +281,7 @@
             this.refresh_waypoints_button.BackgroundImage = global::WijkAgent.Properties.Resources.refresh_button_icon_self_made;
             this.refresh_waypoints_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.refresh_waypoints_button.ForeColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_button.Location = new System.Drawing.Point(567, 0);
+            this.refresh_waypoints_button.Location = new System.Drawing.Point(559, 0);
             this.refresh_waypoints_button.Margin = new System.Windows.Forms.Padding(2);
             this.refresh_waypoints_button.Name = "refresh_waypoints_button";
             this.refresh_waypoints_button.Size = new System.Drawing.Size(33, 32);
@@ -278,14 +291,15 @@
             // 
             // main_table_layout_panel
             // 
-            this.main_table_layout_panel.BackColor = System.Drawing.Color.White;
+            this.main_table_layout_panel.BackColor = System.Drawing.Color.Transparent;
+            this.main_table_layout_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.main_table_layout_panel.ColumnCount = 3;
             this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68F));
             this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17F));
-            this.main_table_layout_panel.Controls.Add(this.map_panel, 1, 0);
             this.main_table_layout_panel.Controls.Add(this.main_menu_tabcontrol, 0, 0);
-            this.main_table_layout_panel.Controls.Add(this.twitter_panel, 2, 0);
+            this.main_table_layout_panel.Controls.Add(this.map_tabcontrol, 1, 0);
+            this.main_table_layout_panel.Controls.Add(this.twitter_tabcontrol, 2, 0);
             this.main_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_table_layout_panel.Location = new System.Drawing.Point(0, 0);
             this.main_table_layout_panel.Margin = new System.Windows.Forms.Padding(0);
@@ -518,10 +532,10 @@
             this.twitter_panel.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.twitter_panel.Controls.Add(this.twitter_table_layout_panel);
             this.twitter_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_panel.Location = new System.Drawing.Point(738, 2);
+            this.twitter_panel.Location = new System.Drawing.Point(3, 3);
             this.twitter_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_panel.Name = "twitter_panel";
-            this.twitter_panel.Size = new System.Drawing.Size(148, 533);
+            this.twitter_panel.Size = new System.Drawing.Size(138, 522);
             this.twitter_panel.TabIndex = 3;
             // 
             // twitter_table_layout_panel
@@ -538,7 +552,7 @@
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.twitter_table_layout_panel.Size = new System.Drawing.Size(148, 533);
+            this.twitter_table_layout_panel.Size = new System.Drawing.Size(138, 522);
             this.twitter_table_layout_panel.TabIndex = 0;
             // 
             // twitter_messages_scroll_panel
@@ -546,10 +560,10 @@
             this.twitter_messages_scroll_panel.AutoScroll = true;
             this.twitter_messages_scroll_panel.BackColor = System.Drawing.Color.PowderBlue;
             this.twitter_messages_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(2, 134);
+            this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(2, 132);
             this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_messages_scroll_panel.Name = "twitter_messages_scroll_panel";
-            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(144, 397);
+            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(134, 388);
             this.twitter_messages_scroll_panel.TabIndex = 2;
             this.twitter_messages_scroll_panel.TabStop = true;
             // 
@@ -558,12 +572,12 @@
             this.twitter_trending_panel.BackColor = System.Drawing.Color.Transparent;
             this.twitter_trending_panel.BackgroundImage = global::WijkAgent.Properties.Resources.twitter;
             this.twitter_trending_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.twitter_trending_panel.Controls.Add(this.twitter_trending_topic_label);
+            this.twitter_trending_panel.Controls.Add(this.twitter_trending_table_layout_panel);
             this.twitter_trending_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_trending_panel.Location = new System.Drawing.Point(2, 55);
+            this.twitter_trending_panel.Location = new System.Drawing.Point(2, 54);
             this.twitter_trending_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_trending_panel.Name = "twitter_trending_panel";
-            this.twitter_trending_panel.Size = new System.Drawing.Size(144, 75);
+            this.twitter_trending_panel.Size = new System.Drawing.Size(134, 74);
             this.twitter_trending_panel.TabIndex = 1;
             // 
             // twitter_trending_topic_label
@@ -571,11 +585,11 @@
             this.twitter_trending_topic_label.AutoSize = true;
             this.twitter_trending_topic_label.BackColor = System.Drawing.Color.Transparent;
             this.twitter_trending_topic_label.Dock = System.Windows.Forms.DockStyle.Top;
-            this.twitter_trending_topic_label.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.twitter_trending_topic_label.Location = new System.Drawing.Point(0, 0);
+            this.twitter_trending_topic_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.twitter_trending_topic_label.Location = new System.Drawing.Point(2, 0);
             this.twitter_trending_topic_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.twitter_trending_topic_label.Name = "twitter_trending_topic_label";
-            this.twitter_trending_topic_label.Size = new System.Drawing.Size(158, 27);
+            this.twitter_trending_topic_label.Size = new System.Drawing.Size(63, 57);
             this.twitter_trending_topic_label.TabIndex = 0;
             this.twitter_trending_topic_label.Text = "Trending topics:\r\n";
             // 
@@ -587,8 +601,111 @@
             this.twitter_logo_panel.Location = new System.Drawing.Point(2, 2);
             this.twitter_logo_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_logo_panel.Name = "twitter_logo_panel";
-            this.twitter_logo_panel.Size = new System.Drawing.Size(144, 49);
+            this.twitter_logo_panel.Size = new System.Drawing.Size(134, 48);
             this.twitter_logo_panel.TabIndex = 0;
+            // 
+            // map_tabcontrol
+            // 
+            this.map_tabcontrol.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.map_tabcontrol.Controls.Add(this.map_tab);
+            this.map_tabcontrol.Controls.Add(this.history_tab);
+            this.map_tabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.map_tabcontrol.ItemSize = new System.Drawing.Size(0, 1);
+            this.map_tabcontrol.Location = new System.Drawing.Point(133, 0);
+            this.map_tabcontrol.Margin = new System.Windows.Forms.Padding(0);
+            this.map_tabcontrol.Name = "map_tabcontrol";
+            this.map_tabcontrol.Padding = new System.Drawing.Point(0, 0);
+            this.map_tabcontrol.SelectedIndex = 0;
+            this.map_tabcontrol.Size = new System.Drawing.Size(603, 537);
+            this.map_tabcontrol.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.map_tabcontrol.TabIndex = 4;
+            // 
+            // map_tab
+            // 
+            this.map_tab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.map_tab.Controls.Add(this.map_panel);
+            this.map_tab.Location = new System.Drawing.Point(4, 5);
+            this.map_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.map_tab.Name = "map_tab";
+            this.map_tab.Padding = new System.Windows.Forms.Padding(2);
+            this.map_tab.Size = new System.Drawing.Size(595, 528);
+            this.map_tab.TabIndex = 0;
+            this.map_tab.UseVisualStyleBackColor = true;
+            // 
+            // history_tab
+            // 
+            this.history_tab.Location = new System.Drawing.Point(4, 5);
+            this.history_tab.Name = "history_tab";
+            this.history_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.history_tab.Size = new System.Drawing.Size(595, 528);
+            this.history_tab.TabIndex = 1;
+            this.history_tab.UseVisualStyleBackColor = true;
+            // 
+            // twitter_tabcontrol
+            // 
+            this.twitter_tabcontrol.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.twitter_tabcontrol.Controls.Add(this.twitter_tab);
+            this.twitter_tabcontrol.Controls.Add(this.history_option_tab);
+            this.twitter_tabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.twitter_tabcontrol.ItemSize = new System.Drawing.Size(0, 1);
+            this.twitter_tabcontrol.Location = new System.Drawing.Point(736, 0);
+            this.twitter_tabcontrol.Margin = new System.Windows.Forms.Padding(0);
+            this.twitter_tabcontrol.Name = "twitter_tabcontrol";
+            this.twitter_tabcontrol.Padding = new System.Drawing.Point(0, 0);
+            this.twitter_tabcontrol.SelectedIndex = 0;
+            this.twitter_tabcontrol.Size = new System.Drawing.Size(152, 537);
+            this.twitter_tabcontrol.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.twitter_tabcontrol.TabIndex = 5;
+            // 
+            // twitter_tab
+            // 
+            this.twitter_tab.Controls.Add(this.twitter_panel);
+            this.twitter_tab.Location = new System.Drawing.Point(4, 5);
+            this.twitter_tab.Name = "twitter_tab";
+            this.twitter_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.twitter_tab.Size = new System.Drawing.Size(144, 528);
+            this.twitter_tab.TabIndex = 0;
+            this.twitter_tab.Text = "tabPage1";
+            this.twitter_tab.UseVisualStyleBackColor = true;
+            // 
+            // history_option_tab
+            // 
+            this.history_option_tab.Location = new System.Drawing.Point(4, 5);
+            this.history_option_tab.Name = "history_option_tab";
+            this.history_option_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.history_option_tab.Size = new System.Drawing.Size(144, 528);
+            this.history_option_tab.TabIndex = 1;
+            this.history_option_tab.Text = "tabPage2";
+            this.history_option_tab.UseVisualStyleBackColor = true;
+            // 
+            // twitter_trending_table_layout_panel
+            // 
+            this.twitter_trending_table_layout_panel.ColumnCount = 2;
+            this.twitter_trending_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.twitter_trending_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.twitter_trending_table_layout_panel.Controls.Add(this.twitter_trending_topic_label, 0, 0);
+            this.twitter_trending_table_layout_panel.Controls.Add(this.twitter_trending_tag_label, 1, 0);
+            this.twitter_trending_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.twitter_trending_table_layout_panel.Location = new System.Drawing.Point(0, 0);
+            this.twitter_trending_table_layout_panel.Name = "twitter_trending_table_layout_panel";
+            this.twitter_trending_table_layout_panel.RowCount = 1;
+            this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.twitter_trending_table_layout_panel.Size = new System.Drawing.Size(134, 74);
+            this.twitter_trending_table_layout_panel.TabIndex = 0;
+            // 
+            // twitter_trending_tag_label
+            // 
+            this.twitter_trending_tag_label.AutoSize = true;
+            this.twitter_trending_tag_label.BackColor = System.Drawing.Color.Transparent;
+            this.twitter_trending_tag_label.Dock = System.Windows.Forms.DockStyle.Top;
+            this.twitter_trending_tag_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.twitter_trending_tag_label.Location = new System.Drawing.Point(69, 0);
+            this.twitter_trending_tag_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.twitter_trending_tag_label.Name = "twitter_trending_tag_label";
+            this.twitter_trending_tag_label.Size = new System.Drawing.Size(63, 38);
+            this.twitter_trending_tag_label.TabIndex = 2;
+            this.twitter_trending_tag_label.Text = "Trending tags:";
             // 
             // View
             // 
@@ -629,7 +746,12 @@
             this.twitter_panel.ResumeLayout(false);
             this.twitter_table_layout_panel.ResumeLayout(false);
             this.twitter_trending_panel.ResumeLayout(false);
-            this.twitter_trending_panel.PerformLayout();
+            this.map_tabcontrol.ResumeLayout(false);
+            this.map_tab.ResumeLayout(false);
+            this.twitter_tabcontrol.ResumeLayout(false);
+            this.twitter_tab.ResumeLayout(false);
+            this.twitter_trending_table_layout_panel.ResumeLayout(false);
+            this.twitter_trending_table_layout_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -673,6 +795,14 @@
         private System.Windows.Forms.Button refresh_waypoints_button;
         private System.Windows.Forms.TableLayoutPanel twitter_table_layout_panel;
         private System.Windows.Forms.Label twitter_trending_topic_label;
+        private System.Windows.Forms.TabControl map_tabcontrol;
+        private System.Windows.Forms.TabPage map_tab;
+        private System.Windows.Forms.TabPage history_tab;
+        private System.Windows.Forms.TabControl twitter_tabcontrol;
+        private System.Windows.Forms.TabPage twitter_tab;
+        private System.Windows.Forms.TabPage history_option_tab;
+        private System.Windows.Forms.TableLayoutPanel twitter_trending_table_layout_panel;
+        private System.Windows.Forms.Label twitter_trending_tag_label;
     }
 }
 
