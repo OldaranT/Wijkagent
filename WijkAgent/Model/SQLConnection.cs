@@ -11,14 +11,17 @@ namespace WijkAgent.Model
     {
         public MySqlConnection conn;
         public MySqlDataReader rdr;
+        public MySqlDataAdapter insrt;
+        
         public MySqlCommand cmd;
-        string myConnectionString;
+        public string myConnectionString;
 
         public SQLConnection()
         {
             myConnectionString = "server=michelvaartjes.nl;uid=micheic28_agent;" +
                         "pwd=kek420;database=micheic28_wijkagent;";
             rdr = null;
+            insrt = null;
 
             try
             {
