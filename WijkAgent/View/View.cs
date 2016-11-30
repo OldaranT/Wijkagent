@@ -272,6 +272,9 @@ namespace WijkAgent
                 latitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(2)));
                 longtitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(3)));
             }
+            //Databse connectie sluiten
+            modelClass.databaseConnectie.conn.Close();
+
             modelClass.map.changeDistrict(latitudeList, longtitudeList);
 
             if (!modelClass.map.twitter.tweetsList.Any())
@@ -326,8 +329,8 @@ namespace WijkAgent
                 }
             }
             
-            modelClass.TweetsToDb(modelClass.databaseConnectie);
-            modelClass.databaseConnectie.conn.Close();
+            //Test twitter database! 
+            modelClass.TweetsToDb();
 
             main_menu_tabcontrol.SelectTab(0);
 
