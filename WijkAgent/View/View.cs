@@ -298,11 +298,43 @@ namespace WijkAgent
                 .GroupBy(s => s)
                 .OrderByDescending(g => g.Count());
 
-                foreach(var word in words){
+                var tagsMessage =
+                    from tweet in modelClass.map.twitter.tweetsList
+                    where tweet.message.Contains("#")
+                    select tweet.message;
+
+                string messageTagsString = "";
+
+                foreach(string tagMessageWord in tagsMessage)
+                {
+                    messageTagsString += tagMessageWord + " ";
+                }
+
+                var tagsMessageSplit =
+                    Regex.Split(messageTagsString.ToLower(), @"\s+");
+
+                var tags = tagsMessageSplit
+                    .Where(a => a.StartsWith("#"))
+                    .GroupBy(s => s)
+                    .OrderByDescending(g => g.Count());
+
+                foreach(var tag in tags)
+                {
+                    Console.WriteLine(tag.Key);
+                }
+                    
+
+                foreach (var word in words){
                     trendingTweetWord.Add(word.Key);
                 }
                 
+                
                 twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+                // debugging 
+                foreach (string word in trendingTweetWord)
+                {
+                    Console.WriteLine(word);
+                }
 
                 //twitter aanroep
                 foreach (var tweets in modelClass.map.twitter.tweetsList)
