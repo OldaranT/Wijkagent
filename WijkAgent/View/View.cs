@@ -407,7 +407,7 @@ namespace WijkAgent
         #region GeneratedTextBoxStyle_Method
         private void twitterLabelLayout(Label _label)
         {
-            int twitterLabelSizeX = 275;
+            int twitterLabelSizeX = 300;
             int twitterLabelSizeY = 0;
             _label.AutoSize = true;
             _label.MinimumSize = new Size(twitterLabelSizeX, twitterLabelSizeY);
@@ -459,6 +459,14 @@ namespace WijkAgent
             int _labelId = Int32.Parse(_label.Name);
             //kleur veranderen van de label
             modelClass.map.hightlightMarker(_labelId);
+        }
+        #endregion
+
+        #region View_Closed
+        private void View_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //Zorgt er voor dat alles voor gesloten
+            Environment.Exit(0);
         }
         #endregion
     }
