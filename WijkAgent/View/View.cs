@@ -59,6 +59,9 @@ namespace WijkAgent
             modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
+
+            ThreadCreator t = new ThreadCreator();
+            t.CreateChildThread();
         }
 
         private void View_Load(object sender, EventArgs e)
