@@ -258,7 +258,7 @@
             this.map_panel.Location = new System.Drawing.Point(135, 2);
             this.map_panel.Margin = new System.Windows.Forms.Padding(2);
             this.map_panel.Name = "map_panel";
-            this.map_panel.Size = new System.Drawing.Size(617, 533);
+            this.map_panel.Size = new System.Drawing.Size(599, 533);
             this.map_panel.TabIndex = 2;
             // 
             // refresh_waypoints_button
@@ -268,7 +268,7 @@
             this.refresh_waypoints_button.BackgroundImage = global::WijkAgent.Properties.Resources.refresh_button_icon_self_made;
             this.refresh_waypoints_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.refresh_waypoints_button.ForeColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_button.Location = new System.Drawing.Point(585, 0);
+            this.refresh_waypoints_button.Location = new System.Drawing.Point(567, 0);
             this.refresh_waypoints_button.Margin = new System.Windows.Forms.Padding(2);
             this.refresh_waypoints_button.Name = "refresh_waypoints_button";
             this.refresh_waypoints_button.Size = new System.Drawing.Size(33, 32);
@@ -281,8 +281,8 @@
             this.main_table_layout_panel.BackColor = System.Drawing.Color.White;
             this.main_table_layout_panel.ColumnCount = 3;
             this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68F));
+            this.main_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17F));
             this.main_table_layout_panel.Controls.Add(this.map_panel, 1, 0);
             this.main_table_layout_panel.Controls.Add(this.main_menu_tabcontrol, 0, 0);
             this.main_table_layout_panel.Controls.Add(this.twitter_panel, 2, 0);
@@ -518,10 +518,10 @@
             this.twitter_panel.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.twitter_panel.Controls.Add(this.twitter_table_layout_panel);
             this.twitter_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_panel.Location = new System.Drawing.Point(756, 2);
+            this.twitter_panel.Location = new System.Drawing.Point(738, 2);
             this.twitter_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_panel.Name = "twitter_panel";
-            this.twitter_panel.Size = new System.Drawing.Size(130, 533);
+            this.twitter_panel.Size = new System.Drawing.Size(148, 533);
             this.twitter_panel.TabIndex = 3;
             // 
             // twitter_table_layout_panel
@@ -538,7 +538,7 @@
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.twitter_table_layout_panel.Size = new System.Drawing.Size(130, 533);
+            this.twitter_table_layout_panel.Size = new System.Drawing.Size(148, 533);
             this.twitter_table_layout_panel.TabIndex = 0;
             // 
             // twitter_messages_scroll_panel
@@ -549,7 +549,7 @@
             this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(2, 134);
             this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_messages_scroll_panel.Name = "twitter_messages_scroll_panel";
-            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(126, 397);
+            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(144, 397);
             this.twitter_messages_scroll_panel.TabIndex = 2;
             this.twitter_messages_scroll_panel.TabStop = true;
             // 
@@ -563,7 +563,7 @@
             this.twitter_trending_panel.Location = new System.Drawing.Point(2, 55);
             this.twitter_trending_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_trending_panel.Name = "twitter_trending_panel";
-            this.twitter_trending_panel.Size = new System.Drawing.Size(126, 75);
+            this.twitter_trending_panel.Size = new System.Drawing.Size(144, 75);
             this.twitter_trending_panel.TabIndex = 1;
             // 
             // twitter_trending_topic_label
@@ -587,7 +587,7 @@
             this.twitter_logo_panel.Location = new System.Drawing.Point(2, 2);
             this.twitter_logo_panel.Margin = new System.Windows.Forms.Padding(2);
             this.twitter_logo_panel.Name = "twitter_logo_panel";
-            this.twitter_logo_panel.Size = new System.Drawing.Size(126, 49);
+            this.twitter_logo_panel.Size = new System.Drawing.Size(144, 49);
             this.twitter_logo_panel.TabIndex = 0;
             // 
             // View
@@ -600,6 +600,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "View";
             this.Text = "WijkAgent";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.View_FormClosed);
             this.Load += new System.EventHandler(this.View_Load);
             this.main_menu_panel.ResumeLayout(false);
             this.main_menu_table_layout_panel.ResumeLayout(false);

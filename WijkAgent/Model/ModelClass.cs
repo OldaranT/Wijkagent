@@ -34,7 +34,6 @@ namespace WijkAgent.Model
                 message = tweet.message;
                 datetime = tweet.date;
 
-
                 string stm = "INSERT INTO twitter(iddistrict, user, latitude, longitude, message, datetime) VALUES ('1', @user, @lat, @lon, @message, @datetime)";
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = conn.conn;
