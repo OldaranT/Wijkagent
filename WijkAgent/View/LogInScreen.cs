@@ -60,7 +60,7 @@ namespace WijkAgent
                 cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
                 modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
                 modelClass.databaseConnectie.rdr.Read();
-                string dbPassword = modelClass.databaseConnectie.rdr.GetString(0);
+                string dbPassword = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
 
                 //Sluit verbinding voor 1e query
                 modelClass.databaseConnectie.conn.Close();
