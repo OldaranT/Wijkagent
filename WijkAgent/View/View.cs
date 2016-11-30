@@ -248,6 +248,7 @@ namespace WijkAgent
 
             //twitterTrendingList
             List<string> trendingTweetWord = new List<string>();
+            List<string> trendingTags = new List<string>();
 
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
@@ -320,7 +321,7 @@ namespace WijkAgent
 
                 foreach(var tag in tags)
                 {
-                    Console.WriteLine(tag.Key);
+                    trendingTags.Add(tag.Key);
                 }
                     
 
@@ -330,6 +331,7 @@ namespace WijkAgent
                 
                 
                 twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+                twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
                 // debugging 
                 foreach (string word in trendingTweetWord)
                 {
