@@ -104,6 +104,7 @@
       lastId = id;
       lastIcon = markers[id].getIcon();
 
+      markers[id].icon.scaledSize = new google.maps.Size(22, 32)
       markers[id].setAnimation(google.maps.Animation.BOUNCE);
       markers[id].setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
 
