@@ -25,7 +25,6 @@ namespace WijkAgent.Model
 
         public void TweetsToDb()
         {
-            databaseConnectie.conn.Open();
             foreach (Tweet tweet in map.twitter.tweetsList)
             {
                 user = tweet.user;
@@ -34,11 +33,13 @@ namespace WijkAgent.Model
                 message = tweet.message;
                 datetime = tweet.date;
 
-                //string stm = "SELECT * FROM twitter WHERE message = @message";
-                //MySqlCommand cmd = new MySqlCommand(stm, databaseConnectie.conn);
-                //cmd.Parameters.AddWithValue("@message", message);
-                //databaseConnectie.rdr = cmd.ExecuteReader();
+                databaseConnectie.conn.Open();
+                string stm = "SELECT * FROM twitter WHERE message = @message";
+                MySqlCommand cmd = new MySqlCommand(stm, databaseConnectie.conn);
+                cmd.Parameters.AddWithValue("@message", message);
+                databaseConnectie.rdr = cmd.ExecuteReader();
 
+                databaseConnectie.conn.Close();
                 //Console.WriteLine(cmd);
 
                 //string stm = "INSERT INTO twitter(iddistrict, user, latitude, longitude, message, datetime) VALUES (@iddistrict, @user, @lat, @lon, @message, @datetime)";
@@ -61,7 +62,6 @@ namespace WijkAgent.Model
                 //    Console.WriteLine(ex.Message);
                 //}
             }
-            databaseConnectie.conn.Close();
         }
     }
 }
