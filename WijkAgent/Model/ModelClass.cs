@@ -20,35 +20,48 @@ namespace WijkAgent.Model
         public ModelClass()
         {
             databaseConnectie = new SQLConnection();
-
             map = new Map();
         }
 
-        public void TweetsToDb(SQLConnection conn)
+        public void TweetsToDb()
         {
-            //databaseConnectie.conn.Open();
-            foreach (Tweet tweet in map.twitter.tweetsList) {
+            databaseConnectie.conn.Open();
+            foreach (Tweet tweet in map.twitter.tweetsList)
+            {
                 user = tweet.user;
                 lat = tweet.latitude;
                 lon = tweet.longitude;
                 message = tweet.message;
                 datetime = tweet.date;
 
-                string stm = "INSERT INTO twitter(iddistrict, user, latitude, longitude, message, datetime) VALUES ('1', @user, @lat, @lon, @message, @datetime)";
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.Connection = conn.conn;
-                cmd.CommandText = stm;
-                cmd.Parameters.AddWithValue("@user", user);
-                cmd.Parameters.AddWithValue("@lat", lat);
-                cmd.Parameters.AddWithValue("@lon", lon);
-                cmd.Parameters.AddWithValue("@message", message);
-                cmd.Parameters.AddWithValue("@datetime", datetime);
-                //cmd.Prepare();
-                cmd.BeginExecuteNonQuery();
-                //cmd.BeginExecuteNonQuery();
-                Console.WriteLine("executed");
-                Console.WriteLine(stm);
+                //string stm = "SELECT * FROM twitter WHERE message = @message";
+                //MySqlCommand cmd = new MySqlCommand(stm, databaseConnectie.conn);
+                //cmd.Parameters.AddWithValue("@message", message);
+                //databaseConnectie.rdr = cmd.ExecuteReader();
+
+                //Console.WriteLine(cmd);
+
+                //string stm = "INSERT INTO twitter(iddistrict, user, latitude, longitude, message, datetime) VALUES (@iddistrict, @user, @lat, @lon, @message, @datetime)";
+                //MySqlCommand cmd = new MySqlCommand();
+                //cmd.Connection = databaseConnectie.conn;
+                //cmd.CommandText = stm;
+                //cmd.Parameters.AddWithValue("@iddistrict", 2);
+                //cmd.Parameters.AddWithValue("@user", user);
+                //cmd.Parameters.AddWithValue("@lat", lat);
+                //cmd.Parameters.AddWithValue("@lon", lon);
+                //cmd.Parameters.AddWithValue("@message", message);
+                //cmd.Parameters.AddWithValue("@datetime", datetime);
+                //try
+                //{
+                //    cmd.ExecuteNonQuery();
+                //    Console.WriteLine("executed");
+                //}
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine(ex.Message);
+                //}
             }
+            databaseConnectie.conn.Close();
         }
     }
 }
