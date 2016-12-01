@@ -10,9 +10,9 @@ namespace WijkAgent.Controller
     {
         public View view;
 
-        public ViewController(View _view)
+        public ViewController()
         {
-            view = _view;
+            view = new View();
             view.OnRefreshButtonClick += RefreshButton_Clicked;
         }
 

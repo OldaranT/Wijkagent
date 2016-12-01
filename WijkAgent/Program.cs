@@ -17,16 +17,13 @@ namespace WijkAgent
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable() == false)
             {
                 MessageBox.Show("Geen internet verbinding");
-
             }
            else
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                View view = new View();
-                ViewController viewController = new ViewController(view);
                 LogInScreen logInScreen = new LogInScreen();
-                LogInScreenController LogInScreenControllercs = new LogInScreenController(logInScreen, viewController);
+                LogInScreenController LogInScreenControllercs = new LogInScreenController(logInScreen);
                 Application.Run(logInScreen);
             }
         }

@@ -14,7 +14,11 @@ namespace WijkAgent.Model
         public double defaultLatitude = 52.701800;
         public double defaultLongtitude = 5.389761;
         public double defaultZoom = 8;
+        public int idDistrict;
         public WebBrowser wb;
+
+        //voor jouwn locatie LETOP locatie moet aan staan op laptop
+        GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
 
 
         //Onthouden wat de laatst geselecteerd wijk was
@@ -26,9 +30,13 @@ namespace WijkAgent.Model
 
         public Map()
         {
+            Console.WriteLine("map is aangeroepen");
             twitter = new Twitter();
             currentLatitudePoints = new List<double>();
             currentLongitudePoints = new List<double>();
+
+            //als de status van de watcher is veranderd stuur ga naar de methode getcurrentlocation
+            watcher.StatusChanged += GetCurrentLocation;
         }
 
         public void initialize()
@@ -52,12 +60,16 @@ namespace WijkAgent.Model
             Object[] _initArgs = new Object[3] { defaultLatitude, defaultLongtitude, defaultZoom };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             this.wb.Document.InvokeScript("initialize", _initArgs);
+
+
             
         }
 
         #region ChangeDisctrict_Method
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
+            //watcher starten
+            watcher.Start();
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
             //aantal twitter resultaten
@@ -93,9 +105,6 @@ namespace WijkAgent.Model
                 //de markers plaatsen
                 this.twitter.setTwitterMarkers(this.wb);
 
-                //debug console
-                this.twitter.printTweetList();
-
                 //voor debuggen radius
                 double _test = Math.Floor(calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong) * 1000);
                 Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
@@ -119,12 +128,6 @@ namespace WijkAgent.Model
             this.wb.Document.InvokeScript("drawPolygon", _polyargs);
         }
         #endregion
-
-
-        public void getTrendingTopic()
-        {
-
-        }
 
         #region CalculateRadiusInKm_Method
         public double calculateRadiusKm(List<double> _latitudePoints, List<double> _longitudePoints, double _centerLat, double _centerLong)
@@ -162,5 +165,21 @@ namespace WijkAgent.Model
             this.wb.Document.InvokeScript("hightlightMarker", _markerArgs);
         }
         #endregion
+
+        #region GetCurrentLocation
+        private void GetCurrentLocation(object sender, GeoPositionStatusChangedEventArgs e)
+        {
+            //als de status ready is
+            if (e.Status == GeoPositionStatus.Ready)
+            {
+                //nieuwe market toevoegen met het id dat 1 hoger is dan de twitter list lengte 
+                Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin");
+                _m.addMarkerToMap(this.wb);
+                watcher.Stop();
+                Console.WriteLine("jup");
+            }
+        }
+        #endregion
+
     }
 }

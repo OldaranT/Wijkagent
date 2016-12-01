@@ -14,6 +14,7 @@ namespace WijkAgent.Model
         private string user;
         private double lat;
         private double lon;
+        private int idDistrict;
         private string message;
         private DateTime datetime;
 
@@ -28,6 +29,7 @@ namespace WijkAgent.Model
             foreach (Tweet tweet in map.twitter.tweetsList)
             {
                 bool inDatabase = true;
+                idDistrict = map.idDistrict;
                 user = tweet.user;
                 lat = tweet.latitude;
                 lon = tweet.longitude;
@@ -35,10 +37,11 @@ namespace WijkAgent.Model
                 datetime = tweet.date;
 
                 databaseConnectie.conn.Open();
-                string stm = "SELECT * FROM twitter WHERE user = @user AND datetime = @datetime";
+                string stm = "SELECT * FROM twitter WHERE user = @user AND datetime = @datetime AND iddistrict = @iddistrict";
                 MySqlCommand cmd = new MySqlCommand(stm, databaseConnectie.conn);
                 cmd.Parameters.AddWithValue("@user", user);
                 cmd.Parameters.AddWithValue("@datetime", datetime);
+                cmd.Parameters.AddWithValue("@iddistrict", idDistrict);
                 databaseConnectie.rdr = cmd.ExecuteReader();
 
                 //Controleert of het twitter bericht al in de database staat
@@ -57,7 +60,7 @@ namespace WijkAgent.Model
                     MySqlCommand insertcmd = new MySqlCommand();
                     insertcmd.Connection = databaseConnectie.conn;
                     insertcmd.CommandText = insertstm;
-                    insertcmd.Parameters.AddWithValue("@iddistrict", 2);
+                    insertcmd.Parameters.AddWithValue("@iddistrict", idDistrict);
                     insertcmd.Parameters.AddWithValue("@user", user);
                     insertcmd.Parameters.AddWithValue("@lat", lat);
                     insertcmd.Parameters.AddWithValue("@lon", lon);
