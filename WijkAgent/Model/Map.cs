@@ -14,6 +14,7 @@ namespace WijkAgent.Model
         public double defaultLatitude = 52.701800;
         public double defaultLongtitude = 5.389761;
         public double defaultZoom = 8;
+        public int idDistrict;
         public WebBrowser wb;
 
         //voor jouwn locatie LETOP locatie moet aan staan op laptop
