@@ -17,7 +17,6 @@ namespace WijkAgent
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable() == false)
             {
                 MessageBox.Show("Geen internet verbinding");
-
             }
            else
             {
