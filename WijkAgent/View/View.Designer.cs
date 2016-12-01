@@ -34,6 +34,7 @@
             this.main_menu_panel_for_label = new System.Windows.Forms.Panel();
             this.main_menu_label = new System.Windows.Forms.Label();
             this.main_menu_scroll_panel = new System.Windows.Forms.Panel();
+            this.go_to_history_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
             this.go_to_province_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
             this.province_panel = new System.Windows.Forms.Panel();
             this.province_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
@@ -64,6 +65,11 @@
             this.map_tabcontrol = new System.Windows.Forms.TabControl();
             this.map_tab = new System.Windows.Forms.TabPage();
             this.history_tab = new System.Windows.Forms.TabPage();
+            this.history_view_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
+            this.history_header_panel = new System.Windows.Forms.Panel();
+            this.history_header_results_label = new System.Windows.Forms.Label();
+            this.History_header_label = new System.Windows.Forms.Label();
+            this.history_scroll_panel = new System.Windows.Forms.Panel();
             this.twitter_tabcontrol = new System.Windows.Forms.TabControl();
             this.twitter_tab = new System.Windows.Forms.TabPage();
             this.twitter_panel = new System.Windows.Forms.Panel();
@@ -75,6 +81,22 @@
             this.twitter_trending_tag_label = new System.Windows.Forms.Label();
             this.twitter_logo_panel = new System.Windows.Forms.Panel();
             this.history_option_tab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.history_option_panel_for_label = new System.Windows.Forms.Panel();
+            this.history_option_label = new System.Windows.Forms.Label();
+            this.history_option_panel = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.history_wijk_checkbox = new System.Windows.Forms.CheckBox();
+            this.history_user_checkbox = new System.Windows.Forms.CheckBox();
+            this.history_categorie_checkbox = new System.Windows.Forms.CheckBox();
+            this.history_date_checkbox = new System.Windows.Forms.CheckBox();
+            this.history_district_textbox = new System.Windows.Forms.TextBox();
+            this.history_user_textbox = new System.Windows.Forms.TextBox();
+            this.history_category_combobox = new System.Windows.Forms.ComboBox();
+            this.history_from_date_combobox = new System.Windows.Forms.ComboBox();
+            this.history_till_date_combobox = new System.Windows.Forms.ComboBox();
+            this.history_till_date_label = new System.Windows.Forms.Label();
+            this.history_from_date_label = new System.Windows.Forms.Label();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -97,12 +119,20 @@
             this.district_panel_for_label.SuspendLayout();
             this.map_tabcontrol.SuspendLayout();
             this.map_tab.SuspendLayout();
+            this.history_tab.SuspendLayout();
+            this.history_view_table_layout_panel.SuspendLayout();
+            this.history_header_panel.SuspendLayout();
             this.twitter_tabcontrol.SuspendLayout();
             this.twitter_tab.SuspendLayout();
             this.twitter_panel.SuspendLayout();
             this.twitter_table_layout_panel.SuspendLayout();
             this.twitter_trending_panel.SuspendLayout();
             this.twitter_trending_table_layout_panel.SuspendLayout();
+            this.history_option_tab.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.history_option_panel_for_label.SuspendLayout();
+            this.history_option_panel.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_menu_panel
@@ -114,7 +144,7 @@
             this.main_menu_panel.Location = new System.Drawing.Point(2, 2);
             this.main_menu_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_panel.Name = "main_menu_panel";
-            this.main_menu_panel.Size = new System.Drawing.Size(121, 524);
+            this.main_menu_panel.Size = new System.Drawing.Size(177, 668);
             this.main_menu_panel.TabIndex = 0;
             // 
             // main_menu_table_layout_panel
@@ -125,13 +155,13 @@
             this.main_menu_table_layout_panel.Controls.Add(this.main_menu_scroll_panel, 0, 1);
             this.main_menu_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.main_menu_table_layout_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.main_menu_table_layout_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_table_layout_panel.Name = "main_menu_table_layout_panel";
             this.main_menu_table_layout_panel.RowCount = 3;
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.main_menu_table_layout_panel.Size = new System.Drawing.Size(121, 524);
+            this.main_menu_table_layout_panel.Size = new System.Drawing.Size(177, 668);
             this.main_menu_table_layout_panel.TabIndex = 0;
             // 
             // main_menu_panel_for_label
@@ -140,10 +170,10 @@
             this.main_menu_panel_for_label.Controls.Add(this.main_menu_label);
             this.main_menu_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_panel_for_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.main_menu_panel_for_label.Location = new System.Drawing.Point(2, 2);
-            this.main_menu_panel_for_label.Margin = new System.Windows.Forms.Padding(2);
+            this.main_menu_panel_for_label.Location = new System.Drawing.Point(0, 0);
+            this.main_menu_panel_for_label.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_panel_for_label.Name = "main_menu_panel_for_label";
-            this.main_menu_panel_for_label.Size = new System.Drawing.Size(117, 48);
+            this.main_menu_panel_for_label.Size = new System.Drawing.Size(177, 66);
             this.main_menu_panel_for_label.TabIndex = 1;
             // 
             // main_menu_label
@@ -154,7 +184,7 @@
             this.main_menu_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.main_menu_label.ForeColor = System.Drawing.Color.White;
             this.main_menu_label.Location = new System.Drawing.Point(0, 0);
-            this.main_menu_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.main_menu_label.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_label.Name = "main_menu_label";
             this.main_menu_label.Size = new System.Drawing.Size(141, 50);
             this.main_menu_label.TabIndex = 0;
@@ -163,13 +193,29 @@
             // main_menu_scroll_panel
             // 
             this.main_menu_scroll_panel.AutoScroll = true;
+            this.main_menu_scroll_panel.Controls.Add(this.go_to_history_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Controls.Add(this.go_to_province_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_menu_scroll_panel.Location = new System.Drawing.Point(2, 54);
-            this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.main_menu_scroll_panel.Location = new System.Drawing.Point(0, 66);
+            this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_scroll_panel.Name = "main_menu_scroll_panel";
-            this.main_menu_scroll_panel.Size = new System.Drawing.Size(117, 415);
+            this.main_menu_scroll_panel.Size = new System.Drawing.Size(177, 534);
             this.main_menu_scroll_panel.TabIndex = 2;
+            // 
+            // go_to_history_panel_button_from_main_menu_tab
+            // 
+            this.go_to_history_panel_button_from_main_menu_tab.BackColor = System.Drawing.Color.Blue;
+            this.go_to_history_panel_button_from_main_menu_tab.Dock = System.Windows.Forms.DockStyle.Top;
+            this.go_to_history_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.go_to_history_panel_button_from_main_menu_tab.ForeColor = System.Drawing.Color.White;
+            this.go_to_history_panel_button_from_main_menu_tab.Location = new System.Drawing.Point(0, 75);
+            this.go_to_history_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(0);
+            this.go_to_history_panel_button_from_main_menu_tab.Name = "go_to_history_panel_button_from_main_menu_tab";
+            this.go_to_history_panel_button_from_main_menu_tab.Size = new System.Drawing.Size(177, 75);
+            this.go_to_history_panel_button_from_main_menu_tab.TabIndex = 3;
+            this.go_to_history_panel_button_from_main_menu_tab.Text = "Geschiedenis bekijken";
+            this.go_to_history_panel_button_from_main_menu_tab.UseVisualStyleBackColor = false;
+            this.go_to_history_panel_button_from_main_menu_tab.Click += new System.EventHandler(this.go_to_history_panel_button_from_main_menu_tab_Click);
             // 
             // go_to_province_panel_button_from_main_menu_tab
             // 
@@ -178,9 +224,9 @@
             this.go_to_province_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.go_to_province_panel_button_from_main_menu_tab.ForeColor = System.Drawing.Color.White;
             this.go_to_province_panel_button_from_main_menu_tab.Location = new System.Drawing.Point(0, 0);
-            this.go_to_province_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.go_to_province_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(0);
             this.go_to_province_panel_button_from_main_menu_tab.Name = "go_to_province_panel_button_from_main_menu_tab";
-            this.go_to_province_panel_button_from_main_menu_tab.Size = new System.Drawing.Size(117, 75);
+            this.go_to_province_panel_button_from_main_menu_tab.Size = new System.Drawing.Size(177, 75);
             this.go_to_province_panel_button_from_main_menu_tab.TabIndex = 2;
             this.go_to_province_panel_button_from_main_menu_tab.Text = "Selecteer Wijk";
             this.go_to_province_panel_button_from_main_menu_tab.UseVisualStyleBackColor = false;
@@ -193,9 +239,9 @@
             this.province_panel.Controls.Add(this.go_to_main_menu_panel_button);
             this.province_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.province_panel.Location = new System.Drawing.Point(2, 2);
-            this.province_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.province_panel.Margin = new System.Windows.Forms.Padding(0);
             this.province_panel.Name = "province_panel";
-            this.province_panel.Size = new System.Drawing.Size(121, 524);
+            this.province_panel.Size = new System.Drawing.Size(177, 668);
             this.province_panel.TabIndex = 2;
             // 
             // province_table_layout_panel
@@ -206,22 +252,22 @@
             this.province_table_layout_panel.Controls.Add(this.province_panel_for_label, 0, 0);
             this.province_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.province_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.province_table_layout_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.province_table_layout_panel.Margin = new System.Windows.Forms.Padding(0);
             this.province_table_layout_panel.Name = "province_table_layout_panel";
             this.province_table_layout_panel.RowCount = 2;
             this.province_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.province_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.province_table_layout_panel.Size = new System.Drawing.Size(121, 463);
+            this.province_table_layout_panel.Size = new System.Drawing.Size(177, 607);
             this.province_table_layout_panel.TabIndex = 5;
             // 
             // province_scroll_panel
             // 
             this.province_scroll_panel.AutoScroll = true;
             this.province_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.province_scroll_panel.Location = new System.Drawing.Point(2, 48);
-            this.province_scroll_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.province_scroll_panel.Location = new System.Drawing.Point(0, 60);
+            this.province_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.province_scroll_panel.Name = "province_scroll_panel";
-            this.province_scroll_panel.Size = new System.Drawing.Size(117, 413);
+            this.province_scroll_panel.Size = new System.Drawing.Size(177, 547);
             this.province_scroll_panel.TabIndex = 0;
             // 
             // province_panel_for_label
@@ -230,10 +276,10 @@
             this.province_panel_for_label.Controls.Add(this.province_panel_label);
             this.province_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.province_panel_for_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.province_panel_for_label.Location = new System.Drawing.Point(2, 2);
-            this.province_panel_for_label.Margin = new System.Windows.Forms.Padding(2);
+            this.province_panel_for_label.Location = new System.Drawing.Point(0, 0);
+            this.province_panel_for_label.Margin = new System.Windows.Forms.Padding(0);
             this.province_panel_for_label.Name = "province_panel_for_label";
-            this.province_panel_for_label.Size = new System.Drawing.Size(117, 42);
+            this.province_panel_for_label.Size = new System.Drawing.Size(177, 60);
             this.province_panel_for_label.TabIndex = 1;
             // 
             // province_panel_label
@@ -244,7 +290,7 @@
             this.province_panel_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.province_panel_label.ForeColor = System.Drawing.Color.White;
             this.province_panel_label.Location = new System.Drawing.Point(0, 0);
-            this.province_panel_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.province_panel_label.Margin = new System.Windows.Forms.Padding(0);
             this.province_panel_label.Name = "province_panel_label";
             this.province_panel_label.Size = new System.Drawing.Size(214, 25);
             this.province_panel_label.TabIndex = 0;
@@ -254,10 +300,10 @@
             // 
             this.go_to_main_menu_panel_button.BackColor = System.Drawing.SystemColors.ControlLight;
             this.go_to_main_menu_panel_button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.go_to_main_menu_panel_button.Location = new System.Drawing.Point(0, 463);
-            this.go_to_main_menu_panel_button.Margin = new System.Windows.Forms.Padding(2);
+            this.go_to_main_menu_panel_button.Location = new System.Drawing.Point(0, 607);
+            this.go_to_main_menu_panel_button.Margin = new System.Windows.Forms.Padding(0);
             this.go_to_main_menu_panel_button.Name = "go_to_main_menu_panel_button";
-            this.go_to_main_menu_panel_button.Size = new System.Drawing.Size(121, 61);
+            this.go_to_main_menu_panel_button.Size = new System.Drawing.Size(177, 61);
             this.go_to_main_menu_panel_button.TabIndex = 4;
             this.go_to_main_menu_panel_button.Text = "Terug";
             this.go_to_main_menu_panel_button.UseVisualStyleBackColor = false;
@@ -269,9 +315,9 @@
             this.map_panel.Controls.Add(this.refresh_waypoints_button);
             this.map_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.map_panel.Location = new System.Drawing.Point(2, 2);
-            this.map_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.map_panel.Margin = new System.Windows.Forms.Padding(0);
             this.map_panel.Name = "map_panel";
-            this.map_panel.Size = new System.Drawing.Size(591, 524);
+            this.map_panel.Size = new System.Drawing.Size(847, 668);
             this.map_panel.TabIndex = 2;
             // 
             // refresh_waypoints_button
@@ -281,8 +327,8 @@
             this.refresh_waypoints_button.BackgroundImage = global::WijkAgent.Properties.Resources.refresh_button_icon_self_made;
             this.refresh_waypoints_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.refresh_waypoints_button.ForeColor = System.Drawing.Color.Transparent;
-            this.refresh_waypoints_button.Location = new System.Drawing.Point(559, 0);
-            this.refresh_waypoints_button.Margin = new System.Windows.Forms.Padding(2);
+            this.refresh_waypoints_button.Location = new System.Drawing.Point(815, 0);
+            this.refresh_waypoints_button.Margin = new System.Windows.Forms.Padding(0);
             this.refresh_waypoints_button.Name = "refresh_waypoints_button";
             this.refresh_waypoints_button.Size = new System.Drawing.Size(33, 32);
             this.refresh_waypoints_button.TabIndex = 0;
@@ -306,7 +352,7 @@
             this.main_table_layout_panel.Name = "main_table_layout_panel";
             this.main_table_layout_panel.RowCount = 1;
             this.main_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.main_table_layout_panel.Size = new System.Drawing.Size(888, 537);
+            this.main_table_layout_panel.Size = new System.Drawing.Size(1264, 681);
             this.main_table_layout_panel.TabIndex = 3;
             // 
             // main_menu_tabcontrol
@@ -324,7 +370,7 @@
             this.main_menu_tabcontrol.Name = "main_menu_tabcontrol";
             this.main_menu_tabcontrol.Padding = new System.Drawing.Point(0, 0);
             this.main_menu_tabcontrol.SelectedIndex = 0;
-            this.main_menu_tabcontrol.Size = new System.Drawing.Size(133, 537);
+            this.main_menu_tabcontrol.Size = new System.Drawing.Size(189, 681);
             this.main_menu_tabcontrol.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.main_menu_tabcontrol.TabIndex = 0;
             // 
@@ -333,10 +379,10 @@
             this.main_menu_tab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.main_menu_tab.Controls.Add(this.main_menu_panel);
             this.main_menu_tab.Location = new System.Drawing.Point(4, 5);
-            this.main_menu_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.main_menu_tab.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_tab.Name = "main_menu_tab";
             this.main_menu_tab.Padding = new System.Windows.Forms.Padding(2);
-            this.main_menu_tab.Size = new System.Drawing.Size(125, 528);
+            this.main_menu_tab.Size = new System.Drawing.Size(181, 672);
             this.main_menu_tab.TabIndex = 0;
             this.main_menu_tab.Text = "Menu";
             this.main_menu_tab.UseVisualStyleBackColor = true;
@@ -345,10 +391,10 @@
             // 
             this.province_tab.Controls.Add(this.province_panel);
             this.province_tab.Location = new System.Drawing.Point(4, 5);
-            this.province_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.province_tab.Margin = new System.Windows.Forms.Padding(0);
             this.province_tab.Name = "province_tab";
             this.province_tab.Padding = new System.Windows.Forms.Padding(2);
-            this.province_tab.Size = new System.Drawing.Size(125, 528);
+            this.province_tab.Size = new System.Drawing.Size(181, 672);
             this.province_tab.TabIndex = 1;
             this.province_tab.Text = "Province";
             this.province_tab.UseVisualStyleBackColor = true;
@@ -357,9 +403,9 @@
             // 
             this.city_tab.Controls.Add(this.city_panel);
             this.city_tab.Location = new System.Drawing.Point(4, 5);
-            this.city_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.city_tab.Margin = new System.Windows.Forms.Padding(0);
             this.city_tab.Name = "city_tab";
-            this.city_tab.Size = new System.Drawing.Size(125, 528);
+            this.city_tab.Size = new System.Drawing.Size(181, 672);
             this.city_tab.TabIndex = 2;
             this.city_tab.UseVisualStyleBackColor = true;
             // 
@@ -371,9 +417,9 @@
             this.city_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.city_panel.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.city_panel.Location = new System.Drawing.Point(0, 0);
-            this.city_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.city_panel.Margin = new System.Windows.Forms.Padding(0);
             this.city_panel.Name = "city_panel";
-            this.city_panel.Size = new System.Drawing.Size(125, 528);
+            this.city_panel.Size = new System.Drawing.Size(181, 672);
             this.city_panel.TabIndex = 0;
             // 
             // city_table_layout_panel
@@ -384,12 +430,12 @@
             this.city_table_layout_panel.Controls.Add(this.city_scroll_panel, 0, 1);
             this.city_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.city_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.city_table_layout_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.city_table_layout_panel.Margin = new System.Windows.Forms.Padding(0);
             this.city_table_layout_panel.Name = "city_table_layout_panel";
             this.city_table_layout_panel.RowCount = 2;
             this.city_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.city_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.city_table_layout_panel.Size = new System.Drawing.Size(125, 467);
+            this.city_table_layout_panel.Size = new System.Drawing.Size(181, 611);
             this.city_table_layout_panel.TabIndex = 1;
             // 
             // city_panel_for_label
@@ -398,10 +444,10 @@
             this.city_panel_for_label.Controls.Add(this.city_panel_label);
             this.city_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.city_panel_for_label.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.city_panel_for_label.Location = new System.Drawing.Point(2, 2);
-            this.city_panel_for_label.Margin = new System.Windows.Forms.Padding(2);
+            this.city_panel_for_label.Location = new System.Drawing.Point(0, 0);
+            this.city_panel_for_label.Margin = new System.Windows.Forms.Padding(0);
             this.city_panel_for_label.Name = "city_panel_for_label";
-            this.city_panel_for_label.Size = new System.Drawing.Size(121, 42);
+            this.city_panel_for_label.Size = new System.Drawing.Size(181, 61);
             this.city_panel_for_label.TabIndex = 0;
             // 
             // city_panel_label
@@ -412,7 +458,7 @@
             this.city_panel_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.city_panel_label.ForeColor = System.Drawing.Color.White;
             this.city_panel_label.Location = new System.Drawing.Point(0, 0);
-            this.city_panel_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.city_panel_label.Margin = new System.Windows.Forms.Padding(0);
             this.city_panel_label.Name = "city_panel_label";
             this.city_panel_label.Size = new System.Drawing.Size(163, 25);
             this.city_panel_label.TabIndex = 0;
@@ -422,20 +468,20 @@
             // 
             this.city_scroll_panel.AutoScroll = true;
             this.city_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.city_scroll_panel.Location = new System.Drawing.Point(2, 48);
-            this.city_scroll_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.city_scroll_panel.Location = new System.Drawing.Point(0, 61);
+            this.city_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.city_scroll_panel.Name = "city_scroll_panel";
-            this.city_scroll_panel.Size = new System.Drawing.Size(121, 417);
+            this.city_scroll_panel.Size = new System.Drawing.Size(181, 550);
             this.city_scroll_panel.TabIndex = 1;
             // 
             // go_to_province_panel_button_from_city_tab
             // 
             this.go_to_province_panel_button_from_city_tab.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.go_to_province_panel_button_from_city_tab.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.go_to_province_panel_button_from_city_tab.Location = new System.Drawing.Point(0, 467);
-            this.go_to_province_panel_button_from_city_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.go_to_province_panel_button_from_city_tab.Location = new System.Drawing.Point(0, 611);
+            this.go_to_province_panel_button_from_city_tab.Margin = new System.Windows.Forms.Padding(0);
             this.go_to_province_panel_button_from_city_tab.Name = "go_to_province_panel_button_from_city_tab";
-            this.go_to_province_panel_button_from_city_tab.Size = new System.Drawing.Size(125, 61);
+            this.go_to_province_panel_button_from_city_tab.Size = new System.Drawing.Size(181, 61);
             this.go_to_province_panel_button_from_city_tab.TabIndex = 0;
             this.go_to_province_panel_button_from_city_tab.Text = "Terug";
             this.go_to_province_panel_button_from_city_tab.UseVisualStyleBackColor = true;
@@ -445,9 +491,9 @@
             // 
             this.district_tab.Controls.Add(this.district_panel);
             this.district_tab.Location = new System.Drawing.Point(4, 5);
-            this.district_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.district_tab.Margin = new System.Windows.Forms.Padding(0);
             this.district_tab.Name = "district_tab";
-            this.district_tab.Size = new System.Drawing.Size(125, 528);
+            this.district_tab.Size = new System.Drawing.Size(181, 672);
             this.district_tab.TabIndex = 3;
             this.district_tab.UseVisualStyleBackColor = true;
             // 
@@ -458,9 +504,9 @@
             this.district_panel.Controls.Add(this.go_to_city_panel_button_from_district_tab);
             this.district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.district_panel.Location = new System.Drawing.Point(0, 0);
-            this.district_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.district_panel.Margin = new System.Windows.Forms.Padding(0);
             this.district_panel.Name = "district_panel";
-            this.district_panel.Size = new System.Drawing.Size(125, 528);
+            this.district_panel.Size = new System.Drawing.Size(181, 672);
             this.district_panel.TabIndex = 0;
             // 
             // district_table_layout_panel
@@ -471,22 +517,22 @@
             this.district_table_layout_panel.Controls.Add(this.district_scroll_panel, 0, 1);
             this.district_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.district_table_layout_panel.Location = new System.Drawing.Point(0, 0);
-            this.district_table_layout_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.district_table_layout_panel.Margin = new System.Windows.Forms.Padding(0);
             this.district_table_layout_panel.Name = "district_table_layout_panel";
             this.district_table_layout_panel.RowCount = 2;
             this.district_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.district_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.district_table_layout_panel.Size = new System.Drawing.Size(125, 467);
+            this.district_table_layout_panel.Size = new System.Drawing.Size(181, 611);
             this.district_table_layout_panel.TabIndex = 1;
             // 
             // district_panel_for_label
             // 
             this.district_panel_for_label.Controls.Add(this.district_panel_label);
             this.district_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.district_panel_for_label.Location = new System.Drawing.Point(2, 2);
-            this.district_panel_for_label.Margin = new System.Windows.Forms.Padding(2);
+            this.district_panel_for_label.Location = new System.Drawing.Point(0, 0);
+            this.district_panel_for_label.Margin = new System.Windows.Forms.Padding(0);
             this.district_panel_for_label.Name = "district_panel_for_label";
-            this.district_panel_for_label.Size = new System.Drawing.Size(121, 42);
+            this.district_panel_for_label.Size = new System.Drawing.Size(181, 61);
             this.district_panel_for_label.TabIndex = 0;
             // 
             // district_panel_label
@@ -497,7 +543,7 @@
             this.district_panel_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.district_panel_label.ForeColor = System.Drawing.Color.White;
             this.district_panel_label.Location = new System.Drawing.Point(0, 0);
-            this.district_panel_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.district_panel_label.Margin = new System.Windows.Forms.Padding(0);
             this.district_panel_label.Name = "district_panel_label";
             this.district_panel_label.Size = new System.Drawing.Size(158, 25);
             this.district_panel_label.TabIndex = 0;
@@ -507,10 +553,10 @@
             // 
             this.district_scroll_panel.AutoScroll = true;
             this.district_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.district_scroll_panel.Location = new System.Drawing.Point(2, 48);
-            this.district_scroll_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.district_scroll_panel.Location = new System.Drawing.Point(0, 61);
+            this.district_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.district_scroll_panel.Name = "district_scroll_panel";
-            this.district_scroll_panel.Size = new System.Drawing.Size(121, 417);
+            this.district_scroll_panel.Size = new System.Drawing.Size(181, 550);
             this.district_scroll_panel.TabIndex = 1;
             // 
             // go_to_city_panel_button_from_district_tab
@@ -518,10 +564,10 @@
             this.go_to_city_panel_button_from_district_tab.BackColor = System.Drawing.Color.White;
             this.go_to_city_panel_button_from_district_tab.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.go_to_city_panel_button_from_district_tab.ForeColor = System.Drawing.Color.Black;
-            this.go_to_city_panel_button_from_district_tab.Location = new System.Drawing.Point(0, 467);
-            this.go_to_city_panel_button_from_district_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.go_to_city_panel_button_from_district_tab.Location = new System.Drawing.Point(0, 611);
+            this.go_to_city_panel_button_from_district_tab.Margin = new System.Windows.Forms.Padding(0);
             this.go_to_city_panel_button_from_district_tab.Name = "go_to_city_panel_button_from_district_tab";
-            this.go_to_city_panel_button_from_district_tab.Size = new System.Drawing.Size(125, 61);
+            this.go_to_city_panel_button_from_district_tab.Size = new System.Drawing.Size(181, 61);
             this.go_to_city_panel_button_from_district_tab.TabIndex = 0;
             this.go_to_city_panel_button_from_district_tab.Text = "Terug";
             this.go_to_city_panel_button_from_district_tab.UseVisualStyleBackColor = false;
@@ -534,12 +580,12 @@
             this.map_tabcontrol.Controls.Add(this.history_tab);
             this.map_tabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.map_tabcontrol.ItemSize = new System.Drawing.Size(0, 1);
-            this.map_tabcontrol.Location = new System.Drawing.Point(133, 0);
+            this.map_tabcontrol.Location = new System.Drawing.Point(189, 0);
             this.map_tabcontrol.Margin = new System.Windows.Forms.Padding(0);
             this.map_tabcontrol.Name = "map_tabcontrol";
             this.map_tabcontrol.Padding = new System.Drawing.Point(0, 0);
             this.map_tabcontrol.SelectedIndex = 0;
-            this.map_tabcontrol.Size = new System.Drawing.Size(603, 537);
+            this.map_tabcontrol.Size = new System.Drawing.Size(859, 681);
             this.map_tabcontrol.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.map_tabcontrol.TabIndex = 4;
             // 
@@ -548,21 +594,84 @@
             this.map_tab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.map_tab.Controls.Add(this.map_panel);
             this.map_tab.Location = new System.Drawing.Point(4, 5);
-            this.map_tab.Margin = new System.Windows.Forms.Padding(2);
+            this.map_tab.Margin = new System.Windows.Forms.Padding(0);
             this.map_tab.Name = "map_tab";
             this.map_tab.Padding = new System.Windows.Forms.Padding(2);
-            this.map_tab.Size = new System.Drawing.Size(595, 528);
+            this.map_tab.Size = new System.Drawing.Size(851, 672);
             this.map_tab.TabIndex = 0;
             this.map_tab.UseVisualStyleBackColor = true;
             // 
             // history_tab
             // 
+            this.history_tab.Controls.Add(this.history_view_table_layout_panel);
             this.history_tab.Location = new System.Drawing.Point(4, 5);
             this.history_tab.Name = "history_tab";
             this.history_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.history_tab.Size = new System.Drawing.Size(595, 528);
+            this.history_tab.Size = new System.Drawing.Size(851, 672);
             this.history_tab.TabIndex = 1;
             this.history_tab.UseVisualStyleBackColor = true;
+            // 
+            // history_view_table_layout_panel
+            // 
+            this.history_view_table_layout_panel.ColumnCount = 1;
+            this.history_view_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.history_view_table_layout_panel.Controls.Add(this.history_header_panel, 0, 0);
+            this.history_view_table_layout_panel.Controls.Add(this.history_scroll_panel, 0, 1);
+            this.history_view_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_view_table_layout_panel.Location = new System.Drawing.Point(3, 3);
+            this.history_view_table_layout_panel.Name = "history_view_table_layout_panel";
+            this.history_view_table_layout_panel.RowCount = 2;
+            this.history_view_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.history_view_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.history_view_table_layout_panel.Size = new System.Drawing.Size(845, 666);
+            this.history_view_table_layout_panel.TabIndex = 0;
+            // 
+            // history_header_panel
+            // 
+            this.history_header_panel.BackColor = System.Drawing.Color.Blue;
+            this.history_header_panel.Controls.Add(this.history_header_results_label);
+            this.history_header_panel.Controls.Add(this.History_header_label);
+            this.history_header_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_header_panel.Location = new System.Drawing.Point(0, 0);
+            this.history_header_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.history_header_panel.Name = "history_header_panel";
+            this.history_header_panel.Size = new System.Drawing.Size(845, 133);
+            this.history_header_panel.TabIndex = 0;
+            // 
+            // history_header_results_label
+            // 
+            this.history_header_results_label.AutoSize = true;
+            this.history_header_results_label.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.history_header_results_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_header_results_label.ForeColor = System.Drawing.Color.White;
+            this.history_header_results_label.Location = new System.Drawing.Point(0, 107);
+            this.history_header_results_label.Name = "history_header_results_label";
+            this.history_header_results_label.Size = new System.Drawing.Size(167, 26);
+            this.history_header_results_label.TabIndex = 1;
+            this.history_header_results_label.Text = "Aantal resultaten:";
+            // 
+            // History_header_label
+            // 
+            this.History_header_label.AutoSize = true;
+            this.History_header_label.Dock = System.Windows.Forms.DockStyle.Top;
+            this.History_header_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.History_header_label.ForeColor = System.Drawing.Color.White;
+            this.History_header_label.Location = new System.Drawing.Point(0, 0);
+            this.History_header_label.Name = "History_header_label";
+            this.History_header_label.Size = new System.Drawing.Size(168, 26);
+            this.History_header_label.TabIndex = 0;
+            this.History_header_label.Text = "Geschiedenis van:";
+            // 
+            // history_scroll_panel
+            // 
+            this.history_scroll_panel.AutoScroll = true;
+            this.history_scroll_panel.BackColor = System.Drawing.Color.White;
+            this.history_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_scroll_panel.Location = new System.Drawing.Point(0, 133);
+            this.history_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.history_scroll_panel.Name = "history_scroll_panel";
+            this.history_scroll_panel.Size = new System.Drawing.Size(845, 533);
+            this.history_scroll_panel.TabIndex = 1;
             // 
             // twitter_tabcontrol
             // 
@@ -571,12 +680,12 @@
             this.twitter_tabcontrol.Controls.Add(this.history_option_tab);
             this.twitter_tabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.twitter_tabcontrol.ItemSize = new System.Drawing.Size(0, 1);
-            this.twitter_tabcontrol.Location = new System.Drawing.Point(736, 0);
+            this.twitter_tabcontrol.Location = new System.Drawing.Point(1048, 0);
             this.twitter_tabcontrol.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_tabcontrol.Name = "twitter_tabcontrol";
             this.twitter_tabcontrol.Padding = new System.Drawing.Point(0, 0);
             this.twitter_tabcontrol.SelectedIndex = 0;
-            this.twitter_tabcontrol.Size = new System.Drawing.Size(152, 537);
+            this.twitter_tabcontrol.Size = new System.Drawing.Size(216, 681);
             this.twitter_tabcontrol.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.twitter_tabcontrol.TabIndex = 5;
             // 
@@ -586,7 +695,7 @@
             this.twitter_tab.Location = new System.Drawing.Point(4, 5);
             this.twitter_tab.Name = "twitter_tab";
             this.twitter_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.twitter_tab.Size = new System.Drawing.Size(144, 528);
+            this.twitter_tab.Size = new System.Drawing.Size(208, 672);
             this.twitter_tab.TabIndex = 0;
             this.twitter_tab.Text = "tabPage1";
             this.twitter_tab.UseVisualStyleBackColor = true;
@@ -597,9 +706,9 @@
             this.twitter_panel.Controls.Add(this.twitter_table_layout_panel);
             this.twitter_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.twitter_panel.Location = new System.Drawing.Point(3, 3);
-            this.twitter_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.twitter_panel.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_panel.Name = "twitter_panel";
-            this.twitter_panel.Size = new System.Drawing.Size(138, 522);
+            this.twitter_panel.Size = new System.Drawing.Size(202, 666);
             this.twitter_panel.TabIndex = 3;
             // 
             // twitter_table_layout_panel
@@ -616,7 +725,7 @@
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.twitter_table_layout_panel.Size = new System.Drawing.Size(138, 522);
+            this.twitter_table_layout_panel.Size = new System.Drawing.Size(202, 666);
             this.twitter_table_layout_panel.TabIndex = 0;
             // 
             // twitter_messages_scroll_panel
@@ -624,10 +733,10 @@
             this.twitter_messages_scroll_panel.AutoScroll = true;
             this.twitter_messages_scroll_panel.BackColor = System.Drawing.Color.PowderBlue;
             this.twitter_messages_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(2, 132);
-            this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(0, 165);
+            this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_messages_scroll_panel.Name = "twitter_messages_scroll_panel";
-            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(134, 388);
+            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(202, 501);
             this.twitter_messages_scroll_panel.TabIndex = 2;
             this.twitter_messages_scroll_panel.TabStop = true;
             // 
@@ -638,10 +747,10 @@
             this.twitter_trending_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.twitter_trending_panel.Controls.Add(this.twitter_trending_table_layout_panel);
             this.twitter_trending_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_trending_panel.Location = new System.Drawing.Point(2, 54);
-            this.twitter_trending_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.twitter_trending_panel.Location = new System.Drawing.Point(0, 66);
+            this.twitter_trending_panel.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_trending_panel.Name = "twitter_trending_panel";
-            this.twitter_trending_panel.Size = new System.Drawing.Size(134, 74);
+            this.twitter_trending_panel.Size = new System.Drawing.Size(202, 99);
             this.twitter_trending_panel.TabIndex = 1;
             // 
             // twitter_trending_table_layout_panel
@@ -656,8 +765,8 @@
             this.twitter_trending_table_layout_panel.Name = "twitter_trending_table_layout_panel";
             this.twitter_trending_table_layout_panel.RowCount = 1;
             this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
-            this.twitter_trending_table_layout_panel.Size = new System.Drawing.Size(134, 74);
+            this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 99F));
+            this.twitter_trending_table_layout_panel.Size = new System.Drawing.Size(202, 99);
             this.twitter_trending_table_layout_panel.TabIndex = 0;
             // 
             // twitter_trending_topic_label
@@ -666,10 +775,10 @@
             this.twitter_trending_topic_label.BackColor = System.Drawing.Color.Transparent;
             this.twitter_trending_topic_label.Dock = System.Windows.Forms.DockStyle.Top;
             this.twitter_trending_topic_label.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            this.twitter_trending_topic_label.Location = new System.Drawing.Point(2, 0);
-            this.twitter_trending_topic_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.twitter_trending_topic_label.Location = new System.Drawing.Point(0, 0);
+            this.twitter_trending_topic_label.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_trending_topic_label.Name = "twitter_trending_topic_label";
-            this.twitter_trending_topic_label.Size = new System.Drawing.Size(63, 69);
+            this.twitter_trending_topic_label.Size = new System.Drawing.Size(101, 46);
             this.twitter_trending_topic_label.TabIndex = 0;
             this.twitter_trending_topic_label.Text = "Trending topics:\r\n";
             // 
@@ -679,10 +788,10 @@
             this.twitter_trending_tag_label.BackColor = System.Drawing.Color.Transparent;
             this.twitter_trending_tag_label.Dock = System.Windows.Forms.DockStyle.Top;
             this.twitter_trending_tag_label.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            this.twitter_trending_tag_label.Location = new System.Drawing.Point(69, 0);
-            this.twitter_trending_tag_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.twitter_trending_tag_label.Location = new System.Drawing.Point(101, 0);
+            this.twitter_trending_tag_label.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_trending_tag_label.Name = "twitter_trending_tag_label";
-            this.twitter_trending_tag_label.Size = new System.Drawing.Size(63, 69);
+            this.twitter_trending_tag_label.Size = new System.Drawing.Size(101, 46);
             this.twitter_trending_tag_label.TabIndex = 2;
             this.twitter_trending_tag_label.Text = "Trending tags:";
             // 
@@ -691,30 +800,243 @@
             this.twitter_logo_panel.BackgroundImage = global::WijkAgent.Properties.Resources.twitter_company_statistics__1_;
             this.twitter_logo_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.twitter_logo_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.twitter_logo_panel.Location = new System.Drawing.Point(2, 2);
-            this.twitter_logo_panel.Margin = new System.Windows.Forms.Padding(2);
+            this.twitter_logo_panel.Location = new System.Drawing.Point(0, 0);
+            this.twitter_logo_panel.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_logo_panel.Name = "twitter_logo_panel";
-            this.twitter_logo_panel.Size = new System.Drawing.Size(134, 48);
+            this.twitter_logo_panel.Size = new System.Drawing.Size(202, 66);
             this.twitter_logo_panel.TabIndex = 0;
             // 
             // history_option_tab
             // 
+            this.history_option_tab.Controls.Add(this.tableLayoutPanel1);
             this.history_option_tab.Location = new System.Drawing.Point(4, 5);
             this.history_option_tab.Name = "history_option_tab";
             this.history_option_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.history_option_tab.Size = new System.Drawing.Size(144, 528);
+            this.history_option_tab.Size = new System.Drawing.Size(208, 672);
             this.history_option_tab.TabIndex = 1;
             this.history_option_tab.Text = "tabPage2";
             this.history_option_tab.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.history_option_panel_for_label, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.history_option_panel, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(202, 666);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // history_option_panel_for_label
+            // 
+            this.history_option_panel_for_label.BackColor = System.Drawing.Color.Blue;
+            this.history_option_panel_for_label.Controls.Add(this.history_option_label);
+            this.history_option_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_option_panel_for_label.Location = new System.Drawing.Point(0, 0);
+            this.history_option_panel_for_label.Margin = new System.Windows.Forms.Padding(0);
+            this.history_option_panel_for_label.Name = "history_option_panel_for_label";
+            this.history_option_panel_for_label.Size = new System.Drawing.Size(202, 66);
+            this.history_option_panel_for_label.TabIndex = 0;
+            // 
+            // history_option_label
+            // 
+            this.history_option_label.AutoSize = true;
+            this.history_option_label.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_option_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_option_label.ForeColor = System.Drawing.Color.White;
+            this.history_option_label.Location = new System.Drawing.Point(0, 0);
+            this.history_option_label.Name = "history_option_label";
+            this.history_option_label.Size = new System.Drawing.Size(74, 26);
+            this.history_option_label.TabIndex = 0;
+            this.history_option_label.Text = "Opties:";
+            // 
+            // history_option_panel
+            // 
+            this.history_option_panel.BackColor = System.Drawing.Color.White;
+            this.history_option_panel.Controls.Add(this.tableLayoutPanel2);
+            this.history_option_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_option_panel.Location = new System.Drawing.Point(0, 66);
+            this.history_option_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.history_option_panel.Name = "history_option_panel";
+            this.history_option_panel.Size = new System.Drawing.Size(202, 600);
+            this.history_option_panel.TabIndex = 1;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.history_wijk_checkbox, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.history_user_checkbox, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.history_categorie_checkbox, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.history_date_checkbox, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.history_district_textbox, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.history_user_textbox, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.history_category_combobox, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.history_from_date_combobox, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.history_till_date_combobox, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.history_till_date_label, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.history_from_date_label, 0, 4);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 7;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 600);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // history_wijk_checkbox
+            // 
+            this.history_wijk_checkbox.AutoSize = true;
+            this.history_wijk_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_wijk_checkbox.Location = new System.Drawing.Point(3, 3);
+            this.history_wijk_checkbox.Name = "history_wijk_checkbox";
+            this.history_wijk_checkbox.Size = new System.Drawing.Size(59, 23);
+            this.history_wijk_checkbox.TabIndex = 0;
+            this.history_wijk_checkbox.Text = "Wijk";
+            this.history_wijk_checkbox.UseVisualStyleBackColor = true;
+            // 
+            // history_user_checkbox
+            // 
+            this.history_user_checkbox.AutoSize = true;
+            this.history_user_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_user_checkbox.Location = new System.Drawing.Point(3, 63);
+            this.history_user_checkbox.Name = "history_user_checkbox";
+            this.history_user_checkbox.Size = new System.Drawing.Size(95, 23);
+            this.history_user_checkbox.TabIndex = 1;
+            this.history_user_checkbox.Text = "Gebruiker";
+            this.history_user_checkbox.UseVisualStyleBackColor = true;
+            // 
+            // history_categorie_checkbox
+            // 
+            this.history_categorie_checkbox.AutoSize = true;
+            this.history_categorie_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_categorie_checkbox.Location = new System.Drawing.Point(3, 123);
+            this.history_categorie_checkbox.Name = "history_categorie_checkbox";
+            this.history_categorie_checkbox.Size = new System.Drawing.Size(93, 23);
+            this.history_categorie_checkbox.TabIndex = 2;
+            this.history_categorie_checkbox.Text = "Categorie";
+            this.history_categorie_checkbox.UseVisualStyleBackColor = true;
+            // 
+            // history_date_checkbox
+            // 
+            this.history_date_checkbox.AutoSize = true;
+            this.history_date_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_date_checkbox.Location = new System.Drawing.Point(3, 183);
+            this.history_date_checkbox.Name = "history_date_checkbox";
+            this.history_date_checkbox.Size = new System.Drawing.Size(74, 23);
+            this.history_date_checkbox.TabIndex = 3;
+            this.history_date_checkbox.Text = "Datum";
+            this.history_date_checkbox.UseVisualStyleBackColor = true;
+            // 
+            // history_district_textbox
+            // 
+            this.history_district_textbox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_district_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_district_textbox.ForeColor = System.Drawing.Color.DimGray;
+            this.history_district_textbox.Location = new System.Drawing.Point(104, 3);
+            this.history_district_textbox.Name = "history_district_textbox";
+            this.history_district_textbox.Size = new System.Drawing.Size(95, 27);
+            this.history_district_textbox.TabIndex = 4;
+            this.history_district_textbox.Text = "Zoek een wijk . . .";
+            this.history_district_textbox.Enter += new System.EventHandler(this.history_district_textbox_Enter);
+            this.history_district_textbox.Leave += new System.EventHandler(this.history_district_textbox_Leave);
+            // 
+            // history_user_textbox
+            // 
+            this.history_user_textbox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_user_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_user_textbox.ForeColor = System.Drawing.Color.DimGray;
+            this.history_user_textbox.Location = new System.Drawing.Point(104, 63);
+            this.history_user_textbox.Name = "history_user_textbox";
+            this.history_user_textbox.Size = new System.Drawing.Size(95, 27);
+            this.history_user_textbox.TabIndex = 5;
+            this.history_user_textbox.Text = "Zoek een gebruiker . . .";
+            this.history_user_textbox.Enter += new System.EventHandler(this.history_user_textbox_Enter);
+            this.history_user_textbox.Leave += new System.EventHandler(this.history_user_textbox_Leave);
+            // 
+            // history_category_combobox
+            // 
+            this.history_category_combobox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_category_combobox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_category_combobox.FormattingEnabled = true;
+            this.history_category_combobox.Items.AddRange(new object[] {
+            "Incidenten",
+            "Ongevallen",
+            "Brand"});
+            this.history_category_combobox.Location = new System.Drawing.Point(104, 123);
+            this.history_category_combobox.Name = "history_category_combobox";
+            this.history_category_combobox.Size = new System.Drawing.Size(95, 27);
+            this.history_category_combobox.TabIndex = 6;
+            this.history_category_combobox.Text = "Kiez een categorie . . .";
+            // 
+            // history_from_date_combobox
+            // 
+            this.history_from_date_combobox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_from_date_combobox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_from_date_combobox.FormattingEnabled = true;
+            this.history_from_date_combobox.Location = new System.Drawing.Point(104, 213);
+            this.history_from_date_combobox.Name = "history_from_date_combobox";
+            this.history_from_date_combobox.Size = new System.Drawing.Size(95, 27);
+            this.history_from_date_combobox.TabIndex = 8;
+            // 
+            // history_till_date_combobox
+            // 
+            this.history_till_date_combobox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_till_date_combobox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_till_date_combobox.FormattingEnabled = true;
+            this.history_till_date_combobox.Location = new System.Drawing.Point(104, 243);
+            this.history_till_date_combobox.Name = "history_till_date_combobox";
+            this.history_till_date_combobox.Size = new System.Drawing.Size(95, 27);
+            this.history_till_date_combobox.TabIndex = 9;
+            // 
+            // history_till_date_label
+            // 
+            this.history_till_date_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.history_till_date_label.AutoSize = true;
+            this.history_till_date_label.BackColor = System.Drawing.Color.Transparent;
+            this.history_till_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_till_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.history_till_date_label.Location = new System.Drawing.Point(64, 240);
+            this.history_till_date_label.Name = "history_till_date_label";
+            this.history_till_date_label.Size = new System.Drawing.Size(34, 19);
+            this.history_till_date_label.TabIndex = 10;
+            this.history_till_date_label.Text = "tot:";
+            // 
+            // history_from_date_label
+            // 
+            this.history_from_date_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.history_from_date_label.AutoSize = true;
+            this.history_from_date_label.BackColor = System.Drawing.Color.Transparent;
+            this.history_from_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_from_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.history_from_date_label.Location = new System.Drawing.Point(60, 210);
+            this.history_from_date_label.Name = "history_from_date_label";
+            this.history_from_date_label.Size = new System.Drawing.Size(38, 19);
+            this.history_from_date_label.TabIndex = 1;
+            this.history_from_date_label.Text = "Van:";
             // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 537);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.main_table_layout_panel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(0);
+            this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "View";
             this.Text = "WijkAgent";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.View_FormClosed);
@@ -745,6 +1067,10 @@
             this.district_panel_for_label.PerformLayout();
             this.map_tabcontrol.ResumeLayout(false);
             this.map_tab.ResumeLayout(false);
+            this.history_tab.ResumeLayout(false);
+            this.history_view_table_layout_panel.ResumeLayout(false);
+            this.history_header_panel.ResumeLayout(false);
+            this.history_header_panel.PerformLayout();
             this.twitter_tabcontrol.ResumeLayout(false);
             this.twitter_tab.ResumeLayout(false);
             this.twitter_panel.ResumeLayout(false);
@@ -752,6 +1078,13 @@
             this.twitter_trending_panel.ResumeLayout(false);
             this.twitter_trending_table_layout_panel.ResumeLayout(false);
             this.twitter_trending_table_layout_panel.PerformLayout();
+            this.history_option_tab.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.history_option_panel_for_label.ResumeLayout(false);
+            this.history_option_panel_for_label.PerformLayout();
+            this.history_option_panel.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -803,6 +1136,28 @@
         private System.Windows.Forms.TabPage history_option_tab;
         private System.Windows.Forms.TableLayoutPanel twitter_trending_table_layout_panel;
         private System.Windows.Forms.Label twitter_trending_tag_label;
+        private System.Windows.Forms.TableLayoutPanel history_view_table_layout_panel;
+        private System.Windows.Forms.Button go_to_history_panel_button_from_main_menu_tab;
+        private System.Windows.Forms.Panel history_header_panel;
+        private System.Windows.Forms.Panel history_scroll_panel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox history_wijk_checkbox;
+        private System.Windows.Forms.CheckBox history_user_checkbox;
+        private System.Windows.Forms.CheckBox history_categorie_checkbox;
+        private System.Windows.Forms.CheckBox history_date_checkbox;
+        private System.Windows.Forms.TextBox history_district_textbox;
+        private System.Windows.Forms.TextBox history_user_textbox;
+        private System.Windows.Forms.ComboBox history_category_combobox;
+        private System.Windows.Forms.ComboBox history_from_date_combobox;
+        private System.Windows.Forms.ComboBox history_till_date_combobox;
+        private System.Windows.Forms.Panel history_option_panel_for_label;
+        private System.Windows.Forms.Panel history_option_panel;
+        private System.Windows.Forms.Label history_option_label;
+        private System.Windows.Forms.Label history_till_date_label;
+        private System.Windows.Forms.Label history_from_date_label;
+        private System.Windows.Forms.Label History_header_label;
+        private System.Windows.Forms.Label history_header_results_label;
     }
 }
 
