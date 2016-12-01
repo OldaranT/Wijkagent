@@ -70,6 +70,7 @@ namespace WijkAgent
 
         private void View_Load(object sender, EventArgs e)
         {
+            fillSearchSuggestions();
             main_menu_panel_for_label.BackColor = policeBlue;
             province_panel_for_label.BackColor = policeBlue;
             city_panel_for_label.BackColor = policeBlue;
@@ -456,6 +457,7 @@ namespace WijkAgent
             Environment.Exit(0);
         }
         #endregion
+
         #region go_to_history_panel_button_from_main_menu_tab_Click
         private void go_to_history_panel_button_from_main_menu_tab_Click(object sender, EventArgs e)
         {
@@ -573,6 +575,78 @@ namespace WijkAgent
             {
                 twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
             }
+        }
+        #endregion
+
+        #region Create suggetions for all filters
+        public void fillSearchSuggestions()
+        {
+            //Roep districte naam suggeties aan.
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+
+            //Selectie Query die de namen van allke province selecteer en ordered.
+            string stm = "SELECT DISTINCT name FROM district";
+            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+            // Hier word de database lijst uitgelezen
+            while (modelClass.databaseConnectie.rdr.Read())
+            {
+                history_district_textbox.AutoCompleteCustomSource.Add(modelClass.databaseConnectie.rdr.GetString(0));
+            }
+
+            //sluit database connectie
+            modelClass.databaseConnectie.conn.Close();
+
+            //Roep twitter user suggeties aan.
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+            //Selectie Query die de namen van allke province selecteer en ordered.
+            string stm2 = "SELECT DISTINCT user FROM twitter";
+            MySqlCommand cmd2 = new MySqlCommand(stm2, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd2.ExecuteReader();
+
+            // Hier word de database lijst uitgelezen
+            while (modelClass.databaseConnectie.rdr.Read())
+            {
+                history_user_textbox.AutoCompleteCustomSource.Add(modelClass.databaseConnectie.rdr.GetString(0));
+            }
+
+            //sluit database connectie
+            modelClass.databaseConnectie.conn.Close();
+
+
+            history_category_combobox.Text = "test";
+            //Roep twitter user suggeties aan.
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+            //Selectie Query die de namen van allke province selecteer en ordered.
+            string stm3 = "SELECT DISTINCT name FROM category ORDER BY name";
+            MySqlCommand cmd3 = new MySqlCommand(stm3, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd3.ExecuteReader();
+
+            // Hier word de database lijst uitgelezen
+            while (modelClass.databaseConnectie.rdr.Read())
+            {
+                history_category_combobox.Items.Add(modelClass.databaseConnectie.rdr.GetString(0).First().ToString().ToUpper() + String.Join("", modelClass.databaseConnectie.rdr.GetString(0).Skip(1)));
+            }
+
+            //sluit database connectie
+            modelClass.databaseConnectie.conn.Close();
+
+        }
+        #endregion
+
+        #region min/max for datepicker
+        private void history_from_datetimepicker_ValueChanged(object sender, EventArgs e)
+        {
+            history_till_datetimepicker.MinDate = history_from_datetimepicker.Value;
+        }
+
+        private void history_till_datetimepicker_ValueChanged(object sender, EventArgs e)
+        {
+            history_from_datetimepicker.MaxDate = history_till_datetimepicker.Value;
         }
         #endregion
     }
