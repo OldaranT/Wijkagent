@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using WijkAgent.Model;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace WijkAgent
 {
@@ -63,7 +64,9 @@ namespace WijkAgent
             modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
+            
         }
+
 
         private void View_Load(object sender, EventArgs e)
         {
@@ -259,6 +262,8 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
+
+
             //twitterTrendingList
             List<string> trendingTweetWord = new List<string>();
             List<string> trendingTags = new List<string>();
@@ -328,7 +333,7 @@ namespace WijkAgent
                     twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
                 }
             }
-            
+
             //Test twitter database! 
             modelClass.TweetsToDb();
 
@@ -396,6 +401,16 @@ namespace WijkAgent
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
+
+            refresh_waypoints_button.Hide();
+
+        }
+        #endregion
+
+        #region RefreshButton_unhide
+        public void RefreshThreatAction()
+        {
+            refresh_waypoints_button.Show();
         }
         #endregion
 
@@ -408,10 +423,11 @@ namespace WijkAgent
         private void on_exit_hover_twitter_message(object sender, EventArgs e)
         {
             Label hoverTweet = (Label)sender;
-            if(hoverTweet != lastClickedLabel){
+            if (hoverTweet != lastClickedLabel)
+            {
                 hoverTweet.BackColor = policeBlue;
             }
-            
+
 
         }
         #endregion
@@ -419,7 +435,7 @@ namespace WijkAgent
         #region OnTwitterMessageClick
         private void TweetMessageOnClick(object sender, EventArgs e)
         {
-            if(lastClickedLabel != null)
+            if (lastClickedLabel != null)
             {
                 lastClickedLabel.BackColor = policeBlue;
             }
@@ -541,11 +557,11 @@ namespace WijkAgent
 
             twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
             int _tagCount = trendingTags.Count();
-            if(_tagCount == 0)
+            if (_tagCount == 0)
             {
                 twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
             }
-            else if(_tagCount < 3)
+            else if (_tagCount < 3)
             {
                 twitter_trending_tag_label.Text = "Trending tags:\n";
                 for (int i = 0; i < _tagCount; i++)
@@ -560,4 +576,5 @@ namespace WijkAgent
         }
         #endregion
     }
+
 }
