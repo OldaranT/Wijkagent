@@ -10,14 +10,18 @@ using System.Windows.Forms;
 using WijkAgent.Model;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace WijkAgent
 {
     public delegate void RefreshButtonClick();
+    public delegate void ThreadActionRefresh();
 
     public partial class View : Form
     {
+        public ThreadActionRefresh ThreadDelegate;
         public ModelClass modelClass;
+        private Thread myThread;
         private bool provinceButtonsCreated = false;
         private bool cityButtonsCreated = false;
         private bool districtButtonsCreated = false;
@@ -60,9 +64,10 @@ namespace WijkAgent
 
             refresh_waypoints_button.Hide();
 
-            ThreadCreator t = new ThreadCreator();
-            t.CreateChildThread();
+            ThreadDelegate = new ThreadActionRefresh(RefreshThreatAction);
+            //t.CreateChildThread();
         }
+
 
         private void View_Load(object sender, EventArgs e)
         {
@@ -249,7 +254,7 @@ namespace WijkAgent
         public void DistrictButton_Click(object sender, EventArgs e)
         {
 
-            
+
 
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
@@ -315,7 +320,7 @@ namespace WijkAgent
                     twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
                 }
             }
-            
+
             //Test twitter database! 
             modelClass.TweetsToDb();
 
@@ -383,6 +388,19 @@ namespace WijkAgent
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
+
+            refresh_waypoints_button.Hide();
+            myThread = new Thread(new ThreadStart(ThreadFunction));
+            myThread.Start();
+
+        }
+        #endregion
+
+        #region RefreshButton_unhide
+        public void RefreshThreatAction()
+        {
+            refresh_waypoints_button.Show();
+            myThread = null;
         }
         #endregion
 
@@ -395,10 +413,11 @@ namespace WijkAgent
         private void on_exit_hover_twitter_message(object sender, EventArgs e)
         {
             Label hoverTweet = (Label)sender;
-            if(hoverTweet != lastClickedLabel){
+            if (hoverTweet != lastClickedLabel)
+            {
                 hoverTweet.BackColor = policeBlue;
             }
-            
+
 
         }
         #endregion
@@ -406,7 +425,7 @@ namespace WijkAgent
         #region OnTwitterMessageClick
         private void TweetMessageOnClick(object sender, EventArgs e)
         {
-            if(lastClickedLabel != null)
+            if (lastClickedLabel != null)
             {
                 lastClickedLabel.BackColor = policeBlue;
             }
@@ -481,11 +500,11 @@ namespace WijkAgent
 
             twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
             int _tagCount = trendingTags.Count();
-            if(_tagCount == 0)
+            if (_tagCount == 0)
             {
                 twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
             }
-            else if(_tagCount < 3)
+            else if (_tagCount < 3)
             {
                 twitter_trending_tag_label.Text = "Trending tags:\n";
                 for (int i = 0; i < _tagCount; i++)
@@ -498,6 +517,36 @@ namespace WijkAgent
                 twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
             }
         }
+        
+        private void ThreadFunction()
+        {
+            ThreadClass RefreshThread = new ThreadClass(this);
+            RefreshThread.Run();
+        }
 
+    }
+
+   
+    public class ThreadClass
+    {
+        
+        View view;
+
+        public ThreadClass(View _view)
+        {
+            view = _view;
+        }
+
+        public void Run()
+        {
+            Console.WriteLine("threat started running like forest");
+            int sleepfor = 5000;
+
+            Console.WriteLine("Child Thread Paused for {0} seconds", sleepfor / 1000);
+            Thread.Sleep(sleepfor);
+
+            view.Invoke(view.ThreadDelegate);
+            Console.WriteLine("view is invoked");
+        }
     }
 }
