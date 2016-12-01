@@ -85,8 +85,8 @@
             this.history_option_panel_for_label = new System.Windows.Forms.Panel();
             this.history_option_label = new System.Windows.Forms.Label();
             this.history_option_panel = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.history_wijk_checkbox = new System.Windows.Forms.CheckBox();
+            this.history_filter_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
+            this.history_district_checkbox = new System.Windows.Forms.CheckBox();
             this.history_user_checkbox = new System.Windows.Forms.CheckBox();
             this.history_categorie_checkbox = new System.Windows.Forms.CheckBox();
             this.history_date_checkbox = new System.Windows.Forms.CheckBox();
@@ -97,6 +97,7 @@
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
+            this.history_search_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -132,7 +133,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.history_option_panel_for_label.SuspendLayout();
             this.history_option_panel.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.history_filter_table_layout_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_menu_panel
@@ -665,7 +666,7 @@
             // history_scroll_panel
             // 
             this.history_scroll_panel.AutoScroll = true;
-            this.history_scroll_panel.BackColor = System.Drawing.Color.White;
+            this.history_scroll_panel.BackColor = System.Drawing.SystemColors.Window;
             this.history_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.history_scroll_panel.Location = new System.Drawing.Point(0, 133);
             this.history_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
@@ -859,7 +860,8 @@
             // history_option_panel
             // 
             this.history_option_panel.BackColor = System.Drawing.Color.White;
-            this.history_option_panel.Controls.Add(this.tableLayoutPanel2);
+            this.history_option_panel.Controls.Add(this.history_filter_table_layout_panel);
+            this.history_option_panel.Controls.Add(this.history_search_button);
             this.history_option_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.history_option_panel.Location = new System.Drawing.Point(0, 66);
             this.history_option_panel.Margin = new System.Windows.Forms.Padding(0);
@@ -867,52 +869,52 @@
             this.history_option_panel.Size = new System.Drawing.Size(202, 600);
             this.history_option_panel.TabIndex = 1;
             // 
-            // tableLayoutPanel2
+            // history_filter_table_layout_panel
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel2.Controls.Add(this.history_from_datetimepicker, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.history_wijk_checkbox, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.history_user_checkbox, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.history_categorie_checkbox, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.history_date_checkbox, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.history_district_textbox, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.history_user_textbox, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.history_category_combobox, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.history_till_date_label, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.history_from_date_label, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.history_till_datetimepicker, 1, 5);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 7;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 600);
-            this.tableLayoutPanel2.TabIndex = 0;
+            this.history_filter_table_layout_panel.ColumnCount = 2;
+            this.history_filter_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.history_filter_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.history_filter_table_layout_panel.Controls.Add(this.history_from_datetimepicker, 1, 4);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_district_checkbox, 0, 0);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_user_checkbox, 0, 1);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_categorie_checkbox, 0, 2);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_date_checkbox, 0, 3);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_district_textbox, 1, 0);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_user_textbox, 1, 1);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_category_combobox, 1, 2);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_till_date_label, 0, 5);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_from_date_label, 0, 4);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_till_datetimepicker, 1, 5);
+            this.history_filter_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_filter_table_layout_panel.Location = new System.Drawing.Point(0, 0);
+            this.history_filter_table_layout_panel.Name = "history_filter_table_layout_panel";
+            this.history_filter_table_layout_panel.RowCount = 7;
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.history_filter_table_layout_panel.Size = new System.Drawing.Size(202, 525);
+            this.history_filter_table_layout_panel.TabIndex = 0;
             // 
-            // history_wijk_checkbox
+            // history_district_checkbox
             // 
-            this.history_wijk_checkbox.AutoSize = true;
-            this.history_wijk_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.history_wijk_checkbox.Location = new System.Drawing.Point(3, 3);
-            this.history_wijk_checkbox.Name = "history_wijk_checkbox";
-            this.history_wijk_checkbox.Size = new System.Drawing.Size(59, 23);
-            this.history_wijk_checkbox.TabIndex = 0;
-            this.history_wijk_checkbox.Text = "Wijk";
-            this.history_wijk_checkbox.UseVisualStyleBackColor = true;
+            this.history_district_checkbox.AutoSize = true;
+            this.history_district_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_district_checkbox.Location = new System.Drawing.Point(3, 3);
+            this.history_district_checkbox.Name = "history_district_checkbox";
+            this.history_district_checkbox.Size = new System.Drawing.Size(59, 23);
+            this.history_district_checkbox.TabIndex = 0;
+            this.history_district_checkbox.Text = "Wijk";
+            this.history_district_checkbox.UseVisualStyleBackColor = true;
             // 
             // history_user_checkbox
             // 
             this.history_user_checkbox.AutoSize = true;
             this.history_user_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_user_checkbox.Location = new System.Drawing.Point(3, 63);
+            this.history_user_checkbox.Location = new System.Drawing.Point(3, 55);
             this.history_user_checkbox.Name = "history_user_checkbox";
             this.history_user_checkbox.Size = new System.Drawing.Size(74, 23);
             this.history_user_checkbox.TabIndex = 1;
@@ -923,7 +925,7 @@
             // 
             this.history_categorie_checkbox.AutoSize = true;
             this.history_categorie_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_categorie_checkbox.Location = new System.Drawing.Point(3, 123);
+            this.history_categorie_checkbox.Location = new System.Drawing.Point(3, 107);
             this.history_categorie_checkbox.Name = "history_categorie_checkbox";
             this.history_categorie_checkbox.Size = new System.Drawing.Size(74, 23);
             this.history_categorie_checkbox.TabIndex = 2;
@@ -934,9 +936,9 @@
             // 
             this.history_date_checkbox.AutoSize = true;
             this.history_date_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_date_checkbox.Location = new System.Drawing.Point(3, 183);
+            this.history_date_checkbox.Location = new System.Drawing.Point(3, 159);
             this.history_date_checkbox.Name = "history_date_checkbox";
-            this.history_date_checkbox.Size = new System.Drawing.Size(74, 23);
+            this.history_date_checkbox.Size = new System.Drawing.Size(74, 20);
             this.history_date_checkbox.TabIndex = 3;
             this.history_date_checkbox.Text = "Datum";
             this.history_date_checkbox.UseVisualStyleBackColor = true;
@@ -963,7 +965,7 @@
             this.history_user_textbox.Dock = System.Windows.Forms.DockStyle.Top;
             this.history_user_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.history_user_textbox.ForeColor = System.Drawing.Color.DimGray;
-            this.history_user_textbox.Location = new System.Drawing.Point(83, 63);
+            this.history_user_textbox.Location = new System.Drawing.Point(83, 55);
             this.history_user_textbox.Name = "history_user_textbox";
             this.history_user_textbox.Size = new System.Drawing.Size(116, 27);
             this.history_user_textbox.TabIndex = 5;
@@ -977,7 +979,7 @@
             this.history_category_combobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.history_category_combobox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.history_category_combobox.FormattingEnabled = true;
-            this.history_category_combobox.Location = new System.Drawing.Point(83, 123);
+            this.history_category_combobox.Location = new System.Drawing.Point(83, 107);
             this.history_category_combobox.Name = "history_category_combobox";
             this.history_category_combobox.Size = new System.Drawing.Size(116, 27);
             this.history_category_combobox.TabIndex = 6;
@@ -990,7 +992,7 @@
             this.history_till_date_label.BackColor = System.Drawing.Color.Transparent;
             this.history_till_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_till_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.history_till_date_label.Location = new System.Drawing.Point(43, 240);
+            this.history_till_date_label.Location = new System.Drawing.Point(43, 208);
             this.history_till_date_label.Name = "history_till_date_label";
             this.history_till_date_label.Size = new System.Drawing.Size(34, 19);
             this.history_till_date_label.TabIndex = 10;
@@ -1003,7 +1005,7 @@
             this.history_from_date_label.BackColor = System.Drawing.Color.Transparent;
             this.history_from_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_from_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.history_from_date_label.Location = new System.Drawing.Point(39, 210);
+            this.history_from_date_label.Location = new System.Drawing.Point(39, 182);
             this.history_from_date_label.Name = "history_from_date_label";
             this.history_from_date_label.Size = new System.Drawing.Size(38, 19);
             this.history_from_date_label.TabIndex = 1;
@@ -1012,7 +1014,7 @@
             // history_from_datetimepicker
             // 
             this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 213);
+            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 185);
             this.history_from_datetimepicker.Name = "history_from_datetimepicker";
             this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
             this.history_from_datetimepicker.TabIndex = 1;
@@ -1021,11 +1023,26 @@
             // history_till_datetimepicker
             // 
             this.history_till_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_till_datetimepicker.Location = new System.Drawing.Point(83, 243);
+            this.history_till_datetimepicker.Location = new System.Drawing.Point(83, 211);
             this.history_till_datetimepicker.Name = "history_till_datetimepicker";
             this.history_till_datetimepicker.Size = new System.Drawing.Size(116, 20);
             this.history_till_datetimepicker.TabIndex = 11;
             this.history_till_datetimepicker.ValueChanged += new System.EventHandler(this.history_till_datetimepicker_ValueChanged);
+            // 
+            // history_search_button
+            // 
+            this.history_search_button.BackColor = System.Drawing.Color.Blue;
+            this.history_search_button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.history_search_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_search_button.ForeColor = System.Drawing.Color.White;
+            this.history_search_button.Location = new System.Drawing.Point(0, 525);
+            this.history_search_button.Margin = new System.Windows.Forms.Padding(0);
+            this.history_search_button.Name = "history_search_button";
+            this.history_search_button.Size = new System.Drawing.Size(202, 75);
+            this.history_search_button.TabIndex = 4;
+            this.history_search_button.Text = "Zoek";
+            this.history_search_button.UseVisualStyleBackColor = false;
+            this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
             // 
             // View
             // 
@@ -1082,8 +1099,8 @@
             this.history_option_panel_for_label.ResumeLayout(false);
             this.history_option_panel_for_label.PerformLayout();
             this.history_option_panel.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.history_filter_table_layout_panel.ResumeLayout(false);
+            this.history_filter_table_layout_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1140,8 +1157,8 @@
         private System.Windows.Forms.Panel history_header_panel;
         private System.Windows.Forms.Panel history_scroll_panel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.CheckBox history_wijk_checkbox;
+        private System.Windows.Forms.TableLayoutPanel history_filter_table_layout_panel;
+        private System.Windows.Forms.CheckBox history_district_checkbox;
         private System.Windows.Forms.CheckBox history_user_checkbox;
         private System.Windows.Forms.CheckBox history_categorie_checkbox;
         private System.Windows.Forms.CheckBox history_date_checkbox;
@@ -1157,6 +1174,7 @@
         private System.Windows.Forms.Label history_header_results_label;
         private System.Windows.Forms.DateTimePicker history_from_datetimepicker;
         private System.Windows.Forms.DateTimePicker history_till_datetimepicker;
+        private System.Windows.Forms.Button history_search_button;
     }
 }
 
