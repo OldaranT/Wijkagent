@@ -323,6 +323,9 @@ namespace WijkAgent
                 //twitter trending
                 TwitterTrending();
 
+                //Omdraaien van de array, zodat de nieuwste bovenaan staan
+                modelClass.map.twitter.tweetsList.Reverse();
+                
                 //twitter aanroep
                 foreach (var tweets in modelClass.map.twitter.tweetsList)
                 {
