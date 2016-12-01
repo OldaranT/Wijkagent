@@ -246,13 +246,12 @@ namespace WijkAgent
         public void DistrictButton_Click(object sender, EventArgs e)
         {
 
-            
-
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
+
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-            int idDistrict = Convert.ToInt32(clickedButton.Name);
+            modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
             List<double> latitudeList = new List<double>();
             List<double> longtitudeList = new List<double>();
 
@@ -262,7 +261,7 @@ namespace WijkAgent
             //Selectie Query die de namen van allke province selecteer en ordered.
             string stm = "SELECT * FROM coordinate WHERE iddistrict = @iddistrict ORDER BY idcoordinate DESC";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            cmd.Parameters.AddWithValue("@iddistrict", idDistrict);
+            cmd.Parameters.AddWithValue("@iddistrict", modelClass.map.idDistrict);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
             // Hier word de database lijst uitgelezen
