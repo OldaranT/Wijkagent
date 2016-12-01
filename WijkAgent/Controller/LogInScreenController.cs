@@ -11,16 +11,16 @@ namespace WijkAgent.Controller
         public LogInScreen logInScreen;
         public ViewController viewController;
 
-        public LogInScreenController(LogInScreen _logInScreen, ViewController _viewController)
+        public LogInScreenController(LogInScreen _logInScreen)
         {
             logInScreen = _logInScreen;
             logInScreen.OnLogInButtonClick += LogInButtonClicked;
-            viewController = _viewController;
         }
 
         public void LogInButtonClicked()
         {
             logInScreen.Hide();
+            viewController = new ViewController();
             viewController.view.Show();
         }
 
