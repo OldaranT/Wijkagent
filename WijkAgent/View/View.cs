@@ -15,12 +15,9 @@ using System.Threading;
 namespace WijkAgent
 {
     public delegate void RefreshButtonClick();
-    //public delegate void ThreadActionRefresh();
 
     public partial class View : Form
     {
-        //public ThreadActionRefresh ThreadDelegate;
-        //private Thread myThread;
         public ModelClass modelClass;
         private bool provinceButtonsCreated = false;
         private bool cityButtonsCreated = false;
@@ -67,9 +64,7 @@ namespace WijkAgent
             modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
-
-            //ThreadDelegate = new ThreadActionRefresh(RefreshThreatAction);
-            //t.CreateChildThread();
+            
         }
 
 

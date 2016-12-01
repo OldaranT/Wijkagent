@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\LogInScreenController.cs" />
-    <Compile Include="Model\ThreadCreator.cs" />
     <Compile Include="View\LogInScreen.cs">
       <SubType>Form</SubType>
     </Compile>
