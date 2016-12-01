@@ -30,6 +30,10 @@ namespace WijkAgent
         //laats geklikte label
         private Label lastClickedLabel;
 
+        //placeholders
+        private string searchDistrict = "Zoek een wijk . . .";
+        private string searchUser = "Zoek een gebruiker . . .";
+
         //events
         public event RefreshButtonClick OnRefreshButtonClick;
 
@@ -67,7 +71,15 @@ namespace WijkAgent
             province_panel_for_label.BackColor = policeBlue;
             city_panel_for_label.BackColor = policeBlue;
             district_panel_for_label.BackColor = policeBlue;
+            history_option_panel_for_label.BackColor = policeBlue;
+            history_header_panel.BackColor = policeBlue;
 
+            //history button
+            go_to_history_panel_button_from_main_menu_tab.BackColor = policeBlue;
+            go_to_history_panel_button_from_main_menu_tab.ForeColor = Color.White;
+            go_to_history_panel_button_from_main_menu_tab.Font = buttonFont;
+
+            //selecteer wijk
             go_to_province_panel_button_from_main_menu_tab.BackColor = policeBlue;
             go_to_province_panel_button_from_main_menu_tab.ForeColor = Color.White;
             go_to_province_panel_button_from_main_menu_tab.Font = buttonFont;
@@ -88,6 +100,8 @@ namespace WijkAgent
         #region SelectDestrictButtonOnMainMenu_Clicked
         private void button1_Click_1(object sender, EventArgs e)
         {
+            map_tabcontrol.SelectTab(0);
+            twitter_tabcontrol.SelectTab(0);
             if (!provinceButtonsCreated)
             {
                 try
@@ -245,14 +259,16 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
-
-            
+            //twitterTrendingList
+            List<string> trendingTweetWord = new List<string>();
+            List<string> trendingTags = new List<string>();
 
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
+
             //Test writeline later verwijderen
             Console.WriteLine(clickedButton.Text.ToString());
-            int idDistrict = Convert.ToInt32(clickedButton.Name);
+            modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
             List<double> latitudeList = new List<double>();
             List<double> longtitudeList = new List<double>();
 
@@ -262,7 +278,7 @@ namespace WijkAgent
             //Selectie Query die de namen van allke province selecteer en ordered.
             string stm = "SELECT * FROM coordinate WHERE iddistrict = @iddistrict ORDER BY idcoordinate DESC";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            cmd.Parameters.AddWithValue("@iddistrict", idDistrict);
+            cmd.Parameters.AddWithValue("@iddistrict", modelClass.map.idDistrict);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
             // Hier word de database lijst uitgelezen
@@ -424,7 +440,54 @@ namespace WijkAgent
             Environment.Exit(0);
         }
         #endregion
+        #region go_to_history_panel_button_from_main_menu_tab_Click
+        private void go_to_history_panel_button_from_main_menu_tab_Click(object sender, EventArgs e)
+        {
+            map_tabcontrol.SelectTab(1);
+            twitter_tabcontrol.SelectTab(1);
+        }
+        #endregion
 
+        #region Placeholders(enter en leaver events van textbox)
+
+        private void history_district_textbox_Enter(object sender, EventArgs e)
+        {
+            if (history_district_textbox.Text == searchDistrict)
+            {
+                history_district_textbox.Text = "";
+                history_district_textbox.ForeColor = Color.Black;
+            }
+        }
+
+        private void history_district_textbox_Leave(object sender, EventArgs e)
+        {
+            if (!history_district_textbox.Text.Any())
+            {
+                history_district_textbox.ForeColor = Color.DimGray;
+                history_district_textbox.Text = searchDistrict;
+            }
+        }
+
+        private void history_user_textbox_Enter(object sender, EventArgs e)
+        {
+            if (history_user_textbox.Text == searchUser)
+            {
+                history_user_textbox.Text = "";
+                history_user_textbox.ForeColor = Color.Black;
+            }
+        }
+
+        private void history_user_textbox_Leave(object sender, EventArgs e)
+        {
+            if (!history_user_textbox.Text.Any())
+            {
+                history_user_textbox.ForeColor = Color.DimGray;
+                history_user_textbox.Text = searchUser;
+            }
+        }
+        #endregion
+
+        #region TwitterTrending
         public void TwitterTrending()
         {
             //twitterTrendingList
@@ -495,6 +558,6 @@ namespace WijkAgent
                 twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
             }
         }
-
+        #endregion
     }
 }

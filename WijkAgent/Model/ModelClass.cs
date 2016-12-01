@@ -57,7 +57,7 @@ namespace WijkAgent.Model
                     MySqlCommand insertcmd = new MySqlCommand();
                     insertcmd.Connection = databaseConnectie.conn;
                     insertcmd.CommandText = insertstm;
-                    insertcmd.Parameters.AddWithValue("@iddistrict", 2);
+                    insertcmd.Parameters.AddWithValue("@iddistrict", map.idDistrict);
                     insertcmd.Parameters.AddWithValue("@user", user);
                     insertcmd.Parameters.AddWithValue("@lat", lat);
                     insertcmd.Parameters.AddWithValue("@lon", lon);
