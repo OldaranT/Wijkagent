@@ -67,6 +67,8 @@
             this.history_tab = new System.Windows.Forms.TabPage();
             this.history_view_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.history_header_panel = new System.Windows.Forms.Panel();
+            this.history_header_results_label = new System.Windows.Forms.Label();
+            this.History_header_label = new System.Windows.Forms.Label();
             this.history_scroll_panel = new System.Windows.Forms.Panel();
             this.twitter_tabcontrol = new System.Windows.Forms.TabControl();
             this.twitter_tab = new System.Windows.Forms.TabPage();
@@ -93,10 +95,8 @@
             this.history_category_combobox = new System.Windows.Forms.ComboBox();
             this.history_from_date_combobox = new System.Windows.Forms.ComboBox();
             this.history_till_date_combobox = new System.Windows.Forms.ComboBox();
-            this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_date_label = new System.Windows.Forms.Label();
-            this.History_header_label = new System.Windows.Forms.Label();
-            this.history_header_results_label = new System.Windows.Forms.Label();
+            this.history_from_date_label = new System.Windows.Forms.Label();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -638,6 +638,30 @@
             this.history_header_panel.Size = new System.Drawing.Size(845, 133);
             this.history_header_panel.TabIndex = 0;
             // 
+            // history_header_results_label
+            // 
+            this.history_header_results_label.AutoSize = true;
+            this.history_header_results_label.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.history_header_results_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_header_results_label.ForeColor = System.Drawing.Color.White;
+            this.history_header_results_label.Location = new System.Drawing.Point(0, 107);
+            this.history_header_results_label.Name = "history_header_results_label";
+            this.history_header_results_label.Size = new System.Drawing.Size(167, 26);
+            this.history_header_results_label.TabIndex = 1;
+            this.history_header_results_label.Text = "Aantal resultaten:";
+            // 
+            // History_header_label
+            // 
+            this.History_header_label.AutoSize = true;
+            this.History_header_label.Dock = System.Windows.Forms.DockStyle.Top;
+            this.History_header_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.History_header_label.ForeColor = System.Drawing.Color.White;
+            this.History_header_label.Location = new System.Drawing.Point(0, 0);
+            this.History_header_label.Name = "History_header_label";
+            this.History_header_label.Size = new System.Drawing.Size(168, 26);
+            this.History_header_label.TabIndex = 0;
+            this.History_header_label.Text = "Geschiedenis van:";
+            // 
             // history_scroll_panel
             // 
             this.history_scroll_panel.AutoScroll = true;
@@ -741,7 +765,7 @@
             this.twitter_trending_table_layout_panel.Name = "twitter_trending_table_layout_panel";
             this.twitter_trending_table_layout_panel.RowCount = 1;
             this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.twitter_trending_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 99F));
             this.twitter_trending_table_layout_panel.Size = new System.Drawing.Size(202, 99);
             this.twitter_trending_table_layout_panel.TabIndex = 0;
             // 
@@ -978,19 +1002,6 @@
             this.history_till_date_combobox.Size = new System.Drawing.Size(95, 27);
             this.history_till_date_combobox.TabIndex = 9;
             // 
-            // history_from_date_label
-            // 
-            this.history_from_date_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.history_from_date_label.AutoSize = true;
-            this.history_from_date_label.BackColor = System.Drawing.Color.Transparent;
-            this.history_from_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.history_from_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.history_from_date_label.Location = new System.Drawing.Point(60, 210);
-            this.history_from_date_label.Name = "history_from_date_label";
-            this.history_from_date_label.Size = new System.Drawing.Size(38, 19);
-            this.history_from_date_label.TabIndex = 1;
-            this.history_from_date_label.Text = "Van:";
-            // 
             // history_till_date_label
             // 
             this.history_till_date_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1004,29 +1015,18 @@
             this.history_till_date_label.TabIndex = 10;
             this.history_till_date_label.Text = "tot:";
             // 
-            // History_header_label
+            // history_from_date_label
             // 
-            this.History_header_label.AutoSize = true;
-            this.History_header_label.Dock = System.Windows.Forms.DockStyle.Top;
-            this.History_header_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.History_header_label.ForeColor = System.Drawing.Color.White;
-            this.History_header_label.Location = new System.Drawing.Point(0, 0);
-            this.History_header_label.Name = "History_header_label";
-            this.History_header_label.Size = new System.Drawing.Size(168, 26);
-            this.History_header_label.TabIndex = 0;
-            this.History_header_label.Text = "Geschiedenis van:";
-            // 
-            // history_header_results_label
-            // 
-            this.history_header_results_label.AutoSize = true;
-            this.history_header_results_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.history_header_results_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.history_header_results_label.ForeColor = System.Drawing.Color.White;
-            this.history_header_results_label.Location = new System.Drawing.Point(0, 107);
-            this.history_header_results_label.Name = "history_header_results_label";
-            this.history_header_results_label.Size = new System.Drawing.Size(167, 26);
-            this.history_header_results_label.TabIndex = 1;
-            this.history_header_results_label.Text = "Aantal resultaten:";
+            this.history_from_date_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.history_from_date_label.AutoSize = true;
+            this.history_from_date_label.BackColor = System.Drawing.Color.Transparent;
+            this.history_from_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.history_from_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.history_from_date_label.Location = new System.Drawing.Point(60, 210);
+            this.history_from_date_label.Name = "history_from_date_label";
+            this.history_from_date_label.Size = new System.Drawing.Size(38, 19);
+            this.history_from_date_label.TabIndex = 1;
+            this.history_from_date_label.Text = "Van:";
             // 
             // View
             // 
