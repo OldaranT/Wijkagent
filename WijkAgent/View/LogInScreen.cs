@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+using MySql.Data.MySqlClient;
+using WijkAgent.Model;
 
 namespace WijkAgent
 {
@@ -15,16 +18,102 @@ namespace WijkAgent
     public partial class LogInScreen : Form
     {
         public event LogInButtonClick OnLogInButtonClick;
+        public ModelClass modelClass = new ModelClass();
 
+        #region Constructor
         public LogInScreen()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Inloggen
         private void logIn_button_Click(object sender, EventArgs e)
         {
-            if (OnLogInButtonClick != null)
-                OnLogInButtonClick();
+            //Variabel maken van ingevoerde waardes
+            string textbox_password = getSHA512(logIn_password_textbox.Text);
+            string textbox_username = logIn_username_textbox.Text;
+
+            //Open database connectie voor 1e query
+            modelClass.databaseConnectie.conn.Open();
+
+            //Kijk of gebruikersnaam voorkomt in de database.
+            //Als aantal 0 is, dan is username incorrect.
+            //Als aantal 1 is, dan is username correct en wordt het wachtwoord gecontroleerd.
+            string stm = "SELECT count(idaccount) FROM account WHERE username = '" + textbox_username + "'";
+            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+            modelClass.databaseConnectie.rdr.Read();
+            int amount = Convert.ToInt32(modelClass.databaseConnectie.rdr.GetString(0));
+
+            //Sluit verbinding voor 1e query
+            modelClass.databaseConnectie.conn.Close();
+
+            //Als gebruikernsaam voorkomt, controleer dan wachtwoord
+            if (amount != 0)
+            {
+                //Open database connectie voor 2e query
+                modelClass.databaseConnectie.conn.Open();
+
+                //Haal wachtwoord op uit de database
+                stm = "SELECT password FROM account WHERE username = '" + textbox_username + "'";
+                cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+                modelClass.databaseConnectie.rdr.Read();
+                string dbPassword = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
+
+                //Sluit verbinding voor 1e query
+                modelClass.databaseConnectie.conn.Close();
+
+                //Als wachtwoord gelijk is aan wachtwoord uit de database, kan er worden ingelogd
+                if (dbPassword == textbox_password)
+                {
+                    //Open applicatie, sluit inlogscherm
+                    if (OnLogInButtonClick != null)
+                    {
+                        OnLogInButtonClick();
+                    }
+                }
+                else
+                {
+                    //Geef foutmelding omdat wachtwoord verkeerd is
+                    PrintErrorLabel();
+                }
+            }
+            else
+            {
+                //Geef foutmelding omdat gebruikersnaam verkeerd is
+                PrintErrorLabel();
+            }
         }
+        #endregion
+
+        #region Hashen van password(SHA-512)
+        private string getSHA512(string text)
+        {
+            SHA512CryptoServiceProvider sh = new SHA512CryptoServiceProvider();
+            sh.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+            byte[] re = sh.Hash;
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in re)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
+        #endregion
+
+        #region Geef foutmelding
+        private void PrintErrorLabel()
+        {
+            logIn_username_textbox.BackColor = Color.Red;
+            logIn_password_textbox.BackColor = Color.Red;
+            logIn_username_textbox.ForeColor = Color.White;
+            logIn_password_textbox.ForeColor = Color.White;
+            Wrong_LogIn.Text = "Inloggegevens zijn incorrect";
+            Wrong_LogIn.ForeColor = Color.Red;
+        }
+        #endregion
     }
 }
