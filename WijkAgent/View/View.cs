@@ -11,6 +11,7 @@ using WijkAgent.Model;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.IO;
 
 namespace WijkAgent
 {
@@ -64,12 +65,16 @@ namespace WijkAgent
             modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
-            
+
+            //Welkombericht voor gebruiker
+            main_menu_label.Text = "Welkom, \n" + getUser();
+
         }
 
-
+        #region View Load
         private void View_Load(object sender, EventArgs e)
         {
+            fillSearchSuggestions();
             main_menu_panel_for_label.BackColor = policeBlue;
             province_panel_for_label.BackColor = policeBlue;
             city_panel_for_label.BackColor = policeBlue;
@@ -99,6 +104,7 @@ namespace WijkAgent
             go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
             go_to_city_panel_button_from_district_tab.Font = buttonFont;
         }
+        #endregion
 
         #region SelectDestrictButtonOnMainMenu_Clicked
         private void button1_Click_1(object sender, EventArgs e)
@@ -456,6 +462,7 @@ namespace WijkAgent
             Environment.Exit(0);
         }
         #endregion
+
         #region go_to_history_panel_button_from_main_menu_tab_Click
         private void go_to_history_panel_button_from_main_menu_tab_Click(object sender, EventArgs e)
         {
@@ -573,6 +580,112 @@ namespace WijkAgent
             {
                 twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
             }
+        }
+        #endregion
+
+        #region Create suggetions for all filters
+        public void fillSearchSuggestions()
+        {
+            //Roep districte naam suggeties aan.
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+
+            //Selectie Query die de namen van allke province selecteer en ordered.
+            string stm = "SELECT DISTINCT name FROM district";
+            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+            // Hier word de database lijst uitgelezen
+            while (modelClass.databaseConnectie.rdr.Read())
+            {
+                history_district_textbox.AutoCompleteCustomSource.Add(modelClass.databaseConnectie.rdr.GetString(0));
+            }
+
+            //sluit database connectie
+            modelClass.databaseConnectie.conn.Close();
+
+            //Roep twitter user suggeties aan.
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+            //Selectie Query die de namen van allke province selecteer en ordered.
+            string stm2 = "SELECT DISTINCT user FROM twitter";
+            MySqlCommand cmd2 = new MySqlCommand(stm2, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd2.ExecuteReader();
+
+            // Hier word de database lijst uitgelezen
+            while (modelClass.databaseConnectie.rdr.Read())
+            {
+                history_user_textbox.AutoCompleteCustomSource.Add(modelClass.databaseConnectie.rdr.GetString(0));
+            }
+
+            //sluit database connectie
+            modelClass.databaseConnectie.conn.Close();
+
+
+            history_category_combobox.Text = "test";
+            //Roep twitter user suggeties aan.
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+            //Selectie Query die de namen van allke province selecteer en ordered.
+            string stm3 = "SELECT DISTINCT name FROM category ORDER BY name";
+            MySqlCommand cmd3 = new MySqlCommand(stm3, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd3.ExecuteReader();
+
+            // Hier word de database lijst uitgelezen
+            while (modelClass.databaseConnectie.rdr.Read())
+            {
+                history_category_combobox.Items.Add(modelClass.databaseConnectie.rdr.GetString(0).First().ToString().ToUpper() + String.Join("", modelClass.databaseConnectie.rdr.GetString(0).Skip(1)));
+            }
+
+            //sluit database connectie
+            modelClass.databaseConnectie.conn.Close();
+
+        }
+        #endregion
+
+        #region min/max for datepicker
+        private void history_from_datetimepicker_ValueChanged(object sender, EventArgs e)
+        {
+            history_till_datetimepicker.MinDate = history_from_datetimepicker.Value;
+        }
+
+        private void history_till_datetimepicker_ValueChanged(object sender, EventArgs e)
+        {
+            history_from_datetimepicker.MaxDate = history_till_datetimepicker.Value;
+        }
+        #endregion
+
+        #region Haal naam van de gebruiker op
+        public string getUser()
+        {
+            //gaat naar de debug folder
+            string _curDir = Directory.GetCurrentDirectory();
+            //ga naar de goede map waar het text bestand in staan
+            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
+            //lees het textbestand
+            string username = System.IO.File.ReadAllText(_filePath);
+
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+
+            //Haal idAccount op
+            string stm = "SELECT idaccount FROM account WHERE username = '" + username + "'";
+            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+            modelClass.databaseConnectie.rdr.Read();
+            int idAccount = Convert.ToInt32(modelClass.databaseConnectie.rdr.GetString(0));
+            modelClass.databaseConnectie.conn.Close();
+
+            //Haal naam op van de gebruiker
+            modelClass.databaseConnectie.conn.Open();
+            stm = "SELECT naam, achternaam FROM person WHERE idaccount = '" + idAccount + "'";
+            cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+            modelClass.databaseConnectie.rdr.Read();
+            string user = modelClass.databaseConnectie.rdr.GetString(0) + " " + modelClass.databaseConnectie.rdr.GetString(1);
+            modelClass.databaseConnectie.conn.Close();
+
+            return user;
         }
         #endregion
     }
