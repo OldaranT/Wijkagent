@@ -86,6 +86,7 @@
             this.history_option_label = new System.Windows.Forms.Label();
             this.history_option_panel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_wijk_checkbox = new System.Windows.Forms.CheckBox();
             this.history_user_checkbox = new System.Windows.Forms.CheckBox();
             this.history_categorie_checkbox = new System.Windows.Forms.CheckBox();
@@ -95,8 +96,9 @@
             this.history_category_combobox = new System.Windows.Forms.ComboBox();
             this.history_till_date_label = new System.Windows.Forms.Label();
             this.history_from_date_label = new System.Windows.Forms.Label();
-            this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
+            this.Twitter_number_of_new_tweets_panel = new System.Windows.Forms.Panel();
+            this.Twitter_number_of_new_tweets_label = new System.Windows.Forms.Label();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -133,6 +135,7 @@
             this.history_option_panel_for_label.SuspendLayout();
             this.history_option_panel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.Twitter_number_of_new_tweets_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_menu_panel
@@ -715,16 +718,18 @@
             // 
             this.twitter_table_layout_panel.ColumnCount = 1;
             this.twitter_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.twitter_table_layout_panel.Controls.Add(this.Twitter_number_of_new_tweets_panel, 0, 3);
             this.twitter_table_layout_panel.Controls.Add(this.twitter_messages_scroll_panel, 0, 2);
             this.twitter_table_layout_panel.Controls.Add(this.twitter_trending_panel, 0, 1);
             this.twitter_table_layout_panel.Controls.Add(this.twitter_logo_panel, 0, 0);
             this.twitter_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.twitter_table_layout_panel.Location = new System.Drawing.Point(0, 0);
             this.twitter_table_layout_panel.Name = "twitter_table_layout_panel";
-            this.twitter_table_layout_panel.RowCount = 3;
+            this.twitter_table_layout_panel.RowCount = 4;
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72F));
+            this.twitter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3F));
             this.twitter_table_layout_panel.Size = new System.Drawing.Size(202, 666);
             this.twitter_table_layout_panel.TabIndex = 0;
             // 
@@ -736,7 +741,7 @@
             this.twitter_messages_scroll_panel.Location = new System.Drawing.Point(0, 165);
             this.twitter_messages_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.twitter_messages_scroll_panel.Name = "twitter_messages_scroll_panel";
-            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(202, 501);
+            this.twitter_messages_scroll_panel.Size = new System.Drawing.Size(202, 479);
             this.twitter_messages_scroll_panel.TabIndex = 2;
             this.twitter_messages_scroll_panel.TabStop = true;
             // 
@@ -897,6 +902,15 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 600);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // history_from_datetimepicker
+            // 
+            this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 213);
+            this.history_from_datetimepicker.Name = "history_from_datetimepicker";
+            this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
+            this.history_from_datetimepicker.TabIndex = 1;
+            this.history_from_datetimepicker.ValueChanged += new System.EventHandler(this.history_from_datetimepicker_ValueChanged);
+            // 
             // history_wijk_checkbox
             // 
             this.history_wijk_checkbox.AutoSize = true;
@@ -1009,15 +1023,6 @@
             this.history_from_date_label.TabIndex = 1;
             this.history_from_date_label.Text = "Van:";
             // 
-            // history_from_datetimepicker
-            // 
-            this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 213);
-            this.history_from_datetimepicker.Name = "history_from_datetimepicker";
-            this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
-            this.history_from_datetimepicker.TabIndex = 1;
-            this.history_from_datetimepicker.ValueChanged += new System.EventHandler(this.history_from_datetimepicker_ValueChanged);
-            // 
             // history_till_datetimepicker
             // 
             this.history_till_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1026,6 +1031,28 @@
             this.history_till_datetimepicker.Size = new System.Drawing.Size(116, 20);
             this.history_till_datetimepicker.TabIndex = 11;
             this.history_till_datetimepicker.ValueChanged += new System.EventHandler(this.history_till_datetimepicker_ValueChanged);
+            // 
+            // Twitter_number_of_new_tweets_panel
+            // 
+            this.Twitter_number_of_new_tweets_panel.BackColor = System.Drawing.Color.Transparent;
+            this.Twitter_number_of_new_tweets_panel.Controls.Add(this.Twitter_number_of_new_tweets_label);
+            this.Twitter_number_of_new_tweets_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Twitter_number_of_new_tweets_panel.Location = new System.Drawing.Point(3, 647);
+            this.Twitter_number_of_new_tweets_panel.Name = "Twitter_number_of_new_tweets_panel";
+            this.Twitter_number_of_new_tweets_panel.Size = new System.Drawing.Size(196, 16);
+            this.Twitter_number_of_new_tweets_panel.TabIndex = 2;
+            // 
+            // Twitter_number_of_new_tweets_label
+            // 
+            this.Twitter_number_of_new_tweets_label.AutoSize = true;
+            this.Twitter_number_of_new_tweets_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Twitter_number_of_new_tweets_label.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Twitter_number_of_new_tweets_label.ForeColor = System.Drawing.Color.White;
+            this.Twitter_number_of_new_tweets_label.Location = new System.Drawing.Point(0, 0);
+            this.Twitter_number_of_new_tweets_label.Name = "Twitter_number_of_new_tweets_label";
+            this.Twitter_number_of_new_tweets_label.Size = new System.Drawing.Size(190, 23);
+            this.Twitter_number_of_new_tweets_label.TabIndex = 0;
+            this.Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets:";
             // 
             // View
             // 
@@ -1084,6 +1111,8 @@
             this.history_option_panel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.Twitter_number_of_new_tweets_panel.ResumeLayout(false);
+            this.Twitter_number_of_new_tweets_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1157,6 +1186,8 @@
         private System.Windows.Forms.Label history_header_results_label;
         private System.Windows.Forms.DateTimePicker history_from_datetimepicker;
         private System.Windows.Forms.DateTimePicker history_till_datetimepicker;
+        private System.Windows.Forms.Panel Twitter_number_of_new_tweets_panel;
+        private System.Windows.Forms.Label Twitter_number_of_new_tweets_label;
     }
 }
 

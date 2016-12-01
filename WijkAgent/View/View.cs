@@ -343,6 +343,8 @@ namespace WijkAgent
             //Test twitter database! 
             modelClass.TweetsToDb();
 
+            Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
+
             main_menu_tabcontrol.SelectTab(0);
 
             //Controleerd of er een wijk is geselecteerd
