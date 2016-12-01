@@ -93,10 +93,10 @@
             this.history_district_textbox = new System.Windows.Forms.TextBox();
             this.history_user_textbox = new System.Windows.Forms.TextBox();
             this.history_category_combobox = new System.Windows.Forms.ComboBox();
-            this.history_from_date_combobox = new System.Windows.Forms.ComboBox();
-            this.history_till_date_combobox = new System.Windows.Forms.ComboBox();
             this.history_till_date_label = new System.Windows.Forms.Label();
             this.history_from_date_label = new System.Windows.Forms.Label();
+            this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
+            this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -870,8 +870,9 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel2.Controls.Add(this.history_from_datetimepicker, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.history_wijk_checkbox, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.history_user_checkbox, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.history_categorie_checkbox, 0, 2);
@@ -879,10 +880,9 @@
             this.tableLayoutPanel2.Controls.Add(this.history_district_textbox, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.history_user_textbox, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.history_category_combobox, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.history_from_date_combobox, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.history_till_date_combobox, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.history_till_date_label, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.history_from_date_label, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.history_till_datetimepicker, 1, 5);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -914,7 +914,7 @@
             this.history_user_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.history_user_checkbox.Location = new System.Drawing.Point(3, 63);
             this.history_user_checkbox.Name = "history_user_checkbox";
-            this.history_user_checkbox.Size = new System.Drawing.Size(95, 23);
+            this.history_user_checkbox.Size = new System.Drawing.Size(74, 23);
             this.history_user_checkbox.TabIndex = 1;
             this.history_user_checkbox.Text = "Gebruiker";
             this.history_user_checkbox.UseVisualStyleBackColor = true;
@@ -925,7 +925,7 @@
             this.history_categorie_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.history_categorie_checkbox.Location = new System.Drawing.Point(3, 123);
             this.history_categorie_checkbox.Name = "history_categorie_checkbox";
-            this.history_categorie_checkbox.Size = new System.Drawing.Size(93, 23);
+            this.history_categorie_checkbox.Size = new System.Drawing.Size(74, 23);
             this.history_categorie_checkbox.TabIndex = 2;
             this.history_categorie_checkbox.Text = "Categorie";
             this.history_categorie_checkbox.UseVisualStyleBackColor = true;
@@ -943,12 +943,14 @@
             // 
             // history_district_textbox
             // 
+            this.history_district_textbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.history_district_textbox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.history_district_textbox.Dock = System.Windows.Forms.DockStyle.Top;
             this.history_district_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.history_district_textbox.ForeColor = System.Drawing.Color.DimGray;
-            this.history_district_textbox.Location = new System.Drawing.Point(104, 3);
+            this.history_district_textbox.Location = new System.Drawing.Point(83, 3);
             this.history_district_textbox.Name = "history_district_textbox";
-            this.history_district_textbox.Size = new System.Drawing.Size(95, 27);
+            this.history_district_textbox.Size = new System.Drawing.Size(116, 27);
             this.history_district_textbox.TabIndex = 4;
             this.history_district_textbox.Text = "Zoek een wijk . . .";
             this.history_district_textbox.Enter += new System.EventHandler(this.history_district_textbox_Enter);
@@ -956,12 +958,14 @@
             // 
             // history_user_textbox
             // 
+            this.history_user_textbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.history_user_textbox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.history_user_textbox.Dock = System.Windows.Forms.DockStyle.Top;
             this.history_user_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.history_user_textbox.ForeColor = System.Drawing.Color.DimGray;
-            this.history_user_textbox.Location = new System.Drawing.Point(104, 63);
+            this.history_user_textbox.Location = new System.Drawing.Point(83, 63);
             this.history_user_textbox.Name = "history_user_textbox";
-            this.history_user_textbox.Size = new System.Drawing.Size(95, 27);
+            this.history_user_textbox.Size = new System.Drawing.Size(116, 27);
             this.history_user_textbox.TabIndex = 5;
             this.history_user_textbox.Text = "Zoek een gebruiker . . .";
             this.history_user_textbox.Enter += new System.EventHandler(this.history_user_textbox_Enter);
@@ -970,37 +974,14 @@
             // history_category_combobox
             // 
             this.history_category_combobox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_category_combobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.history_category_combobox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.history_category_combobox.FormattingEnabled = true;
-            this.history_category_combobox.Items.AddRange(new object[] {
-            "Incidenten",
-            "Ongevallen",
-            "Brand"});
-            this.history_category_combobox.Location = new System.Drawing.Point(104, 123);
+            this.history_category_combobox.Location = new System.Drawing.Point(83, 123);
             this.history_category_combobox.Name = "history_category_combobox";
-            this.history_category_combobox.Size = new System.Drawing.Size(95, 27);
+            this.history_category_combobox.Size = new System.Drawing.Size(116, 27);
             this.history_category_combobox.TabIndex = 6;
-            this.history_category_combobox.Text = "Kiez een categorie . . .";
-            // 
-            // history_from_date_combobox
-            // 
-            this.history_from_date_combobox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.history_from_date_combobox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_from_date_combobox.FormattingEnabled = true;
-            this.history_from_date_combobox.Location = new System.Drawing.Point(104, 213);
-            this.history_from_date_combobox.Name = "history_from_date_combobox";
-            this.history_from_date_combobox.Size = new System.Drawing.Size(95, 27);
-            this.history_from_date_combobox.TabIndex = 8;
-            // 
-            // history_till_date_combobox
-            // 
-            this.history_till_date_combobox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.history_till_date_combobox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_till_date_combobox.FormattingEnabled = true;
-            this.history_till_date_combobox.Location = new System.Drawing.Point(104, 243);
-            this.history_till_date_combobox.Name = "history_till_date_combobox";
-            this.history_till_date_combobox.Size = new System.Drawing.Size(95, 27);
-            this.history_till_date_combobox.TabIndex = 9;
+            this.history_category_combobox.Tag = "";
             // 
             // history_till_date_label
             // 
@@ -1009,7 +990,7 @@
             this.history_till_date_label.BackColor = System.Drawing.Color.Transparent;
             this.history_till_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_till_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.history_till_date_label.Location = new System.Drawing.Point(64, 240);
+            this.history_till_date_label.Location = new System.Drawing.Point(43, 240);
             this.history_till_date_label.Name = "history_till_date_label";
             this.history_till_date_label.Size = new System.Drawing.Size(34, 19);
             this.history_till_date_label.TabIndex = 10;
@@ -1022,11 +1003,29 @@
             this.history_from_date_label.BackColor = System.Drawing.Color.Transparent;
             this.history_from_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_from_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.history_from_date_label.Location = new System.Drawing.Point(60, 210);
+            this.history_from_date_label.Location = new System.Drawing.Point(39, 210);
             this.history_from_date_label.Name = "history_from_date_label";
             this.history_from_date_label.Size = new System.Drawing.Size(38, 19);
             this.history_from_date_label.TabIndex = 1;
             this.history_from_date_label.Text = "Van:";
+            // 
+            // history_from_datetimepicker
+            // 
+            this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 213);
+            this.history_from_datetimepicker.Name = "history_from_datetimepicker";
+            this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
+            this.history_from_datetimepicker.TabIndex = 1;
+            this.history_from_datetimepicker.ValueChanged += new System.EventHandler(this.history_from_datetimepicker_ValueChanged);
+            // 
+            // history_till_datetimepicker
+            // 
+            this.history_till_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_till_datetimepicker.Location = new System.Drawing.Point(83, 243);
+            this.history_till_datetimepicker.Name = "history_till_datetimepicker";
+            this.history_till_datetimepicker.Size = new System.Drawing.Size(116, 20);
+            this.history_till_datetimepicker.TabIndex = 11;
+            this.history_till_datetimepicker.ValueChanged += new System.EventHandler(this.history_till_datetimepicker_ValueChanged);
             // 
             // View
             // 
@@ -1149,8 +1148,6 @@
         private System.Windows.Forms.TextBox history_district_textbox;
         private System.Windows.Forms.TextBox history_user_textbox;
         private System.Windows.Forms.ComboBox history_category_combobox;
-        private System.Windows.Forms.ComboBox history_from_date_combobox;
-        private System.Windows.Forms.ComboBox history_till_date_combobox;
         private System.Windows.Forms.Panel history_option_panel_for_label;
         private System.Windows.Forms.Panel history_option_panel;
         private System.Windows.Forms.Label history_option_label;
@@ -1158,6 +1155,8 @@
         private System.Windows.Forms.Label history_from_date_label;
         private System.Windows.Forms.Label History_header_label;
         private System.Windows.Forms.Label history_header_results_label;
+        private System.Windows.Forms.DateTimePicker history_from_datetimepicker;
+        private System.Windows.Forms.DateTimePicker history_till_datetimepicker;
     }
 }
 
