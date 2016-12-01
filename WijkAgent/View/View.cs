@@ -11,6 +11,7 @@ using WijkAgent.Model;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.IO;
 
 namespace WijkAgent
 {
@@ -64,10 +65,13 @@ namespace WijkAgent
             modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
-            
+
+            //Welkombericht voor gebruiker
+            main_menu_label.Text = "Welkom, \n" + getUser();
+
         }
 
-
+        #region View Load
         private void View_Load(object sender, EventArgs e)
         {
             fillSearchSuggestions();
@@ -100,6 +104,7 @@ namespace WijkAgent
             go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
             go_to_city_panel_button_from_district_tab.Font = buttonFont;
         }
+        #endregion
 
         #region SelectDestrictButtonOnMainMenu_Clicked
         private void button1_Click_1(object sender, EventArgs e)
@@ -647,6 +652,40 @@ namespace WijkAgent
         private void history_till_datetimepicker_ValueChanged(object sender, EventArgs e)
         {
             history_from_datetimepicker.MaxDate = history_till_datetimepicker.Value;
+        }
+        #endregion
+
+        #region Haal naam van de gebruiker op
+        public string getUser()
+        {
+            //gaat naar de debug folder
+            string _curDir = Directory.GetCurrentDirectory();
+            //ga naar de goede map waar het text bestand in staan
+            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
+            //lees het textbestand
+            string username = System.IO.File.ReadAllText(_filePath);
+
+            //Open database connectie
+            modelClass.databaseConnectie.conn.Open();
+
+            //Haal idAccount op
+            string stm = "SELECT idaccount FROM account WHERE username = '" + username + "'";
+            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+            modelClass.databaseConnectie.rdr.Read();
+            int idAccount = Convert.ToInt32(modelClass.databaseConnectie.rdr.GetString(0));
+            modelClass.databaseConnectie.conn.Close();
+
+            //Haal naam op van de gebruiker
+            modelClass.databaseConnectie.conn.Open();
+            stm = "SELECT naam, achternaam FROM person WHERE idaccount = '" + idAccount + "'";
+            cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+            modelClass.databaseConnectie.rdr.Read();
+            string user = modelClass.databaseConnectie.rdr.GetString(0) + " " + modelClass.databaseConnectie.rdr.GetString(1);
+            modelClass.databaseConnectie.conn.Close();
+
+            return user;
         }
         #endregion
     }

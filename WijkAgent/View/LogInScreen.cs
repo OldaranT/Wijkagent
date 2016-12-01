@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using MySql.Data.MySqlClient;
 using WijkAgent.Model;
+using System.IO;
 
 namespace WijkAgent
 {
@@ -24,6 +25,7 @@ namespace WijkAgent
         public LogInScreen()
         {
             InitializeComponent();
+            GetLastUsedUsername();
         }
         #endregion
 
@@ -72,6 +74,12 @@ namespace WijkAgent
                     if (OnLogInButtonClick != null)
                     {
                         OnLogInButtonClick();
+                        //als de checkbox is aangevinkt voor de fucntie uit
+                        if(stayLoggedIn_checkbox.Checked)
+                        {
+                            SetLastUsedUsername();
+                        }
+                        
                     }
                 }
                 else
@@ -113,6 +121,31 @@ namespace WijkAgent
             logIn_password_textbox.ForeColor = Color.White;
             Wrong_LogIn.Text = "Inloggegevens zijn incorrect";
             Wrong_LogIn.ForeColor = Color.Red;
+        }
+        #endregion
+
+        #region GetLastUsedUsername
+        public void GetLastUsedUsername()
+        {
+            //gaat naar de debug folder
+            string _curDir = Directory.GetCurrentDirectory();
+            //ga naar de goede map waar het text bestand in staan
+            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
+            //lees het textbestand
+            string lastUsedUsername = System.IO.File.ReadAllText(_filePath);
+
+            logIn_username_textbox.Text = lastUsedUsername;
+        }
+        #endregion
+
+        #region SetLastUsedUsername
+        public void SetLastUsedUsername()
+        {
+            //gaat naar de debug folder
+            string _curDir = Directory.GetCurrentDirectory();
+            //ga naar de goede map waar het text bestand in staan
+            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
+            System.IO.File.WriteAllText(_filePath, logIn_username_textbox.Text);
         }
         #endregion
     }
