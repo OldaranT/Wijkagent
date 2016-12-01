@@ -18,7 +18,7 @@ namespace WijkAgent.Model
         public WebBrowser wb;
 
         //voor jouwn locatie LETOP locatie moet aan staan op laptop
-        GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+        GeoCoordinateWatcher watcher;
 
 
         //Onthouden wat de laatst geselecteerd wijk was
@@ -34,9 +34,6 @@ namespace WijkAgent.Model
             twitter = new Twitter();
             currentLatitudePoints = new List<double>();
             currentLongitudePoints = new List<double>();
-
-            //als de status van de watcher is veranderd stuur ga naar de methode getcurrentlocation
-            watcher.StatusChanged += GetCurrentLocation;
         }
 
         public void initialize()
@@ -68,8 +65,13 @@ namespace WijkAgent.Model
         #region ChangeDisctrict_Method
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
+            //Watcher aanmaken zodat hij elke keer als je van wijk veranderd je coordinaten worden opgehaald
+            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+            //als de status van de watcher is veranderd stuur ga naar de methode getcurrentlocation
+            watcher.StatusChanged += GetCurrentLocation;
             //watcher starten
             watcher.Start();
+
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
             //aantal twitter resultaten
