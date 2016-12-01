@@ -22,7 +22,7 @@ namespace WijkAgent.Model
             this.icon = _icon;
         }
 
-        public void addMarkerToMap(WebBrowser wb)
+        public void addMarkerToMap(WebBrowser _wb)
         {
             Object[] _markerArgs = new Object[4];
             _markerArgs[0] = this.latitude;
@@ -30,7 +30,7 @@ namespace WijkAgent.Model
             _markerArgs[2] = this.icon;
             _markerArgs[3] = this.id;
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
-            wb.Document.InvokeScript("AddMarker", _markerArgs);
+            _wb.Document.InvokeScript("AddMarker", _markerArgs);
         }
     }
 }
