@@ -185,6 +185,7 @@
             this.logIn_username_textbox.Name = "logIn_username_textbox";
             this.logIn_username_textbox.Size = new System.Drawing.Size(118, 20);
             this.logIn_username_textbox.TabIndex = 2;
+            this.logIn_username_textbox.Text = "a";
             // 
             // logIn_password_textbox
             // 
@@ -194,6 +195,7 @@
             this.logIn_password_textbox.PasswordChar = '*';
             this.logIn_password_textbox.Size = new System.Drawing.Size(117, 20);
             this.logIn_password_textbox.TabIndex = 3;
+            this.logIn_password_textbox.Text = "1";
             // 
             // LogInScreen
             // 
