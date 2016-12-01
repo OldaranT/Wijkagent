@@ -18,7 +18,7 @@ namespace WijkAgent
     public partial class LogInScreen : Form
     {
         public event LogInButtonClick OnLogInButtonClick;
-        public ModelClass modelClass = new ModelClass();
+        public SQLConnection sqlConn = new SQLConnection();
 
         #region Constructor
         public LogInScreen()
@@ -35,35 +35,35 @@ namespace WijkAgent
             string textbox_username = logIn_username_textbox.Text;
 
             //Open database connectie voor 1e query
-            modelClass.databaseConnectie.conn.Open();
+            sqlConn.conn.Open();
 
             //Kijk of gebruikersnaam voorkomt in de database.
             //Als aantal 0 is, dan is username incorrect.
             //Als aantal 1 is, dan is username correct en wordt het wachtwoord gecontroleerd.
             string stm = "SELECT count(idaccount) FROM account WHERE username = '" + textbox_username + "'";
-            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-            modelClass.databaseConnectie.rdr.Read();
-            int amount = Convert.ToInt32(modelClass.databaseConnectie.rdr.GetString(0));
+            MySqlCommand cmd = new MySqlCommand(stm, sqlConn.conn);
+            sqlConn.rdr = cmd.ExecuteReader();
+            sqlConn.rdr.Read();
+            int amount = Convert.ToInt32(sqlConn.rdr.GetString(0));
 
             //Sluit verbinding voor 1e query
-            modelClass.databaseConnectie.conn.Close();
+            sqlConn.conn.Close();
 
             //Als gebruikernsaam voorkomt, controleer dan wachtwoord
             if (amount != 0)
             {
                 //Open database connectie voor 2e query
-                modelClass.databaseConnectie.conn.Open();
+                sqlConn.conn.Open();
 
                 //Haal wachtwoord op uit de database
                 stm = "SELECT password FROM account WHERE username = '" + textbox_username + "'";
-                cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-                modelClass.databaseConnectie.rdr.Read();
-                string dbPassword = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
+                cmd = new MySqlCommand(stm, sqlConn.conn);
+                sqlConn.rdr = cmd.ExecuteReader();
+                sqlConn.rdr.Read();
+                string dbPassword = sqlConn.rdr.GetString(0).ToLower();
 
                 //Sluit verbinding voor 1e query
-                modelClass.databaseConnectie.conn.Close();
+                sqlConn.conn.Close();
 
                 //Als wachtwoord gelijk is aan wachtwoord uit de database, kan er worden ingelogd
                 if (dbPassword == textbox_password)
