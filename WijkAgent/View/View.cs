@@ -15,13 +15,13 @@ using System.Threading;
 namespace WijkAgent
 {
     public delegate void RefreshButtonClick();
-    public delegate void ThreadActionRefresh();
+    //public delegate void ThreadActionRefresh();
 
     public partial class View : Form
     {
-        public ThreadActionRefresh ThreadDelegate;
+        //public ThreadActionRefresh ThreadDelegate;
+        //private Thread myThread;
         public ModelClass modelClass;
-        private Thread myThread;
         private bool provinceButtonsCreated = false;
         private bool cityButtonsCreated = false;
         private bool districtButtonsCreated = false;
@@ -68,7 +68,7 @@ namespace WijkAgent
 
             refresh_waypoints_button.Hide();
 
-            ThreadDelegate = new ThreadActionRefresh(RefreshThreatAction);
+            //ThreadDelegate = new ThreadActionRefresh(RefreshThreatAction);
             //t.CreateChildThread();
         }
 
@@ -408,8 +408,6 @@ namespace WijkAgent
                 OnRefreshButtonClick();
 
             refresh_waypoints_button.Hide();
-            myThread = new Thread(new ThreadStart(ThreadFunction));
-            myThread.Start();
 
         }
         #endregion
@@ -418,7 +416,6 @@ namespace WijkAgent
         public void RefreshThreatAction()
         {
             refresh_waypoints_button.Show();
-            myThread = null;
         }
         #endregion
 
@@ -583,37 +580,6 @@ namespace WijkAgent
             }
         }
         #endregion
-        #region Thread Function
-        private void ThreadFunction()
-        {
-            ThreadClass RefreshThread = new ThreadClass(this);
-            RefreshThread.Run();
-        }
-        #endregion
     }
 
-    #region ThreadClass
-    public class ThreadClass
-    {
-        
-        View view;
-
-        public ThreadClass(View _view)
-        {
-            view = _view;
-        }
-
-        public void Run()
-        {
-            Console.WriteLine("threat started running like forest");
-            int sleepfor = 5000;
-
-            Console.WriteLine("Child Thread Paused for {0} seconds", sleepfor / 1000);
-            Thread.Sleep(sleepfor);
-
-            view.Invoke(view.ThreadDelegate);
-            Console.WriteLine("view is invoked");
-        }
-        #endregion
-    }
 }
