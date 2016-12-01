@@ -42,14 +42,14 @@
        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
      }
 
-    function AddMarker(Latitude, Longitude, color, label, id) {
+    function AddMarker(Latitude, Longitude, icon, id) {
       var latlng = new google.maps.LatLng(Latitude, Longitude);
 
       var marker = new google.maps.Marker({
           position: latlng,
           map: map,
           title: id,
-          icon: 'http://maps.google.com/mapfiles/ms/icons/'+color+'-dot.png',
+          icon: 'icons/'+icon+'.png',
       });
       markers[id] = marker;
     }
@@ -104,7 +104,6 @@
       lastId = id;
       lastIcon = markers[id].getIcon();
 
-      markers[id].icon.scaledSize = new google.maps.Size(22, 32)
       markers[id].setAnimation(google.maps.Animation.BOUNCE);
       markers[id].setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
 

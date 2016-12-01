@@ -16,6 +16,9 @@ namespace WijkAgent.Model
         public double defaultZoom = 8;
         public WebBrowser wb;
 
+        //voor jouwn locatie LETOP locatie moet aan staan op laptop
+        GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+
 
         //Onthouden wat de laatst geselecteerd wijk was
         public List<double> currentLatitudePoints;
@@ -29,6 +32,11 @@ namespace WijkAgent.Model
             twitter = new Twitter();
             currentLatitudePoints = new List<double>();
             currentLongitudePoints = new List<double>();
+
+            //als de status van de watcher is veranderd stuur ga naar de methode getcurrentlocation
+            watcher.StatusChanged += GetCurrentLocation;
+            //watcher starten
+            watcher.Start();
         }
 
         public void initialize()
@@ -52,6 +60,8 @@ namespace WijkAgent.Model
             Object[] _initArgs = new Object[3] { defaultLatitude, defaultLongtitude, defaultZoom };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             this.wb.Document.InvokeScript("initialize", _initArgs);
+
+
             
         }
 
@@ -120,12 +130,6 @@ namespace WijkAgent.Model
         }
         #endregion
 
-
-        public void getTrendingTopic()
-        {
-
-        }
-
         #region CalculateRadiusInKm_Method
         public double calculateRadiusKm(List<double> _latitudePoints, List<double> _longitudePoints, double _centerLat, double _centerLong)
         {
@@ -162,5 +166,21 @@ namespace WijkAgent.Model
             this.wb.Document.InvokeScript("hightlightMarker", _markerArgs);
         }
         #endregion
+
+        #region GetCurrentLocation
+        private void GetCurrentLocation(object sender, GeoPositionStatusChangedEventArgs e)
+        {
+            //als de status ready is
+            if (e.Status == GeoPositionStatus.Ready)
+            {
+                //nieuwe market toevoegen met het id dat 1 hoger is dan de twitter list lengte 
+                Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin");
+                _m.addMarkerToMap(this.wb);
+                watcher.Stop();
+                Console.WriteLine("jup");
+            }
+        }
+        #endregion
+
     }
 }

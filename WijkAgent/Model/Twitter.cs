@@ -111,7 +111,7 @@ namespace WijkAgent.Model
         {
             foreach (Tweet t in this.tweetsList)
             {
-                Marker _m = new Marker(t.id, t.latitude, t.longitude, 'T');
+                Marker _m = new Marker(t.id, t.latitude, t.longitude, "blue-marker");
                 _m.addMarkerToMap(_wb);
             }
         }

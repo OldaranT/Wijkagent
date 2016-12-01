@@ -12,44 +12,23 @@ namespace WijkAgent.Model
         public int id;
         public double latitude;
         public double longtitude;
-        public char type;
-        public string color;
-        public string label;
+        public string icon;
 
-        public Marker(int _id, double _latitude, double _longtitude, char _type )
+        public Marker(int _id, double _latitude, double _longtitude, string _icon )
         {
             this.id = _id;
             this.latitude = _latitude;
             this.longtitude = _longtitude;
-            //alles even voor de zekerheid naar hoofdletter voor de check
-            this.type = Char.ToUpper(_type);
-
-            setMarkerColor();
-        }
-
-        public void setMarkerColor()
-        {
-            //kijken welke kleur de marker moet zijn
-            switch (type)
-            {
-                case 'T':
-                    this.color = "blue";
-                    this.label = "Twitter"; 
-                    break;
-                default:
-                    this.color = "red";
-                    this.label = "Unknown";
-                    break;
-            }
+            this.icon = _icon;
         }
 
         public void addMarkerToMap(WebBrowser wb)
         {
-            Object[] _markerArgs = new Object[5];
+            Object[] _markerArgs = new Object[4];
             _markerArgs[0] = this.latitude;
             _markerArgs[1] = this.longtitude;
-            _markerArgs[2] = this.color;
-            _markerArgs[4] = this.id;
+            _markerArgs[2] = this.icon;
+            _markerArgs[3] = this.id;
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             wb.Document.InvokeScript("AddMarker", _markerArgs);
         }
