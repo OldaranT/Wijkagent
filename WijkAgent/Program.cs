@@ -22,10 +22,8 @@ namespace WijkAgent
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                View view = new View();
-                ViewController viewController = new ViewController(view);
                 LogInScreen logInScreen = new LogInScreen();
-                LogInScreenController LogInScreenControllercs = new LogInScreenController(logInScreen, viewController);
+                LogInScreenController LogInScreenControllercs = new LogInScreenController(logInScreen);
                 Application.Run(logInScreen);
             }
         }
