@@ -45,7 +45,7 @@ namespace WijkAgent.Model
             int todayMonth = today.Month;
             int todayYear = today.Year;
 
-            //Zoeken op tweets
+            //Zoeken op tweets met het onderstaande filter
             var searchParameter = new SearchTweetsParameters("")
             {
                 GeoCode = new GeoCode(latitude, longitude, radius, DistanceMeasure.Kilometers),
@@ -66,11 +66,11 @@ namespace WijkAgent.Model
                     var message = matchingtweets.ToString();
                     double tweetLatitude = matchingtweets.Coordinates.Latitude;
                     double tweetLongitude = matchingtweets.Coordinates.Longitude;
-                    var pastTime = matchingtweets.CreatedAt;
-                    var nowTime = DateTime.Now.AddHours(-24);
+                    var createTime = matchingtweets.CreatedAt;
+                    var limitTime = DateTime.Now.AddHours(-24);
 
-                    //Add tweets to list
-                    AddTweets(new Tweet(counter, tweetLatitude, tweetLongitude, user, message, date, pastTime, nowTime));
+                    //Voeg tweets toe aan lijst
+                    AddTweets(new Tweet(counter, tweetLatitude, tweetLongitude, user, message, date, createTime, limitTime));
 
                     counter++;
                 }
@@ -83,8 +83,8 @@ namespace WijkAgent.Model
         #region Hier worden de tweets toegevoegd aan een list
         public void AddTweets(Tweet _tweet)
         {
-            //controleren of de tweet wel van vandaag is
-            if (_tweet.pastTime > _tweet.nowTime)
+            //controleren of de tweet wel van de afgelopen 24 uur is
+            if (_tweet.createTime > _tweet.limitTime)
             {
                 tweetsList.Add(_tweet);
             }
@@ -92,23 +92,10 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region Hier worden alle tweets geprint
-        public void printTweetList()
-        {
-
-            foreach (Tweet tweets in tweetsList)
-            {
-                if (tweets.pastTime > tweets.nowTime)
-                {
-                    Console.Write(tweets.id + "\t" + tweets.user + "\n" + tweets.message + "\n" + tweets.date + "\n" + tweets.latitude + " - " + tweets.longitude + "\n\n");
-                }
-            }
-        }
-        #endregion
-
         #region PlaceTwitterWaypointOnMap_method
         public void setTwitterMarkers(WebBrowser _wb)
         {
+            //Voor elke tweet wordt een marker toegevoegd aan de map
             foreach (Tweet t in this.tweetsList)
             {
                 Marker _m = new Marker(t.id, t.latitude, t.longitude, 'T');
@@ -117,25 +104,6 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        //back-up
-
-        //    #region GetTrendingTopic
-        //    public string getTrendingTopic(string _tekst)
-        //    {
-        //        var words =
-        //        Regex.Split(_tekst, @"\W+")
-        //.Where(s => s.Length > 3)
-        //.GroupBy(s => s)
-        //.OrderByDescending(g => g.Count());
-
-        //        foreach (var word in words)
-        //        {
-        //            trendingTekst.Add(word.Key);
-        //        }
-
-        //        return trendingTekst[0];
-        //    }
-        //    #endregion
 
     }
 }

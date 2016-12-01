@@ -15,21 +15,26 @@ namespace WijkAgent.Model
         public string user { get; set; }
         public string message { get; set; }
         public DateTime date { get; set; }
-        public DateTime pastTime { get; set; }
-        public DateTime nowTime { get; set; }
+        public DateTime createTime { get; set; }
+        public DateTime limitTime { get; set; }
 
         public List<string> links {get; set;}
 
-        public Tweet(int _id, double _latitude, double _longitude, string _user, string _message, DateTime _date, DateTime _pastTime, DateTime _nowTime)
+        public Tweet(int _id, double _latitude, double _longitude, string _user, string _message, DateTime _date, DateTime _createTime, DateTime _limitTime)
         {
             id = _id;
             latitude = _latitude;
             longitude = _longitude;
+            message = Regex.Replace(_message, @"http[^\s]+", "");
+            date = _date;
+            createTime = _createTime;
+            limitTime = _limitTime;
 
             //quotes verwijderen
             user = _user.Replace("\"", "");
             links = new List<string>();
 
+            //het woord http uit de resultaten filteren
             foreach (string word in _message.Split(' '))
             {
                 if (word.StartsWith("http"))
@@ -37,10 +42,6 @@ namespace WijkAgent.Model
                     links.Add(word);
                 }
             }
-            message = Regex.Replace(_message, @"http[^\s]+", "");
-            date = _date;
-            pastTime = _pastTime;
-            nowTime = _nowTime;
         }
     }
 }

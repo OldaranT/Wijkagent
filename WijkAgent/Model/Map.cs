@@ -93,9 +93,6 @@ namespace WijkAgent.Model
                 //de markers plaatsen
                 this.twitter.setTwitterMarkers(this.wb);
 
-                //debug console
-                this.twitter.printTweetList();
-
                 //voor debuggen radius
                 double _test = Math.Floor(calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong) * 1000);
                 Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
