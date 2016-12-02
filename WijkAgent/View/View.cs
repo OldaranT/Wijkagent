@@ -68,7 +68,6 @@ namespace WijkAgent
 
             //Welkombericht voor gebruiker
             main_menu_label.Text = "Welkom, \n" + getUser();
-
         }
 
         #region View Load
@@ -273,8 +272,6 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
-
-
             //twitterTrendingList
             List<string> trendingTweetWord = new List<string>();
             List<string> trendingTags = new List<string>();
@@ -325,7 +322,7 @@ namespace WijkAgent
 
                 //Omdraaien van de array, zodat de nieuwste bovenaan staan
                 modelClass.map.twitter.tweetsList.Reverse();
-                
+
                 //twitter aanroep
                 foreach (var tweets in modelClass.map.twitter.tweetsList)
                 {
@@ -351,6 +348,9 @@ namespace WijkAgent
 
             //Twitter berichten in database opslaan 
             modelClass.TweetsToDb();
+
+            //Standaart wijk van gebruiker updaten
+            UpdateLatestSelectedDisctrictUser();
 
             Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
 
@@ -670,7 +670,7 @@ namespace WijkAgent
         }
         #endregion
 
-        #region Haal naam van de gebruiker op
+        #region GetNameOfUser
         public string getUser()
         {
             //gaat naar de debug folder
@@ -696,7 +696,21 @@ namespace WijkAgent
 
             return user;
         }
+        #endregion
 
+        #region UpdateLatestSelectedDisctrictUser
+        public void UpdateLatestSelectedDisctrictUser()
+        {
+            //gaat naar de debug folder
+            string _curDir = Directory.GetCurrentDirectory();
+            //ga naar de goede map waar het text bestand in staan
+            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
+            //lees het textbestand
+            string username = System.IO.File.ReadAllText(_filePath);
+
+            //Default wijk opslaan van gebruiker
+            modelClass.databaseConnectie.SaveDefaultDistrictUser(username, modelClass.map.idDistrict);
+        }
         #endregion
 
         private void history_search_button_Click(object sender, EventArgs e)
@@ -723,7 +737,7 @@ namespace WijkAgent
 
             if (history_district_checkbox.Checked)
             {
-                string tempDistrictWhereQuery = "district.name = '"+ districtInput +"' ";
+                string tempDistrictWhereQuery = "district.name = '" + districtInput + "' ";
                 stm = stm + tempDistrictWhereQuery;
             }
 
@@ -744,7 +758,7 @@ namespace WijkAgent
             if (history_date_checkbox.Checked)
             {
                 stm = stm + "AND ";
-                string tempDateWhereQuery = "twitter.datetime BETWEEN '"+ fromDateInput.ToString("yyyy-MM-dd") +" 00:00:01.000000' AND '"+ tillDateInput.ToString("yyyy-MM-dd") + " 23:60:59.000000'";
+                string tempDateWhereQuery = "twitter.datetime BETWEEN '" + fromDateInput.ToString("yyyy-MM-dd") + " 00:00:01.000000' AND '" + tillDateInput.ToString("yyyy-MM-dd") + " 23:60:59.000000'";
                 stm = stm + tempDateWhereQuery;
             }
             Console.WriteLine(stm);
@@ -771,5 +785,6 @@ namespace WijkAgent
 
         }
     }
+
 
 }

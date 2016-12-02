@@ -26,6 +26,7 @@ namespace WijkAgent.Model
             newTweets = 0;
     }
 
+        #region InsertNewTweetsIntoDatabase
         public void TweetsToDb()
         {
             newTweets = 0;
@@ -82,5 +83,6 @@ namespace WijkAgent.Model
                 }
             }
         }
+        #endregion
     }
 }

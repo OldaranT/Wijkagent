@@ -36,10 +36,33 @@ namespace WijkAgent.Model
             }
         }
 
-        public void select()
-        {
 
+        #region SaveDefaultDistrictUser
+        public void SaveDefaultDistrictUser(string _username, int _iddistrict)
+        {
+            //Open database connectie
+            conn.Open();
+
+            string insertstm = "UPDATE account SET iddistrict = @iddistrict WHERE username = @username";
+            MySqlCommand updatecmd = new MySqlCommand();
+            updatecmd.Connection = conn;
+            updatecmd.CommandText = insertstm;
+            updatecmd.Parameters.AddWithValue("@iddistrict", _iddistrict);
+            updatecmd.Parameters.AddWithValue("@username", _username);
+
+            try
+            {
+                updatecmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            //Sluit database connectie
+            conn.Close();
         }
+        #endregion
+
     }
 
 }
