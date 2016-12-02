@@ -743,7 +743,7 @@ namespace WijkAgent
             if (history_date_checkbox.Checked)
             {
                 stm = stm + "AND ";
-                string tempDateWhereQuery = "twitter.datetime BETWEEN '"+ fromDateInput.ToString() +".000000' AND '"+ tillDateInput + ".000000'";
+                string tempDateWhereQuery = "twitter.datetime BETWEEN '"+ fromDateInput.ToString("yyyy-MM-dd") +" 00:00:01.000000' AND '"+ tillDateInput.ToString("yyyy-MM-dd") + " 23:60:59.000000'";
                 stm = stm + tempDateWhereQuery;
             }
             Console.WriteLine(stm);
