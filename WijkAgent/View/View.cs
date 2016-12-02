@@ -422,6 +422,10 @@ namespace WijkAgent
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
+            if(doneTwitterSearch != null)
+            {
+                doneTwitterSearch();
+            }
 
             refresh_waypoints_button.Hide();
 
