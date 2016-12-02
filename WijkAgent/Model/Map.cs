@@ -88,8 +88,13 @@ namespace WijkAgent.Model
             else
             {
                 //middelpunt van de wijk
-                double _centerLat = currentLatitudePoints.Sum() / currentLatitudePoints.Count();
-                double _centerLong = currentLongitudePoints.Sum() / currentLatitudePoints.Count();
+                double _centerLat = (currentLatitudePoints.Max() + currentLatitudePoints.Min()) / 2;
+                double _centerLong = (currentLongitudePoints.Max() + currentLongitudePoints.Min()) / 2;
+
+                Marker test = new Marker(500, _centerLat, _centerLong, "blue-pushpin");
+                test.addMarkerToMap(this.wb);
+
+                Console.WriteLine("Lat: " + _centerLat + " Long: " + _centerLong);
 
 
                 Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
