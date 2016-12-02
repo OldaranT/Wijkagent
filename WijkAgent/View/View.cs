@@ -571,7 +571,20 @@ namespace WijkAgent
 
             foreach (var tag in tags)
             {
-                trendingTags.Add(tag.Key);
+                if(tag.Key.Length > 15)
+                {
+                    string splittedTag = "";
+                    var tagSplit = tag.Key.SplitInParts(15);
+                    foreach(string split in tagSplit)
+                    {
+                        splittedTag += split + " ";
+                    }
+                    trendingTags.Add(splittedTag);
+                }
+                else
+                {
+                    trendingTags.Add(tag.Key);
+                }
             }
 
 
@@ -782,4 +795,5 @@ namespace WijkAgent
         }
     }
 
+    
 }
