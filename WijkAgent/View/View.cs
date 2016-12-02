@@ -445,7 +445,7 @@ namespace WijkAgent
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
-
+            loadingScreen.HideLoadingScreen();
             refresh_waypoints_button.Hide();
 
         }
@@ -728,6 +728,7 @@ namespace WijkAgent
 
         #endregion
 
+        #region Filter and show twitter results from database
         private void history_search_button_Click(object sender, EventArgs e)
         {
             int resultsCount = 0;
@@ -737,22 +738,28 @@ namespace WijkAgent
             string categoryInput = history_category_combobox.Text;
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
+
+            //Hier word standaar search query aangemaakt
             string stm = "SELECT twitter.* FROM twitter ";
             string tempSearch = "Geschiedenis van: " + Environment.NewLine + Environment.NewLine;
 
+            //Als District checkbox checked is word er een join gemaakt naar de collum van district
             if (history_district_checkbox.Checked)
             {
                 string tempDistrictJoinQuery = "JOIN district ON twitter.iddistrict = district.iddistrict ";
                 stm = stm + tempDistrictJoinQuery;
             }
+
+            //Als catgorie checkbox checked is word er een join gemaakt naar de collum van categorie
             if (history_categorie_checkbox.Checked)
             {
                 string tempCatgoryJoinQuery = "JOIN category ON twitter.idcategory = category.idcategory ";
                 stm = stm + tempCatgoryJoinQuery;
             }
-
+            //Van af hier begint de WHERE van de query.
             stm = stm + "WHERE ";
 
+            //Als District checkbox checked is word input van district toegevoegd aan de query.
             if (history_district_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Wijk: " + districtInput + Environment.NewLine;
@@ -760,6 +767,7 @@ namespace WijkAgent
                 stm = stm + tempDistrictWhereQuery;
             }
 
+            //Als District checkbox checked is word input van user toegevoegd aan de query.
             if (history_user_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Gebruiker: " + userInput + Environment.NewLine;
@@ -771,6 +779,7 @@ namespace WijkAgent
                 stm = stm + tempUserWhereQuery;
             }
 
+            //Als District checkbox checked is word input van catgorie toegevoegd aan de query.
             if (history_categorie_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Categorie: " + categoryInput + Environment.NewLine;
@@ -782,6 +791,7 @@ namespace WijkAgent
                 stm = stm + tempCatgoryWhereQuery;
             }
 
+            //Als District checkbox checked is word input van date toegevoegd aan de query.
             if (history_date_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Datum van: " + fromDateInput.ToString() + " tot: " + tillDateInput;
@@ -793,11 +803,14 @@ namespace WijkAgent
                 string tempDateWhereQuery = "twitter.datetime BETWEEN '"+ fromDateInput.ToString("yyyy-MM-dd ") +" 00:00:01.000000' AND '"+ tillDateInput.ToString("yyyy-MM-dd") + " 23:59:59.000000'";
                 stm = stm + tempDateWhereQuery;
             }
+
+            //Hier wordt alles georderd op datum zodat nieuwste datum boven aan komt.
             stm = stm + " ORDER BY datetime";
 
+            //header label word geupdate met de zoek resultaten die zijn gebruikt.
             History_header_label.Text = tempSearch;
-            Console.WriteLine(stm);
 
+            //Check of er ubehoud een checkbox gecheckt is.
             if(history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked || history_date_checkbox.Checked)
             {
                 //Roep districte naam suggeties aan.
@@ -811,25 +824,33 @@ namespace WijkAgent
                 // Hier word de database lijst uitgelezen
                 while (modelClass.databaseConnectie.rdr.Read())
                 {
+                    //Teller wordt geupdate per resultaat.
                     resultsCount++;
+
+                    //Text wordt hier aangemaakt voor elke label.
                     string tempLabelText;
                     tempLabelText = ("Gebruiker: " + modelClass.databaseConnectie.rdr.GetString(3) + Environment.NewLine
                                     + "Twitter bericht: " + Environment.NewLine + modelClass.databaseConnectie.rdr.GetString(6) + Environment.NewLine
                                     + Environment.NewLine + "Datum: " + modelClass.databaseConnectie.rdr.GetString(7) + Environment.NewLine);
-
+                    //Panel om straks de labels in te bewaren.
                     Panel createHistoryPanel = new Panel();
                     createHistoryPanel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
                     panelLayout(createHistoryPanel);
+
+                    //Panel word toegevoegd aan scroll panel van history.
                     history_scroll_panel.Controls.Add(createHistoryPanel);
 
-
+                    //Hier word de label aangemaakt om alle info van database in te printen.
                     Label createHistorylabel = new Label();
                     createHistorylabel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
                     createHistorylabel.Text = tempLabelText;
                     labelLayout(createHistorylabel);
 
+                    //Label wordt toegevoegd aan panel
                     createHistoryPanel.Controls.Add(createHistorylabel);
                 }
+                
+                //Hier word de resultaat label geupdate met het aantal resultaten.
                 history_header_results_label.Text = "Aantal resultaten: " + resultsCount.ToString();
 
                 //sluit database connectie
@@ -839,6 +860,7 @@ namespace WijkAgent
 
 
         }
+        #endregion
     }
 
 }
