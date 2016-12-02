@@ -685,20 +685,14 @@ namespace WijkAgent
             modelClass.databaseConnectie.conn.Open();
 
             //Haal idAccount op
-            string stm = "SELECT idaccount FROM account WHERE username = '" + username + "'";
+            string stm = "SELECT * FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            cmd.Parameters.AddWithValue("@username", username);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
             modelClass.databaseConnectie.rdr.Read();
-            int idAccount = Convert.ToInt32(modelClass.databaseConnectie.rdr.GetString(0));
-            modelClass.databaseConnectie.conn.Close();
+            string user = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
 
-            //Haal naam op van de gebruiker
-            modelClass.databaseConnectie.conn.Open();
-            stm = "SELECT naam, achternaam FROM person WHERE idaccount = '" + idAccount + "'";
-            cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-            modelClass.databaseConnectie.rdr.Read();
-            string user = modelClass.databaseConnectie.rdr.GetString(0) + " " + modelClass.databaseConnectie.rdr.GetString(1);
+            //Sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
             return user;
