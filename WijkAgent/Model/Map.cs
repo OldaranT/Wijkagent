@@ -91,6 +91,7 @@ namespace WijkAgent.Model
                 double _centerLat = currentLatitudePoints.Sum() / currentLatitudePoints.Count();
                 double _centerLong = currentLongitudePoints.Sum() / currentLatitudePoints.Count();
 
+
                 Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
                 //invokescript heeft voor de argumenten een object nodig waar deze in staan
                 this.wb.Document.InvokeScript("initialize", _initArgs);
