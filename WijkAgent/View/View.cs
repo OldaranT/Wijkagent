@@ -172,8 +172,6 @@ namespace WijkAgent
         public void ProvinceButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
-            //Test writeline later verwijderen
-            Console.WriteLine(clickedButton.Text.ToString());
             if (!cityButtonsCreated)
             {
                 try
@@ -227,8 +225,6 @@ namespace WijkAgent
         public void CityButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
-            //Test writeline later verwijderen
-            Console.WriteLine(clickedButton.Text.ToString());
             if (!districtButtonsCreated)
             {
                 try
@@ -285,9 +281,7 @@ namespace WijkAgent
 
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
-
-            //Test writeline later verwijderen
-            Console.WriteLine(clickedButton.Text.ToString());
+            
             modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
             List<double> latitudeList = new List<double>();
             List<double> longtitudeList = new List<double>();
