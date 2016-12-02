@@ -74,6 +74,8 @@
             this.twitter_tab = new System.Windows.Forms.TabPage();
             this.twitter_panel = new System.Windows.Forms.Panel();
             this.twitter_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
+            this.Twitter_number_of_new_tweets_panel = new System.Windows.Forms.Panel();
+            this.Twitter_number_of_new_tweets_label = new System.Windows.Forms.Label();
             this.twitter_messages_scroll_panel = new System.Windows.Forms.Panel();
             this.twitter_trending_panel = new System.Windows.Forms.Panel();
             this.twitter_trending_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
@@ -97,8 +99,6 @@
             this.history_till_date_label = new System.Windows.Forms.Label();
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
-            this.Twitter_number_of_new_tweets_panel = new System.Windows.Forms.Panel();
-            this.Twitter_number_of_new_tweets_label = new System.Windows.Forms.Label();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -128,6 +128,7 @@
             this.twitter_tab.SuspendLayout();
             this.twitter_panel.SuspendLayout();
             this.twitter_table_layout_panel.SuspendLayout();
+            this.Twitter_number_of_new_tweets_panel.SuspendLayout();
             this.twitter_trending_panel.SuspendLayout();
             this.twitter_trending_table_layout_panel.SuspendLayout();
             this.history_option_tab.SuspendLayout();
@@ -135,7 +136,6 @@
             this.history_option_panel_for_label.SuspendLayout();
             this.history_option_panel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.Twitter_number_of_new_tweets_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_menu_panel
@@ -733,6 +733,28 @@
             this.twitter_table_layout_panel.Size = new System.Drawing.Size(202, 666);
             this.twitter_table_layout_panel.TabIndex = 0;
             // 
+            // Twitter_number_of_new_tweets_panel
+            // 
+            this.Twitter_number_of_new_tweets_panel.BackColor = System.Drawing.Color.Transparent;
+            this.Twitter_number_of_new_tweets_panel.Controls.Add(this.Twitter_number_of_new_tweets_label);
+            this.Twitter_number_of_new_tweets_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Twitter_number_of_new_tweets_panel.Location = new System.Drawing.Point(3, 647);
+            this.Twitter_number_of_new_tweets_panel.Name = "Twitter_number_of_new_tweets_panel";
+            this.Twitter_number_of_new_tweets_panel.Size = new System.Drawing.Size(196, 16);
+            this.Twitter_number_of_new_tweets_panel.TabIndex = 2;
+            // 
+            // Twitter_number_of_new_tweets_label
+            // 
+            this.Twitter_number_of_new_tweets_label.AutoSize = true;
+            this.Twitter_number_of_new_tweets_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Twitter_number_of_new_tweets_label.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Twitter_number_of_new_tweets_label.ForeColor = System.Drawing.Color.White;
+            this.Twitter_number_of_new_tweets_label.Location = new System.Drawing.Point(0, 0);
+            this.Twitter_number_of_new_tweets_label.Name = "Twitter_number_of_new_tweets_label";
+            this.Twitter_number_of_new_tweets_label.Size = new System.Drawing.Size(190, 23);
+            this.Twitter_number_of_new_tweets_label.TabIndex = 0;
+            this.Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets:";
+            // 
             // twitter_messages_scroll_panel
             // 
             this.twitter_messages_scroll_panel.AutoScroll = true;
@@ -1032,28 +1054,6 @@
             this.history_till_datetimepicker.TabIndex = 11;
             this.history_till_datetimepicker.ValueChanged += new System.EventHandler(this.history_till_datetimepicker_ValueChanged);
             // 
-            // Twitter_number_of_new_tweets_panel
-            // 
-            this.Twitter_number_of_new_tweets_panel.BackColor = System.Drawing.Color.Transparent;
-            this.Twitter_number_of_new_tweets_panel.Controls.Add(this.Twitter_number_of_new_tweets_label);
-            this.Twitter_number_of_new_tweets_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Twitter_number_of_new_tweets_panel.Location = new System.Drawing.Point(3, 647);
-            this.Twitter_number_of_new_tweets_panel.Name = "Twitter_number_of_new_tweets_panel";
-            this.Twitter_number_of_new_tweets_panel.Size = new System.Drawing.Size(196, 16);
-            this.Twitter_number_of_new_tweets_panel.TabIndex = 2;
-            // 
-            // Twitter_number_of_new_tweets_label
-            // 
-            this.Twitter_number_of_new_tweets_label.AutoSize = true;
-            this.Twitter_number_of_new_tweets_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Twitter_number_of_new_tweets_label.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Twitter_number_of_new_tweets_label.ForeColor = System.Drawing.Color.White;
-            this.Twitter_number_of_new_tweets_label.Location = new System.Drawing.Point(0, 0);
-            this.Twitter_number_of_new_tweets_label.Name = "Twitter_number_of_new_tweets_label";
-            this.Twitter_number_of_new_tweets_label.Size = new System.Drawing.Size(190, 23);
-            this.Twitter_number_of_new_tweets_label.TabIndex = 0;
-            this.Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets:";
-            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1101,6 +1101,8 @@
             this.twitter_tab.ResumeLayout(false);
             this.twitter_panel.ResumeLayout(false);
             this.twitter_table_layout_panel.ResumeLayout(false);
+            this.Twitter_number_of_new_tweets_panel.ResumeLayout(false);
+            this.Twitter_number_of_new_tweets_panel.PerformLayout();
             this.twitter_trending_panel.ResumeLayout(false);
             this.twitter_trending_table_layout_panel.ResumeLayout(false);
             this.twitter_trending_table_layout_panel.PerformLayout();
@@ -1111,8 +1113,6 @@
             this.history_option_panel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.Twitter_number_of_new_tweets_panel.ResumeLayout(false);
-            this.Twitter_number_of_new_tweets_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
