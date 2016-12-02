@@ -19,14 +19,11 @@ namespace WijkAgent.Controller
 
         public void Run()
         {
-            Console.WriteLine("threat started running like forest");
             int sleepfor = 5000;
-
-            Console.WriteLine("Child Thread Paused for {0} seconds", sleepfor / 1000);
+            
             Thread.Sleep(sleepfor);
 
             controller.view.Invoke(controller.ThreadDelegate);
-            Console.WriteLine("view is invoked");
         }
     }
 }
