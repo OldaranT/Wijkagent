@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using WijkAgent.Model;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.IO;
 
 namespace WijkAgent
