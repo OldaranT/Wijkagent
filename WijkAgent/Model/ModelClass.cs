@@ -11,6 +11,7 @@ namespace WijkAgent.Model
     {
         public SQLConnection databaseConnectie;
         public Map map;
+        public int newTweets;
         private string user;
         private double lat;
         private double lon;
@@ -22,10 +23,12 @@ namespace WijkAgent.Model
         {
             databaseConnectie = new SQLConnection();
             map = new Map();
-        }
+            newTweets = 0;
+    }
 
         public void TweetsToDb()
         {
+            newTweets = 0;
             foreach (Tweet tweet in map.twitter.tweetsList)
             {
                 bool inDatabase = true;
@@ -49,6 +52,7 @@ namespace WijkAgent.Model
                 {
                     inDatabase = false;
                     Console.WriteLine("Niet in database, voor nu.....hahahaah.....");
+                    newTweets++;
                 }
 
                 databaseConnectie.conn.Close();

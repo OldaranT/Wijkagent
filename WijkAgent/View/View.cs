@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using WijkAgent.Model;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.IO;
 
 namespace WijkAgent
@@ -40,6 +39,7 @@ namespace WijkAgent
 
         //events
         public event RefreshButtonClick OnRefreshButtonClick;
+        public event TwitterSearch doneTwitterSearch;
 
         public View()
         {
@@ -66,7 +66,7 @@ namespace WijkAgent
             //Voegt methodes van Loading class toe aan de events in de Twitter class
             loadingScreen = new LoadingScreen();
             modelClass.map.twitter.startTwitterSearch += loadingScreen.ShowLoadingScreen;
-            modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
+            doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
 
@@ -352,14 +352,21 @@ namespace WijkAgent
                 }
             }
 
-            //Test twitter database! 
+
+            //Twitter berichten in database opslaan 
             modelClass.TweetsToDb();
+
+            Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
 
             main_menu_tabcontrol.SelectTab(0);
 
             //Controleerd of er een wijk is geselecteerd
             if (modelClass.map.districtSelected)
                 refresh_waypoints_button.Show();
+
+            //Laad scherm verbergen
+            if (doneTwitterSearch != null)
+                doneTwitterSearch();
         }
         #endregion
 

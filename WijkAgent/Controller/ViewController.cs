@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace WijkAgent.Controller
 {
-
     public delegate void ThreadActionRefresh();
 
     class ViewController
@@ -27,7 +26,7 @@ namespace WijkAgent.Controller
         #region Thread Function
         private void ThreadFunction()
         {
-            ThreadClass RefreshThread = new ThreadClass(this);
+            RefreshThread RefreshThread = new RefreshThread(this);
             RefreshThread.Run();
         }
         #endregion
@@ -45,28 +44,6 @@ namespace WijkAgent.Controller
     }
 
     #region ThreadClass
-    class ThreadClass
-    {
-
-        //View view;
-        ViewController controller;
-
-        public ThreadClass(ViewController _controller)
-        {
-            controller = _controller;
-        }
-
-        public void Run()
-        {
-            Console.WriteLine("threat started running like forest");
-            int sleepfor = 5000;
-
-            Console.WriteLine("Child Thread Paused for {0} seconds", sleepfor / 1000);
-            Thread.Sleep(sleepfor);
-
-            controller.view.Invoke(controller.ThreadDelegate);
-            Console.WriteLine("view is invoked");
-        }
-    }
+    
     #endregion
 }

@@ -17,7 +17,6 @@ namespace WijkAgent.Model
     {
         public List<Tweet> tweetsList = new List<Tweet>();
         public event TwitterSearch startTwitterSearch;
-        public event TwitterSearch doneTwitterSearch;
 
         //Twitter API user
         private string consumerKey = "fNPtDmFBih08YN8q79VQkGWwO";
@@ -36,6 +35,7 @@ namespace WijkAgent.Model
         #region SearchTweets_Method
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
+            //Laad scherm laten zien
             if (startTwitterSearch != null)
                 startTwitterSearch();
 
@@ -75,8 +75,6 @@ namespace WijkAgent.Model
                     counter++;
                 }
             }
-            if (doneTwitterSearch != null)
-                doneTwitterSearch();
         }
         #endregion
 
@@ -88,7 +86,6 @@ namespace WijkAgent.Model
             {
                 tweetsList.Add(_tweet);
             }
-
         }
         #endregion
 
@@ -103,7 +100,6 @@ namespace WijkAgent.Model
             }
         }
         #endregion
-
 
     }
 }
