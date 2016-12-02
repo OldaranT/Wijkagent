@@ -82,6 +82,11 @@ namespace WijkAgent
             history_option_panel_for_label.BackColor = policeBlue;
             history_header_panel.BackColor = policeBlue;
 
+            //Zoek button
+            history_search_button.BackColor = policeBlue;
+            history_search_button.ForeColor = Color.White;
+            history_search_button.Font = buttonFont;
+
             //history button
             go_to_history_panel_button_from_main_menu_tab.BackColor = policeBlue;
             go_to_history_panel_button_from_main_menu_tab.ForeColor = Color.White;
@@ -318,6 +323,9 @@ namespace WijkAgent
                 //twitter trending
                 TwitterTrending();
 
+                //Omdraaien van de array, zodat de nieuwste bovenaan staan
+                modelClass.map.twitter.tweetsList.Reverse();
+                
                 //twitter aanroep
                 foreach (var tweets in modelClass.map.twitter.tweetsList)
                 {
@@ -689,7 +697,80 @@ namespace WijkAgent
 
             return user;
         }
+
         #endregion
+
+        private void history_search_button_Click(object sender, EventArgs e)
+        {
+            string districtInput = history_district_textbox.Text;
+            string userInput = history_user_textbox.Text;
+            string categoryInput = history_category_combobox.Text;
+            DateTime fromDateInput = history_from_datetimepicker.Value;
+            DateTime tillDateInput = history_till_datetimepicker.Value;
+            string stm = "SELECT twitter.* FROM twitter ";
+
+            if (history_district_checkbox.Checked)
+            {
+                string tempDistrictJoinQuery = "JOIN district ON twitter.iddistrict = district.iddistrict ";
+                stm = stm + tempDistrictJoinQuery;
+            }
+            if (history_categorie_checkbox.Checked)
+            {
+                string tempCatgoryJoinQuery = "JOIN category ON twitter.idcategory = category.idcategory ";
+                stm = stm + tempCatgoryJoinQuery;
+            }
+
+            stm = stm + "WHERE ";
+
+            if (history_district_checkbox.Checked)
+            {
+                string tempDistrictWhereQuery = "district.name = '"+ districtInput +"' ";
+                stm = stm + tempDistrictWhereQuery;
+            }
+
+            if (history_user_checkbox.Checked)
+            {
+                stm = stm + "AND ";
+                string tempUserWhereQuery = "twitter.user = '" + userInput + "' ";
+                stm = stm + tempUserWhereQuery;
+            }
+
+            if (history_categorie_checkbox.Checked)
+            {
+                stm = stm + "AND ";
+                string tempCatgoryWhereQuery = "category.name = '" + categoryInput.ToLower() + "' ";
+                stm = stm + tempCatgoryWhereQuery;
+            }
+
+            if (history_date_checkbox.Checked)
+            {
+                stm = stm + "AND ";
+                string tempDateWhereQuery = "twitter.datetime BETWEEN '"+ fromDateInput.ToString() +".000000' AND '"+ tillDateInput + ".000000'";
+                stm = stm + tempDateWhereQuery;
+            }
+            Console.WriteLine(stm);
+
+
+            ////Roep districte naam suggeties aan.
+            ////Open database connectie
+            //modelClass.databaseConnectie.conn.Open();
+
+            ////Selectie Query die de namen van allke province selecteer en ordered.
+            //MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            //modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+            //// Hier word de database lijst uitgelezen
+            //while (modelClass.databaseConnectie.rdr.Read())
+            //{
+            //    Label twitterInputLabel = new Label();
+            //    twitterInputLabel.Name
+            //}
+
+            ////sluit database connectie
+            //modelClass.databaseConnectie.conn.Close();
+
+
+        }
     }
 
 }
