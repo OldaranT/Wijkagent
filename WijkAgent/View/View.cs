@@ -38,6 +38,7 @@ namespace WijkAgent
 
         //events
         public event RefreshButtonClick OnRefreshButtonClick;
+        public event TwitterSearch doneTwitterSearch;
 
         public View()
         {
@@ -62,7 +63,7 @@ namespace WijkAgent
             //Voegt methodes van Loading class toe aan de events in de Twitter class
             loadingScreen = new LoadingScreen();
             modelClass.map.twitter.startTwitterSearch += loadingScreen.ShowLoadingScreen;
-            modelClass.map.twitter.doneTwitterSearch += loadingScreen.HideLoadingScreen;
+            doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
 
@@ -348,7 +349,8 @@ namespace WijkAgent
                 }
             }
 
-            //Test twitter database! 
+
+            //Twitter berichten in database opslaan 
             modelClass.TweetsToDb();
 
             Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
@@ -358,6 +360,10 @@ namespace WijkAgent
             //Controleerd of er een wijk is geselecteerd
             if (modelClass.map.districtSelected)
                 refresh_waypoints_button.Show();
+
+            //Laad scherm verbergen
+            if (doneTwitterSearch != null)
+                doneTwitterSearch();
         }
         #endregion
 

@@ -87,7 +87,6 @@ namespace WijkAgent.Model
             }
             else
             {
-
                 //middelpunt van de wijk
                 double _centerLat = currentLatitudePoints.Sum() / currentLatitudePoints.Count();
                 double _centerLong = currentLongitudePoints.Sum() / currentLatitudePoints.Count();

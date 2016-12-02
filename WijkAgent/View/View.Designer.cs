@@ -87,10 +87,9 @@
             this.history_option_panel_for_label = new System.Windows.Forms.Panel();
             this.history_option_label = new System.Windows.Forms.Label();
             this.history_option_panel = new System.Windows.Forms.Panel();
-            this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_filter_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
+            this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_district_checkbox = new System.Windows.Forms.CheckBox();
-
             this.history_user_checkbox = new System.Windows.Forms.CheckBox();
             this.history_categorie_checkbox = new System.Windows.Forms.CheckBox();
             this.history_date_checkbox = new System.Windows.Forms.CheckBox();
@@ -897,15 +896,6 @@
             this.history_option_panel.Size = new System.Drawing.Size(202, 600);
             this.history_option_panel.TabIndex = 1;
             // 
-            // history_from_datetimepicker
-            // 
-            this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 213);
-            this.history_from_datetimepicker.Name = "history_from_datetimepicker";
-            this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
-            this.history_from_datetimepicker.TabIndex = 1;
-            this.history_from_datetimepicker.ValueChanged += new System.EventHandler(this.history_from_datetimepicker_ValueChanged);
-
             // history_filter_table_layout_panel
             // 
             this.history_filter_table_layout_panel.ColumnCount = 2;
@@ -935,6 +925,15 @@
             this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
             this.history_filter_table_layout_panel.Size = new System.Drawing.Size(202, 525);
             this.history_filter_table_layout_panel.TabIndex = 0;
+            // 
+            // history_from_datetimepicker
+            // 
+            this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 185);
+            this.history_from_datetimepicker.Name = "history_from_datetimepicker";
+            this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
+            this.history_from_datetimepicker.TabIndex = 1;
+            this.history_from_datetimepicker.ValueChanged += new System.EventHandler(this.history_from_datetimepicker_ValueChanged);
             // 
             // history_district_checkbox
             // 
@@ -1047,15 +1046,6 @@
             this.history_from_date_label.Size = new System.Drawing.Size(38, 19);
             this.history_from_date_label.TabIndex = 1;
             this.history_from_date_label.Text = "Van:";
-            // 
-            // history_from_datetimepicker
-            // 
-            this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 185);
-            this.history_from_datetimepicker.Name = "history_from_datetimepicker";
-            this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
-            this.history_from_datetimepicker.TabIndex = 1;
-            this.history_from_datetimepicker.ValueChanged += new System.EventHandler(this.history_from_datetimepicker_ValueChanged);
             // 
             // history_till_datetimepicker
             // 

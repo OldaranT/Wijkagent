@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace WijkAgent.Controller
 {
-
     public delegate void ThreadActionRefresh();
 
     class ViewController
@@ -47,7 +46,6 @@ namespace WijkAgent.Controller
     #region ThreadClass
     class ThreadClass
     {
-
         //View view;
         ViewController controller;
 
