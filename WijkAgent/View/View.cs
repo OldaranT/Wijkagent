@@ -20,7 +20,6 @@ namespace WijkAgent
     {
         public ModelClass modelClass;
         private bool provinceButtonsCreated = false;
-        private bool districtButtonsCreated = false;
         private int buttonSizeX;
         private int buttonSizeY;
         private int panelSizeX;
@@ -176,41 +175,43 @@ namespace WijkAgent
             city_scroll_panel.Controls.Clear();
 
             Button clickedButton = (Button)sender;
-                try
+            try
+            {
+                int idProvince = Convert.ToInt32(clickedButton.Name);
+
+                //Open database connectie
+                modelClass.databaseConnectie.conn.Open();
+
+                //Selectie Query die de namen van allke province selecteer en ordered.
+                string stm = "SELECT * FROM city WHERE idprovince = @idprovince ORDER BY name DESC";
+                MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                cmd.Parameters.AddWithValue("@idprovince", idProvince);
+                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+                // Hier word de database lijst uitgelezen
+
+                while (modelClass.databaseConnectie.rdr.Read())
                 {
-                    int idProvince = Convert.ToInt32(clickedButton.Name);
-
-                    //Open database connectie
-                    modelClass.databaseConnectie.conn.Open();
-
-                    //Selectie Query die de namen van allke province selecteer en ordered.
-                    string stm = "SELECT * FROM city WHERE idprovince = @idprovince ORDER BY name DESC";
-                    MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-                    cmd.Parameters.AddWithValue("@idprovince", idProvince);
-                    modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-
-                    // Hier word de database lijst uitgelezen
-                    while (modelClass.databaseConnectie.rdr.Read())
-                    {
-                        Button buttonCreate = new Button();
-                        buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
-                        buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
-                        buttonLayout(buttonCreate);
-                        city_scroll_panel.Controls.Add(buttonCreate);
-                        buttonCreate.Click += CityButton_Click;
-                    }
-                    modelClass.databaseConnectie.conn.Close();
+                    Button buttonCreate = new Button();
+                    buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
+                    buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
+                    buttonLayout(buttonCreate);
+                    city_scroll_panel.Controls.Add(buttonCreate);
+                    buttonCreate.Click += CityButton_Click;
                 }
-                catch (Exception ex)
-                {
-                    //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
-                    Console.WriteLine(ex.Message);
-                    Label labelCreate = new Label();
-                    labelCreate.Width = 200;
-                    labelCreate.Height = 200;
-                    labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    province_scroll_panel.Controls.Add(labelCreate);
-                }
+
+                modelClass.databaseConnectie.conn.Close();
+            }
+            catch (Exception ex)
+            {
+                //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                Console.WriteLine(ex.Message);
+                Label labelCreate = new Label();
+                labelCreate.Width = 200;
+                labelCreate.Height = 200;
+                labelCreate.Text = "Kon geen verbinding maken met de database.";
+                province_scroll_panel.Controls.Add(labelCreate);
+            }
 
             main_menu_tabcontrol.SelectTab(2);
         }
@@ -221,44 +222,43 @@ namespace WijkAgent
         public void CityButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
-            if (!districtButtonsCreated)
+
+            district_scroll_panel.Controls.Clear();
+            try
             {
-                try
+                int idCity = Convert.ToInt32(clickedButton.Name);
+                Console.WriteLine(idCity);
+
+                //Open database connectie
+                modelClass.databaseConnectie.conn.Open();
+
+                //Selectie Query die de namen van allke province selecteer en ordered.
+                string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
+                MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                cmd.Parameters.AddWithValue("@idcity", idCity);
+                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+
+                // Hier word de database lijst uitgelezen
+                while (modelClass.databaseConnectie.rdr.Read())
                 {
-                    int idCity = Convert.ToInt32(clickedButton.Name);
-
-                    //Open database connectie
-                    modelClass.databaseConnectie.conn.Open();
-
-                    //Selectie Query die de namen van allke province selecteer en ordered.
-                    string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
-                    MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-                    cmd.Parameters.AddWithValue("@idcity", idCity);
-                    modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-
-                    // Hier word de database lijst uitgelezen
-                    while (modelClass.databaseConnectie.rdr.Read())
-                    {
-                        Button buttonCreate = new Button();
-                        buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
-                        buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
-                        buttonLayout(buttonCreate);
-                        district_scroll_panel.Controls.Add(buttonCreate);
-                        buttonCreate.Click += DistrictButton_Click;
-                    }
-                    modelClass.databaseConnectie.conn.Close();
-                    districtButtonsCreated = true;
+                    Button buttonCreate = new Button();
+                    buttonCreate.Text = modelClass.databaseConnectie.rdr.GetString(2);
+                    buttonCreate.Name = modelClass.databaseConnectie.rdr.GetString(0).ToLower();
+                    buttonLayout(buttonCreate);
+                    district_scroll_panel.Controls.Add(buttonCreate);
+                    buttonCreate.Click += DistrictButton_Click;
                 }
-                catch (Exception ex)
-                {
-                    //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
-                    Console.WriteLine(ex.Message);
-                    Label labelCreate = new Label();
-                    labelCreate.Width = 200;
-                    labelCreate.Height = 200;
-                    labelCreate.Text = "Kon geen verbinding maken met de database.";
-                    province_scroll_panel.Controls.Add(labelCreate);
-                }
+                modelClass.databaseConnectie.conn.Close();
+            }
+            catch (Exception ex)
+            {
+                //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                Console.WriteLine(ex.Message);
+                Label labelCreate = new Label();
+                labelCreate.Width = 200;
+                labelCreate.Height = 200;
+                labelCreate.Text = "Kon geen verbinding maken met de database.";
+                province_scroll_panel.Controls.Add(labelCreate);
             }
 
             main_menu_tabcontrol.SelectTab(3);
@@ -275,7 +275,7 @@ namespace WijkAgent
 
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
-            
+
             modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
             List<double> latitudeList = new List<double>();
             List<double> longtitudeList = new List<double>();
@@ -378,7 +378,6 @@ namespace WijkAgent
             //cleared alles in stad scroll panel
             district_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(2);
-            districtButtonsCreated = false;
         }
         #endregion
 
@@ -436,7 +435,7 @@ namespace WijkAgent
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
-            if(doneTwitterSearch != null)
+            if (doneTwitterSearch != null)
             {
                 doneTwitterSearch();
             }
@@ -585,11 +584,11 @@ namespace WijkAgent
 
             foreach (var tag in tags)
             {
-                if(tag.Key.Length > tagLengte)
+                if (tag.Key.Length > tagLengte)
                 {
                     string splittedTag = "";
                     var tagSplit = tag.Key.SplitInParts(tagLengte);
-                    foreach(string split in tagSplit)
+                    foreach (string split in tagSplit)
                     {
                         splittedTag += split + " ";
                     }
@@ -744,7 +743,6 @@ namespace WijkAgent
         }
         #endregion
 
-
         #region Filter and show twitter results from database
         private void history_search_button_Click(object sender, EventArgs e)
         {
@@ -778,7 +776,9 @@ namespace WijkAgent
             if (history_district_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Wijk: " + districtInput + Environment.NewLine;
-                stm = modelClass.databaseConnectie.WhereDistrictQuery(stm, districtInput);
+
+                string tempDistrictWhereQuery = "district.name = '" + districtInput + "' ";
+                stm = stm + tempDistrictWhereQuery;
             }
 
             //Als District checkbox checked is word input van user toegevoegd aan de query.
@@ -796,7 +796,7 @@ namespace WijkAgent
             if (history_categorie_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Categorie: " + categoryInput + Environment.NewLine;
-                if(history_district_checkbox.Checked || history_user_checkbox.Checked)
+                if (history_district_checkbox.Checked || history_user_checkbox.Checked)
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
                 }
@@ -807,11 +807,12 @@ namespace WijkAgent
             if (history_date_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Datum van: " + fromDateInput.ToString() + " tot: " + tillDateInput;
-                if(history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked)
+                if (history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked)
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
                 }
-                stm = modelClass.databaseConnectie.WhereDateQuery(stm, fromDateInput, tillDateInput);
+                string tempDateWhereQuery = "twitter.datetime BETWEEN '" + fromDateInput.ToString("yyyy-MM-dd ") + " 00:00:01.000000' AND '" + tillDateInput.ToString("yyyy-MM-dd") + " 23:59:59.000000'";
+                stm = stm + tempDateWhereQuery;
             }
 
             //Hier wordt alles georderd op datum zodat nieuwste datum boven aan komt.
@@ -821,7 +822,7 @@ namespace WijkAgent
             History_header_label.Text = tempSearch;
 
             //Check of er ubehoud een checkbox gecheckt is.
-            if(history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked || history_date_checkbox.Checked)
+            if (history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked || history_date_checkbox.Checked)
             {
                 //Roep districte naam suggeties aan.
                 //Open database connectie
@@ -860,7 +861,7 @@ namespace WijkAgent
                         createHistoryPanel.Controls.Add(createHistorylabel);
                     
                 }
-                
+
                 //Hier word de resultaat label geupdate met het aantal resultaten.
                 history_header_results_label.Text = "Aantal resultaten: " + resultsCount.ToString();
 
