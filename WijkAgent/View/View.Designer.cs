@@ -100,6 +100,7 @@
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_search_button = new System.Windows.Forms.Button();
+            this.view_logOut_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -157,14 +158,15 @@
             this.main_menu_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.main_menu_table_layout_panel.Controls.Add(this.main_menu_panel_for_label, 0, 0);
             this.main_menu_table_layout_panel.Controls.Add(this.main_menu_scroll_panel, 0, 1);
+            this.main_menu_table_layout_panel.Controls.Add(this.view_logOut_button, 0, 2);
             this.main_menu_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_table_layout_panel.Location = new System.Drawing.Point(0, 0);
             this.main_menu_table_layout_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_table_layout_panel.Name = "main_menu_table_layout_panel";
             this.main_menu_table_layout_panel.RowCount = 3;
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 82F));
+            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
             this.main_menu_table_layout_panel.Size = new System.Drawing.Size(177, 668);
             this.main_menu_table_layout_panel.TabIndex = 0;
             // 
@@ -203,7 +205,7 @@
             this.main_menu_scroll_panel.Location = new System.Drawing.Point(0, 66);
             this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_scroll_panel.Name = "main_menu_scroll_panel";
-            this.main_menu_scroll_panel.Size = new System.Drawing.Size(177, 534);
+            this.main_menu_scroll_panel.Size = new System.Drawing.Size(177, 547);
             this.main_menu_scroll_panel.TabIndex = 2;
             // 
             // go_to_history_panel_button_from_main_menu_tab
@@ -1071,6 +1073,18 @@
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
             // 
+            // view_logOut_button
+            // 
+            this.view_logOut_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.view_logOut_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.view_logOut_button.Location = new System.Drawing.Point(3, 616);
+            this.view_logOut_button.Name = "view_logOut_button";
+            this.view_logOut_button.Size = new System.Drawing.Size(171, 49);
+            this.view_logOut_button.TabIndex = 3;
+            this.view_logOut_button.Text = "Uitloggen";
+            this.view_logOut_button.UseVisualStyleBackColor = true;
+            this.view_logOut_button.Click += new System.EventHandler(this.view_logOut_button_Click);
+            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1206,7 +1220,7 @@
         private System.Windows.Forms.Panel Twitter_number_of_new_tweets_panel;
         private System.Windows.Forms.Label Twitter_number_of_new_tweets_label;
         private System.Windows.Forms.Button history_search_button;
-
+        private System.Windows.Forms.Button view_logOut_button;
     }
 }
 

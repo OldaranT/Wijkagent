@@ -21,7 +21,15 @@ namespace WijkAgent.Controller
         {
             logInScreen.Hide();
             viewController = new ViewController();
+            viewController.view.OnLogOutButtonClick += LogOutButtonClicked;
             viewController.view.Show();
+        }
+
+        public void LogOutButtonClicked()
+        {
+            viewController.view.Hide();
+            logInScreen.Show();
+            viewController = null;
         }
 
     }

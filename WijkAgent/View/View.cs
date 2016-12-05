@@ -14,7 +14,7 @@ using System.IO;
 
 namespace WijkAgent
 {
-    public delegate void RefreshButtonClick();
+    public delegate void VoidWithNoArguments();
 
     public partial class View : Form
     {
@@ -40,7 +40,8 @@ namespace WijkAgent
         private string searchUser = "Zoek een gebruiker . . .";
 
         //events
-        public event RefreshButtonClick OnRefreshButtonClick;
+        public event VoidWithNoArguments OnRefreshButtonClick;
+        public event VoidWithNoArguments OnLogOutButtonClick;
         public event TwitterSearch doneTwitterSearch;
 
         public View()
@@ -113,6 +114,10 @@ namespace WijkAgent
             go_to_city_panel_button_from_district_tab.BackColor = policeBlue;
             go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
             go_to_city_panel_button_from_district_tab.Font = mainFont;
+
+            view_logOut_button.BackColor = policeBlue;
+            view_logOut_button.ForeColor = Color.White;
+            view_logOut_button.Font = mainFont;
         }
         #endregion
 
@@ -925,5 +930,11 @@ namespace WijkAgent
             Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
         }
         #endregion
+
+        private void view_logOut_button_Click(object sender, EventArgs e)
+        {
+            if (OnLogOutButtonClick != null)
+                OnLogOutButtonClick();
+        }
     }
 }
