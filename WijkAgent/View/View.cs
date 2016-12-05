@@ -20,7 +20,6 @@ namespace WijkAgent
     {
         public ModelClass modelClass;
         private bool provinceButtonsCreated = false;
-        private bool districtButtonsCreated = false;
         private int buttonSizeX;
         private int buttonSizeY;
         private int panelSizeX;
