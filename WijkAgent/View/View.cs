@@ -32,6 +32,9 @@ namespace WijkAgent
         //laats geklikte label
         private Label lastClickedLabel;
 
+        //maximale tag lengte
+        private int tagLengte = 14;
+
         //placeholders
         private string searchDistrict = "Zoek een wijk . . .";
         private string searchUser = "Zoek een gebruiker . . .";
@@ -582,10 +585,10 @@ namespace WijkAgent
 
             foreach (var tag in tags)
             {
-                if(tag.Key.Length > 15)
+                if(tag.Key.Length > tagLengte)
                 {
                     string splittedTag = "";
-                    var tagSplit = tag.Key.SplitInParts(15);
+                    var tagSplit = tag.Key.SplitInParts(tagLengte);
                     foreach(string split in tagSplit)
                     {
                         splittedTag += split + " ";
