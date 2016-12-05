@@ -887,7 +887,16 @@ namespace WijkAgent
 
                         //Label wordt toegevoegd aan panel
                         createHistoryPanel.Controls.Add(createHistorylabel);
-                    
+
+                }
+    
+
+                if (resultsCount == 0)
+                {
+                    Label createNoResultAlert = new Label();
+                    createNoResultAlert.Text = "Geen resultaten gevonden.";
+                    labelLayout(createNoResultAlert);
+                    history_scroll_panel.Controls.Add(createNoResultAlert);
                 }
 
                 //Hier word de resultaat label geupdate met het aantal resultaten.
@@ -897,7 +906,16 @@ namespace WijkAgent
                 modelClass.databaseConnectie.conn.Close();
 
             }
-            
+
+            if (!history_district_checkbox.Checked && !history_user_checkbox.Checked && !history_categorie_checkbox.Checked && !history_date_checkbox.Checked)
+            {
+                Label createEmptyAlert = new Label();
+                createEmptyAlert.Text = "U heeft geen filter gekozen.";
+                labelLayout(createEmptyAlert);
+                history_scroll_panel.Controls.Add(createEmptyAlert);
+
+            }
+
         }
         #endregion
 
