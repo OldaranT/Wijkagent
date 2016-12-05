@@ -67,6 +67,7 @@ namespace WijkAgent.Model
         {
             return _stm + "SELECT twitter.* FROM twitter ";
         }
+
         public string JoinDistrictQuery(string _stm)
         {
             string tempDistrictJoinQuery = "JOIN district ON twitter.iddistrict = district.iddistrict ";
