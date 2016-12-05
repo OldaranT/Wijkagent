@@ -228,7 +228,6 @@ namespace WijkAgent
             try
             {
                 int idCity = Convert.ToInt32(clickedButton.Name);
-                Console.WriteLine(idCity);
 
                 //Open database connectie
                 modelClass.databaseConnectie.conn.Open();
