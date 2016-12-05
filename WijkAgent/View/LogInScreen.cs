@@ -116,8 +116,9 @@ namespace WijkAgent
         private void PrintErrorLabel()
         {
             string errorMessage = "Inloggegevens zijn incorrect!";
+            string headerMessage = "Fout Melding!";
             logIn_password_textbox.Text = "";
-            MessageBox.Show(errorMessage,"Fout Melding!",MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
+            MessageBox.Show(errorMessage, headerMessage, MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
         }
         #endregion
 
