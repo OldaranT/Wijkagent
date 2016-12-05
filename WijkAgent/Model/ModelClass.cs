@@ -52,7 +52,7 @@ namespace WijkAgent.Model
                 if (!databaseConnectie.rdr.Read())
                 {
                     inDatabase = false;
-                    Console.WriteLine("Niet in database, voor nu.....hahahaah.....");
+                    Console.WriteLine("Twitter bericht staat niet in database. Bericht is opgeslagen.");
                     newTweets++;
                 }
 
