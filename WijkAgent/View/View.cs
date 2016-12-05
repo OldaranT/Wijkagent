@@ -20,7 +20,6 @@ namespace WijkAgent
     {
         public ModelClass modelClass;
         private bool provinceButtonsCreated = false;
-        private bool cityButtonsCreated = false;
         private bool districtButtonsCreated = false;
         private int buttonSizeX;
         private int buttonSizeY;
@@ -170,14 +169,12 @@ namespace WijkAgent
         //Kijkt of er een ProvinceGenerated Button is ingedrukt.
         public void ProvinceButton_Click(object sender, EventArgs e)
         {
+            //Alles opschonen
+            city_scroll_panel.Controls.Clear();
+
             Button clickedButton = (Button)sender;
-            if (!cityButtonsCreated)
-            {
                 try
                 {
-                    //Alles opschonen
-                    city_scroll_panel.Controls.Clear();
-
                     int idProvince = Convert.ToInt32(clickedButton.Name);
 
                     //Open database connectie
@@ -200,8 +197,6 @@ namespace WijkAgent
                         buttonCreate.Click += CityButton_Click;
                     }
                     modelClass.databaseConnectie.conn.Close();
-
-                    cityButtonsCreated = true;
                 }
                 catch (Exception ex)
                 {
@@ -213,7 +208,6 @@ namespace WijkAgent
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
                     province_scroll_panel.Controls.Add(labelCreate);
                 }
-            }
 
             main_menu_tabcontrol.SelectTab(2);
         }
@@ -350,7 +344,8 @@ namespace WijkAgent
             //Standaart wijk van gebruiker updaten
             UpdateLatestSelectedDisctrictUser();
 
-            Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
+            //Aantal nieuwe tweets updaten
+            UpdateNewTweetsLabel();
 
             main_menu_tabcontrol.SelectTab(0);
 
@@ -371,7 +366,6 @@ namespace WijkAgent
             //cleared alles in city scroll panel
             city_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(1);
-            cityButtonsCreated = false;
         }
         #endregion
 
@@ -877,6 +871,13 @@ namespace WijkAgent
             }
 
 
+        }
+        #endregion
+
+        #region Update the new tweets label
+        public void UpdateNewTweetsLabel()
+        {
+            Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
         }
         #endregion
     }
