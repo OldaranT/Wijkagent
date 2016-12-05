@@ -190,7 +190,6 @@ namespace WijkAgent
                 modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
                 // Hier word de database lijst uitgelezen
-
                 while (modelClass.databaseConnectie.rdr.Read())
                 {
                     Button buttonCreate = new Button();
@@ -199,6 +198,14 @@ namespace WijkAgent
                     buttonLayout(buttonCreate);
                     city_scroll_panel.Controls.Add(buttonCreate);
                     buttonCreate.Click += CityButton_Click;
+                }
+                if(city_scroll_panel.Controls.Count == 0)
+                {
+                    Label label = new Label();
+                    label.Text = "Er zijn geen steden gevonden bij deze provincie.";
+                    twitterLabelLayout(label);
+                    city_scroll_panel.Controls.Add(label);
+                    label.Dock = DockStyle.Top;
                 }
 
                 modelClass.databaseConnectie.conn.Close();
