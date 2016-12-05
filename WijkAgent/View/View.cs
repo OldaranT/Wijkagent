@@ -33,8 +33,9 @@ namespace WijkAgent
         //laats geklikte label
         private Label lastClickedLabel;
 
-        //maximale tag lengte
+        //maximale trending lengte
         private int tagLengte = 14;
+        private int wordLengte = 10;
 
         //placeholders
         private string searchDistrict = "Zoek een wijk . . .";
@@ -607,10 +608,24 @@ namespace WijkAgent
                 }
             }
 
+            
 
             foreach (var word in words)
             {
-                trendingTweetWord.Add(word.Key);
+                if(word.Key.Length > wordLengte)
+                {
+                    string splittedTweetWord = "";
+                    var wordSplit = word.Key.SplitInParts(wordLengte);
+                    foreach(string split in wordSplit)
+                    {
+                        splittedTweetWord += split + " ";
+                    }
+                    trendingTweetWord.Add(splittedTweetWord);
+                }
+                else
+                {
+                    trendingTweetWord.Add(word.Key);
+                }
             }
 
 
