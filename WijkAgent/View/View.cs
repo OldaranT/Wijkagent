@@ -749,15 +749,17 @@ namespace WijkAgent
         private void history_search_button_Click(object sender, EventArgs e)
         {
             int resultsCount = 0;
+            int resultMax = 75;
             history_scroll_panel.Controls.Clear();
             string districtInput = history_district_textbox.Text;
             string userInput = history_user_textbox.Text;
             string categoryInput = history_category_combobox.Text;
+            string stm = "";
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
 
             //Hier word standaar search query aangemaakt
-            string stm = "SELECT twitter.* FROM twitter ";
+            stm = modelClass.databaseConnectie.AddSelectTwitterToQuery(stm);
             string tempSearch = "Geschiedenis van: " + Environment.NewLine + Environment.NewLine;
 
             //Als District checkbox checked is word er een join gemaakt naar de collum van district
@@ -778,7 +780,7 @@ namespace WijkAgent
             if (history_district_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Wijk: " + districtInput + Environment.NewLine;
-                stm = modelClass.databaseConnectie.WhereDistrictQuery(stm, districtInput);
+                stm = modelClass.databaseConnectie.WhereDistrictQuery(stm);
             }
 
             //Als District checkbox checked is word input van user toegevoegd aan de query.
@@ -789,7 +791,7 @@ namespace WijkAgent
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
                 }
-                stm = modelClass.databaseConnectie.WhereUserQuery(stm, userInput);
+                stm = modelClass.databaseConnectie.WhereUserQuery(stm);
             }
 
             //Als District checkbox checked is word input van catgorie toegevoegd aan de query.
@@ -800,13 +802,13 @@ namespace WijkAgent
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
                 }
-                stm = modelClass.databaseConnectie.WhereCategoryQuery(stm, categoryInput);
+                stm = modelClass.databaseConnectie.WhereCategoryQuery(stm);
             }
 
             //Als District checkbox checked is word input van date toegevoegd aan de query.
             if (history_date_checkbox.Checked)
             {
-                tempSearch = tempSearch + "Datum van: " + fromDateInput.ToString() + " tot: " + tillDateInput;
+                tempSearch = tempSearch + "Datum van: " + fromDateInput.ToString("yyyy-MM-dd 00:00:0001") + " tot: " + tillDateInput.ToString("yyyy-MM-dd 23:59:0000");
                 if(history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked)
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
@@ -815,7 +817,8 @@ namespace WijkAgent
             }
 
             //Hier wordt alles georderd op datum zodat nieuwste datum boven aan komt.
-            stm = stm + " ORDER BY datetime LIMIT 75";
+            stm = modelClass.databaseConnectie.AddOrderByTimeToQuery(stm);
+            stm = modelClass.databaseConnectie.AddLimitToQeury(stm, resultMax);
 
             //header label word geupdate met de zoek resultaten die zijn gebruikt.
             History_header_label.Text = tempSearch;
@@ -829,6 +832,11 @@ namespace WijkAgent
 
                 //Selectie Query die de namen van allke province selecteer en ordered.
                 MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                cmd.Parameters.AddWithValue("@districtInput", districtInput);
+                cmd.Parameters.AddWithValue("@userInput", userInput);
+                cmd.Parameters.AddWithValue("@categoryInput", categoryInput.ToLower());
+                cmd.Parameters.AddWithValue("@fromDateInput", fromDateInput.ToString("yyyy-MM-dd 00:00:0001"));
+                cmd.Parameters.AddWithValue("@tillDateInput", tillDateInput.ToString("yyyy-MM-dd 23:59:0000"));
                 modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
                 // Hier word de database lijst uitgelezen
@@ -868,8 +876,7 @@ namespace WijkAgent
                 modelClass.databaseConnectie.conn.Close();
 
             }
-
-
+            
         }
         #endregion
 
