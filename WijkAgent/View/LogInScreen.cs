@@ -115,12 +115,9 @@ namespace WijkAgent
         #region Geef foutmelding
         private void PrintErrorLabel()
         {
-            logIn_username_textbox.BackColor = Color.Red;
-            logIn_password_textbox.BackColor = Color.Red;
-            logIn_username_textbox.ForeColor = Color.White;
-            logIn_password_textbox.ForeColor = Color.White;
-            Wrong_LogIn.Text = "Inloggegevens zijn incorrect";
-            Wrong_LogIn.ForeColor = Color.Red;
+            string errorMessage = "Inloggegevens zijn incorrect!";
+            logIn_password_textbox.Text = "";
+            MessageBox.Show(errorMessage,"Fout Melding!",MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
         }
         #endregion
 
