@@ -26,6 +26,7 @@ namespace WijkAgent.Model
             newTweets = 0;
     }
 
+        #region InsertNewTweetsIntoDatabase
         public void TweetsToDb()
         {
             newTweets = 0;
@@ -51,7 +52,7 @@ namespace WijkAgent.Model
                 if (!databaseConnectie.rdr.Read())
                 {
                     inDatabase = false;
-                    Console.WriteLine("Niet in database, voor nu.....hahahaah.....");
+                    Console.WriteLine("Twitter bericht staat niet in database. Bericht is opgeslagen.");
                     newTweets++;
                 }
 
@@ -82,21 +83,8 @@ namespace WijkAgent.Model
                 }
             }
         }
+        #endregion
     }
-    static class StringExtensions
-    {
-
-        public static IEnumerable<String> SplitInParts(this String s, Int32 partLength)
-        {
-            if (s == null)
-                throw new ArgumentNullException("s");
-            if (partLength <= 0)
-                throw new ArgumentException("Part length has to be positive.", "partLength");
-
-            for (var i = 0; i < s.Length; i += partLength)
-                yield return s.Substring(i, Math.Min(partLength, s.Length - i));
-        }
-
-    }
+   
 
 }

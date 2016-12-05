@@ -20,7 +20,6 @@ namespace WijkAgent
     {
         public ModelClass modelClass;
         private bool provinceButtonsCreated = false;
-        private bool cityButtonsCreated = false;
         private bool districtButtonsCreated = false;
         private int buttonSizeX;
         private int buttonSizeY;
@@ -32,6 +31,9 @@ namespace WijkAgent
         private LoadingScreen loadingScreen;
         //laats geklikte label
         private Label lastClickedLabel;
+
+        //maximale tag lengte
+        private int tagLengte = 14;
 
         //placeholders
         private string searchDistrict = "Zoek een wijk . . .";
@@ -72,7 +74,6 @@ namespace WijkAgent
 
             //Welkombericht voor gebruiker
             main_menu_label.Text = "Welkom, \n" + getUser();
-
         }
 
         #region View Load
@@ -171,14 +172,12 @@ namespace WijkAgent
         //Kijkt of er een ProvinceGenerated Button is ingedrukt.
         public void ProvinceButton_Click(object sender, EventArgs e)
         {
+            //Alles opschonen
+            city_scroll_panel.Controls.Clear();
+
             Button clickedButton = (Button)sender;
-            if (!cityButtonsCreated)
-            {
                 try
                 {
-                    //Alles opschonen
-                    city_scroll_panel.Controls.Clear();
-
                     int idProvince = Convert.ToInt32(clickedButton.Name);
 
                     //Open database connectie
@@ -201,8 +200,6 @@ namespace WijkAgent
                         buttonCreate.Click += CityButton_Click;
                     }
                     modelClass.databaseConnectie.conn.Close();
-
-                    cityButtonsCreated = true;
                 }
                 catch (Exception ex)
                 {
@@ -214,7 +211,6 @@ namespace WijkAgent
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
                     province_scroll_panel.Controls.Add(labelCreate);
                 }
-            }
 
             main_menu_tabcontrol.SelectTab(2);
         }
@@ -273,8 +269,6 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
-
-
             //twitterTrendingList
             List<string> trendingTweetWord = new List<string>();
             List<string> trendingTags = new List<string>();
@@ -323,7 +317,7 @@ namespace WijkAgent
 
                 //Omdraaien van de array, zodat de nieuwste bovenaan staan
                 modelClass.map.twitter.tweetsList.Reverse();
-                
+
                 //twitter aanroep
                 foreach (var tweets in modelClass.map.twitter.tweetsList)
                 {
@@ -350,7 +344,11 @@ namespace WijkAgent
             //Twitter berichten in database opslaan 
             modelClass.TweetsToDb();
 
-            Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
+            //Standaart wijk van gebruiker updaten
+            UpdateLatestSelectedDisctrictUser();
+
+            //Aantal nieuwe tweets updaten
+            UpdateNewTweetsLabel();
 
             main_menu_tabcontrol.SelectTab(0);
 
@@ -371,7 +369,6 @@ namespace WijkAgent
             //cleared alles in city scroll panel
             city_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(1);
-            cityButtonsCreated = false;
         }
         #endregion
 
@@ -588,10 +585,10 @@ namespace WijkAgent
 
             foreach (var tag in tags)
             {
-                if(tag.Key.Length > 15)
+                if(tag.Key.Length > tagLengte)
                 {
                     string splittedTag = "";
-                    var tagSplit = tag.Key.SplitInParts(15);
+                    var tagSplit = tag.Key.SplitInParts(tagLengte);
                     foreach(string split in tagSplit)
                     {
                         splittedTag += split + " ";
@@ -704,7 +701,7 @@ namespace WijkAgent
         }
         #endregion
 
-        #region Haal naam van de gebruiker op
+        #region GetNameOfUser
         public string getUser()
         {
             //gaat naar de debug folder
@@ -718,25 +715,33 @@ namespace WijkAgent
             modelClass.databaseConnectie.conn.Open();
 
             //Haal idAccount op
-            string stm = "SELECT idaccount FROM account WHERE username = '" + username + "'";
+            string stm = "SELECT * FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+            cmd.Parameters.AddWithValue("@username", username);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
             modelClass.databaseConnectie.rdr.Read();
-            int idAccount = Convert.ToInt32(modelClass.databaseConnectie.rdr.GetString(0));
-            modelClass.databaseConnectie.conn.Close();
+            string user = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
 
-            //Haal naam op van de gebruiker
-            modelClass.databaseConnectie.conn.Open();
-            stm = "SELECT naam, achternaam FROM person WHERE idaccount = '" + idAccount + "'";
-            cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-            modelClass.databaseConnectie.rdr.Read();
-            string user = modelClass.databaseConnectie.rdr.GetString(0) + " " + modelClass.databaseConnectie.rdr.GetString(1);
+            //Sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
             return user;
         }
+        #endregion
 
+        #region UpdateLatestSelectedDisctrictUser
+        public void UpdateLatestSelectedDisctrictUser()
+        {
+            //gaat naar de debug folder
+            string _curDir = Directory.GetCurrentDirectory();
+            //ga naar de goede map waar het text bestand in staan
+            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
+            //lees het textbestand
+            string username = System.IO.File.ReadAllText(_filePath);
+
+            //Default wijk opslaan van gebruiker
+            modelClass.databaseConnectie.SaveDefaultDistrictUser(username, modelClass.map.idDistrict);
+        }
         #endregion
 
 
@@ -867,7 +872,12 @@ namespace WijkAgent
 
         }
         #endregion
-    }
 
-    
+        #region Update the new tweets label
+        public void UpdateNewTweetsLabel()
+        {
+            Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
+        }
+        #endregion
+    }
 }
