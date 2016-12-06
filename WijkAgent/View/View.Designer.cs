@@ -76,8 +76,8 @@
             this.twitter_tab = new System.Windows.Forms.TabPage();
             this.twitter_panel = new System.Windows.Forms.Panel();
             this.twitter_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
-            this.Twitter_number_of_new_tweets_panel = new System.Windows.Forms.Panel();
-            this.Twitter_number_of_new_tweets_label = new System.Windows.Forms.Label();
+            this.twitter_number_of_new_tweets_panel = new System.Windows.Forms.Panel();
+            this.twitter_number_of_new_tweets_label = new System.Windows.Forms.Label();
             this.twitter_messages_scroll_panel = new System.Windows.Forms.Panel();
             this.twitter_trending_panel = new System.Windows.Forms.Panel();
             this.twitter_trending_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
@@ -93,7 +93,7 @@
             this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_district_checkbox = new System.Windows.Forms.CheckBox();
             this.history_user_checkbox = new System.Windows.Forms.CheckBox();
-            this.history_categorie_checkbox = new System.Windows.Forms.CheckBox();
+            this.history_category_checkbox = new System.Windows.Forms.CheckBox();
             this.history_date_checkbox = new System.Windows.Forms.CheckBox();
             this.history_district_textbox = new System.Windows.Forms.TextBox();
             this.history_user_textbox = new System.Windows.Forms.TextBox();
@@ -102,6 +102,8 @@
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_search_button = new System.Windows.Forms.Button();
+            this.history_keyword_checkbox = new System.Windows.Forms.CheckBox();
+            this.history_keyword_textbox = new System.Windows.Forms.TextBox();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -131,7 +133,7 @@
             this.twitter_tab.SuspendLayout();
             this.twitter_panel.SuspendLayout();
             this.twitter_table_layout_panel.SuspendLayout();
-            this.Twitter_number_of_new_tweets_panel.SuspendLayout();
+            this.twitter_number_of_new_tweets_panel.SuspendLayout();
             this.twitter_trending_panel.SuspendLayout();
             this.twitter_trending_table_layout_panel.SuspendLayout();
             this.history_option_tab.SuspendLayout();
@@ -738,7 +740,7 @@
             // 
             // twitter_panel
             // 
-            this.twitter_panel.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.twitter_panel.BackColor = System.Drawing.Color.Gold;
             this.twitter_panel.Controls.Add(this.twitter_table_layout_panel);
             this.twitter_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.twitter_panel.Location = new System.Drawing.Point(3, 3);
@@ -749,9 +751,10 @@
             // 
             // twitter_table_layout_panel
             // 
+            this.twitter_table_layout_panel.BackColor = System.Drawing.Color.Transparent;
             this.twitter_table_layout_panel.ColumnCount = 1;
             this.twitter_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.twitter_table_layout_panel.Controls.Add(this.Twitter_number_of_new_tweets_panel, 0, 3);
+            this.twitter_table_layout_panel.Controls.Add(this.twitter_number_of_new_tweets_panel, 0, 3);
             this.twitter_table_layout_panel.Controls.Add(this.twitter_messages_scroll_panel, 0, 2);
             this.twitter_table_layout_panel.Controls.Add(this.twitter_trending_panel, 0, 1);
             this.twitter_table_layout_panel.Controls.Add(this.twitter_logo_panel, 0, 0);
@@ -766,27 +769,27 @@
             this.twitter_table_layout_panel.Size = new System.Drawing.Size(202, 666);
             this.twitter_table_layout_panel.TabIndex = 0;
             // 
-            // Twitter_number_of_new_tweets_panel
+            // twitter_number_of_new_tweets_panel
             // 
-            this.Twitter_number_of_new_tweets_panel.BackColor = System.Drawing.Color.Transparent;
-            this.Twitter_number_of_new_tweets_panel.Controls.Add(this.Twitter_number_of_new_tweets_label);
-            this.Twitter_number_of_new_tweets_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Twitter_number_of_new_tweets_panel.Location = new System.Drawing.Point(3, 647);
-            this.Twitter_number_of_new_tweets_panel.Name = "Twitter_number_of_new_tweets_panel";
-            this.Twitter_number_of_new_tweets_panel.Size = new System.Drawing.Size(196, 16);
-            this.Twitter_number_of_new_tweets_panel.TabIndex = 2;
+            this.twitter_number_of_new_tweets_panel.BackColor = System.Drawing.Color.Gold;
+            this.twitter_number_of_new_tweets_panel.Controls.Add(this.twitter_number_of_new_tweets_label);
+            this.twitter_number_of_new_tweets_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.twitter_number_of_new_tweets_panel.Location = new System.Drawing.Point(3, 647);
+            this.twitter_number_of_new_tweets_panel.Name = "twitter_number_of_new_tweets_panel";
+            this.twitter_number_of_new_tweets_panel.Size = new System.Drawing.Size(196, 16);
+            this.twitter_number_of_new_tweets_panel.TabIndex = 2;
             // 
-            // Twitter_number_of_new_tweets_label
+            // twitter_number_of_new_tweets_label
             // 
-            this.Twitter_number_of_new_tweets_label.AutoSize = true;
-            this.Twitter_number_of_new_tweets_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Twitter_number_of_new_tweets_label.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Twitter_number_of_new_tweets_label.ForeColor = System.Drawing.Color.White;
-            this.Twitter_number_of_new_tweets_label.Location = new System.Drawing.Point(0, 0);
-            this.Twitter_number_of_new_tweets_label.Name = "Twitter_number_of_new_tweets_label";
-            this.Twitter_number_of_new_tweets_label.Size = new System.Drawing.Size(190, 23);
-            this.Twitter_number_of_new_tweets_label.TabIndex = 0;
-            this.Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets:";
+            this.twitter_number_of_new_tweets_label.AutoSize = true;
+            this.twitter_number_of_new_tweets_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.twitter_number_of_new_tweets_label.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.twitter_number_of_new_tweets_label.ForeColor = System.Drawing.Color.White;
+            this.twitter_number_of_new_tweets_label.Location = new System.Drawing.Point(0, 0);
+            this.twitter_number_of_new_tweets_label.Name = "twitter_number_of_new_tweets_label";
+            this.twitter_number_of_new_tweets_label.Size = new System.Drawing.Size(190, 23);
+            this.twitter_number_of_new_tweets_label.TabIndex = 0;
+            this.twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets:";
             // 
             // twitter_messages_scroll_panel
             // 
@@ -933,35 +936,38 @@
             this.history_filter_table_layout_panel.ColumnCount = 2;
             this.history_filter_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.history_filter_table_layout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.history_filter_table_layout_panel.Controls.Add(this.history_from_datetimepicker, 1, 4);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_keyword_textbox, 1, 3);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_from_datetimepicker, 1, 5);
             this.history_filter_table_layout_panel.Controls.Add(this.history_district_checkbox, 0, 0);
             this.history_filter_table_layout_panel.Controls.Add(this.history_user_checkbox, 0, 1);
-            this.history_filter_table_layout_panel.Controls.Add(this.history_categorie_checkbox, 0, 2);
-            this.history_filter_table_layout_panel.Controls.Add(this.history_date_checkbox, 0, 3);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_category_checkbox, 0, 2);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_date_checkbox, 0, 4);
             this.history_filter_table_layout_panel.Controls.Add(this.history_district_textbox, 1, 0);
             this.history_filter_table_layout_panel.Controls.Add(this.history_user_textbox, 1, 1);
             this.history_filter_table_layout_panel.Controls.Add(this.history_category_combobox, 1, 2);
-            this.history_filter_table_layout_panel.Controls.Add(this.history_till_date_label, 0, 5);
-            this.history_filter_table_layout_panel.Controls.Add(this.history_from_date_label, 0, 4);
-            this.history_filter_table_layout_panel.Controls.Add(this.history_till_datetimepicker, 1, 5);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_till_date_label, 0, 6);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_from_date_label, 0, 5);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_till_datetimepicker, 1, 6);
+            this.history_filter_table_layout_panel.Controls.Add(this.history_keyword_checkbox, 0, 3);
             this.history_filter_table_layout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.history_filter_table_layout_panel.Location = new System.Drawing.Point(0, 0);
             this.history_filter_table_layout_panel.Name = "history_filter_table_layout_panel";
-            this.history_filter_table_layout_panel.RowCount = 7;
+            this.history_filter_table_layout_panel.RowCount = 8;
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.history_filter_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.history_filter_table_layout_panel.Size = new System.Drawing.Size(202, 525);
             this.history_filter_table_layout_panel.TabIndex = 0;
             // 
             // history_from_datetimepicker
             // 
             this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 185);
+            this.history_from_datetimepicker.Location = new System.Drawing.Point(83, 237);
             this.history_from_datetimepicker.Name = "history_from_datetimepicker";
             this.history_from_datetimepicker.Size = new System.Drawing.Size(116, 20);
             this.history_from_datetimepicker.TabIndex = 1;
@@ -989,22 +995,22 @@
             this.history_user_checkbox.Text = "Gebruiker";
             this.history_user_checkbox.UseVisualStyleBackColor = true;
             // 
-            // history_categorie_checkbox
+            // history_category_checkbox
             // 
-            this.history_categorie_checkbox.AutoSize = true;
-            this.history_categorie_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_categorie_checkbox.Location = new System.Drawing.Point(3, 107);
-            this.history_categorie_checkbox.Name = "history_categorie_checkbox";
-            this.history_categorie_checkbox.Size = new System.Drawing.Size(74, 23);
-            this.history_categorie_checkbox.TabIndex = 2;
-            this.history_categorie_checkbox.Text = "Categorie";
-            this.history_categorie_checkbox.UseVisualStyleBackColor = true;
+            this.history_category_checkbox.AutoSize = true;
+            this.history_category_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_category_checkbox.Location = new System.Drawing.Point(3, 107);
+            this.history_category_checkbox.Name = "history_category_checkbox";
+            this.history_category_checkbox.Size = new System.Drawing.Size(74, 23);
+            this.history_category_checkbox.TabIndex = 2;
+            this.history_category_checkbox.Text = "Categorie";
+            this.history_category_checkbox.UseVisualStyleBackColor = true;
             // 
             // history_date_checkbox
             // 
             this.history_date_checkbox.AutoSize = true;
             this.history_date_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_date_checkbox.Location = new System.Drawing.Point(3, 159);
+            this.history_date_checkbox.Location = new System.Drawing.Point(3, 211);
             this.history_date_checkbox.Name = "history_date_checkbox";
             this.history_date_checkbox.Size = new System.Drawing.Size(74, 20);
             this.history_date_checkbox.TabIndex = 3;
@@ -1060,7 +1066,7 @@
             this.history_till_date_label.BackColor = System.Drawing.Color.Transparent;
             this.history_till_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_till_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.history_till_date_label.Location = new System.Drawing.Point(43, 208);
+            this.history_till_date_label.Location = new System.Drawing.Point(43, 260);
             this.history_till_date_label.Name = "history_till_date_label";
             this.history_till_date_label.Size = new System.Drawing.Size(34, 19);
             this.history_till_date_label.TabIndex = 10;
@@ -1073,7 +1079,7 @@
             this.history_from_date_label.BackColor = System.Drawing.Color.Transparent;
             this.history_from_date_label.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_from_date_label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.history_from_date_label.Location = new System.Drawing.Point(39, 182);
+            this.history_from_date_label.Location = new System.Drawing.Point(39, 234);
             this.history_from_date_label.Name = "history_from_date_label";
             this.history_from_date_label.Size = new System.Drawing.Size(38, 19);
             this.history_from_date_label.TabIndex = 1;
@@ -1082,7 +1088,7 @@
             // history_till_datetimepicker
             // 
             this.history_till_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_till_datetimepicker.Location = new System.Drawing.Point(83, 211);
+            this.history_till_datetimepicker.Location = new System.Drawing.Point(83, 263);
             this.history_till_datetimepicker.Name = "history_till_datetimepicker";
             this.history_till_datetimepicker.Size = new System.Drawing.Size(116, 20);
             this.history_till_datetimepicker.TabIndex = 11;
@@ -1102,6 +1108,32 @@
             this.history_search_button.Text = "Zoek";
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
+            // 
+            // history_keyword_checkbox
+            // 
+            this.history_keyword_checkbox.AutoSize = true;
+            this.history_keyword_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_keyword_checkbox.Location = new System.Drawing.Point(3, 159);
+            this.history_keyword_checkbox.Name = "history_keyword_checkbox";
+            this.history_keyword_checkbox.Size = new System.Drawing.Size(74, 23);
+            this.history_keyword_checkbox.TabIndex = 12;
+            this.history_keyword_checkbox.Text = "Trefwoord";
+            this.history_keyword_checkbox.UseVisualStyleBackColor = true;
+            // 
+            // history_keyword_textbox
+            // 
+            this.history_keyword_textbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.history_keyword_textbox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.history_keyword_textbox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_keyword_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_keyword_textbox.ForeColor = System.Drawing.Color.DimGray;
+            this.history_keyword_textbox.Location = new System.Drawing.Point(83, 159);
+            this.history_keyword_textbox.Name = "history_keyword_textbox";
+            this.history_keyword_textbox.Size = new System.Drawing.Size(116, 27);
+            this.history_keyword_textbox.TabIndex = 13;
+            this.history_keyword_textbox.Text = "Zoek een trefwoord . . .";
+            this.history_keyword_textbox.Enter += new System.EventHandler(this.history_keyword_textbox_Enter);
+            this.history_keyword_textbox.Leave += new System.EventHandler(this.history_keyword_textbox_Leave);
             // 
             // View
             // 
@@ -1150,8 +1182,8 @@
             this.twitter_tab.ResumeLayout(false);
             this.twitter_panel.ResumeLayout(false);
             this.twitter_table_layout_panel.ResumeLayout(false);
-            this.Twitter_number_of_new_tweets_panel.ResumeLayout(false);
-            this.Twitter_number_of_new_tweets_panel.PerformLayout();
+            this.twitter_number_of_new_tweets_panel.ResumeLayout(false);
+            this.twitter_number_of_new_tweets_panel.PerformLayout();
             this.twitter_trending_panel.ResumeLayout(false);
             this.twitter_trending_table_layout_panel.ResumeLayout(false);
             this.twitter_trending_table_layout_panel.PerformLayout();
@@ -1221,7 +1253,7 @@
         private System.Windows.Forms.TableLayoutPanel history_filter_table_layout_panel;
         private System.Windows.Forms.CheckBox history_district_checkbox;
         private System.Windows.Forms.CheckBox history_user_checkbox;
-        private System.Windows.Forms.CheckBox history_categorie_checkbox;
+        private System.Windows.Forms.CheckBox history_category_checkbox;
         private System.Windows.Forms.CheckBox history_date_checkbox;
         private System.Windows.Forms.TextBox history_district_textbox;
         private System.Windows.Forms.TextBox history_user_textbox;
@@ -1235,11 +1267,13 @@
         private System.Windows.Forms.Label history_header_results_label;
         private System.Windows.Forms.DateTimePicker history_from_datetimepicker;
         private System.Windows.Forms.DateTimePicker history_till_datetimepicker;
-        private System.Windows.Forms.Panel Twitter_number_of_new_tweets_panel;
-        private System.Windows.Forms.Label Twitter_number_of_new_tweets_label;
+        private System.Windows.Forms.Panel twitter_number_of_new_tweets_panel;
+        private System.Windows.Forms.Label twitter_number_of_new_tweets_label;
         private System.Windows.Forms.Button history_search_button;
         private System.Windows.Forms.Button view_logOut_button;
         private System.Windows.Forms.Button save_incedents_button;
+        private System.Windows.Forms.TextBox history_keyword_textbox;
+        private System.Windows.Forms.CheckBox history_keyword_checkbox;
     }
 }
 

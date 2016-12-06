@@ -38,6 +38,7 @@ namespace WijkAgent
         //placeholders
         private string searchDistrict = "Zoek een wijk . . .";
         private string searchUser = "Zoek een gebruiker . . .";
+        private string searchKeyWord = "Zoek een trefwoord . . .";
 
         //events
         public event VoidWithNoArguments OnRefreshButtonClick;
@@ -81,13 +82,16 @@ namespace WijkAgent
         private void View_Load(object sender, EventArgs e)
         {
             fillSearchSuggestions();
+
+            #region Layout Colours toevoegen.
             main_menu_panel_for_label.BackColor = policeBlue;
             province_panel_for_label.BackColor = policeBlue;
             city_panel_for_label.BackColor = policeBlue;
             district_panel_for_label.BackColor = policeBlue;
             history_option_panel_for_label.BackColor = policeBlue;
             history_header_panel.BackColor = policeBlue;
-
+            twitter_number_of_new_tweets_panel.BackColor = policeGold;
+            twitter_panel.BackColor = policeGold;
             //Zoek button
             history_search_button.BackColor = policeBlue;
             history_search_button.ForeColor = Color.White;
@@ -122,6 +126,7 @@ namespace WijkAgent
             view_logOut_button.BackColor = policeBlue;
             view_logOut_button.ForeColor = Color.White;
             view_logOut_button.Font = mainFont;
+            #endregion
         }
         #endregion
 
@@ -564,6 +569,24 @@ namespace WijkAgent
                 history_user_textbox.Text = searchUser;
             }
         }
+    
+        private void history_keyword_textbox_Enter(object sender, EventArgs e)
+        {
+            if (history_keyword_textbox.Text == searchKeyWord)
+            {
+                history_keyword_textbox.Text = "";
+                history_keyword_textbox.ForeColor = Color.Black;
+            }
+        }
+
+        private void history_keyword_textbox_Leave(object sender, EventArgs e)
+        {
+            if (!history_keyword_textbox.Text.Any())
+            {
+                history_keyword_textbox.ForeColor = Color.DimGray;
+                history_keyword_textbox.Text = searchKeyWord;
+            }
+        }
         #endregion
 
         #region TwitterTrending
@@ -803,6 +826,7 @@ namespace WijkAgent
             string districtInput = history_district_textbox.Text;
             string userInput = history_user_textbox.Text;
             string categoryInput = history_category_combobox.Text;
+            string keyWordInput = history_keyword_textbox.Text;
             string stm = "";
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
@@ -818,12 +842,15 @@ namespace WijkAgent
             }
 
             //Als catgorie checkbox checked is word er een join gemaakt naar de collum van categorie
-            if (history_categorie_checkbox.Checked)
+            if (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1)
             {
                 stm = modelClass.databaseConnectie.JoinCatgoryQuery(stm);
             }
             //Van af hier begint de WHERE van de query.
-            stm = modelClass.databaseConnectie.AddWhereToQuery(stm);
+            if(history_district_checkbox.Checked || history_user_checkbox.Checked || (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1) || history_date_checkbox.Checked || history_keyword_checkbox.Checked)
+            {
+                stm = modelClass.databaseConnectie.AddWhereToQuery(stm);
+            }
 
             //Als District checkbox checked is word input van district toegevoegd aan de query.
             if (history_district_checkbox.Checked)
@@ -844,21 +871,34 @@ namespace WijkAgent
             }
 
             //Als District checkbox checked is word input van catgorie toegevoegd aan de query.
-            if (history_categorie_checkbox.Checked)
+            if (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1)
             {
-                tempSearch = tempSearch + "Categorie: " + categoryInput + Environment.NewLine;
                 if (history_district_checkbox.Checked || history_user_checkbox.Checked)
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
                 }
                 stm = modelClass.databaseConnectie.WhereCategoryQuery(stm);
             }
+            if (history_category_checkbox.Checked)
+            {
+                tempSearch = tempSearch + "Categorie: " + categoryInput + Environment.NewLine;
+            }
+
+            if (history_keyword_checkbox.Checked)
+            {
+                tempSearch = tempSearch + "Trefwoord: " + keyWordInput + Environment.NewLine;
+                if(history_district_checkbox.Checked || history_user_checkbox.Checked || history_category_checkbox.Checked)
+                {
+                    stm = modelClass.databaseConnectie.AddAndToQuery(stm);
+                }
+                stm = modelClass.databaseConnectie.WhereKeyWordQuery(stm);
+            }
 
             //Als District checkbox checked is word input van date toegevoegd aan de query.
             if (history_date_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Datum van: " + fromDateInput.ToString("yyyy-MM-dd 00:00:0001") + " tot: " + tillDateInput.ToString("yyyy-MM-dd 23:59:0000");
-                if (history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked)
+                if (history_district_checkbox.Checked || history_user_checkbox.Checked || history_category_checkbox.Checked || history_keyword_checkbox.Checked)
 
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
@@ -871,73 +911,87 @@ namespace WijkAgent
             stm = modelClass.databaseConnectie.AddOrderByTimeToQuery(stm);
             stm = modelClass.databaseConnectie.AddLimitToQeury(stm, resultMax);
 
-            //header label word geupdate met de zoek resultaten die zijn gebruikt.
-            History_header_label.Text = tempSearch;
-
             //Check of er ubehoud een checkbox gecheckt is.
-            if (history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked || history_date_checkbox.Checked)
+            if (history_district_checkbox.Checked || history_user_checkbox.Checked || (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1) || history_date_checkbox.Checked || history_keyword_checkbox.Checked)
             {
-                //Roep districte naam suggeties aan.
-                //Open database connectie
-                modelClass.databaseConnectie.conn.Open();
-
-                //Selectie Query die de namen van allke province selecteer en ordered.
-                MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-                cmd.Parameters.AddWithValue("@districtInput", districtInput);
-                cmd.Parameters.AddWithValue("@userInput", userInput);
-                cmd.Parameters.AddWithValue("@categoryInput", categoryInput.ToLower());
-                cmd.Parameters.AddWithValue("@fromDateInput", fromDateInput.ToString("yyyy-MM-dd 00:00:0001"));
-                cmd.Parameters.AddWithValue("@tillDateInput", tillDateInput.ToString("yyyy-MM-dd 23:59:0000"));
-                modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
-
-                // Hier word de database lijst uitgelezen
-                while (modelClass.databaseConnectie.rdr.Read())
+                try
                 {
-                    //Teller wordt geupdate per resultaat.
-                    resultsCount++;
+                    //Roep districte naam suggeties aan.
+                    //Open database connectie
+                    modelClass.databaseConnectie.conn.Open();
 
-                    //Text wordt hier aangemaakt voor elke label.
-                    string tempLabelText;
-                    tempLabelText = ("Gebruiker: " + modelClass.databaseConnectie.rdr.GetString(3) + Environment.NewLine
-                                    + "Twitter bericht: " + Environment.NewLine + modelClass.databaseConnectie.rdr.GetString(6) + Environment.NewLine
-                                    + Environment.NewLine + "Datum: " + modelClass.databaseConnectie.rdr.GetString(7) + Environment.NewLine);
-                    //Panel om straks de labels in te bewaren.
-                    Panel createHistoryPanel = new Panel();
-                    createHistoryPanel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
-                    panelLayout(createHistoryPanel);
+                    //Selectie Query die de namen van allke province selecteer en ordered.
+                    MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
+                    cmd.Parameters.AddWithValue("@districtInput", districtInput);
+                    cmd.Parameters.AddWithValue("@userInput", userInput);
+                    if (history_category_combobox.SelectedIndex > -1)
+                    {
+                        cmd.Parameters.AddWithValue("@categoryInput", categoryInput.ToLower());
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@categoryInput", "Er is geen catgorie geselecteert.");
+                    }
+                    cmd.Parameters.AddWithValue("@keyWordInput","%" + keyWordInput + "%");
+                    cmd.Parameters.AddWithValue("@fromDateInput", fromDateInput.ToString("yyyy-MM-dd 00:00:0001"));
+                    cmd.Parameters.AddWithValue("@tillDateInput", tillDateInput.ToString("yyyy-MM-dd 23:59:0000"));
+                    modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
-                    //Panel word toegevoegd aan scroll panel van history.
-                    history_scroll_panel.Controls.Add(createHistoryPanel);
+                    // Hier word de database lijst uitgelezen
+                    while (modelClass.databaseConnectie.rdr.Read())
+                    {
+                        //Teller wordt geupdate per resultaat.
+                        resultsCount++;
 
-                    //Hier word de label aangemaakt om alle info van database in te printen.
-                    Label createHistorylabel = new Label();
-                    createHistorylabel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
-                    createHistorylabel.Text = tempLabelText;
-                    labelLayout(createHistorylabel);
+                        //Text wordt hier aangemaakt voor elke label.
+                        string tempLabelText;
+                        tempLabelText = ("Gebruiker: " + modelClass.databaseConnectie.rdr.GetString(3) + Environment.NewLine
+                                        + "Twitter bericht: " + Environment.NewLine + modelClass.databaseConnectie.rdr.GetString(6) + Environment.NewLine
+                                        + Environment.NewLine + "Datum: " + modelClass.databaseConnectie.rdr.GetString(7) + Environment.NewLine);
+                        //Panel om straks de labels in te bewaren.
+                        Panel createHistoryPanel = new Panel();
+                        createHistoryPanel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
+                        panelLayout(createHistoryPanel);
 
-                    //Label wordt toegevoegd aan panel
-                    createHistoryPanel.Controls.Add(createHistorylabel);
+                        //Panel word toegevoegd aan scroll panel van history.
+                        history_scroll_panel.Controls.Add(createHistoryPanel);
 
+                        //Hier word de label aangemaakt om alle info van database in te printen.
+                        Label createHistorylabel = new Label();
+                        createHistorylabel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
+                        createHistorylabel.Text = tempLabelText;
+                        labelLayout(createHistorylabel);
+
+                        //Label wordt toegevoegd aan panel
+                        createHistoryPanel.Controls.Add(createHistorylabel);
+
+                    }
+
+
+                    if (resultsCount == 0)
+                    {
+                        Label createNoResultAlert = new Label();
+                        createNoResultAlert.Text = "Geen resultaten gevonden.";
+                        labelLayout(createNoResultAlert);
+                        history_scroll_panel.Controls.Add(createNoResultAlert);
+                    }
+
+                    //Hier word de resultaat label geupdate met het aantal resultaten.
+                    history_header_results_label.Text = "Aantal resultaten: " + resultsCount.ToString();
+
+                    //sluit database connectie
+                    modelClass.databaseConnectie.conn.Close();
+                }
+                catch(MySqlException ex)
+                {
+                    Console.WriteLine(ex);
                 }
 
-
-                if (resultsCount == 0)
-                {
-                    Label createNoResultAlert = new Label();
-                    createNoResultAlert.Text = "Geen resultaten gevonden.";
-                    labelLayout(createNoResultAlert);
-                    history_scroll_panel.Controls.Add(createNoResultAlert);
-                }
-
-                //Hier word de resultaat label geupdate met het aantal resultaten.
-                history_header_results_label.Text = "Aantal resultaten: " + resultsCount.ToString();
-
-                //sluit database connectie
-                modelClass.databaseConnectie.conn.Close();
+                //header label word geupdate met de zoek resultaten die zijn gebruikt.
+                History_header_label.Text = tempSearch;
 
             }
-
-            if (!history_district_checkbox.Checked && !history_user_checkbox.Checked && !history_categorie_checkbox.Checked && !history_date_checkbox.Checked)
+            else
             {
                 Label createEmptyAlert = new Label();
                 createEmptyAlert.Text = "U heeft geen filter gekozen.";
@@ -952,7 +1006,7 @@ namespace WijkAgent
         #region Update the new tweets label
         public void UpdateNewTweetsLabel()
         {
-            Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
+            twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
         }
         #endregion
 
