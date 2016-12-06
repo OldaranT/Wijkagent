@@ -56,8 +56,6 @@ namespace WijkAgent.Model
             Object[] _initArgs = new Object[3] { defaultLatitude, defaultLongtitude, defaultZoom };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             this.wb.Document.InvokeScript("initialize", _initArgs);
-
-
             
         }
 
@@ -92,8 +90,6 @@ namespace WijkAgent.Model
 
                 Marker test = new Marker(500, _centerLat, _centerLong, "blue-pushpin");
                 test.addMarkerToMap(this.wb);
-                
-
 
                 Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
                 //invokescript heeft voor de argumenten een object nodig waar deze in staan

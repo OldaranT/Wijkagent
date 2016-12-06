@@ -14,7 +14,7 @@ using System.IO;
 
 namespace WijkAgent
 {
-    public delegate void RefreshButtonClick();
+    public delegate void VoidWithNoArguments();
 
     public partial class View : Form
     {
@@ -40,12 +40,13 @@ namespace WijkAgent
         private string searchUser = "Zoek een gebruiker . . .";
 
         //events
-        public event RefreshButtonClick OnRefreshButtonClick;
+        public event VoidWithNoArguments OnRefreshButtonClick;
+        public event VoidWithNoArguments OnLogOutButtonClick;
         public event TwitterSearch doneTwitterSearch;
 
-        public View()
+        public View(string _username)
         {
-            modelClass = new ModelClass();
+            modelClass = new ModelClass(_username);
             policeBlue = Color.FromArgb(0, 70, 130);
             policeGold = Color.FromArgb(190, 150, 90);
             mainFont = new Font("Calibri", 16, FontStyle.Bold);
@@ -113,6 +114,10 @@ namespace WijkAgent
             go_to_city_panel_button_from_district_tab.BackColor = policeBlue;
             go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
             go_to_city_panel_button_from_district_tab.Font = mainFont;
+
+            view_logOut_button.BackColor = policeBlue;
+            view_logOut_button.ForeColor = Color.White;
+            view_logOut_button.Font = mainFont;
         }
         #endregion
 
@@ -314,8 +319,8 @@ namespace WijkAgent
                 tweetMessageLabel.Text = infoMessage;
                 twitterLabelLayout(tweetMessageLabel);
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
-                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
-                twitter_trending_topic_label.Text = infoMessage;
+                twitter_trending_tag_label.Text = "";
+                twitter_trending_topic_label.Text = "";
             }
             else
             {
@@ -346,7 +351,6 @@ namespace WijkAgent
                     twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
                 }
             }
-
 
             //Twitter berichten in database opslaan 
             modelClass.TweetsToDb();
@@ -558,94 +562,96 @@ namespace WijkAgent
 
             var _tekst = "";
 
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
-            {
-                _tekst += tweets.message + " ";
-            }
+            
+                foreach (var tweets in modelClass.map.twitter.tweetsList)
+                {
+                    _tekst += tweets.message + " ";
+                }
 
-            var words =
-            Regex.Split(_tekst.ToLower(), @"\W+")
-            .Where(s => s.Length > 3)
-            .GroupBy(s => s)
-            .OrderByDescending(g => g.Count());
-
-            var tagsMessage =
-                from tweet in modelClass.map.twitter.tweetsList
-                where tweet.message.Contains("#")
-                select tweet.message;
-
-            string messageTagsString = "";
-
-            foreach (string tagMessageWord in tagsMessage)
-            {
-                messageTagsString += tagMessageWord + " ";
-            }
-
-            var tagsMessageSplit =
-                Regex.Split(messageTagsString.ToLower(), @"\s+");
-
-            var tags = tagsMessageSplit
-                .Where(a => a.StartsWith("#"))
+                var words =
+                Regex.Split(_tekst.ToLower(), @"\W+")
+                .Where(s => s.Length > 3)
                 .GroupBy(s => s)
                 .OrderByDescending(g => g.Count());
 
-            foreach (var tag in tags)
-            {
-                if (tag.Key.Length > tagLengte)
+                var tagsMessage =
+                    from tweet in modelClass.map.twitter.tweetsList
+                    where tweet.message.Contains("#")
+                    select tweet.message;
+
+                string messageTagsString = "";
+
+                foreach (string tagMessageWord in tagsMessage)
                 {
-                    string splittedTag = "";
-                    var tagSplit = tag.Key.SplitInParts(tagLengte);
-                    foreach (string split in tagSplit)
+                    messageTagsString += tagMessageWord + " ";
+                }
+
+                var tagsMessageSplit =
+                    Regex.Split(messageTagsString.ToLower(), @"\s+");
+
+                var tags = tagsMessageSplit
+                    .Where(a => a.StartsWith("#"))
+                    .GroupBy(s => s)
+                    .OrderByDescending(g => g.Count());
+                
+                foreach (var tag in tags)
+                {
+                    if (tag.Key.Length > tagLengte)
                     {
-                        splittedTag += split + " ";
+                        string splittedTag = "";
+                        var tagSplit = tag.Key.SplitInParts(tagLengte);
+                        foreach (string split in tagSplit)
+                        {
+                            splittedTag += split + " ";
+                        }
+                        trendingTags.Add(splittedTag);
                     }
-                    trendingTags.Add(splittedTag);
+                    else
+                    {
+                        trendingTags.Add(tag.Key);
+                    }
+                }
+
+
+
+                foreach (var word in words)
+                {
+                    if (word.Key.Length > wordLengte)
+                    {
+                        string splittedTweetWord = "";
+                        var wordSplit = word.Key.SplitInParts(wordLengte);
+                        foreach (string split in wordSplit)
+                        {
+                            splittedTweetWord += split + " ";
+                        }
+                        trendingTweetWord.Add(splittedTweetWord);
+                    }
+                    else
+                    {
+                        trendingTweetWord.Add(word.Key);
+                    }
+                }
+
+
+                twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+                int _tagCount = trendingTags.Count();
+                if (_tagCount == 0)
+                {
+                    twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
+                }
+                else if (_tagCount < 3)
+                {
+                    twitter_trending_tag_label.Text = "Trending tags:\n";
+                    for (int i = 0; i < _tagCount; i++)
+                    {
+                        twitter_trending_tag_label.Text += (i + 1) + ": " + trendingTags[i] + "\n";
+                    }
                 }
                 else
                 {
-                    trendingTags.Add(tag.Key);
+                    twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
                 }
-            }
-
             
-
-            foreach (var word in words)
-            {
-                if(word.Key.Length > wordLengte)
-                {
-                    string splittedTweetWord = "";
-                    var wordSplit = word.Key.SplitInParts(wordLengte);
-                    foreach(string split in wordSplit)
-                    {
-                        splittedTweetWord += split + " ";
-                    }
-                    trendingTweetWord.Add(splittedTweetWord);
-                }
-                else
-                {
-                    trendingTweetWord.Add(word.Key);
-                }
-            }
-
-
-            twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
-            int _tagCount = trendingTags.Count();
-            if (_tagCount == 0)
-            {
-                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
-            }
-            else if (_tagCount < 3)
-            {
-                twitter_trending_tag_label.Text = "Trending tags:\n";
-                for (int i = 0; i < _tagCount; i++)
-                {
-                    twitter_trending_tag_label.Text += (i + 1) + ": " + trendingTags[i] + "\n";
-                }
-            }
-            else
-            {
-                twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
-            }
         }
         #endregion
 
@@ -724,43 +730,30 @@ namespace WijkAgent
         #region GetNameOfUser
         public string getUser()
         {
-            //gaat naar de debug folder
-            string _curDir = Directory.GetCurrentDirectory();
-            //ga naar de goede map waar het text bestand in staan
-            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
-            //lees het textbestand
-            string username = System.IO.File.ReadAllText(_filePath);
-
             //Open database connectie
             modelClass.databaseConnectie.conn.Open();
 
             //Haal idAccount op
             string stm = "SELECT * FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@username", modelClass.username);
+            Console.WriteLine(modelClass.username);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
             modelClass.databaseConnectie.rdr.Read();
-            string user = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
+            string fullName = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
 
             //Sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
-            return user;
+            return fullName;
         }
         #endregion
 
         #region UpdateLatestSelectedDisctrictUser
         public void UpdateLatestSelectedDisctrictUser()
         {
-            //gaat naar de debug folder
-            string _curDir = Directory.GetCurrentDirectory();
-            //ga naar de goede map waar het text bestand in staan
-            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
-            //lees het textbestand
-            string username = System.IO.File.ReadAllText(_filePath);
-
             //Default wijk opslaan van gebruiker
-            modelClass.databaseConnectie.SaveDefaultDistrictUser(username, modelClass.map.idDistrict);
+            modelClass.databaseConnectie.SaveDefaultDistrictUser(modelClass.username, modelClass.map.idDistrict);
         }
         #endregion
 
@@ -923,6 +916,14 @@ namespace WijkAgent
         public void UpdateNewTweetsLabel()
         {
             Twitter_number_of_new_tweets_label.Text = "Aantal nieuwe tweets: " + modelClass.newTweets;
+        }
+        #endregion
+
+        #region LogOut_Button_Click
+        private void view_logOut_button_Click(object sender, EventArgs e)
+        {
+            if (OnLogOutButtonClick != null)
+                OnLogOutButtonClick();
         }
         #endregion
     }
