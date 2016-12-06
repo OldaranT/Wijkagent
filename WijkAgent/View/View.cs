@@ -352,7 +352,6 @@ namespace WijkAgent
                 }
             }
 
-
             //Twitter berichten in database opslaan 
             modelClass.TweetsToDb();
 
@@ -753,15 +752,8 @@ namespace WijkAgent
         #region UpdateLatestSelectedDisctrictUser
         public void UpdateLatestSelectedDisctrictUser()
         {
-            //gaat naar de debug folder
-            string _curDir = Directory.GetCurrentDirectory();
-            //ga naar de goede map waar het text bestand in staan
-            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
-            //lees het textbestand
-            string username = System.IO.File.ReadAllText(_filePath);
-
             //Default wijk opslaan van gebruiker
-            modelClass.databaseConnectie.SaveDefaultDistrictUser(username, modelClass.map.idDistrict);
+            modelClass.databaseConnectie.SaveDefaultDistrictUser(modelClass.username, modelClass.map.idDistrict);
         }
         #endregion
 
