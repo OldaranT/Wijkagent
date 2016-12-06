@@ -115,6 +115,10 @@ namespace WijkAgent
             go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
             go_to_city_panel_button_from_district_tab.Font = mainFont;
 
+            save_incedents_button.BackColor = policeBlue;
+            save_incedents_button.ForeColor = Color.White;
+            save_incedents_button.Font = mainFont;
+            
             view_logOut_button.BackColor = policeBlue;
             view_logOut_button.ForeColor = Color.White;
             view_logOut_button.Font = mainFont;
@@ -366,6 +370,15 @@ namespace WijkAgent
             //Controleerd of er een wijk is geselecteerd
             if (modelClass.map.districtSelected)
                 refresh_waypoints_button.Show();
+
+            //laat voorvallen knop zien
+            try
+            {
+                save_incedents_button.Show();
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             //Laad scherm verbergen
             if (doneTwitterSearch != null)
@@ -927,5 +940,10 @@ namespace WijkAgent
         }
         #endregion
 
+        private void save_incedents_button_Click(object sender, EventArgs e)
+        {
+            IncidentScreen incident = new IncidentScreen(modelClass.map.idDistrict);
+            incident.Show();
+        }
     }
 }
