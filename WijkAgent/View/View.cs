@@ -314,8 +314,8 @@ namespace WijkAgent
                 tweetMessageLabel.Text = infoMessage;
                 twitterLabelLayout(tweetMessageLabel);
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
-                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
-                twitter_trending_topic_label.Text = infoMessage;
+                twitter_trending_tag_label.Text = "";
+                twitter_trending_topic_label.Text = "";
             }
             else
             {
@@ -558,8 +558,7 @@ namespace WijkAgent
 
             var _tekst = "";
 
-            if (modelClass.map.twitter.tweetsList.Count > 0)
-            {
+            
                 foreach (var tweets in modelClass.map.twitter.tweetsList)
                 {
                     _tekst += tweets.message + " ";
@@ -648,12 +647,7 @@ namespace WijkAgent
                 {
                     twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
                 }
-            }
-            else
-            {
-                twitter_trending_topic_label.Text = "";
-                twitter_trending_tag_label.Text = "";
-            }
+            
         }
         #endregion
 
