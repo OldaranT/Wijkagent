@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,8 @@ namespace WijkAgent
 
             foreach (KeyValuePair<int,string> entry in categories)
             {
-                categoryCombo.Items.Add(entry.Value);
+                //Toevoegen aan category combobox met hoofletter
+                categoryCombo.Items.Add(CultureInfo.InvariantCulture.TextInfo.ToTitleCase(entry.Value));
             }
 
             foreach (KeyValuePair<int,string> entry in twitterMessages)
