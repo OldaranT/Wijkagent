@@ -926,5 +926,6 @@ namespace WijkAgent
                 OnLogOutButtonClick();
         }
         #endregion
+
     }
 }

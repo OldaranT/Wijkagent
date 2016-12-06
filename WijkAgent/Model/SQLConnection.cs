@@ -34,7 +34,6 @@ namespace WijkAgent.Model
             }
         }
 
-
         #region SaveDefaultDistrictUser
         public void SaveDefaultDistrictUser(string _username, int _iddistrict)
         {
