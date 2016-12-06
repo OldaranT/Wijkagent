@@ -750,7 +750,6 @@ namespace WijkAgent
             string stm = "SELECT * FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
             cmd.Parameters.AddWithValue("@username", modelClass.username);
-            Console.WriteLine(modelClass.username);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
             modelClass.databaseConnectie.rdr.Read();
             string fullName = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
