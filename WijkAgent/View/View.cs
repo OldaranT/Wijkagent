@@ -81,7 +81,6 @@ namespace WijkAgent
         #region View Load
         private void View_Load(object sender, EventArgs e)
         {
-           
             fillSearchSuggestions();
 
             #region Layout Colours toevoegen.
@@ -799,7 +798,6 @@ namespace WijkAgent
             string stm = "SELECT * FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
             cmd.Parameters.AddWithValue("@username", modelClass.username);
-            Console.WriteLine(modelClass.username);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
             modelClass.databaseConnectie.rdr.Read();
             string fullName = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
@@ -1020,10 +1018,12 @@ namespace WijkAgent
         }
         #endregion
 
+        #region Save_Incedents_Button_Click
         private void save_incedents_button_Click(object sender, EventArgs e)
         {
             IncidentScreen incident = new IncidentScreen(modelClass.map.idDistrict);
             incident.Show();
         }
+        #endregion
     }
 }

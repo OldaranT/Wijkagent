@@ -149,7 +149,7 @@ namespace WijkAgent.Model
             try
             {
                 this.conn.Open();
-                string stm = "SELECT * FROM category";
+                string stm = "SELECT * FROM category ORDER BY name";
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 this.rdr = command.ExecuteReader();
                 while (rdr.Read())

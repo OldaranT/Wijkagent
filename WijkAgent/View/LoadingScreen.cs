@@ -20,13 +20,25 @@ namespace WijkAgent
         //Methode om scherm te laten zien
         public void ShowLoadingScreen()
         {
-            this.Show();
+            try
+            {
+                this.Show();
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         //Methode om scherm te verbergen
         public void HideLoadingScreen()
         {
-            this.Hide();
+            try
+            {
+                this.Hide();
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }
