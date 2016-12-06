@@ -44,9 +44,9 @@ namespace WijkAgent
         public event VoidWithNoArguments OnLogOutButtonClick;
         public event TwitterSearch doneTwitterSearch;
 
-        public View()
+        public View(string _username)
         {
-            modelClass = new ModelClass();
+            modelClass = new ModelClass(_username);
             policeBlue = Color.FromArgb(0, 70, 130);
             policeGold = Color.FromArgb(190, 150, 90);
             mainFont = new Font("Calibri", 16, FontStyle.Bold);
@@ -729,28 +729,22 @@ namespace WijkAgent
         #region GetNameOfUser
         public string getUser()
         {
-            //gaat naar de debug folder
-            string _curDir = Directory.GetCurrentDirectory();
-            //ga naar de goede map waar het text bestand in staan
-            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
-            //lees het textbestand
-            string username = System.IO.File.ReadAllText(_filePath);
-
             //Open database connectie
             modelClass.databaseConnectie.conn.Open();
 
             //Haal idAccount op
             string stm = "SELECT * FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@username", modelClass.username);
+            Console.WriteLine(modelClass.username);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
             modelClass.databaseConnectie.rdr.Read();
-            string user = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
+            string fullName = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
 
             //Sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
-            return user;
+            return fullName;
         }
         #endregion
 
@@ -931,10 +925,12 @@ namespace WijkAgent
         }
         #endregion
 
+        #region LogOut_Button_Click
         private void view_logOut_button_Click(object sender, EventArgs e)
         {
             if (OnLogOutButtonClick != null)
                 OnLogOutButtonClick();
         }
+        #endregion
     }
 }

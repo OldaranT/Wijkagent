@@ -14,7 +14,7 @@ using System.IO;
 
 namespace WijkAgent
 {
-    public delegate void LogInButtonClick();
+    public delegate void LogInButtonClick(string username);
 
     public partial class LogInScreen : Form
     {
@@ -73,7 +73,7 @@ namespace WijkAgent
                     //Open applicatie, sluit inlogscherm
                     if (OnLogInButtonClick != null)
                     {
-                        OnLogInButtonClick();
+                        OnLogInButtonClick(textbox_username);
                         //als de checkbox is aangevinkt voor de fucntie uit
                         if(stayLoggedIn_checkbox.Checked)
                         {

@@ -17,20 +17,24 @@ namespace WijkAgent.Controller
             logInScreen.OnLogInButtonClick += LogInButtonClicked;
         }
 
-        public void LogInButtonClicked()
+        #region LogIn_Button_Passed_Click
+        public void LogInButtonClicked(string _username)
         {
+            viewController = new ViewController(_username);
             logInScreen.Hide();
-            viewController = new ViewController();
             viewController.view.OnLogOutButtonClick += LogOutButtonClicked;
             viewController.view.Show();
         }
+        #endregion
 
+        #region LogOut_Button_Clicked
         public void LogOutButtonClicked()
         {
             viewController.view.Hide();
             logInScreen.Show();
             viewController = null;
         }
+        #endregion
 
     }
 }

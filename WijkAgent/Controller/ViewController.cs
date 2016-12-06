@@ -15,9 +15,9 @@ namespace WijkAgent.Controller
         public ThreadActionRefresh ThreadDelegate;
         private Thread myThread;
 
-        public ViewController()
+        public ViewController(string _username)
         {
-            view = new View();
+            view = new View(_username);
             view.OnRefreshButtonClick += RefreshButton_Clicked;
 
             ThreadDelegate = new ThreadActionRefresh(view.RefreshThreatAction);

@@ -36,6 +36,7 @@
             this.main_menu_scroll_panel = new System.Windows.Forms.Panel();
             this.go_to_history_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
             this.go_to_province_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
+            this.view_logOut_button = new System.Windows.Forms.Button();
             this.province_panel = new System.Windows.Forms.Panel();
             this.province_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.province_scroll_panel = new System.Windows.Forms.Panel();
@@ -100,7 +101,6 @@
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_search_button = new System.Windows.Forms.Button();
-            this.view_logOut_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -237,6 +237,18 @@
             this.go_to_province_panel_button_from_main_menu_tab.Text = "Selecteer Wijk";
             this.go_to_province_panel_button_from_main_menu_tab.UseVisualStyleBackColor = false;
             this.go_to_province_panel_button_from_main_menu_tab.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // view_logOut_button
+            // 
+            this.view_logOut_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.view_logOut_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.view_logOut_button.Location = new System.Drawing.Point(3, 616);
+            this.view_logOut_button.Name = "view_logOut_button";
+            this.view_logOut_button.Size = new System.Drawing.Size(171, 49);
+            this.view_logOut_button.TabIndex = 3;
+            this.view_logOut_button.Text = "Uitloggen";
+            this.view_logOut_button.UseVisualStyleBackColor = true;
+            this.view_logOut_button.Click += new System.EventHandler(this.view_logOut_button_Click);
             // 
             // province_panel
             // 
@@ -1072,18 +1084,6 @@
             this.history_search_button.Text = "Zoek";
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
-            // 
-            // view_logOut_button
-            // 
-            this.view_logOut_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.view_logOut_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.view_logOut_button.Location = new System.Drawing.Point(3, 616);
-            this.view_logOut_button.Name = "view_logOut_button";
-            this.view_logOut_button.Size = new System.Drawing.Size(171, 49);
-            this.view_logOut_button.TabIndex = 3;
-            this.view_logOut_button.Text = "Uitloggen";
-            this.view_logOut_button.UseVisualStyleBackColor = true;
-            this.view_logOut_button.Click += new System.EventHandler(this.view_logOut_button_Click);
             // 
             // View
             // 
