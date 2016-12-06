@@ -63,6 +63,11 @@ namespace WijkAgent.Model
         #endregion
 
         #region QueryVoorGeschiedenis.
+        public string AddSelectTwitterToQuery(string _stm)
+        {
+            return _stm + "SELECT twitter.* FROM twitter ";
+        }
+
         public string JoinDistrictQuery(string _stm)
         {
             string tempDistrictJoinQuery = "JOIN district ON twitter.iddistrict = district.iddistrict ";
@@ -88,24 +93,33 @@ namespace WijkAgent.Model
             return _stm + "AND ";
 
         }
-
-        public string WhereDistrictQuery(string _stm, string _districtInput)
+        public string AddOrderByTimeToQuery(string _stm)
         {
-            string tempDistrictWhereQuery = "district.name = '" + _districtInput + "' ";
+            return _stm +" ORDER BY datetime ";
+
+        }
+        public string AddLimitToQeury(string _stm , int _resultMax)
+        {
+            return _stm + "LIMIT " + _resultMax.ToString();
+        }
+
+        public string WhereDistrictQuery(string _stm)
+        {
+            string tempDistrictWhereQuery = "district.name = @districtInput ";
             _stm = _stm + tempDistrictWhereQuery;
             return _stm;
         }
 
-        public string WhereUserQuery(string _stm, string _userInput)
+        public string WhereUserQuery(string _stm)
         {
-            string tempUserWhereQuery = "twitter.user = '" + _userInput + "' ";
+            string tempUserWhereQuery = "twitter.user = @userInput ";
             _stm = _stm + tempUserWhereQuery;
             return _stm;
         }
 
-        public string WhereCategoryQuery(string _stm, string _categoryInput)
+        public string WhereCategoryQuery(string _stm)
         {
-            string tempCatgoryWhereQuery = "category.name = '" + _categoryInput.ToLower() + "' ";
+            string tempCatgoryWhereQuery = "category.name = @categoryInput";
             _stm = _stm + tempCatgoryWhereQuery;
             return _stm;
         }
@@ -113,7 +127,7 @@ namespace WijkAgent.Model
         public string WhereDateQuery(string _stm, DateTime _fromDateInput, DateTime _tillDateInput)
         {
 
-            string tempDateWhereQuery = "twitter.datetime BETWEEN '" + _fromDateInput.ToString("yyyy-MM-dd ") + " 00:00:01.000000' AND '" + _tillDateInput.ToString("yyyy-MM-dd") + " 23:59:59.000000'";
+            string tempDateWhereQuery = "twitter.datetime BETWEEN @fromDateInput AND @tillDateInput";
             _stm = _stm + tempDateWhereQuery;
             return _stm;
         }
