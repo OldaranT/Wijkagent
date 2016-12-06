@@ -77,9 +77,9 @@ namespace WijkAgent
                     {
                         //de naam van elke checkbox heeft het bericht id dit is een string maar moet naar een int
                         sql.updateTwitterMessageCategory(Int32.Parse(box.Name), _selectedCategory);
-                        MessageBox.Show("Voorval toegevoegd");
-                        this.Close();
                     }
+                    MessageBox.Show("Voorval toegevoegd");
+                    this.Close();
                 }
                 else
                 {
