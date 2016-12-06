@@ -17,6 +17,7 @@ namespace WijkAgent
     {
         SQLConnection sql = new SQLConnection();
         List<CheckBox> TwitterCheckboxes = new List<CheckBox>();
+
         //zodat alles netjes onderelkaar komt
         int top = 20;
         private Color policeBlue;
@@ -49,19 +50,33 @@ namespace WijkAgent
                 categoryCombo.Items.Add(CultureInfo.InvariantCulture.TextInfo.ToTitleCase(entry.Value));
             }
 
-            foreach (KeyValuePair<int,string> entry in twitterMessages)
+            //Controlleren of er berichten zijn die opgeslagen kunnen worden.
+            if (twitterMessages.Count == 0)
             {
-                CheckBox checkMessage = new CheckBox() {Left = this.Left + 31, Top = this.top, AutoSize = true, Name = entry.Key.ToString()};
-                Label twitterMessage = new Label() { Font = labelFont, Text=entry.Value, Top = this.top, AutoSize = true, MaximumSize = new Size(300, 0), Left = checkMessage.Width, Name = entry.Key.ToString() };
+                Label message = new Label() { Font = labelFont, Text = "Geen onopgelsagen tweets, binnen 24 uur, gevonden bij deze wijk.", Top = this.top, AutoSize = true, MaximumSize = new Size(300, 0) };
+                twitterIncidentPanel.Controls.Add(message);
+                message.Dock = DockStyle.Fill;
 
-                twitterIncidentPanel.Controls.Add(checkMessage);
-                TwitterCheckboxes.Add(checkMessage);
-                twitterIncidentPanel.Controls.Add(twitterMessage);
+                //Opslaan knop verbergen
+                saveIncidentButton.Hide();
+            }
+            else
+            {
+                foreach (KeyValuePair<int, string> entry in twitterMessages)
+                {
+                    CheckBox checkMessage = new CheckBox() { Left = this.Left + 31, Top = this.top, AutoSize = true, Name = entry.Key.ToString() };
+                    Label twitterMessage = new Label() { Font = labelFont, Text = entry.Value, Top = this.top, AutoSize = true, MaximumSize = new Size(300, 0), Left = checkMessage.Width, Name = entry.Key.ToString() };
 
-                this.top = this.top + 20 + twitterMessage.Height;
+                    twitterIncidentPanel.Controls.Add(checkMessage);
+                    TwitterCheckboxes.Add(checkMessage);
+                    twitterIncidentPanel.Controls.Add(twitterMessage);
+
+                    this.top = this.top + 20 + twitterMessage.Height;
+                }
             }
         }
-        
+
+        #region Save_Incidents_Method
         private void saveIncident(object sender, EventArgs e)
         {
             if (categoryCombo.SelectedIndex > -1)
@@ -99,6 +114,9 @@ namespace WijkAgent
                 MessageBox.Show("Kies een categorie");
             }
         }
+        #endregion
+
+        #region Select_All_Tweets_CheckBox_Click
         //als die veranderdt kijken of die check of unchecked is en dan de rest checken of unchecken
         private void SelectAllCheckClicked(object sender, EventArgs e)
         {
@@ -116,11 +134,14 @@ namespace WijkAgent
                 }
             }
         }
+        #endregion
 
+        #region Incidents_Cancel_Button_Click
         private void CancelButtonClick(object sender, EventArgs e)
         {
             this.Close();
         }
+        #endregion
 
         private void IncidentScreen_Load(object sender, EventArgs e)
         {

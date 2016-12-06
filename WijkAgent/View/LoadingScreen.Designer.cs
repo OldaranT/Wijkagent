@@ -62,6 +62,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "LoadingScreen";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

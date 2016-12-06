@@ -111,6 +111,7 @@
             this.Controls.Add(this.selectAllCheck);
             this.MaximizeBox = false;
             this.Name = "IncidentScreen";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "IncidentScreen";
             this.Load += new System.EventHandler(this.IncidentScreen_Load);
             this.ResumeLayout(false);
