@@ -19,11 +19,14 @@ namespace WijkAgent.Controller
 
         #region LogIn_Button_Passed_Click
         public void LogInButtonClicked(string _username)
-        {
-            viewController = new ViewController(_username);
-            logInScreen.Hide();
-            viewController.view.OnLogOutButtonClick += LogOutButtonClicked;
-            viewController.view.Show();
+        {      
+            if (logInScreen.Visible)
+            {
+                logInScreen.Hide();
+                viewController = new ViewController(_username);
+                viewController.view.OnLogOutButtonClick += LogOutButtonClicked;
+                viewController.view.Show();
+            }
         }
         #endregion
 

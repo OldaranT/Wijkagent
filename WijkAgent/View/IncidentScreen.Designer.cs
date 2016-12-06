@@ -39,32 +39,39 @@
             // selectAllCheck
             // 
             this.selectAllCheck.AutoSize = true;
+            this.selectAllCheck.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectAllCheck.ForeColor = System.Drawing.Color.White;
             this.selectAllCheck.Location = new System.Drawing.Point(43, 45);
             this.selectAllCheck.Name = "selectAllCheck";
-            this.selectAllCheck.Size = new System.Drawing.Size(102, 17);
+            this.selectAllCheck.Size = new System.Drawing.Size(136, 23);
             this.selectAllCheck.TabIndex = 0;
             this.selectAllCheck.Text = "Alles Selecteren";
             this.selectAllCheck.UseVisualStyleBackColor = true;
             // 
             // categoryCombo
             // 
+            this.categoryCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.categoryCombo.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.categoryCombo.FormattingEnabled = true;
             this.categoryCombo.Location = new System.Drawing.Point(345, 41);
             this.categoryCombo.Name = "categoryCombo";
-            this.categoryCombo.Size = new System.Drawing.Size(121, 21);
+            this.categoryCombo.Size = new System.Drawing.Size(121, 27);
             this.categoryCombo.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(284, 46);
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(253, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(86, 19);
             this.label1.TabIndex = 2;
             this.label1.Text = "Categorie*:";
             // 
             // twitterIncidentPanel
             // 
+            this.twitterIncidentPanel.BackColor = System.Drawing.Color.White;
             this.twitterIncidentPanel.Location = new System.Drawing.Point(12, 79);
             this.twitterIncidentPanel.Name = "twitterIncidentPanel";
             this.twitterIncidentPanel.Size = new System.Drawing.Size(513, 422);
@@ -72,18 +79,20 @@
             // 
             // saveIncidentButton
             // 
-            this.saveIncidentButton.Location = new System.Drawing.Point(450, 530);
+            this.saveIncidentButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.saveIncidentButton.Location = new System.Drawing.Point(440, 518);
             this.saveIncidentButton.Name = "saveIncidentButton";
-            this.saveIncidentButton.Size = new System.Drawing.Size(75, 23);
+            this.saveIncidentButton.Size = new System.Drawing.Size(85, 35);
             this.saveIncidentButton.TabIndex = 4;
             this.saveIncidentButton.Text = "Opslaan";
             this.saveIncidentButton.UseVisualStyleBackColor = true;
             // 
             // cancelIncidentButton
             // 
-            this.cancelIncidentButton.Location = new System.Drawing.Point(358, 530);
+            this.cancelIncidentButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.cancelIncidentButton.Location = new System.Drawing.Point(345, 518);
             this.cancelIncidentButton.Name = "cancelIncidentButton";
-            this.cancelIncidentButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelIncidentButton.Size = new System.Drawing.Size(89, 35);
             this.cancelIncidentButton.TabIndex = 5;
             this.cancelIncidentButton.Text = "Annuleren";
             this.cancelIncidentButton.UseVisualStyleBackColor = true;
@@ -92,6 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Blue;
             this.ClientSize = new System.Drawing.Size(537, 565);
             this.Controls.Add(this.cancelIncidentButton);
             this.Controls.Add(this.saveIncidentButton);
@@ -99,8 +109,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.categoryCombo);
             this.Controls.Add(this.selectAllCheck);
+            this.MaximizeBox = false;
             this.Name = "IncidentScreen";
             this.Text = "IncidentScreen";
+            this.Load += new System.EventHandler(this.IncidentScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
