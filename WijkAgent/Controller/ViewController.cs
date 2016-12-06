@@ -15,9 +15,9 @@ namespace WijkAgent.Controller
         public ThreadActionRefresh ThreadDelegate;
         private Thread myThread;
 
-        public ViewController()
+        public ViewController(string _username)
         {
-            view = new View();
+            view = new View(_username);
             view.OnRefreshButtonClick += RefreshButton_Clicked;
 
             ThreadDelegate = new ThreadActionRefresh(view.RefreshThreatAction);
@@ -37,6 +37,9 @@ namespace WijkAgent.Controller
             //refreshed alles in de laatst geselecteerd wijk om nieuwe tweets weer te geven.
             view.modelClass.map.changeDistrict(view.modelClass.map.currentLatitudePoints, view.modelClass.map.currentLongitudePoints);
             view.modelClass.TweetsToDb();
+            //update nieuwe tweets label
+            view.UpdateNewTweetsLabel();
+
             myThread = new Thread(new ThreadStart(ThreadFunction));
             myThread.Start();
         }

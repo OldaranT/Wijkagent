@@ -11,6 +11,7 @@ namespace WijkAgent.Model
     {
         public SQLConnection databaseConnectie;
         public Map map;
+        public string username;
         public int newTweets;
         private string user;
         private double lat;
@@ -19,13 +20,15 @@ namespace WijkAgent.Model
         private string message;
         private DateTime datetime;
 
-        public ModelClass()
+        public ModelClass(string _username)
         {
             databaseConnectie = new SQLConnection();
             map = new Map();
+            username = _username;
             newTweets = 0;
-    }
+        }
 
+        #region InsertNewTweetsIntoDatabase
         public void TweetsToDb()
         {
             newTweets = 0;
@@ -51,7 +54,7 @@ namespace WijkAgent.Model
                 if (!databaseConnectie.rdr.Read())
                 {
                     inDatabase = false;
-                    Console.WriteLine("Niet in database, voor nu.....hahahaah.....");
+                    Console.WriteLine("Twitter bericht staat niet in database. Bericht is opgeslagen.");
                     newTweets++;
                 }
 
@@ -82,5 +85,8 @@ namespace WijkAgent.Model
                 }
             }
         }
+        #endregion
     }
+   
+
 }

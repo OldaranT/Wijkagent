@@ -14,7 +14,7 @@ using System.IO;
 
 namespace WijkAgent
 {
-    public delegate void LogInButtonClick();
+    public delegate void LogInButtonClick(string username);
 
     public partial class LogInScreen : Form
     {
@@ -73,7 +73,7 @@ namespace WijkAgent
                     //Open applicatie, sluit inlogscherm
                     if (OnLogInButtonClick != null)
                     {
-                        OnLogInButtonClick();
+                        OnLogInButtonClick(textbox_username);
                         //als de checkbox is aangevinkt voor de fucntie uit
                         if(stayLoggedIn_checkbox.Checked)
                         {
@@ -115,12 +115,10 @@ namespace WijkAgent
         #region Geef foutmelding
         private void PrintErrorLabel()
         {
-            logIn_username_textbox.BackColor = Color.Red;
-            logIn_password_textbox.BackColor = Color.Red;
-            logIn_username_textbox.ForeColor = Color.White;
-            logIn_password_textbox.ForeColor = Color.White;
-            Wrong_LogIn.Text = "Inloggegevens zijn incorrect";
-            Wrong_LogIn.ForeColor = Color.Red;
+            string errorMessage = "Inloggegevens zijn incorrect!";
+            string headerMessage = "Fout Melding!";
+            logIn_password_textbox.Text = "";
+            MessageBox.Show(errorMessage, headerMessage, MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
         }
         #endregion
 
@@ -148,5 +146,6 @@ namespace WijkAgent
             System.IO.File.WriteAllText(_filePath, logIn_username_textbox.Text);
         }
         #endregion
+
     }
 }

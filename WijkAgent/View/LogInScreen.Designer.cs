@@ -33,7 +33,6 @@
             this.logIn_button_tableLayout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.logIn_button = new System.Windows.Forms.Button();
             this.stayLoggedIn_checkbox = new System.Windows.Forms.CheckBox();
-            this.Wrong_LogIn = new System.Windows.Forms.Label();
             this.logIn_picterbox_panel = new System.Windows.Forms.Panel();
             this.logIn_picturebox = new System.Windows.Forms.PictureBox();
             this.logIn_input_panel = new System.Windows.Forms.Panel();
@@ -65,7 +64,6 @@
             this.logIn_button_tableLayout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.logIn_button_tableLayout_panel.Controls.Add(this.logIn_button, 0, 1);
             this.logIn_button_tableLayout_panel.Controls.Add(this.stayLoggedIn_checkbox, 0, 0);
-            this.logIn_button_tableLayout_panel.Controls.Add(this.Wrong_LogIn, 0, 2);
             this.logIn_button_tableLayout_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logIn_button_tableLayout_panel.Location = new System.Drawing.Point(0, 0);
             this.logIn_button_tableLayout_panel.Name = "logIn_button_tableLayout_panel";
@@ -98,15 +96,6 @@
             this.stayLoggedIn_checkbox.TabIndex = 1;
             this.stayLoggedIn_checkbox.Text = "Gebruikersnaam onthouden";
             this.stayLoggedIn_checkbox.UseVisualStyleBackColor = true;
-            // 
-            // Wrong_LogIn
-            // 
-            this.Wrong_LogIn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Wrong_LogIn.AutoSize = true;
-            this.Wrong_LogIn.Location = new System.Drawing.Point(308, 68);
-            this.Wrong_LogIn.Name = "Wrong_LogIn";
-            this.Wrong_LogIn.Size = new System.Drawing.Size(0, 13);
-            this.Wrong_LogIn.TabIndex = 2;
             // 
             // logIn_picterbox_panel
             // 
@@ -237,6 +226,5 @@
         private System.Windows.Forms.TableLayoutPanel logIn_button_tableLayout_panel;
         private System.Windows.Forms.Button logIn_button;
         private System.Windows.Forms.CheckBox stayLoggedIn_checkbox;
-        private System.Windows.Forms.Label Wrong_LogIn;
     }
 }
