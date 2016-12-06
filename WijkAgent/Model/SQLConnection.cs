@@ -169,8 +169,12 @@ namespace WijkAgent.Model
             Dictionary<int, string> twitterMessages = new Dictionary<int, string>();
 
             //goede format die ook in de database staat
-            string startDate = DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss");
+            //24 uur geleden vanaf nu
+            string startDate = DateTime.Now.Subtract(new TimeSpan(24, 0, 0)).ToString("yyyy-MM-dd HH:mm:ss");
+            //hoelaat het nu is
             string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            
 
             try
             {
