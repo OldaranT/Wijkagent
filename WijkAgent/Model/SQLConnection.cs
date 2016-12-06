@@ -37,11 +37,6 @@ namespace WijkAgent.Model
             }
         }
 
-        public void select()
-        {
-
-        }
-
         #region SaveDefaultDistrictUser
         public void SaveDefaultDistrictUser(string _username, int _iddistrict)
         {
@@ -138,6 +133,7 @@ namespace WijkAgent.Model
             return _stm;
         }
         #endregion
+
         #region haal alle categorieën op methode
         public Dictionary<int,string> GetAllCategory()
         {
@@ -163,6 +159,7 @@ namespace WijkAgent.Model
             return category;
         }
         #endregion
+
         #region haal alle vandaag getwitterde twitterberichten in een wijk op
         public Dictionary<int, string> GetAllTwitterMessageFromDistrictToday(int _idDistrict)
         {
@@ -196,6 +193,7 @@ namespace WijkAgent.Model
             return twitterMessages;
         }
         #endregion
+
         #region Update Twitterberichten die nog geen categorie hebben en deze een categorie meegeven
         public void updateTwitterMessageCategory(int _twitterId, string _category)
         {
