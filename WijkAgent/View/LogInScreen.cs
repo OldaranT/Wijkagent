@@ -20,10 +20,16 @@ namespace WijkAgent
     {
         public event LogInButtonClick OnLogInButtonClick;
         public SQLConnection sqlConn = new SQLConnection();
+        private Color policeBlue;
+        private Color policeGold;
+        private Font labelFont;
 
         #region Constructor
         public LogInScreen()
         {
+            policeBlue = Color.FromArgb(0, 70, 130);
+            policeGold = Color.FromArgb(190, 150, 90);
+            labelFont = new Font("Calibri", 12, FontStyle.Bold);
             InitializeComponent();
             GetLastUsedUsername();
         }
@@ -149,5 +155,9 @@ namespace WijkAgent
         }
         #endregion
 
+        private void LogInScreen_Load(object sender, EventArgs e)
+        {
+            this.BackColor = policeBlue;
+        }
     }
 }

@@ -80,6 +80,7 @@ namespace WijkAgent
         #region View Load
         private void View_Load(object sender, EventArgs e)
         {
+            
             fillSearchSuggestions();
             main_menu_panel_for_label.BackColor = policeBlue;
             province_panel_for_label.BackColor = policeBlue;
