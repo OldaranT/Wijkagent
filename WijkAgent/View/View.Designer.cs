@@ -101,6 +101,7 @@
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_search_button = new System.Windows.Forms.Button();
+            this.save_incedents_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -199,6 +200,7 @@
             // main_menu_scroll_panel
             // 
             this.main_menu_scroll_panel.AutoScroll = true;
+            this.main_menu_scroll_panel.Controls.Add(this.save_incedents_button);
             this.main_menu_scroll_panel.Controls.Add(this.go_to_history_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Controls.Add(this.go_to_province_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1085,6 +1087,22 @@
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
             // 
+            // save_incedents_button
+            // 
+            this.save_incedents_button.BackColor = System.Drawing.Color.Blue;
+            this.save_incedents_button.Dock = System.Windows.Forms.DockStyle.Top;
+            this.save_incedents_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.save_incedents_button.ForeColor = System.Drawing.Color.White;
+            this.save_incedents_button.Location = new System.Drawing.Point(0, 150);
+            this.save_incedents_button.Margin = new System.Windows.Forms.Padding(0);
+            this.save_incedents_button.Name = "save_incedents_button";
+            this.save_incedents_button.Size = new System.Drawing.Size(177, 75);
+            this.save_incedents_button.TabIndex = 4;
+            this.save_incedents_button.Text = "Voorvallen opslaan";
+            this.save_incedents_button.UseVisualStyleBackColor = false;
+            this.save_incedents_button.Visible = false;
+            this.save_incedents_button.Click += new System.EventHandler(this.save_incedents_button_Click);
+            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1221,6 +1239,7 @@
         private System.Windows.Forms.Label Twitter_number_of_new_tweets_label;
         private System.Windows.Forms.Button history_search_button;
         private System.Windows.Forms.Button view_logOut_button;
+        private System.Windows.Forms.Button save_incedents_button;
     }
 }
 
