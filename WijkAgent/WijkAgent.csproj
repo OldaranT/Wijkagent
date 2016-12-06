@@ -75,6 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +93,12 @@
   <ItemGroup>
     <Compile Include="Controller\LogInScreenController.cs" />
     <Compile Include="Controller\RefreshThread.cs" />
+    <Compile Include="View\IncidentScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\IncidentScreen.Designer.cs">
+      <DependentUpon>IncidentScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\LogInScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +126,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="View\IncidentScreen.resx">
+      <DependentUpon>IncidentScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\LogInScreen.resx">
       <DependentUpon>LogInScreen.cs</DependentUpon>
     </EmbeddedResource>
