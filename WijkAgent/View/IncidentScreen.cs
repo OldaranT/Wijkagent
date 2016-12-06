@@ -18,10 +18,16 @@ namespace WijkAgent
         List<CheckBox> TwitterCheckboxes = new List<CheckBox>();
         //zodat alles netjes onderelkaar komt
         int top = 20;
+        private Color policeBlue;
+        private Color policeGold;
+        private Font labelFont;
 
         public IncidentScreen(int _districtId)
         {
             InitializeComponent();
+            policeBlue = Color.FromArgb(0, 70, 130);
+            policeGold = Color.FromArgb(190, 150, 90);
+            labelFont = new Font("Calibri", 12, FontStyle.Bold);
 
             //alle categorien en twitter berichten ophalen
             Dictionary<int,string> categories = sql.GetAllCategory();
@@ -43,8 +49,8 @@ namespace WijkAgent
 
             foreach (KeyValuePair<int,string> entry in twitterMessages)
             {
-                CheckBox checkMessage = new CheckBox() { Top = this.top, AutoSize = true, Name = entry.Key.ToString()};
-                Label twitterMessage = new Label() { Text=entry.Value, Top = this.top, AutoSize = true, MaximumSize = new Size(300, 0), Left = checkMessage.Width, Name = entry.Key.ToString() };
+                CheckBox checkMessage = new CheckBox() {Left = this.Left + 31, Top = this.top, AutoSize = true, Name = entry.Key.ToString()};
+                Label twitterMessage = new Label() { Font = labelFont, Text=entry.Value, Top = this.top, AutoSize = true, MaximumSize = new Size(300, 0), Left = checkMessage.Width, Name = entry.Key.ToString() };
 
                 twitterIncidentPanel.Controls.Add(checkMessage);
                 TwitterCheckboxes.Add(checkMessage);
@@ -112,6 +118,11 @@ namespace WijkAgent
         private void CancelButtonClick(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void IncidentScreen_Load(object sender, EventArgs e)
+        {
+            this.BackColor = policeBlue;
         }
     }
 }

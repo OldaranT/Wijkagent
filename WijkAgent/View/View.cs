@@ -80,6 +80,7 @@ namespace WijkAgent
         #region View Load
         private void View_Load(object sender, EventArgs e)
         {
+            
             fillSearchSuggestions();
             main_menu_panel_for_label.BackColor = policeBlue;
             province_panel_for_label.BackColor = policeBlue;
@@ -208,7 +209,7 @@ namespace WijkAgent
                     city_scroll_panel.Controls.Add(buttonCreate);
                     buttonCreate.Click += CityButton_Click;
                 }
-                if(city_scroll_panel.Controls.Count == 0)
+                if (city_scroll_panel.Controls.Count == 0)
                 {
                     Label label = new Label();
                     label.Text = "Er zijn geen steden gevonden bij deze provincie.";
@@ -573,98 +574,123 @@ namespace WijkAgent
             List<string> trendingTweetWord = new List<string>();
             List<string> trendingTags = new List<string>();
 
+            //Initaliseren van _tekst
             var _tekst = "";
 
-            
-                foreach (var tweets in modelClass.map.twitter.tweetsList)
-                {
-                    _tekst += tweets.message + " ";
-                }
+            //Maak een lange string van alle twitterberichten          
+            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            {
+                _tekst += tweets.message + " ";
+            }
 
-                var words =
-                Regex.Split(_tekst.ToLower(), @"\W+")
-                .Where(s => s.Length > 3)
+            //Haal een string op, filter alle woorden eruit
+            //Groepeer de woorden die groter zijn dan 3 tekens
+            //Sorteer van groot naar klein (van meest voorkomende naar minst voorkomende)
+            var words =
+            Regex.Split(_tekst.ToLower(), @"\W+")
+            .Where(s => s.Length > 3)
+            .GroupBy(s => s)
+            .OrderByDescending(g => g.Count());
+
+            //Pak alle twitterberichten die een hashtag bevatten
+            var tagsMessage =
+                from tweet in modelClass.map.twitter.tweetsList
+                where tweet.message.Contains("#")
+                select tweet.message;
+
+            //Initialiseren van messageTagsString
+            string messageTagsString = "";
+
+            //Maak een lange string van alle woorden
+            foreach (string tagMessageWord in tagsMessage)
+            {
+                messageTagsString += tagMessageWord + " ";
+            }
+
+            //Stop alle hashtags in een array
+            var tags = Regex.Split(messageTagsString.ToLower(), @"\s+")
+                .Where(a => a.StartsWith("#"))
                 .GroupBy(s => s)
                 .OrderByDescending(g => g.Count());
 
-                var tagsMessage =
-                    from tweet in modelClass.map.twitter.tweetsList
-                    where tweet.message.Contains("#")
-                    select tweet.message;
-
-                string messageTagsString = "";
-
-                foreach (string tagMessageWord in tagsMessage)
+            //Controleer of het woord langer is dan een specifiek aantal karakters
+            //Voor de hashtags
+            //Zo ja, split het woord en voeg het woord toe
+            //Zo nee, voeg het wooord alleen toe, zonder aanpassing
+            foreach (var tag in tags)
+            {
+                if (tag.Key.Length > tagLengte)
                 {
-                    messageTagsString += tagMessageWord + " ";
-                }
-
-                var tagsMessageSplit =
-                    Regex.Split(messageTagsString.ToLower(), @"\s+");
-
-                var tags = tagsMessageSplit
-                    .Where(a => a.StartsWith("#"))
-                    .GroupBy(s => s)
-                    .OrderByDescending(g => g.Count());
-                
-                foreach (var tag in tags)
-                {
-                    if (tag.Key.Length > tagLengte)
+                    string splittedTag = "";
+                    var tagSplit = tag.Key.SplitInParts(tagLengte);
+                    foreach (string split in tagSplit)
                     {
-                        string splittedTag = "";
-                        var tagSplit = tag.Key.SplitInParts(tagLengte);
-                        foreach (string split in tagSplit)
-                        {
-                            splittedTag += split + " ";
-                        }
-                        trendingTags.Add(splittedTag);
+                        splittedTag += split + " ";
                     }
-                    else
-                    {
-                        trendingTags.Add(tag.Key);
-                    }
-                }
-
-
-
-                foreach (var word in words)
-                {
-                    if (word.Key.Length > wordLengte)
-                    {
-                        string splittedTweetWord = "";
-                        var wordSplit = word.Key.SplitInParts(wordLengte);
-                        foreach (string split in wordSplit)
-                        {
-                            splittedTweetWord += split + " ";
-                        }
-                        trendingTweetWord.Add(splittedTweetWord);
-                    }
-                    else
-                    {
-                        trendingTweetWord.Add(word.Key);
-                    }
-                }
-
-
-                twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
-                int _tagCount = trendingTags.Count();
-                if (_tagCount == 0)
-                {
-                    twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
-                }
-                else if (_tagCount < 3)
-                {
-                    twitter_trending_tag_label.Text = "Trending tags:\n";
-                    for (int i = 0; i < _tagCount; i++)
-                    {
-                        twitter_trending_tag_label.Text += (i + 1) + ": " + trendingTags[i] + "\n";
-                    }
+                    trendingTags.Add(splittedTag);
                 }
                 else
                 {
-                    twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
+                    trendingTags.Add(tag.Key);
                 }
-            
+            }
+           
+            //Controleer of het woord langer is dan een specifiek aantal karakters
+            //Voor de woorden
+            //Zo ja, split het woord en voeg het woord toe
+            //Zo nee, voeg het wooord alleen toe, zonder aanpassing
+            foreach (var word in words)
+            {
+                if (word.Key.Length > wordLengte)
+                {
+                    string splittedTweetWord = "";
+                    var wordSplit = word.Key.SplitInParts(wordLengte);
+                    foreach (string split in wordSplit)
+                    {
+                        splittedTweetWord += split + " ";
+                    }
+                    trendingTweetWord.Add(splittedTweetWord);
+                }
+                else
+                {
+                    trendingTweetWord.Add(word.Key);
+                }
+            }
+
+            //Print de trending woorden op het scherm in een label
+            int _wordCount = trendingTweetWord.Count();
+            if (_wordCount < 3)
+            {
+                twitter_trending_topic_label.Text = "Trending topics:\n";
+                for (int i = 0; i < _wordCount; i++)
+                {
+                    twitter_trending_topic_label.Text += (i + 1) + ": " + trendingTweetWord[i] + "\n";
+                }
+            }
+            else
+            {
+                twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+            }
+
+            //Print de trending hashtags op het scherm in een label
+            int _tagCount = trendingTags.Count();
+            if (_tagCount == 0)
+            {
+                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
+            }
+            else if (_tagCount < 3)
+            {
+                twitter_trending_tag_label.Text = "Trending tags:\n";
+                for (int i = 0; i < _tagCount; i++)
+                {
+                    twitter_trending_tag_label.Text += (i + 1) + ": " + trendingTags[i] + "\n";
+                }
+            }
+            else
+            {
+                twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
+            }
+
         }
         #endregion
 
@@ -833,7 +859,7 @@ namespace WijkAgent
             if (history_date_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Datum van: " + fromDateInput.ToString("yyyy-MM-dd 00:00:0001") + " tot: " + tillDateInput.ToString("yyyy-MM-dd 23:59:0000");
-                if(history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked)
+                if (history_district_checkbox.Checked || history_user_checkbox.Checked || history_categorie_checkbox.Checked)
 
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
@@ -885,16 +911,16 @@ namespace WijkAgent
                     history_scroll_panel.Controls.Add(createHistoryPanel);
 
                     //Hier word de label aangemaakt om alle info van database in te printen.
-                        Label createHistorylabel = new Label();
-                        createHistorylabel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
-                        createHistorylabel.Text = tempLabelText;
-                        labelLayout(createHistorylabel);
+                    Label createHistorylabel = new Label();
+                    createHistorylabel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
+                    createHistorylabel.Text = tempLabelText;
+                    labelLayout(createHistorylabel);
 
-                        //Label wordt toegevoegd aan panel
-                        createHistoryPanel.Controls.Add(createHistorylabel);
+                    //Label wordt toegevoegd aan panel
+                    createHistoryPanel.Controls.Add(createHistorylabel);
 
                 }
-    
+
 
                 if (resultsCount == 0)
                 {

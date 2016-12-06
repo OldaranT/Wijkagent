@@ -34,6 +34,7 @@
             this.main_menu_panel_for_label = new System.Windows.Forms.Panel();
             this.main_menu_label = new System.Windows.Forms.Label();
             this.main_menu_scroll_panel = new System.Windows.Forms.Panel();
+            this.save_incedents_button = new System.Windows.Forms.Button();
             this.go_to_history_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
             this.go_to_province_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
             this.view_logOut_button = new System.Windows.Forms.Button();
@@ -101,7 +102,6 @@
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_search_button = new System.Windows.Forms.Button();
-            this.save_incedents_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -209,6 +209,22 @@
             this.main_menu_scroll_panel.Name = "main_menu_scroll_panel";
             this.main_menu_scroll_panel.Size = new System.Drawing.Size(177, 547);
             this.main_menu_scroll_panel.TabIndex = 2;
+            // 
+            // save_incedents_button
+            // 
+            this.save_incedents_button.BackColor = System.Drawing.Color.Blue;
+            this.save_incedents_button.Dock = System.Windows.Forms.DockStyle.Top;
+            this.save_incedents_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.save_incedents_button.ForeColor = System.Drawing.Color.White;
+            this.save_incedents_button.Location = new System.Drawing.Point(0, 150);
+            this.save_incedents_button.Margin = new System.Windows.Forms.Padding(0);
+            this.save_incedents_button.Name = "save_incedents_button";
+            this.save_incedents_button.Size = new System.Drawing.Size(177, 75);
+            this.save_incedents_button.TabIndex = 4;
+            this.save_incedents_button.Text = "Voorvallen opslaan";
+            this.save_incedents_button.UseVisualStyleBackColor = false;
+            this.save_incedents_button.Visible = false;
+            this.save_incedents_button.Click += new System.EventHandler(this.save_incedents_button_Click);
             // 
             // go_to_history_panel_button_from_main_menu_tab
             // 
@@ -1086,22 +1102,6 @@
             this.history_search_button.Text = "Zoek";
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
-            // 
-            // save_incedents_button
-            // 
-            this.save_incedents_button.BackColor = System.Drawing.Color.Blue;
-            this.save_incedents_button.Dock = System.Windows.Forms.DockStyle.Top;
-            this.save_incedents_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.save_incedents_button.ForeColor = System.Drawing.Color.White;
-            this.save_incedents_button.Location = new System.Drawing.Point(0, 150);
-            this.save_incedents_button.Margin = new System.Windows.Forms.Padding(0);
-            this.save_incedents_button.Name = "save_incedents_button";
-            this.save_incedents_button.Size = new System.Drawing.Size(177, 75);
-            this.save_incedents_button.TabIndex = 4;
-            this.save_incedents_button.Text = "Voorvallen opslaan";
-            this.save_incedents_button.UseVisualStyleBackColor = false;
-            this.save_incedents_button.Visible = false;
-            this.save_incedents_button.Click += new System.EventHandler(this.save_incedents_button_Click);
             // 
             // View
             // 

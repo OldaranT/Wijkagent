@@ -60,6 +60,7 @@
             // 
             // logIn_button_tableLayout_panel
             // 
+            this.logIn_button_tableLayout_panel.BackColor = System.Drawing.Color.White;
             this.logIn_button_tableLayout_panel.ColumnCount = 1;
             this.logIn_button_tableLayout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.logIn_button_tableLayout_panel.Controls.Add(this.logIn_button, 0, 1);
@@ -77,7 +78,7 @@
             // logIn_button
             // 
             this.logIn_button.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.logIn_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logIn_button.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.logIn_button.Location = new System.Drawing.Point(264, 29);
             this.logIn_button.Name = "logIn_button";
             this.logIn_button.Size = new System.Drawing.Size(88, 33);
@@ -90,9 +91,11 @@
             // 
             this.stayLoggedIn_checkbox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.stayLoggedIn_checkbox.AutoSize = true;
-            this.stayLoggedIn_checkbox.Location = new System.Drawing.Point(229, 4);
+            this.stayLoggedIn_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stayLoggedIn_checkbox.ForeColor = System.Drawing.Color.Black;
+            this.stayLoggedIn_checkbox.Location = new System.Drawing.Point(197, 3);
             this.stayLoggedIn_checkbox.Name = "stayLoggedIn_checkbox";
-            this.stayLoggedIn_checkbox.Size = new System.Drawing.Size(157, 17);
+            this.stayLoggedIn_checkbox.Size = new System.Drawing.Size(221, 20);
             this.stayLoggedIn_checkbox.TabIndex = 1;
             this.stayLoggedIn_checkbox.Text = "Gebruikersnaam onthouden";
             this.stayLoggedIn_checkbox.UseVisualStyleBackColor = true;
@@ -129,6 +132,7 @@
             // 
             // logIn_tabeLayout_panel
             // 
+            this.logIn_tabeLayout_panel.BackColor = System.Drawing.Color.Transparent;
             this.logIn_tabeLayout_panel.ColumnCount = 2;
             this.logIn_tabeLayout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.logIn_tabeLayout_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -149,10 +153,11 @@
             // 
             this.logIn_username_label.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.logIn_username_label.AutoSize = true;
-            this.logIn_username_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.logIn_username_label.Location = new System.Drawing.Point(13, 32);
+            this.logIn_username_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logIn_username_label.ForeColor = System.Drawing.Color.White;
+            this.logIn_username_label.Location = new System.Drawing.Point(29, 32);
             this.logIn_username_label.Name = "logIn_username_label";
-            this.logIn_username_label.Size = new System.Drawing.Size(191, 25);
+            this.logIn_username_label.Size = new System.Drawing.Size(159, 26);
             this.logIn_username_label.TabIndex = 0;
             this.logIn_username_label.Text = "Gebruikersnaam:";
             // 
@@ -160,29 +165,32 @@
             // 
             this.logIn_password_label.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.logIn_password_label.AutoSize = true;
-            this.logIn_password_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.logIn_password_label.Location = new System.Drawing.Point(35, 122);
+            this.logIn_password_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logIn_password_label.ForeColor = System.Drawing.Color.White;
+            this.logIn_password_label.Location = new System.Drawing.Point(44, 122);
             this.logIn_password_label.Name = "logIn_password_label";
-            this.logIn_password_label.Size = new System.Drawing.Size(148, 25);
+            this.logIn_password_label.Size = new System.Drawing.Size(129, 26);
             this.logIn_password_label.TabIndex = 1;
             this.logIn_password_label.Text = "Wachtwoord:";
             // 
             // logIn_username_textbox
             // 
             this.logIn_username_textbox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.logIn_username_textbox.Location = new System.Drawing.Point(268, 35);
+            this.logIn_username_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.logIn_username_textbox.Location = new System.Drawing.Point(268, 31);
             this.logIn_username_textbox.Name = "logIn_username_textbox";
-            this.logIn_username_textbox.Size = new System.Drawing.Size(118, 20);
+            this.logIn_username_textbox.Size = new System.Drawing.Size(118, 27);
             this.logIn_username_textbox.TabIndex = 2;
             this.logIn_username_textbox.Text = "a";
             // 
             // logIn_password_textbox
             // 
             this.logIn_password_textbox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.logIn_password_textbox.Location = new System.Drawing.Point(268, 125);
+            this.logIn_password_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.logIn_password_textbox.Location = new System.Drawing.Point(268, 121);
             this.logIn_password_textbox.Name = "logIn_password_textbox";
             this.logIn_password_textbox.PasswordChar = '*';
-            this.logIn_password_textbox.Size = new System.Drawing.Size(117, 20);
+            this.logIn_password_textbox.Size = new System.Drawing.Size(117, 27);
             this.logIn_password_textbox.TabIndex = 3;
             this.logIn_password_textbox.Text = "1";
             // 
@@ -190,6 +198,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Blue;
             this.ClientSize = new System.Drawing.Size(616, 265);
             this.Controls.Add(this.logIn_input_panel);
             this.Controls.Add(this.logIn_picterbox_panel);
@@ -200,6 +209,7 @@
             this.Name = "LogInScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "log In ";
+            this.Load += new System.EventHandler(this.LogInScreen_Load);
             this.logIn_button_panel.ResumeLayout(false);
             this.logIn_button_tableLayout_panel.ResumeLayout(false);
             this.logIn_button_tableLayout_panel.PerformLayout();
