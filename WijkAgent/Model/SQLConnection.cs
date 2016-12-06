@@ -37,11 +37,6 @@ namespace WijkAgent.Model
             }
         }
 
-        public void select()
-        {
-
-        }
-
         #region SaveDefaultDistrictUser
         public void SaveDefaultDistrictUser(string _username, int _iddistrict)
         {
@@ -138,6 +133,7 @@ namespace WijkAgent.Model
             return _stm;
         }
         #endregion
+
         #region haal alle categorieën op methode
         public Dictionary<int,string> GetAllCategory()
         {
@@ -163,14 +159,19 @@ namespace WijkAgent.Model
             return category;
         }
         #endregion
+
         #region haal alle vandaag getwitterde twitterberichten in een wijk op
         public Dictionary<int, string> GetAllTwitterMessageFromDistrictToday(int _idDistrict)
         {
             Dictionary<int, string> twitterMessages = new Dictionary<int, string>();
 
             //goede format die ook in de database staat
-            string startDate = DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss");
+            //24 uur geleden vanaf nu
+            string startDate = DateTime.Now.Subtract(new TimeSpan(24, 0, 0)).ToString("yyyy-MM-dd HH:mm:ss");
+            //hoelaat het nu is
             string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            
 
             try
             {
@@ -196,6 +197,7 @@ namespace WijkAgent.Model
             return twitterMessages;
         }
         #endregion
+
         #region Update Twitterberichten die nog geen categorie hebben en deze een categorie meegeven
         public void updateTwitterMessageCategory(int _twitterId, string _category)
         {
