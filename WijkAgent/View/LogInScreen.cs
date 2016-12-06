@@ -42,8 +42,9 @@ namespace WijkAgent
             //Kijk of gebruikersnaam voorkomt in de database.
             //Als aantal 0 is, dan is username incorrect.
             //Als aantal 1 is, dan is username correct en wordt het wachtwoord gecontroleerd.
-            string stm = "SELECT count(idaccount) FROM account WHERE username = '" + textbox_username + "'";
+            string stm = "SELECT count(idaccount) FROM account WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, sqlConn.conn);
+            cmd.Parameters.AddWithValue("@username", textbox_username);
             sqlConn.rdr = cmd.ExecuteReader();
             sqlConn.rdr.Read();
             int amount = Convert.ToInt32(sqlConn.rdr.GetString(0));
@@ -58,8 +59,9 @@ namespace WijkAgent
                 sqlConn.conn.Open();
 
                 //Haal wachtwoord op uit de database
-                stm = "SELECT password FROM account WHERE username = '" + textbox_username + "'";
+                stm = "SELECT password FROM account WHERE username = @username";
                 cmd = new MySqlCommand(stm, sqlConn.conn);
+                cmd.Parameters.AddWithValue("@username", textbox_username);
                 sqlConn.rdr = cmd.ExecuteReader();
                 sqlConn.rdr.Read();
                 string dbPassword = sqlConn.rdr.GetString(0).ToLower();
