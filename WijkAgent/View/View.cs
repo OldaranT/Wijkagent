@@ -80,7 +80,6 @@ namespace WijkAgent
         #region View Load
         private void View_Load(object sender, EventArgs e)
         {
-            
             fillSearchSuggestions();
             main_menu_panel_for_label.BackColor = policeBlue;
             province_panel_for_label.BackColor = policeBlue;
@@ -965,10 +964,12 @@ namespace WijkAgent
         }
         #endregion
 
+        #region Save_Incedents_Button_Click
         private void save_incedents_button_Click(object sender, EventArgs e)
         {
             IncidentScreen incident = new IncidentScreen(modelClass.map.idDistrict);
             incident.Show();
         }
+        #endregion
     }
 }
