@@ -120,9 +120,17 @@ namespace WijkAgent.Model
 
         public string WhereCategoryQuery(string _stm)
         {
-            string tempCatgoryWhereQuery = "category.name = @categoryInput";
+            string tempCatgoryWhereQuery = "category.name = @categoryInput ";
             _stm = _stm + tempCatgoryWhereQuery;
             return _stm;
+        }
+        
+        public string WhereKeyWordQuery(string _stm)
+        {
+            string tempKeyWordWhereQuery = "twitter.message LIKE @keyWordInput ";
+            _stm = _stm + tempKeyWordWhereQuery;
+            return _stm;
+
         }
 
         public string WhereDateQuery(string _stm, DateTime _fromDateInput, DateTime _tillDateInput)
