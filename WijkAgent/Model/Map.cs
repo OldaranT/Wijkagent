@@ -173,7 +173,7 @@ namespace WijkAgent.Model
             //als de status ready is
             if (e.Status == GeoPositionStatus.Ready)
             {
-                //nieuwe market toevoegen met het id dat 1 hoger is dan de twitter list lengte 
+                //nieuwe marker toevoegen met het id dat 1 hoger is dan de twitter list lengte 
                 Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin");
                 _m.addMarkerToMap(this.wb);
                 watcher.Stop();

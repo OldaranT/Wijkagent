@@ -11,6 +11,8 @@ namespace WijkAgent.Model.Tests
     [TestClass()]
     public class TwitterTests
     {
+
+        //Twitter
         [TestMethod()]
         public void SearchResultsTest_ShouldFindNoResult_WhenRadiusIsZero()
         {
@@ -30,6 +32,7 @@ namespace WijkAgent.Model.Tests
             Assert.AreEqual(0, twitter.tweetsList.Count);
         }
 
+        //Twitter
         [TestMethod()]
         public void SearchResultsTest_ShouldFindNoResult_WhenMaxResultsIsZero()
         {
@@ -48,8 +51,9 @@ namespace WijkAgent.Model.Tests
             Assert.AreEqual(0, twitter.tweetsList.Count);
         }
 
+        //Twitter
         [TestMethod()]
-        public void SearchResultsTest_ShouldAddTweetToList_WhenTimeIsLessThan24HoursAgo()
+        public void AddTweets_ShouldAddTweetToList_WhenTimeIsLessThan24HoursAgo()
         {
             //Arrange
             int id = 1;
@@ -69,8 +73,9 @@ namespace WijkAgent.Model.Tests
             Assert.AreEqual(1, twitter.tweetsList.Count);
         }
 
+        //Twitter
         [TestMethod()]
-        public void SearchResultsTest_ShouldNotAddTweetToList_WhenTimeIsMoreThan24HoursAgo()
+        public void AddTweets_ShouldNotAddTweetToList_WhenTimeIsMoreThan24HoursAgo()
         {
             //Arrange
             int id = 1;
@@ -90,8 +95,12 @@ namespace WijkAgent.Model.Tests
             Assert.AreEqual(0, twitter.tweetsList.Count);
         }
 
+
+        ////////////////////////////////////////////////////////////////////////////
+
+        //Tweet
         [TestMethod()]
-        public void SearchResultsTest_UserShouldNotContainQuote_WhenTweetIsDeclared()
+        public void Tweet_UserShouldNotContainQuote_WhenTweetIsDeclared()
         {
             //Arrange
             int id = 1;
@@ -111,6 +120,27 @@ namespace WijkAgent.Model.Tests
             Assert.AreEqual(false, twitter.tweetsList[0].user.Contains("\""));
         }
 
+        //Tweet
+        [TestMethod()]
+        public void Tweet_ShouldAddItemToLinkList_WhenMessageContainsHttp()
+        {
+            //Arrange
+            int id = 1;
+            double latitude = 51.979745;
+            double longitude = 5.901053;
+            string user = "Ruben";
+            string message = "Dit is een unit test met een link. http://test.com";
+            DateTime date = DateTime.Now.AddHours(-20);
+            DateTime limitTime = DateTime.Now.AddHours(-24);
+            Tweet tweet = new Tweet(id, latitude, longitude, user, message, date, limitTime);
+            Twitter twitter = new Twitter();
+
+            //Act
+            twitter.AddTweets(tweet);
+
+            //Assert
+            Assert.AreEqual(1, tweet.links.Count);
+        }
 
     }
 }
