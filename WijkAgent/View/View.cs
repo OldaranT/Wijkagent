@@ -92,6 +92,7 @@ namespace WijkAgent
             history_header_panel.BackColor = policeBlue;
             twitter_number_of_new_tweets_panel.BackColor = policeGold;
             twitter_panel.BackColor = policeGold;
+            main_menu_selected_district_panel.BackColor = policeBlue;
             //Zoek button
             history_search_button.BackColor = policeBlue;
             history_search_button.ForeColor = Color.White;
@@ -379,7 +380,7 @@ namespace WijkAgent
             //laat voorvallen knop zien
             try
             {
-                save_incedents_button.Show();
+                save_incedents_button.Show();;
             } catch (Exception ex)
             {
                 Console.WriteLine(ex);
