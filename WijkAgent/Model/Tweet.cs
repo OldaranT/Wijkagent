@@ -17,7 +17,7 @@ namespace WijkAgent.Model
         public DateTime date { get; set; }
         public DateTime limitTime { get; set; }
 
-        public List<string> links {get; set;}
+        public List<string> links { get; set; }
 
         public Tweet(int _id, double _latitude, double _longitude, string _user, string _message, DateTime _date, DateTime _limitTime)
         {
