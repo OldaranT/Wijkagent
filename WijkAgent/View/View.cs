@@ -1079,7 +1079,7 @@ namespace WijkAgent
             string districtName = modelClass.databaseConnectie.GetSelectedDistrictName(idDistrict);
 
             //Als idDistrict lager is dan 0 betekend dit dat er geen iddisctrict is opgeslagen bij deze gebruiker
-            if (idDistrict > 0)
+            if (idDistrict < 0)
             {
                 modelClass.ChangeDistrict(idDistrict);
                 ChangeSelectedDistrictText(districtName);
