@@ -33,7 +33,7 @@ namespace WijkAgent
 
         //maximale trending lengte
         private int tagLengte = 14;
-        private int wordLengte = 10;
+        private int wordLengte = 14;
 
         //placeholders
         private string searchDistrict = "Zoek een wijk . . .";
@@ -76,6 +76,9 @@ namespace WijkAgent
 
             //Welkombericht voor gebruiker
             main_menu_label.Text = "Welkom, \n" + getUser();
+
+            //Laatst geselecteerde wijk openen
+            GoToLatestDistrictFromUser();
         }
 
         #region View Load
@@ -92,6 +95,7 @@ namespace WijkAgent
             history_header_panel.BackColor = policeBlue;
             twitter_number_of_new_tweets_panel.BackColor = policeGold;
             twitter_panel.BackColor = policeGold;
+            main_menu_selected_district_panel.BackColor = policeBlue;
             //Zoek button
             history_search_button.BackColor = policeBlue;
             history_search_button.ForeColor = Color.White;
@@ -135,6 +139,19 @@ namespace WijkAgent
         {
             map_tabcontrol.SelectTab(0);
             twitter_tabcontrol.SelectTab(0);
+
+            if (modelClass.map.districtSelected)
+            {
+                try
+                {
+                    save_incedents_button.Show();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+
             if (!provinceButtonsCreated)
             {
                 try
@@ -290,104 +307,22 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
-            //twitterTrendingList
-            List<string> trendingTweetWord = new List<string>();
-            List<string> trendingTags = new List<string>();
-
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
 
+            //ID van wijk ophalen
             modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
-            List<double> latitudeList = new List<double>();
-            List<double> longtitudeList = new List<double>();
 
-            //Open database connectie
-            modelClass.databaseConnectie.conn.Open();
+            //Van wijk veranderen
+            modelClass.ChangeDistrict();
 
-            //Selectie Query die de namen van allke province selecteer en ordered.
-            string stm = "SELECT * FROM coordinate WHERE iddistrict = @iddistrict ORDER BY idcoordinate DESC";
-            MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
-            cmd.Parameters.AddWithValue("@iddistrict", modelClass.map.idDistrict);
-            modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
+            //Twitter panel updaten
+            UpdateTwitterpanel();
 
-            // Hier word de database lijst uitgelezen
-            while (modelClass.databaseConnectie.rdr.Read())
-            {
-                latitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(2)));
-                longtitudeList.Add(Convert.ToDouble(modelClass.databaseConnectie.rdr.GetString(3)));
-            }
-            //Databse connectie sluiten
-            modelClass.databaseConnectie.conn.Close();
-
-            modelClass.map.changeDistrict(latitudeList, longtitudeList);
-
-            if (!modelClass.map.twitter.tweetsList.Any())
-            {
-                string infoMessage = ("Er zijn geen tweets in deze wijk.");
-                Label tweetMessageLabel = new Label();
-                tweetMessageLabel.Text = infoMessage;
-                twitterLabelLayout(tweetMessageLabel);
-                twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
-                twitter_trending_tag_label.Text = "";
-                twitter_trending_topic_label.Text = "";
-            }
-            else
-            {
-                //twitter trending
-                TwitterTrending();
-
-                //Omdraaien van de array, zodat de nieuwste bovenaan staan
-                modelClass.map.twitter.tweetsList.Reverse();
-
-                //twitter aanroep
-                foreach (var tweets in modelClass.map.twitter.tweetsList)
-                {
-                    string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
-                    foreach (string link in tweets.links)
-                    {
-                        tweetMessage += "\n" + link;
-                    }
-                    Label tweetMessageLabel = new Label();
-                    tweetMessageLabel.Text = tweetMessage;
-                    tweetMessageLabel.Name = Convert.ToString(tweets.id);
-                    twitterLabelLayout(tweetMessageLabel);
-
-                    //Als de muis over twitter label hovert wordt die goud.
-                    tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
-                    tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
-                    //onclick label voor de marker highlight
-                    tweetMessageLabel.Click += TweetMessageOnClick;
-                    twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
-                }
-            }
-
-            //Twitter berichten in database opslaan 
-            modelClass.TweetsToDb();
-
-            //Standaart wijk van gebruiker updaten
-            UpdateLatestSelectedDisctrictUser();
-
-            //Aantal nieuwe tweets updaten
-            UpdateNewTweetsLabel();
+            //Laat zien wat nodig is(refresh knop)
+            ShowWhatsNeeded();
 
             main_menu_tabcontrol.SelectTab(0);
-
-            //Controleerd of er een wijk is geselecteerd
-            if (modelClass.map.districtSelected)
-                refresh_waypoints_button.Show();
-
-            //laat voorvallen knop zien
-            try
-            {
-                save_incedents_button.Show();
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            //Laad scherm verbergen
-            if (doneTwitterSearch != null)
-                doneTwitterSearch();
         }
         #endregion
 
@@ -494,8 +429,6 @@ namespace WijkAgent
             {
                 hoverTweet.BackColor = policeBlue;
             }
-
-
         }
         #endregion
 
@@ -530,6 +463,15 @@ namespace WijkAgent
         {
             map_tabcontrol.SelectTab(1);
             twitter_tabcontrol.SelectTab(1);
+
+            try
+            {
+                save_incedents_button.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
         #endregion
 
@@ -1042,6 +984,99 @@ namespace WijkAgent
         {
             IncidentScreen incident = new IncidentScreen(modelClass.map.idDistrict);
             incident.ShowDialog();
+        }
+        #endregion
+
+        #region Update_Twitter_Panel
+        public void UpdateTwitterpanel()
+        {
+            if (!modelClass.map.twitter.tweetsList.Any())
+            {
+                string infoMessage = ("Er zijn geen tweets in deze wijk.");
+                Label tweetMessageLabel = new Label();
+                tweetMessageLabel.Text = infoMessage;
+                twitterLabelLayout(tweetMessageLabel);
+                twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+                twitter_trending_tag_label.Text = "";
+                twitter_trending_topic_label.Text = "";
+            }
+            else
+            {
+                //twitter trending
+                TwitterTrending();
+
+                //Omdraaien van de array, zodat de nieuwste bovenaan staan
+                modelClass.map.twitter.tweetsList.Reverse();
+
+                //twitter aanroep
+                foreach (var tweets in modelClass.map.twitter.tweetsList)
+                {
+                    string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+                    foreach (string link in tweets.links)
+                    {
+                        tweetMessage += "\n" + link;
+                    }
+                    Label tweetMessageLabel = new Label();
+                    tweetMessageLabel.Text = tweetMessage;
+                    tweetMessageLabel.Name = Convert.ToString(tweets.id);
+                    twitterLabelLayout(tweetMessageLabel);
+
+                    //Als de muis over twitter label hovert wordt die goud.
+                    tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
+                    tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+                    //onclick label voor de marker highlight
+                    tweetMessageLabel.Click += TweetMessageOnClick;
+                    twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+                }
+            }
+
+            //Twitter berichten in database opslaan 
+            modelClass.TweetsToDb();
+
+            //Standaart wijk van gebruiker updaten
+            UpdateLatestSelectedDisctrictUser();
+
+            //Aantal nieuwe tweets updaten
+            UpdateNewTweetsLabel();
+        }
+        #endregion
+
+        #region Show_all_whats_needed
+        public void ShowWhatsNeeded()
+        {
+            //Controleerd of er een wijk is geselecteerd
+            if (modelClass.map.districtSelected)
+                refresh_waypoints_button.Show();
+
+            //laat voorvallen knop zien
+            try
+            {
+                save_incedents_button.Show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            //Laad scherm verbergen
+            if (doneTwitterSearch != null)
+                doneTwitterSearch();
+        }
+        #endregion
+
+        #region Go_to_latest_selected_district_from_user
+        public void GoToLatestDistrictFromUser()
+        {
+            //Ophalen van idDistrict
+            int idDistrict = modelClass.databaseConnectie.GetLatestSelectedDisctrictFromUser(modelClass.username);
+
+            //Als idDistrict lager is dan 0 betekend dit dat er geen iddisctrict is opgeslagen bij deze gebruiker
+            if (idDistrict > 0)
+            {
+                modelClass.ChangeDistrict(idDistrict);
+                UpdateTwitterpanel();
+                ShowWhatsNeeded();
+            }
         }
         #endregion
     }
