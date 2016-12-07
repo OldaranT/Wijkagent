@@ -19,7 +19,8 @@ namespace WijkAgent
         List<CheckBox> TwitterCheckboxes = new List<CheckBox>();
 
         //zodat alles netjes onderelkaar komt
-        int top = 20;
+        private int top = 20;
+
         private Color policeBlue;
         private Color policeGold;
         private Font labelFont;
@@ -27,6 +28,7 @@ namespace WijkAgent
         public IncidentScreen(int _districtId)
         {
             InitializeComponent();
+
             policeBlue = Color.FromArgb(0, 70, 130);
             policeGold = Color.FromArgb(190, 150, 90);
             labelFont = new Font("Calibri", 12, FontStyle.Bold);
