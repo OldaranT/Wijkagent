@@ -28,8 +28,6 @@ namespace WijkAgent.Model
             {
                 conn = new MySql.Data.MySqlClient.MySqlConnection();
                 conn.ConnectionString = myConnectionString;
-
-                Console.WriteLine("Connectie is gemaakt");
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
@@ -130,7 +128,6 @@ namespace WijkAgent.Model
             string tempKeyWordWhereQuery = "twitter.message LIKE @keyWordInput ";
             _stm = _stm + tempKeyWordWhereQuery;
             return _stm;
-
         }
 
         public string WhereDateQuery(string _stm, DateTime _fromDateInput, DateTime _tillDateInput)
@@ -142,7 +139,7 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region haal alle categorieën op methode
+        #region Haal alle categorieën op methode
         public Dictionary<int,string> GetAllCategory()
         {
             Dictionary<int,string> category = new Dictionary<int,string>();
@@ -163,12 +160,11 @@ namespace WijkAgent.Model
                 MessageBox.Show("Error bericht: " + e.Message);
             }
 
-
             return category;
         }
         #endregion
 
-        #region haal alle vandaag getwitterde twitterberichten in een wijk op
+        #region Haal alle vandaag getwitterde twitterberichten in een wijk op
         public Dictionary<int, string> GetAllTwitterMessageFromDistrictToday(int _idDistrict)
         {
             Dictionary<int, string> twitterMessages = new Dictionary<int, string>();
@@ -177,9 +173,7 @@ namespace WijkAgent.Model
             //24 uur geleden vanaf nu
             string startDate = DateTime.Now.Subtract(new TimeSpan(24, 0, 0)).ToString("yyyy-MM-dd HH:mm:ss");
             //hoelaat het nu is
-            string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-            
+            string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");        
 
             try
             {
@@ -225,6 +219,66 @@ namespace WijkAgent.Model
                 MessageBox.Show("Error: " + e.Message);
             }
 
+        }
+        #endregion
+
+        #region Get_Latest_Selected_Iddistrict_From_User
+        public int GetLatestSelectedDisctrictFromUser (string _username)
+        {
+            //wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
+            int idDisctrict = -1;
+            try
+            {
+                this.conn.Open();
+                string stm = "SELECT iddistrict FROM account WHERE username = @username";
+                MySqlCommand command = new MySqlCommand(stm, this.conn);
+                command.Parameters.AddWithValue("@username", _username);
+                this.rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    idDisctrict = Int32.Parse(rdr.GetString(0));
+                }
+                this.conn.Close();
+
+                return idDisctrict;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error bericht: " + e.Message + "Returning -1");
+                // -1 returnen
+                return idDisctrict;
+            }
+        }
+        #endregion
+
+        #region Get_all_coordinates_from_district
+        public Dictionary<string, List<double>> GetAllCoordinatesFromDistrict(int _idDistrict)
+        {
+            Dictionary<string, List<double>> cordinates = new Dictionary<string, List<double>>();
+            List<double> latitudeList = new List<double>();
+            List<double> longtitudeList = new List<double>();
+
+            conn.Open();
+            string stm = "SELECT * FROM coordinate WHERE iddistrict = @iddistrict ORDER BY idcoordinate DESC";
+            MySqlCommand cmd = new MySqlCommand(stm, conn);
+            cmd.Parameters.AddWithValue("@iddistrict", _idDistrict);
+            rdr = cmd.ExecuteReader();
+
+            // Hier word de database lijst uitgelezen
+            while (rdr.Read())
+            {
+                latitudeList.Add(Convert.ToDouble(rdr.GetString(2)));
+                longtitudeList.Add(Convert.ToDouble(rdr.GetString(3)));
+            }
+            //Databse connectie sluiten
+            conn.Close();
+
+            cordinates.Add("latitudes", latitudeList);
+            cordinates.Add("longitudes", longtitudeList);
+
+            //coordinaten returnen
+            return cordinates;
         }
         #endregion
     }

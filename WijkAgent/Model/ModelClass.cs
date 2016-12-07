@@ -62,6 +62,7 @@ namespace WijkAgent.Model
 
                 if (!inDatabase)
                 {
+                    //Twitter bericht in database opslaan
                     databaseConnectie.conn.Open();
                     string insertstm = "INSERT INTO twitter(iddistrict, user, latitude, longitude, message, datetime) VALUES (@iddistrict, @user, @lat, @lon, @message, @datetime)";
                     MySqlCommand insertcmd = new MySqlCommand();
@@ -79,14 +80,31 @@ namespace WijkAgent.Model
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("TweetsToDb: " + ex.Message);
                     }
                     databaseConnectie.conn.Close();
                 }
             }
         }
         #endregion
+
+        #region ChangeDistrictMethod
+        public void ChangeDistrict(int _idDistrict)
+        {
+            map.idDistrict = _idDistrict;
+
+            //Alle coordinaten(latitude en longitude) vekrijgen
+            Dictionary<string, List<double>> allCoordinates = databaseConnectie.GetAllCoordinatesFromDistrict(_idDistrict);
+
+            map.changeDistrict(allCoordinates["latitudes"], allCoordinates["longitudes"]);
+        }
+
+        public void ChangeDistrict()
+        {
+            ChangeDistrict(map.idDistrict);
+        }
+        #endregion
     }
-   
+
 
 }
