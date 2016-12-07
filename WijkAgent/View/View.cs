@@ -1089,9 +1089,11 @@ namespace WijkAgent
         }
         #endregion
 
+        #region ChangeSelectedDistrictText
         public void ChangeSelectedDistrictText(string _districtName)
         {
             main_menu_selected_district_label.Text = "Laatste geselecteerde wijk: "+ Environment.NewLine + _districtName;
         }
+        #endregion
     }
 }
