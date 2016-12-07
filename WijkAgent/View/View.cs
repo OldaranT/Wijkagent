@@ -509,6 +509,7 @@ namespace WijkAgent
 
             Label _label = (Label)sender;
             lastClickedLabel = _label;
+            lastClickedLabel.BackColor = policeGold;
             //label naam is het id van de tweet maar ik wil het in een int hebben dus parse ik hem
             int _labelId = Int32.Parse(_label.Name);
             //kleur veranderen van de label
@@ -1032,7 +1033,7 @@ namespace WijkAgent
         private void save_incedents_button_Click(object sender, EventArgs e)
         {
             IncidentScreen incident = new IncidentScreen(modelClass.map.idDistrict);
-            incident.Show();
+            incident.ShowDialog();
         }
         #endregion
     }

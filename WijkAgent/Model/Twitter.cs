@@ -66,11 +66,10 @@ namespace WijkAgent.Model
                     var message = matchingtweets.ToString();
                     double tweetLatitude = matchingtweets.Coordinates.Latitude;
                     double tweetLongitude = matchingtweets.Coordinates.Longitude;
-                    var createTime = matchingtweets.CreatedAt;
                     var limitTime = DateTime.Now.AddHours(-24);
 
                     //Voeg tweets toe aan lijst
-                    AddTweets(new Tweet(counter, tweetLatitude, tweetLongitude, user, message, date, createTime, limitTime));
+                    AddTweets(new Tweet(counter, tweetLatitude, tweetLongitude, user, message, date, limitTime));
 
                     counter++;
                 }
@@ -82,7 +81,7 @@ namespace WijkAgent.Model
         public void AddTweets(Tweet _tweet)
         {
             //controleren of de tweet wel van de afgelopen 24 uur is
-            if (_tweet.createTime > _tweet.limitTime)
+            if (_tweet.date > _tweet.limitTime)
             {
                 tweetsList.Add(_tweet);
             }
