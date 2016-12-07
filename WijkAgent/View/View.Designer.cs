@@ -104,6 +104,11 @@
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_keyword_checkbox = new System.Windows.Forms.CheckBox();
             this.history_search_button = new System.Windows.Forms.Button();
+            this.main_menu_area_district_panel = new System.Windows.Forms.Panel();
+            this.main_menu_area_district_panel_table_layout = new System.Windows.Forms.TableLayoutPanel();
+            this.main_menu_selected_district_panel = new System.Windows.Forms.Panel();
+            this.main_menu_selected_district_label = new System.Windows.Forms.Label();
+            this.main_menu_area_district_scrollable_panel_ = new System.Windows.Forms.Panel();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -141,6 +146,9 @@
             this.history_option_panel_for_label.SuspendLayout();
             this.history_option_panel.SuspendLayout();
             this.history_filter_table_layout_panel.SuspendLayout();
+            this.main_menu_area_district_panel.SuspendLayout();
+            this.main_menu_area_district_panel_table_layout.SuspendLayout();
+            this.main_menu_selected_district_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_menu_panel
@@ -168,8 +176,8 @@
             this.main_menu_table_layout_panel.Name = "main_menu_table_layout_panel";
             this.main_menu_table_layout_panel.RowCount = 3;
             this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 82F));
-            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.main_menu_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.main_menu_table_layout_panel.Size = new System.Drawing.Size(177, 668);
             this.main_menu_table_layout_panel.TabIndex = 0;
             // 
@@ -190,18 +198,19 @@
             this.main_menu_label.AutoSize = true;
             this.main_menu_label.BackColor = System.Drawing.Color.Transparent;
             this.main_menu_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_menu_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.main_menu_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.main_menu_label.ForeColor = System.Drawing.Color.White;
             this.main_menu_label.Location = new System.Drawing.Point(0, 0);
             this.main_menu_label.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_label.Name = "main_menu_label";
-            this.main_menu_label.Size = new System.Drawing.Size(141, 50);
+            this.main_menu_label.Size = new System.Drawing.Size(120, 52);
             this.main_menu_label.TabIndex = 0;
             this.main_menu_label.Text = "Welkom,\r\nAgent Henk.";
             // 
             // main_menu_scroll_panel
             // 
             this.main_menu_scroll_panel.AutoScroll = true;
+            this.main_menu_scroll_panel.Controls.Add(this.main_menu_area_district_panel);
             this.main_menu_scroll_panel.Controls.Add(this.save_incedents_button);
             this.main_menu_scroll_panel.Controls.Add(this.go_to_history_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Controls.Add(this.go_to_province_panel_button_from_main_menu_tab);
@@ -209,14 +218,14 @@
             this.main_menu_scroll_panel.Location = new System.Drawing.Point(0, 66);
             this.main_menu_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_scroll_panel.Name = "main_menu_scroll_panel";
-            this.main_menu_scroll_panel.Size = new System.Drawing.Size(177, 547);
+            this.main_menu_scroll_panel.Size = new System.Drawing.Size(177, 534);
             this.main_menu_scroll_panel.TabIndex = 2;
             // 
             // save_incedents_button
             // 
             this.save_incedents_button.BackColor = System.Drawing.Color.Blue;
             this.save_incedents_button.Dock = System.Windows.Forms.DockStyle.Top;
-            this.save_incedents_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.save_incedents_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
             this.save_incedents_button.ForeColor = System.Drawing.Color.White;
             this.save_incedents_button.Location = new System.Drawing.Point(0, 150);
             this.save_incedents_button.Margin = new System.Windows.Forms.Padding(0);
@@ -232,7 +241,7 @@
             // 
             this.go_to_history_panel_button_from_main_menu_tab.BackColor = System.Drawing.Color.Blue;
             this.go_to_history_panel_button_from_main_menu_tab.Dock = System.Windows.Forms.DockStyle.Top;
-            this.go_to_history_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.go_to_history_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
             this.go_to_history_panel_button_from_main_menu_tab.ForeColor = System.Drawing.Color.White;
             this.go_to_history_panel_button_from_main_menu_tab.Location = new System.Drawing.Point(0, 75);
             this.go_to_history_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(0);
@@ -247,7 +256,7 @@
             // 
             this.go_to_province_panel_button_from_main_menu_tab.BackColor = System.Drawing.Color.Blue;
             this.go_to_province_panel_button_from_main_menu_tab.Dock = System.Windows.Forms.DockStyle.Top;
-            this.go_to_province_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.go_to_province_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
             this.go_to_province_panel_button_from_main_menu_tab.ForeColor = System.Drawing.Color.White;
             this.go_to_province_panel_button_from_main_menu_tab.Location = new System.Drawing.Point(0, 0);
             this.go_to_province_panel_button_from_main_menu_tab.Margin = new System.Windows.Forms.Padding(0);
@@ -262,9 +271,9 @@
             // 
             this.view_logOut_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.view_logOut_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.view_logOut_button.Location = new System.Drawing.Point(3, 616);
+            this.view_logOut_button.Location = new System.Drawing.Point(3, 603);
             this.view_logOut_button.Name = "view_logOut_button";
-            this.view_logOut_button.Size = new System.Drawing.Size(171, 49);
+            this.view_logOut_button.Size = new System.Drawing.Size(171, 62);
             this.view_logOut_button.TabIndex = 3;
             this.view_logOut_button.Text = "Uitloggen";
             this.view_logOut_button.UseVisualStyleBackColor = true;
@@ -1135,6 +1144,68 @@
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
             // 
+            // main_menu_area_district_panel
+            // 
+            this.main_menu_area_district_panel.BackColor = System.Drawing.Color.Transparent;
+            this.main_menu_area_district_panel.Controls.Add(this.main_menu_area_district_panel_table_layout);
+            this.main_menu_area_district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.main_menu_area_district_panel.Location = new System.Drawing.Point(0, 225);
+            this.main_menu_area_district_panel.Name = "main_menu_area_district_panel";
+            this.main_menu_area_district_panel.Size = new System.Drawing.Size(177, 309);
+            this.main_menu_area_district_panel.TabIndex = 5;
+            // 
+            // main_menu_area_district_panel_table_layout
+            // 
+            this.main_menu_area_district_panel_table_layout.ColumnCount = 1;
+            this.main_menu_area_district_panel_table_layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.main_menu_area_district_panel_table_layout.Controls.Add(this.main_menu_selected_district_panel, 0, 0);
+            this.main_menu_area_district_panel_table_layout.Controls.Add(this.main_menu_area_district_scrollable_panel_, 0, 1);
+            this.main_menu_area_district_panel_table_layout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.main_menu_area_district_panel_table_layout.Location = new System.Drawing.Point(0, 0);
+            this.main_menu_area_district_panel_table_layout.Name = "main_menu_area_district_panel_table_layout";
+            this.main_menu_area_district_panel_table_layout.RowCount = 2;
+            this.main_menu_area_district_panel_table_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.main_menu_area_district_panel_table_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.main_menu_area_district_panel_table_layout.Size = new System.Drawing.Size(177, 309);
+            this.main_menu_area_district_panel_table_layout.TabIndex = 0;
+            // 
+            // main_menu_selected_district_panel
+            // 
+            this.main_menu_selected_district_panel.BackColor = System.Drawing.Color.Blue;
+            this.main_menu_selected_district_panel.Controls.Add(this.main_menu_selected_district_label);
+            this.main_menu_selected_district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.main_menu_selected_district_panel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.main_menu_selected_district_panel.Location = new System.Drawing.Point(0, 0);
+            this.main_menu_selected_district_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.main_menu_selected_district_panel.Name = "main_menu_selected_district_panel";
+            this.main_menu_selected_district_panel.Size = new System.Drawing.Size(177, 61);
+            this.main_menu_selected_district_panel.TabIndex = 2;
+            this.main_menu_selected_district_panel.Visible = false;
+            // 
+            // main_menu_selected_district_label
+            // 
+            this.main_menu_selected_district_label.AutoSize = true;
+            this.main_menu_selected_district_label.BackColor = System.Drawing.Color.Transparent;
+            this.main_menu_selected_district_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.main_menu_selected_district_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.main_menu_selected_district_label.ForeColor = System.Drawing.Color.White;
+            this.main_menu_selected_district_label.Location = new System.Drawing.Point(0, 0);
+            this.main_menu_selected_district_label.Margin = new System.Windows.Forms.Padding(0);
+            this.main_menu_selected_district_label.Name = "main_menu_selected_district_label";
+            this.main_menu_selected_district_label.Size = new System.Drawing.Size(207, 52);
+            this.main_menu_selected_district_label.TabIndex = 0;
+            this.main_menu_selected_district_label.Text = "Laatste geselecteerde \r\nwijk:";
+            // 
+            // main_menu_area_district_scrollable_panel_
+            // 
+            this.main_menu_area_district_scrollable_panel_.AutoScroll = true;
+            this.main_menu_area_district_scrollable_panel_.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.main_menu_area_district_scrollable_panel_.Location = new System.Drawing.Point(3, 64);
+            this.main_menu_area_district_scrollable_panel_.Name = "main_menu_area_district_scrollable_panel_";
+            this.main_menu_area_district_scrollable_panel_.Size = new System.Drawing.Size(171, 242);
+            this.main_menu_area_district_scrollable_panel_.TabIndex = 3;
+            this.main_menu_area_district_scrollable_panel_.Visible = false;
+            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1194,6 +1265,10 @@
             this.history_option_panel.ResumeLayout(false);
             this.history_filter_table_layout_panel.ResumeLayout(false);
             this.history_filter_table_layout_panel.PerformLayout();
+            this.main_menu_area_district_panel.ResumeLayout(false);
+            this.main_menu_area_district_panel_table_layout.ResumeLayout(false);
+            this.main_menu_selected_district_panel.ResumeLayout(false);
+            this.main_menu_selected_district_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1274,6 +1349,11 @@
         private System.Windows.Forms.Button save_incedents_button;
         private System.Windows.Forms.TextBox history_keyword_textbox;
         private System.Windows.Forms.CheckBox history_keyword_checkbox;
+        private System.Windows.Forms.Panel main_menu_area_district_panel;
+        private System.Windows.Forms.TableLayoutPanel main_menu_area_district_panel_table_layout;
+        private System.Windows.Forms.Panel main_menu_selected_district_panel;
+        private System.Windows.Forms.Label main_menu_selected_district_label;
+        private System.Windows.Forms.Panel main_menu_area_district_scrollable_panel_;
     }
 }
 
