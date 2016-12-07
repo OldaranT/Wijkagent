@@ -90,6 +90,7 @@
             this.history_option_label = new System.Windows.Forms.Label();
             this.history_option_panel = new System.Windows.Forms.Panel();
             this.history_filter_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
+            this.history_keyword_textbox = new System.Windows.Forms.TextBox();
             this.history_from_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_district_checkbox = new System.Windows.Forms.CheckBox();
             this.history_user_checkbox = new System.Windows.Forms.CheckBox();
@@ -101,9 +102,8 @@
             this.history_till_date_label = new System.Windows.Forms.Label();
             this.history_from_date_label = new System.Windows.Forms.Label();
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
-            this.history_search_button = new System.Windows.Forms.Button();
             this.history_keyword_checkbox = new System.Windows.Forms.CheckBox();
-            this.history_keyword_textbox = new System.Windows.Forms.TextBox();
+            this.history_search_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -964,6 +964,21 @@
             this.history_filter_table_layout_panel.Size = new System.Drawing.Size(202, 525);
             this.history_filter_table_layout_panel.TabIndex = 0;
             // 
+            // history_keyword_textbox
+            // 
+            this.history_keyword_textbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.history_keyword_textbox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.history_keyword_textbox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.history_keyword_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_keyword_textbox.ForeColor = System.Drawing.Color.DimGray;
+            this.history_keyword_textbox.Location = new System.Drawing.Point(83, 159);
+            this.history_keyword_textbox.Name = "history_keyword_textbox";
+            this.history_keyword_textbox.Size = new System.Drawing.Size(116, 27);
+            this.history_keyword_textbox.TabIndex = 13;
+            this.history_keyword_textbox.Text = "Zoek een trefwoord . . .";
+            this.history_keyword_textbox.Enter += new System.EventHandler(this.history_keyword_textbox_Enter);
+            this.history_keyword_textbox.Leave += new System.EventHandler(this.history_keyword_textbox_Leave);
+            // 
             // history_from_datetimepicker
             // 
             this.history_from_datetimepicker.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1094,6 +1109,17 @@
             this.history_till_datetimepicker.TabIndex = 11;
             this.history_till_datetimepicker.ValueChanged += new System.EventHandler(this.history_till_datetimepicker_ValueChanged);
             // 
+            // history_keyword_checkbox
+            // 
+            this.history_keyword_checkbox.AutoSize = true;
+            this.history_keyword_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.history_keyword_checkbox.Location = new System.Drawing.Point(3, 159);
+            this.history_keyword_checkbox.Name = "history_keyword_checkbox";
+            this.history_keyword_checkbox.Size = new System.Drawing.Size(74, 23);
+            this.history_keyword_checkbox.TabIndex = 12;
+            this.history_keyword_checkbox.Text = "Trefwoord";
+            this.history_keyword_checkbox.UseVisualStyleBackColor = true;
+            // 
             // history_search_button
             // 
             this.history_search_button.BackColor = System.Drawing.Color.Blue;
@@ -1108,32 +1134,6 @@
             this.history_search_button.Text = "Zoek";
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
-            // 
-            // history_keyword_checkbox
-            // 
-            this.history_keyword_checkbox.AutoSize = true;
-            this.history_keyword_checkbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_keyword_checkbox.Location = new System.Drawing.Point(3, 159);
-            this.history_keyword_checkbox.Name = "history_keyword_checkbox";
-            this.history_keyword_checkbox.Size = new System.Drawing.Size(74, 23);
-            this.history_keyword_checkbox.TabIndex = 12;
-            this.history_keyword_checkbox.Text = "Trefwoord";
-            this.history_keyword_checkbox.UseVisualStyleBackColor = true;
-            // 
-            // history_keyword_textbox
-            // 
-            this.history_keyword_textbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.history_keyword_textbox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.history_keyword_textbox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.history_keyword_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.history_keyword_textbox.ForeColor = System.Drawing.Color.DimGray;
-            this.history_keyword_textbox.Location = new System.Drawing.Point(83, 159);
-            this.history_keyword_textbox.Name = "history_keyword_textbox";
-            this.history_keyword_textbox.Size = new System.Drawing.Size(116, 27);
-            this.history_keyword_textbox.TabIndex = 13;
-            this.history_keyword_textbox.Text = "Zoek een trefwoord . . .";
-            this.history_keyword_textbox.Enter += new System.EventHandler(this.history_keyword_textbox_Enter);
-            this.history_keyword_textbox.Leave += new System.EventHandler(this.history_keyword_textbox_Leave);
             // 
             // View
             // 
