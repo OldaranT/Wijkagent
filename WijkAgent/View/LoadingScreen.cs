@@ -15,6 +15,7 @@ namespace WijkAgent
         public LoadingScreen()
         {
             InitializeComponent();
+            this.ControlBox = false;
         }
 
         //Methode om scherm te laten zien
