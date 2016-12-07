@@ -56,7 +56,7 @@ namespace WijkAgent.Model
             Object[] _initArgs = new Object[3] { defaultLatitude, defaultLongtitude, defaultZoom };
             //invokescript heeft voor de argumenten een object nodig waar deze in staan
             this.wb.Document.InvokeScript("initialize", _initArgs);
-            
+
         }
 
         #region ChangeDisctrict_Method
@@ -109,7 +109,7 @@ namespace WijkAgent.Model
                 //voor debuggen radius
                 double _test = Math.Floor(calculateRadiusKm(currentLatitudePoints, currentLongitudePoints, _centerLat, _centerLong) * 1000);
                 Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
-                this.wb.Document.InvokeScript("SetCircle", _circleArgs); 
+                this.wb.Document.InvokeScript("SetCircle", _circleArgs);
 
                 //Er is een wijk geselecteerd
                 districtSelected = true;
@@ -145,7 +145,7 @@ namespace WijkAgent.Model
                 //methode om de afstand te berekenen dit doe ik voor elk punt om te kijken welke het verst van het midden punt af ligt
                 var _distance = _centerCoord.GetDistanceTo(_puntCoord);
 
-                if(_distance > _metresFromCenterToCorner)
+                if (_distance > _metresFromCenterToCorner)
                 {
                     _metresFromCenterToCorner = _distance;
                 }
@@ -153,7 +153,6 @@ namespace WijkAgent.Model
 
             //is in meters moet naar km
             double _radiusKm = (_metresFromCenterToCorner / 1000);
-
             return _radiusKm;
         }
         #endregion

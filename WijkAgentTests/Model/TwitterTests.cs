@@ -34,25 +34,6 @@ namespace WijkAgent.Model.Tests
 
         //Twitter
         [TestMethod()]
-        public void SearchResultsTest_ShouldFindNoResult_WhenMaxResultsIsZero()
-        {
-            //Arrange
-            double latitude = 51.979745;
-            double longitude = 5.901053;
-            int radius = 100;
-            int maxResults = 0;
-
-            Twitter twitter = new Twitter();
-
-            //Act
-            twitter.SearchResults(latitude, longitude, radius, maxResults);
-
-            //Assert
-            Assert.AreEqual(0, twitter.tweetsList.Count);
-        }
-
-        //Twitter
-        [TestMethod()]
         public void AddTweets_ShouldAddTweetToList_WhenTimeIsLessThan24HoursAgo()
         {
             //Arrange
@@ -141,6 +122,39 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(1, tweet.links.Count);
         }
+
+        ////////////////////////////////////////////////////////////////////////////
+        //Map
+        [TestMethod()]
+        public void calculateRadiusKm_ShouldReturnRadius_WhenCoordinatesAreGiven()
+        {
+            //Arrange
+            Map map = new Map();
+            List<double> latitudePoints = new List<double>();
+            List<double> longitudePoints = new List<double>();
+            latitudePoints.Add(52.500385);
+            latitudePoints.Add(52.503833);
+            latitudePoints.Add(52.509658);
+            latitudePoints.Add(52.507072);
+            longitudePoints.Add(6.055248);
+            longitudePoints.Add(6.047266);
+            longitudePoints.Add(6.055119);
+            longitudePoints.Add(6.066792);
+            double centerLat = (latitudePoints.Max() + latitudePoints.Min()) / 2;
+            double centerLong = (longitudePoints.Max() + longitudePoints.Min()) / 2;
+
+            double expectedOutcome = 0.69961280774376;
+
+            //Act
+            double radius = map.calculateRadiusKm(latitudePoints, longitudePoints, centerLat, centerLong);
+            string stringRadius = string.Format("{0:0.00}", radius.ToString());
+            radius = Convert.ToDouble(stringRadius);
+
+            //Assert
+            Assert.AreEqual(expectedOutcome, radius);
+
+        }
+
 
     }
 }
