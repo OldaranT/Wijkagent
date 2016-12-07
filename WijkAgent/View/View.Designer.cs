@@ -38,7 +38,7 @@
             this.main_menu_area_district_panel_table_layout = new System.Windows.Forms.TableLayoutPanel();
             this.main_menu_selected_district_panel = new System.Windows.Forms.Panel();
             this.main_menu_selected_district_label = new System.Windows.Forms.Label();
-            this.main_menu_area_district_scrollable_panel_ = new System.Windows.Forms.Panel();
+            this.main_menu_area_district_scrollable_panel = new System.Windows.Forms.Panel();
             this.save_incedents_button = new System.Windows.Forms.Button();
             this.go_to_history_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
             this.go_to_province_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
@@ -236,7 +236,7 @@
             this.main_menu_area_district_panel_table_layout.ColumnCount = 1;
             this.main_menu_area_district_panel_table_layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.main_menu_area_district_panel_table_layout.Controls.Add(this.main_menu_selected_district_panel, 0, 0);
-            this.main_menu_area_district_panel_table_layout.Controls.Add(this.main_menu_area_district_scrollable_panel_, 0, 1);
+            this.main_menu_area_district_panel_table_layout.Controls.Add(this.main_menu_area_district_scrollable_panel, 0, 1);
             this.main_menu_area_district_panel_table_layout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_area_district_panel_table_layout.Location = new System.Drawing.Point(0, 0);
             this.main_menu_area_district_panel_table_layout.Name = "main_menu_area_district_panel_table_layout";
@@ -273,15 +273,15 @@
             this.main_menu_selected_district_label.TabIndex = 0;
             this.main_menu_selected_district_label.Text = "Laatste geselecteerde \r\nwijk:";
             // 
-            // main_menu_area_district_scrollable_panel_
+            // main_menu_area_district_scrollable_panel
             // 
-            this.main_menu_area_district_scrollable_panel_.AutoScroll = true;
-            this.main_menu_area_district_scrollable_panel_.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_menu_area_district_scrollable_panel_.Location = new System.Drawing.Point(3, 64);
-            this.main_menu_area_district_scrollable_panel_.Name = "main_menu_area_district_scrollable_panel_";
-            this.main_menu_area_district_scrollable_panel_.Size = new System.Drawing.Size(171, 242);
-            this.main_menu_area_district_scrollable_panel_.TabIndex = 3;
-            this.main_menu_area_district_scrollable_panel_.Visible = false;
+            this.main_menu_area_district_scrollable_panel.AutoScroll = true;
+            this.main_menu_area_district_scrollable_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.main_menu_area_district_scrollable_panel.Location = new System.Drawing.Point(3, 64);
+            this.main_menu_area_district_scrollable_panel.Name = "main_menu_area_district_scrollable_panel";
+            this.main_menu_area_district_scrollable_panel.Size = new System.Drawing.Size(171, 242);
+            this.main_menu_area_district_scrollable_panel.TabIndex = 3;
+            this.main_menu_area_district_scrollable_panel.Visible = false;
             // 
             // save_incedents_button
             // 
@@ -1353,7 +1353,7 @@
         private System.Windows.Forms.TableLayoutPanel main_menu_area_district_panel_table_layout;
         private System.Windows.Forms.Panel main_menu_selected_district_panel;
         private System.Windows.Forms.Label main_menu_selected_district_label;
-        private System.Windows.Forms.Panel main_menu_area_district_scrollable_panel_;
+        private System.Windows.Forms.Panel main_menu_area_district_scrollable_panel;
     }
 }
 
