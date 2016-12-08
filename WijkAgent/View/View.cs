@@ -689,7 +689,7 @@ namespace WijkAgent
             //Open database connectie
             modelClass.databaseConnectie.conn.Open();
 
-            //Selectie Query die de namen van allke province selecteer en ordered.
+            //Selectie Query die de namen van ellke province selecteer en ordered.
             string stm = "SELECT DISTINCT name FROM district";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
@@ -720,7 +720,6 @@ namespace WijkAgent
             //sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
-
             history_category_combobox.Text = "test";
             //Roep twitter user suggeties aan.
             //Open database connectie
@@ -738,7 +737,6 @@ namespace WijkAgent
 
             //sluit database connectie
             modelClass.databaseConnectie.conn.Close();
-
         }
         #endregion
 
@@ -1079,7 +1077,7 @@ namespace WijkAgent
             string districtName = modelClass.databaseConnectie.GetSelectedDistrictName(idDistrict);
 
             //Als idDistrict lager is dan 0 betekend dit dat er geen iddisctrict is opgeslagen bij deze gebruiker
-            if (idDistrict < 0)
+            if (idDistrict > 0)
             {
                 modelClass.ChangeDistrict(idDistrict);
                 ChangeSelectedDistrictText(districtName);
