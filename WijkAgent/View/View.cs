@@ -538,11 +538,146 @@ namespace WijkAgent
         #endregion
 
         #region TwitterTrending
+
         
+
         public void TwitterTrending()
         {
-            twitter_trending_topic_label.Text = modelClass.map.twitter.TrendingTopics();
-            twitter_trending_tag_label.Text = modelClass.map.twitter.TrendingTags();
+            //twitterTrendingList
+            List<string> trendingTweetWord = new List<string>();
+            List<string> trendingTags = new List<string>();
+
+            //Initaliseren van _tekst
+            var _tekst = "";
+
+            //Maak een lange string van alle twitterberichten          
+            foreach (var tweets in modelClass.map.twitter.tweetsList)
+            {
+                _tekst += tweets.message + " ";
+            }
+
+            //Haal een string op, filter alle woorden eruit
+            //Groepeer de woorden die groter zijn dan 3 tekens
+            //Sorteer van groot naar klein (van meest voorkomende naar minst voorkomende)
+            var words =
+            Regex.Split(_tekst.ToLower(), @"\W+")
+            .Where(s => s.Length > 3)
+            .GroupBy(s => s)
+            .OrderByDescending(g => g.Count());
+           
+            //Controleer of het woord langer is dan een specifiek aantal karakters
+            //Voor de woorden
+            //Zo ja, split het woord en voeg het woord toe
+            //Zo nee, voeg het wooord alleen toe, zonder aanpassing
+            if(words.Count() < 1)
+            {
+                twitter_trending_topic_label.Text = "Er zijn geen trending topics."; 
+            }
+            else
+            {
+                foreach (var word in words)
+                {
+                    if (word.Key.Length > wordLengte)
+                    {
+                        string splittedTweetWord = "";
+                        var wordSplit = word.Key.SplitInParts(wordLengte);
+                        foreach (string split in wordSplit)
+                        {
+                            splittedTweetWord += split + " ";
+                        }
+                        trendingTweetWord.Add(splittedTweetWord);
+                    }
+                    else
+                    {
+                        trendingTweetWord.Add(word.Key);
+                    }
+                }
+
+                //Print de trending woorden op het scherm in een label
+                int _wordCount = trendingTweetWord.Count();
+                if (_wordCount < 3)
+                {
+                    twitter_trending_topic_label.Text = "Trending topics:\n";
+                    for (int i = 0; i < _wordCount; i++)
+                    {
+                        twitter_trending_topic_label.Text += (i + 1) + ": " + trendingTweetWord[i] + "\n";
+                    }
+                }
+                else
+                {
+                    twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
+                }
+
+            }
+
+            //Pak alle twitterberichten die een hashtag bevatten
+            var tagsMessage =
+                from tweet in modelClass.map.twitter.tweetsList
+                where tweet.message.Contains("#")
+                select tweet.message;
+
+
+            if (tagsMessage.Count() < 1)
+            {
+                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
+            }
+            else
+            {
+                //Initialiseren van messageTagsString
+                string messageTagsString = "";
+
+                //Maak een lange string van alle woorden
+                foreach (string tagMessageWord in tagsMessage)
+                {
+                    messageTagsString += tagMessageWord + " ";
+                }
+
+                //Stop alle hashtags in een array
+                var tags = Regex.Split(messageTagsString.ToLower(), @"\s+")
+                    .Where(a => a.StartsWith("#"))
+                    .GroupBy(s => s)
+                    .OrderByDescending(g => g.Count());
+
+                //Controleer of het woord langer is dan een specifiek aantal karakters
+                //Voor de hashtags
+                //Zo ja, split het woord en voeg het woord toe
+                //Zo nee, voeg het wooord alleen toe, zonder aanpassing
+                foreach (var tag in tags)
+                {
+                    if (tag.Key.Length > tagLengte)
+                    {
+                        string splittedTag = "";
+                        var tagSplit = tag.Key.SplitInParts(tagLengte);
+                        foreach (string split in tagSplit)
+                        {
+                            splittedTag += split + " ";
+                        }
+                        trendingTags.Add(splittedTag);
+                    }
+                    else
+                    {
+                        trendingTags.Add(tag.Key);
+                    }
+                }
+
+                //Print de trending hashtags op het scherm in een label
+                int _tagCount = trendingTags.Count();
+                if (_tagCount < 3)
+                {
+                    twitter_trending_tag_label.Text = "Trending tags:\n";
+                    for (int i = 0; i < _tagCount; i++)
+                    {
+                        twitter_trending_tag_label.Text += (i + 1) + ": " + trendingTags[i] + "\n";
+                    }
+                }
+                else
+                {
+                    twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
+                }
+            }
+            
+
+            
 
         }
         #endregion
