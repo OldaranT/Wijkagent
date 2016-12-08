@@ -52,7 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Model\TwitterTests.cs" />
+    <Compile Include="Model\UnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

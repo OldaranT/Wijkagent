@@ -189,7 +189,7 @@
             this.logIn_password_textbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.logIn_password_textbox.Location = new System.Drawing.Point(268, 121);
             this.logIn_password_textbox.Name = "logIn_password_textbox";
-            this.logIn_password_textbox.PasswordChar = '*';
+            this.logIn_password_textbox.PasswordChar = '•';
             this.logIn_password_textbox.Size = new System.Drawing.Size(117, 27);
             this.logIn_password_textbox.TabIndex = 3;
             this.logIn_password_textbox.Text = "1";
@@ -211,6 +211,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "log In ";
             this.Load += new System.EventHandler(this.LogInScreen_Load);
+            this.VisibleChanged += new System.EventHandler(this.LogInScreen_Load);
             this.logIn_button_panel.ResumeLayout(false);
             this.logIn_button_tableLayout_panel.ResumeLayout(false);
             this.logIn_button_tableLayout_panel.PerformLayout();
@@ -233,9 +234,9 @@
         private System.Windows.Forms.Label logIn_username_label;
         private System.Windows.Forms.Label logIn_password_label;
         private System.Windows.Forms.TextBox logIn_username_textbox;
-        private System.Windows.Forms.TextBox logIn_password_textbox;
         private System.Windows.Forms.TableLayoutPanel logIn_button_tableLayout_panel;
         private System.Windows.Forms.Button logIn_button;
         private System.Windows.Forms.CheckBox stayLoggedIn_checkbox;
+        private System.Windows.Forms.TextBox logIn_password_textbox;
     }
 }

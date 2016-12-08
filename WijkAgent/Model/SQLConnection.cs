@@ -13,7 +13,7 @@ namespace WijkAgent.Model
         public MySqlConnection conn;
         public MySqlDataReader rdr;
         public MySqlDataAdapter insrt;
-        
+
         public MySqlCommand cmd;
         public string myConnectionString;
 
@@ -84,18 +84,15 @@ namespace WijkAgent.Model
         public string AddWhereToQuery(string _stm)
         {
             return _stm + "WHERE ";
-
         }
 
         public string AddAndToQuery(string _stm)
         {
             return _stm + "AND ";
-
         }
         public string AddOrderByTimeToQuery(string _stm)
         {
             return _stm + " ORDER BY datetime ";
-
         }
         public string AddLimitToQeury(string _stm, int _resultMax)
         {
@@ -122,7 +119,7 @@ namespace WijkAgent.Model
             _stm = _stm + tempCatgoryWhereQuery;
             return _stm;
         }
-        
+
         public string WhereKeyWordQuery(string _stm)
         {
             string tempKeyWordWhereQuery = "twitter.message LIKE @keyWordInput ";
@@ -140,9 +137,9 @@ namespace WijkAgent.Model
         #endregion
 
         #region Haal alle categorieën op methode
-        public Dictionary<int,string> GetAllCategory()
+        public Dictionary<int, string> GetAllCategory()
         {
-            Dictionary<int,string> category = new Dictionary<int,string>();
+            Dictionary<int, string> category = new Dictionary<int, string>();
             try
             {
                 this.conn.Open();
@@ -173,7 +170,7 @@ namespace WijkAgent.Model
             //24 uur geleden vanaf nu
             string startDate = DateTime.Now.Subtract(new TimeSpan(24, 0, 0)).ToString("yyyy-MM-dd HH:mm:ss");
             //hoelaat het nu is
-            string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");        
+            string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             try
             {
@@ -214,7 +211,7 @@ namespace WijkAgent.Model
 
                 this.conn.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("Error: " + e.Message);
             }
@@ -223,32 +220,28 @@ namespace WijkAgent.Model
         #endregion
 
         #region Get_Latest_Selected_Iddistrict_From_User
-        public int GetLatestSelectedDisctrictFromUser (string _username)
+        public int GetLatestSelectedDisctrictFromUser(string _username)
         {
             //wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
             int idDisctrict = -1;
-            try
-            {
-                this.conn.Open();
-                string stm = "SELECT iddistrict FROM account WHERE username = @username";
-                MySqlCommand command = new MySqlCommand(stm, this.conn);
-                command.Parameters.AddWithValue("@username", _username);
-                this.rdr = command.ExecuteReader();
+            this.conn.Open();
 
-                while (rdr.Read())
-                {
-                    idDisctrict = Int32.Parse(rdr.GetString(0));
-                }
-                this.conn.Close();
+            string stm = "SELECT iddistrict FROM account WHERE username = @username AND iddistrict IS NOT NULL";
+            MySqlCommand command = new MySqlCommand(stm, this.conn);
+            command.Parameters.AddWithValue("@username", _username);
+            this.rdr = command.ExecuteReader();
 
-                return idDisctrict;
-            }
-            catch (Exception e)
+            if (rdr.Read())
             {
-                MessageBox.Show("Error bericht: " + e.Message + "Returning -1");
-                // -1 returnen
-                return idDisctrict;
+                idDisctrict = Convert.ToInt32(rdr.GetString(0));
             }
+            else
+            {
+                idDisctrict = -1;
+            }
+
+            this.conn.Close();
+            return idDisctrict;
         }
         #endregion
 
@@ -275,7 +268,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error bericht: " + e.Message + Environment.NewLine + "Dit was gevonden: " + districtName);
+                Console.WriteLine("Error bericht(GetSelectedDistrictName): " + e.Message + Environment.NewLine + "Dit was gevonden: " + districtName);
                 return districtName;
             }
         }

@@ -20,17 +20,13 @@ namespace WijkAgent
 
         //zodat alles netjes onderelkaar komt
         private int top = 20;
-
-        private Color policeBlue;
-        private Color policeGold;
+        
         private Font labelFont;
 
         public IncidentScreen(int _districtId)
         {
             InitializeComponent();
-
-            policeBlue = Color.FromArgb(0, 70, 130);
-            policeGold = Color.FromArgb(190, 150, 90);
+            
             labelFont = new Font("Calibri", 12, FontStyle.Bold);
 
             //alle categorien en twitter berichten ophalen
@@ -61,6 +57,7 @@ namespace WijkAgent
 
                 //Opslaan knop verbergen
                 saveIncidentButton.Hide();
+                cancelIncidentButton.Location = new Point(440, 518);
             }
             else
             {
@@ -144,10 +141,6 @@ namespace WijkAgent
             this.Close();
         }
         #endregion
-
-        private void IncidentScreen_Load(object sender, EventArgs e)
-        {
-            this.BackColor = policeBlue;
-        }
+        
     }
 }

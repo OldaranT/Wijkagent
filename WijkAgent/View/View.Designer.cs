@@ -183,7 +183,7 @@
             // 
             // main_menu_panel_for_label
             // 
-            this.main_menu_panel_for_label.BackColor = System.Drawing.Color.Blue;
+            this.main_menu_panel_for_label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.main_menu_panel_for_label.Controls.Add(this.main_menu_label);
             this.main_menu_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_panel_for_label.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -248,7 +248,7 @@
             // 
             // main_menu_selected_district_panel
             // 
-            this.main_menu_selected_district_panel.BackColor = System.Drawing.Color.Blue;
+            this.main_menu_selected_district_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.main_menu_selected_district_panel.Controls.Add(this.main_menu_selected_district_label);
             this.main_menu_selected_district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_selected_district_panel.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -285,7 +285,7 @@
             // 
             // save_incedents_button
             // 
-            this.save_incedents_button.BackColor = System.Drawing.Color.Blue;
+            this.save_incedents_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.save_incedents_button.Dock = System.Windows.Forms.DockStyle.Top;
             this.save_incedents_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
             this.save_incedents_button.ForeColor = System.Drawing.Color.White;
@@ -301,7 +301,7 @@
             // 
             // go_to_history_panel_button_from_main_menu_tab
             // 
-            this.go_to_history_panel_button_from_main_menu_tab.BackColor = System.Drawing.Color.Blue;
+            this.go_to_history_panel_button_from_main_menu_tab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.go_to_history_panel_button_from_main_menu_tab.Dock = System.Windows.Forms.DockStyle.Top;
             this.go_to_history_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
             this.go_to_history_panel_button_from_main_menu_tab.ForeColor = System.Drawing.Color.White;
@@ -316,7 +316,7 @@
             // 
             // go_to_province_panel_button_from_main_menu_tab
             // 
-            this.go_to_province_panel_button_from_main_menu_tab.BackColor = System.Drawing.Color.Blue;
+            this.go_to_province_panel_button_from_main_menu_tab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.go_to_province_panel_button_from_main_menu_tab.Dock = System.Windows.Forms.DockStyle.Top;
             this.go_to_province_panel_button_from_main_menu_tab.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
             this.go_to_province_panel_button_from_main_menu_tab.ForeColor = System.Drawing.Color.White;
@@ -331,14 +331,16 @@
             // 
             // view_logOut_button
             // 
+            this.view_logOut_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.view_logOut_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.view_logOut_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.view_logOut_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.view_logOut_button.ForeColor = System.Drawing.Color.White;
             this.view_logOut_button.Location = new System.Drawing.Point(3, 603);
             this.view_logOut_button.Name = "view_logOut_button";
             this.view_logOut_button.Size = new System.Drawing.Size(171, 62);
             this.view_logOut_button.TabIndex = 3;
             this.view_logOut_button.Text = "Uitloggen";
-            this.view_logOut_button.UseVisualStyleBackColor = true;
+            this.view_logOut_button.UseVisualStyleBackColor = false;
             this.view_logOut_button.Click += new System.EventHandler(this.view_logOut_button_Click);
             // 
             // province_panel
@@ -381,7 +383,7 @@
             // 
             // province_panel_for_label
             // 
-            this.province_panel_for_label.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.province_panel_for_label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.province_panel_for_label.Controls.Add(this.province_panel_label);
             this.province_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.province_panel_for_label.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -407,8 +409,10 @@
             // 
             // go_to_main_menu_panel_button
             // 
-            this.go_to_main_menu_panel_button.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.go_to_main_menu_panel_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.go_to_main_menu_panel_button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.go_to_main_menu_panel_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.go_to_main_menu_panel_button.ForeColor = System.Drawing.Color.White;
             this.go_to_main_menu_panel_button.Location = new System.Drawing.Point(0, 607);
             this.go_to_main_menu_panel_button.Margin = new System.Windows.Forms.Padding(0);
             this.go_to_main_menu_panel_button.Name = "go_to_main_menu_panel_button";
@@ -511,6 +515,7 @@
             // city_tab
             // 
             this.city_tab.Controls.Add(this.city_panel);
+            this.city_tab.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
             this.city_tab.Location = new System.Drawing.Point(4, 5);
             this.city_tab.Margin = new System.Windows.Forms.Padding(0);
             this.city_tab.Name = "city_tab";
@@ -549,7 +554,7 @@
             // 
             // city_panel_for_label
             // 
-            this.city_panel_for_label.BackColor = System.Drawing.Color.Turquoise;
+            this.city_panel_for_label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.city_panel_for_label.Controls.Add(this.city_panel_label);
             this.city_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.city_panel_for_label.ForeColor = System.Drawing.Color.CornflowerBlue;
@@ -585,15 +590,16 @@
             // 
             // go_to_province_panel_button_from_city_tab
             // 
+            this.go_to_province_panel_button_from_city_tab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.go_to_province_panel_button_from_city_tab.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.go_to_province_panel_button_from_city_tab.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.go_to_province_panel_button_from_city_tab.ForeColor = System.Drawing.Color.White;
             this.go_to_province_panel_button_from_city_tab.Location = new System.Drawing.Point(0, 611);
             this.go_to_province_panel_button_from_city_tab.Margin = new System.Windows.Forms.Padding(0);
             this.go_to_province_panel_button_from_city_tab.Name = "go_to_province_panel_button_from_city_tab";
             this.go_to_province_panel_button_from_city_tab.Size = new System.Drawing.Size(181, 61);
             this.go_to_province_panel_button_from_city_tab.TabIndex = 0;
             this.go_to_province_panel_button_from_city_tab.Text = "Terug";
-            this.go_to_province_panel_button_from_city_tab.UseVisualStyleBackColor = true;
+            this.go_to_province_panel_button_from_city_tab.UseVisualStyleBackColor = false;
             this.go_to_province_panel_button_from_city_tab.Click += new System.EventHandler(this.go_to_province_panel_button_from_city_tab_Click);
             // 
             // district_tab
@@ -636,6 +642,7 @@
             // 
             // district_panel_for_label
             // 
+            this.district_panel_for_label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.district_panel_for_label.Controls.Add(this.district_panel_label);
             this.district_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.district_panel_for_label.Location = new System.Drawing.Point(0, 0);
@@ -670,9 +677,10 @@
             // 
             // go_to_city_panel_button_from_district_tab
             // 
-            this.go_to_city_panel_button_from_district_tab.BackColor = System.Drawing.Color.White;
+            this.go_to_city_panel_button_from_district_tab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.go_to_city_panel_button_from_district_tab.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.go_to_city_panel_button_from_district_tab.ForeColor = System.Drawing.Color.Black;
+            this.go_to_city_panel_button_from_district_tab.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.go_to_city_panel_button_from_district_tab.ForeColor = System.Drawing.Color.White;
             this.go_to_city_panel_button_from_district_tab.Location = new System.Drawing.Point(0, 611);
             this.go_to_city_panel_button_from_district_tab.Margin = new System.Windows.Forms.Padding(0);
             this.go_to_city_panel_button_from_district_tab.Name = "go_to_city_panel_button_from_district_tab";
@@ -737,7 +745,7 @@
             // 
             // history_header_panel
             // 
-            this.history_header_panel.BackColor = System.Drawing.Color.Blue;
+            this.history_header_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.history_header_panel.Controls.Add(this.history_header_results_label);
             this.history_header_panel.Controls.Add(this.History_header_label);
             this.history_header_panel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -811,7 +819,7 @@
             // 
             // twitter_panel
             // 
-            this.twitter_panel.BackColor = System.Drawing.Color.Gold;
+            this.twitter_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(150)))), ((int)(((byte)(90)))));
             this.twitter_panel.Controls.Add(this.twitter_table_layout_panel);
             this.twitter_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.twitter_panel.Location = new System.Drawing.Point(3, 3);
@@ -842,7 +850,7 @@
             // 
             // twitter_number_of_new_tweets_panel
             // 
-            this.twitter_number_of_new_tweets_panel.BackColor = System.Drawing.Color.Gold;
+            this.twitter_number_of_new_tweets_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(150)))), ((int)(((byte)(90)))));
             this.twitter_number_of_new_tweets_panel.Controls.Add(this.twitter_number_of_new_tweets_label);
             this.twitter_number_of_new_tweets_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.twitter_number_of_new_tweets_panel.Location = new System.Drawing.Point(3, 647);
@@ -969,7 +977,7 @@
             // 
             // history_option_panel_for_label
             // 
-            this.history_option_panel_for_label.BackColor = System.Drawing.Color.Blue;
+            this.history_option_panel_for_label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.history_option_panel_for_label.Controls.Add(this.history_option_label);
             this.history_option_panel_for_label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.history_option_panel_for_label.Location = new System.Drawing.Point(0, 0);
@@ -1193,7 +1201,7 @@
             // 
             // history_search_button
             // 
-            this.history_search_button.BackColor = System.Drawing.Color.Blue;
+            this.history_search_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.history_search_button.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.history_search_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_search_button.ForeColor = System.Drawing.Color.White;

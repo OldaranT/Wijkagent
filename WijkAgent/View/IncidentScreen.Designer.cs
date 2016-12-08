@@ -101,7 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Blue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.ClientSize = new System.Drawing.Size(537, 565);
             this.Controls.Add(this.cancelIncidentButton);
             this.Controls.Add(this.saveIncidentButton);
@@ -113,7 +113,6 @@
             this.Name = "IncidentScreen";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "IncidentScreen";
-            this.Load += new System.EventHandler(this.IncidentScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
