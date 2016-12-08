@@ -78,7 +78,7 @@ namespace WijkAgent
                 //Als wachtwoord gelijk is aan wachtwoord uit de database, kan er worden ingelogd
                 if (dbPassword == textbox_password)
                 {
-                    //als de checkbox is aangevinkt voor de fucntie uit
+                    //als de checkbox is aangevinkt, voer de functie uit
                     if (stayLoggedIn_checkbox.Checked)
                     {
                         SetLastUsedUsername();
@@ -145,9 +145,11 @@ namespace WijkAgent
         }
         #endregion
 
+        #region LogInScreen_Load
         private void LogInScreen_Load(object sender, EventArgs e)
         {
             this.BackColor = policeBlue;
         }
+        #endregion
     }
 }
