@@ -105,7 +105,7 @@ namespace WijkAgent
         #endregion
 
         #region Hashen van password(SHA-512)
-        private string getSHA512(string text)
+        public string getSHA512(string text)
         {
             SHA512CryptoServiceProvider sh = new SHA512CryptoServiceProvider();
             sh.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
