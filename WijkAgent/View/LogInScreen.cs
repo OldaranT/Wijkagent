@@ -149,6 +149,7 @@ namespace WijkAgent
         private void LogInScreen_Load(object sender, EventArgs e)
         {
             this.BackColor = policeBlue;
+            logIn_password_textbox.Clear();
         }
         #endregion
     }
