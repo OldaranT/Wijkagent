@@ -179,12 +179,5 @@ namespace WijkAgent.Model.Tests
             Assert.AreEqual(expected, encryptedPassword);
         }
         #endregion
-
-
-        [TestMethod()]
-        public void ldfjlaskdjfl()
-        {
-            
-        }
     }
 }

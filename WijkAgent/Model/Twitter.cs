@@ -103,6 +103,7 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        #region TrendingTopics
         public string TrendingTopics()
         {
             string output = "";
@@ -162,7 +163,9 @@ namespace WijkAgent.Model
             }
             return output;
         }
+        #endregion
 
+        #region TredingTags
         public string TrendingTags()
         {
             string output = "";
@@ -235,6 +238,7 @@ namespace WijkAgent.Model
             }
             return output;
         }
+        #endregion
 
     }
 }
