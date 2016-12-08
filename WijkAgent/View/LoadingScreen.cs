@@ -24,7 +24,8 @@ namespace WijkAgent
             try
             {
                 this.Show();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
@@ -36,7 +37,8 @@ namespace WijkAgent
             try
             {
                 this.Hide();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
