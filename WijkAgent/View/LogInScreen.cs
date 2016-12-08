@@ -78,16 +78,16 @@ namespace WijkAgent
                 //Als wachtwoord gelijk is aan wachtwoord uit de database, kan er worden ingelogd
                 if (dbPassword == textbox_password)
                 {
+                    //als de checkbox is aangevinkt, voer de functie uit
+                    if (stayLoggedIn_checkbox.Checked)
+                    {
+                        SetLastUsedUsername();
+                    }
+
                     //Open applicatie, sluit inlogscherm
                     if (OnLogInButtonClick != null)
                     {
                         OnLogInButtonClick(textbox_username);
-                        //als de checkbox is aangevinkt voor de fucntie uit
-                        if(stayLoggedIn_checkbox.Checked)
-                        {
-                            SetLastUsedUsername();
-                        }
-                        
                     }
                 }
                 else
@@ -105,7 +105,7 @@ namespace WijkAgent
         #endregion
 
         #region Hashen van password(SHA-512)
-        private string getSHA512(string text)
+        public string getSHA512(string text)
         {
             SHA512CryptoServiceProvider sh = new SHA512CryptoServiceProvider();
             sh.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
@@ -133,31 +133,23 @@ namespace WijkAgent
         #region GetLastUsedUsername
         public void GetLastUsedUsername()
         {
-            //gaat naar de debug folder
-            string _curDir = Directory.GetCurrentDirectory();
-            //ga naar de goede map waar het text bestand in staan
-            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
-            //lees het textbestand
-            string lastUsedUsername = System.IO.File.ReadAllText(_filePath);
-
-            logIn_username_textbox.Text = lastUsedUsername;
+            logIn_username_textbox.Text = Properties.Settings.Default.LastUsername;
         }
         #endregion
 
         #region SetLastUsedUsername
         public void SetLastUsedUsername()
         {
-            //gaat naar de debug folder
-            string _curDir = Directory.GetCurrentDirectory();
-            //ga naar de goede map waar het text bestand in staan
-            string _filePath = Path.GetFullPath(Path.Combine(_curDir, "../../Resource/gebruikersnaam.txt"));
-            System.IO.File.WriteAllText(_filePath, logIn_username_textbox.Text);
+            Properties.Settings.Default.LastUsername = logIn_username_textbox.Text;
+            Properties.Settings.Default.Save();
         }
         #endregion
 
+        #region LogInScreen_Load
         private void LogInScreen_Load(object sender, EventArgs e)
         {
             this.BackColor = policeBlue;
         }
+        #endregion
     }
 }
