@@ -12,7 +12,9 @@ namespace WijkAgent.Model.Tests
     public class TwitterTests
     {
 
-        //Twitter
+        #region Twitter
+
+        #region SearchResultsTest_ShouldFindNoResult_WhenRadiusIsZero
         [TestMethod()]
         public void SearchResultsTest_ShouldFindNoResult_WhenRadiusIsZero()
         {
@@ -31,8 +33,9 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(0, twitter.tweetsList.Count);
         }
+        #endregion
 
-        //Twitter
+        #region AddTweets_ShouldAddTweetToList_WhenTimeIsLessThan24HoursAgo
         [TestMethod()]
         public void AddTweets_ShouldAddTweetToList_WhenTimeIsLessThan24HoursAgo()
         {
@@ -53,6 +56,7 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(1, twitter.tweetsList.Count);
         }
+#endregion
 
         //Twitter
         [TestMethod()]
@@ -75,11 +79,11 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(0, twitter.tweetsList.Count);
         }
+        #endregion
 
+        #region Tweet
 
-        ////////////////////////////////////////////////////////////////////////////
-
-        //Tweet
+        #region Tweet_UserShouldNotContainQuote_WhenTweetIsDeclared
         [TestMethod()]
         public void Tweet_UserShouldNotContainQuote_WhenTweetIsDeclared()
         {
@@ -100,8 +104,9 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(false, twitter.tweetsList[0].user.Contains("\""));
         }
+        #endregion
 
-        //Tweet
+        #region Tweet_ShouldAddItemToLinkList_WhenMessageContainsHttp
         [TestMethod()]
         public void Tweet_ShouldAddItemToLinkList_WhenMessageContainsHttp()
         {
@@ -122,9 +127,10 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(1, tweet.links.Count);
         }
+        #endregion
+        #endregion
 
-        ////////////////////////////////////////////////////////////////////////////
-        //Map
+        #region Map
         [TestMethod()]
         public void calculateRadiusKm_ShouldReturnRadius_WhenCoordinatesAreGiven()
         {
@@ -152,8 +158,8 @@ namespace WijkAgent.Model.Tests
 
             //Assert
             Assert.AreEqual(expectedOutcome, radius);
-
         }
+        #endregion
 
 
     }
