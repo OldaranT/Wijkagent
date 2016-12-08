@@ -56,9 +56,9 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(1, twitter.tweetsList.Count);
         }
-#endregion
+        #endregion
 
-        //Twitter
+        #region AddTweets_ShouldNotAddTweetToList_WhenTimeIsMoreThan24HoursAgo
         [TestMethod()]
         public void AddTweets_ShouldNotAddTweetToList_WhenTimeIsMoreThan24HoursAgo()
         {
@@ -79,6 +79,8 @@ namespace WijkAgent.Model.Tests
             //Assert
             Assert.AreEqual(0, twitter.tweetsList.Count);
         }
+        #endregion
+
         #endregion
 
         #region Tweet
