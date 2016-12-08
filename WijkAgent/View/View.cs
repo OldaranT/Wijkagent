@@ -316,6 +316,9 @@ namespace WijkAgent
             //Van wijk veranderen
             modelClass.ChangeDistrict();
 
+            //Verander geselecteerde label text.
+            ChangeSelectedDistrictText(clickedButton.Text);
+
             //Twitter panel updaten
             UpdateTwitterpanel();
 
@@ -467,6 +470,8 @@ namespace WijkAgent
             try
             {
                 save_incedents_button.Hide();
+                main_menu_area_district_scrollable_panel.Hide();
+                main_menu_selected_district_panel.Hide();
             }
             catch (Exception ex)
             {
@@ -1048,10 +1053,12 @@ namespace WijkAgent
             if (modelClass.map.districtSelected)
                 refresh_waypoints_button.Show();
 
-            //laat voorvallen knop zien
+            //laat voorvallen/dichtbij liggende wijken knop/panel zien
             try
             {
                 save_incedents_button.Show();
+                main_menu_area_district_scrollable_panel.Show();
+                main_menu_selected_district_panel.Show();
             }
             catch (Exception ex)
             {
@@ -1069,14 +1076,23 @@ namespace WijkAgent
         {
             //Ophalen van idDistrict
             int idDistrict = modelClass.databaseConnectie.GetLatestSelectedDisctrictFromUser(modelClass.username);
+            string districtName = modelClass.databaseConnectie.GetSelectedDistrictName(idDistrict);
 
             //Als idDistrict lager is dan 0 betekend dit dat er geen iddisctrict is opgeslagen bij deze gebruiker
             if (idDistrict > 0)
             {
                 modelClass.ChangeDistrict(idDistrict);
+                ChangeSelectedDistrictText(districtName);
                 UpdateTwitterpanel();
                 ShowWhatsNeeded();
             }
+        }
+        #endregion
+
+        #region ChangeSelectedDistrictText
+        public void ChangeSelectedDistrictText(string _districtName)
+        {
+            main_menu_selected_district_label.Text = "Laatste geselecteerde wijk: "+ Environment.NewLine + _districtName;
         }
         #endregion
     }

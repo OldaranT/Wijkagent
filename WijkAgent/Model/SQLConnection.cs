@@ -252,6 +252,35 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        #region Get_Selected_DistrictName
+        public string GetSelectedDistrictName(int _idDistrict)
+        {
+            //wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
+            string districtName = "";
+            try
+            {
+                this.conn.Open();
+                string stm = "SELECT name FROM district WHERE iddistrict = @iddistrict";
+                MySqlCommand command = new MySqlCommand(stm, this.conn);
+                command.Parameters.AddWithValue("@iddistrict", _idDistrict);
+                this.rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    districtName = rdr.GetString(0);
+                }
+                this.conn.Close();
+
+                return districtName;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error bericht: " + e.Message + Environment.NewLine + "Dit was gevonden: " + districtName);
+                return districtName;
+            }
+        }
+        #endregion
+
         #region Get_all_coordinates_from_district
         public Dictionary<string, List<double>> GetAllCoordinatesFromDistrict(int _idDistrict)
         {
