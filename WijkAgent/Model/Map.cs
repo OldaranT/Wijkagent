@@ -35,6 +35,7 @@ namespace WijkAgent.Model
             currentLongitudePoints = new List<double>();
         }
 
+        #region Intitialize
         public void initialize()
         {
             this.wb = new WebBrowser();
@@ -58,6 +59,7 @@ namespace WijkAgent.Model
             this.wb.Document.InvokeScript("initialize", _initArgs);
 
         }
+        #endregion
 
         #region ChangeDisctrict_Method
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
