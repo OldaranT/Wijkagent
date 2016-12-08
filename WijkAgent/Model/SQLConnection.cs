@@ -252,7 +252,7 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region Get_Latest_Selected_Iddistrict_From_User
+        #region Get_Selected_DistrictName
         public string GetSelectedDistrictName(int _idDistrict)
         {
             //wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
