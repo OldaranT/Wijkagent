@@ -99,6 +99,8 @@ namespace WijkAgent
                 try
                 {
                     save_incedents_button.Show();
+                    main_menu_area_district_scrollable_panel.Show();
+                    main_menu_selected_district_panel.Show();
                 }
                 catch (Exception ex)
                 {
@@ -319,7 +321,7 @@ namespace WijkAgent
         #region GeneratedPanelStyle_Method
         private void panelLayout(Panel _panel)
         {
-            _panel.Size = new Size(panelSizeX, panelSizeY);
+            _panel.AutoSize = true;
             _panel.Dock = DockStyle.Top;
             _panel.BackColor = Color.White;
             _panel.BorderStyle = BorderStyle.Fixed3D;
@@ -329,6 +331,7 @@ namespace WijkAgent
         #region GeneratedLabelStyle_Method
         private void labelLayout(Label _label)
         {
+            _label.AutoSize = true;
             _label.Dock = DockStyle.Fill;
             _label.ForeColor = policeBlue;
             _label.Font = mainFont;
