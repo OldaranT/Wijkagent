@@ -31,10 +31,6 @@ namespace WijkAgent
         //laats geklikte label
         private Label lastClickedLabel;
 
-        //maximale trending lengte
-        private int tagLengte = 14;
-        private int wordLengte = 14;
-
         //placeholders
         private string searchDistrict = "Zoek een wijk . . .";
         private string searchUser = "Zoek een gebruiker . . .";
@@ -85,52 +81,6 @@ namespace WijkAgent
         private void View_Load(object sender, EventArgs e)
         {
             fillSearchSuggestions();
-
-            #region Layout Colours toevoegen.
-            main_menu_panel_for_label.BackColor = policeBlue;
-            province_panel_for_label.BackColor = policeBlue;
-            city_panel_for_label.BackColor = policeBlue;
-            district_panel_for_label.BackColor = policeBlue;
-            history_option_panel_for_label.BackColor = policeBlue;
-            history_header_panel.BackColor = policeBlue;
-            twitter_number_of_new_tweets_panel.BackColor = policeGold;
-            twitter_panel.BackColor = policeGold;
-            main_menu_selected_district_panel.BackColor = policeBlue;
-            //Zoek button
-            history_search_button.BackColor = policeBlue;
-            history_search_button.ForeColor = Color.White;
-            history_search_button.Font = mainFont;
-
-            //history button
-            go_to_history_panel_button_from_main_menu_tab.BackColor = policeBlue;
-            go_to_history_panel_button_from_main_menu_tab.ForeColor = Color.White;
-            go_to_history_panel_button_from_main_menu_tab.Font = mainFont;
-
-            //selecteer wijk
-            go_to_province_panel_button_from_main_menu_tab.BackColor = policeBlue;
-            go_to_province_panel_button_from_main_menu_tab.ForeColor = Color.White;
-            go_to_province_panel_button_from_main_menu_tab.Font = mainFont;
-
-            go_to_main_menu_panel_button.BackColor = policeBlue;
-            go_to_main_menu_panel_button.ForeColor = Color.White;
-            go_to_main_menu_panel_button.Font = mainFont;
-
-            go_to_province_panel_button_from_city_tab.BackColor = policeBlue;
-            go_to_province_panel_button_from_city_tab.ForeColor = Color.White;
-            go_to_province_panel_button_from_city_tab.Font = mainFont;
-
-            go_to_city_panel_button_from_district_tab.BackColor = policeBlue;
-            go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
-            go_to_city_panel_button_from_district_tab.Font = mainFont;
-
-            save_incedents_button.BackColor = policeBlue;
-            save_incedents_button.ForeColor = Color.White;
-            save_incedents_button.Font = mainFont;
-            
-            view_logOut_button.BackColor = policeBlue;
-            view_logOut_button.ForeColor = Color.White;
-            view_logOut_button.Font = mainFont;
-            #endregion
         }
         #endregion
 
@@ -358,7 +308,7 @@ namespace WijkAgent
             _button.Font = mainFont;
             _button.FlatStyle = FlatStyle.Flat;
             _button.FlatAppearance.BorderColor = policeGold;
-            _button.FlatAppearance.BorderSize = 1;
+            _button.FlatAppearance.BorderSize = 2;
         }
         #endregion
 
@@ -538,146 +488,18 @@ namespace WijkAgent
         #endregion
 
         #region TwitterTrending
-
-        
-
         public void TwitterTrending()
         {
             //twitterTrendingList
             List<string> trendingTweetWord = new List<string>();
             List<string> trendingTags = new List<string>();
 
-            //Initaliseren van _tekst
-            var _tekst = "";
 
-            //Maak een lange string van alle twitterberichten          
-            foreach (var tweets in modelClass.map.twitter.tweetsList)
-            {
-                _tekst += tweets.message + " ";
-            }
-
-            //Haal een string op, filter alle woorden eruit
-            //Groepeer de woorden die groter zijn dan 3 tekens
-            //Sorteer van groot naar klein (van meest voorkomende naar minst voorkomende)
-            var words =
-            Regex.Split(_tekst.ToLower(), @"\W+")
-            .Where(s => s.Length > 3)
-            .GroupBy(s => s)
-            .OrderByDescending(g => g.Count());
-           
-            //Controleer of het woord langer is dan een specifiek aantal karakters
-            //Voor de woorden
-            //Zo ja, split het woord en voeg het woord toe
-            //Zo nee, voeg het wooord alleen toe, zonder aanpassing
-            if(words.Count() < 1)
-            {
-                twitter_trending_topic_label.Text = "Er zijn geen trending topics."; 
-            }
-            else
-            {
-                foreach (var word in words)
-                {
-                    if (word.Key.Length > wordLengte)
-                    {
-                        string splittedTweetWord = "";
-                        var wordSplit = word.Key.SplitInParts(wordLengte);
-                        foreach (string split in wordSplit)
-                        {
-                            splittedTweetWord += split + " ";
-                        }
-                        trendingTweetWord.Add(splittedTweetWord);
-                    }
-                    else
-                    {
-                        trendingTweetWord.Add(word.Key);
-                    }
-                }
-
-                //Print de trending woorden op het scherm in een label
-                int _wordCount = trendingTweetWord.Count();
-                if (_wordCount < 3)
-                {
-                    twitter_trending_topic_label.Text = "Trending topics:\n";
-                    for (int i = 0; i < _wordCount; i++)
-                    {
-                        twitter_trending_topic_label.Text += (i + 1) + ": " + trendingTweetWord[i] + "\n";
-                    }
-                }
-                else
-                {
-                    twitter_trending_topic_label.Text = "Trending topics:\n" + "1: " + trendingTweetWord[0] + "\n2: " + trendingTweetWord[1] + "\n3: " + trendingTweetWord[2];
-                }
-
-            }
-
-            //Pak alle twitterberichten die een hashtag bevatten
-            var tagsMessage =
-                from tweet in modelClass.map.twitter.tweetsList
-                where tweet.message.Contains("#")
-                select tweet.message;
-
-
-            if (tagsMessage.Count() < 1)
-            {
-                twitter_trending_tag_label.Text = "Er zijn geen tags getweet!";
-            }
-            else
-            {
-                //Initialiseren van messageTagsString
-                string messageTagsString = "";
-
-                //Maak een lange string van alle woorden
-                foreach (string tagMessageWord in tagsMessage)
-                {
-                    messageTagsString += tagMessageWord + " ";
-                }
-
-                //Stop alle hashtags in een array
-                var tags = Regex.Split(messageTagsString.ToLower(), @"\s+")
-                    .Where(a => a.StartsWith("#"))
-                    .GroupBy(s => s)
-                    .OrderByDescending(g => g.Count());
-
-                //Controleer of het woord langer is dan een specifiek aantal karakters
-                //Voor de hashtags
-                //Zo ja, split het woord en voeg het woord toe
-                //Zo nee, voeg het wooord alleen toe, zonder aanpassing
-                foreach (var tag in tags)
-                {
-                    if (tag.Key.Length > tagLengte)
-                    {
-                        string splittedTag = "";
-                        var tagSplit = tag.Key.SplitInParts(tagLengte);
-                        foreach (string split in tagSplit)
-                        {
-                            splittedTag += split + " ";
-                        }
-                        trendingTags.Add(splittedTag);
-                    }
-                    else
-                    {
-                        trendingTags.Add(tag.Key);
-                    }
-                }
-
-                //Print de trending hashtags op het scherm in een label
-                int _tagCount = trendingTags.Count();
-                if (_tagCount < 3)
-                {
-                    twitter_trending_tag_label.Text = "Trending tags:\n";
-                    for (int i = 0; i < _tagCount; i++)
-                    {
-                        twitter_trending_tag_label.Text += (i + 1) + ": " + trendingTags[i] + "\n";
-                    }
-                }
-                else
-                {
-                    twitter_trending_tag_label.Text = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
-                }
-            }
+            twitter_trending_topic_label.Text = modelClass.map.twitter.TrendingTopics();
+            twitter_trending_tag_label.Text = modelClass.map.twitter.TrendingTags();
             
 
-            
+
 
         }
         #endregion
@@ -689,7 +511,7 @@ namespace WijkAgent
             //Open database connectie
             modelClass.databaseConnectie.conn.Open();
 
-            //Selectie Query die de namen van allke province selecteer en ordered.
+            //Selectie Query die de namen van ellke province selecteer en ordered.
             string stm = "SELECT DISTINCT name FROM district";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
@@ -720,7 +542,6 @@ namespace WijkAgent
             //sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
-
             history_category_combobox.Text = "test";
             //Roep twitter user suggeties aan.
             //Open database connectie
@@ -738,7 +559,6 @@ namespace WijkAgent
 
             //sluit database connectie
             modelClass.databaseConnectie.conn.Close();
-
         }
         #endregion
 
