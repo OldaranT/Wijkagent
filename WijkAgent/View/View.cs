@@ -22,8 +22,6 @@ namespace WijkAgent
         private bool provinceButtonsCreated = false;
         private int buttonSizeX;
         private int buttonSizeY;
-        private int panelSizeX;
-        private int panelSizeY;
         private Color policeBlue;
         private Color policeGold;
         private Font mainFont;
@@ -49,8 +47,6 @@ namespace WijkAgent
             mainFont = new Font("Calibri", 16, FontStyle.Bold);
             buttonSizeX = 300;
             buttonSizeY = 75;
-            panelSizeX = 300;
-            panelSizeY = 250;
             InitializeComponent();
             this.SetTopLevel(true);
             this.FormBorderStyle = FormBorderStyle.Sizable;
