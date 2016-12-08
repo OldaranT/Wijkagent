@@ -85,52 +85,6 @@ namespace WijkAgent
         private void View_Load(object sender, EventArgs e)
         {
             fillSearchSuggestions();
-
-            #region Layout Colours toevoegen.
-            main_menu_panel_for_label.BackColor = policeBlue;
-            province_panel_for_label.BackColor = policeBlue;
-            city_panel_for_label.BackColor = policeBlue;
-            district_panel_for_label.BackColor = policeBlue;
-            history_option_panel_for_label.BackColor = policeBlue;
-            history_header_panel.BackColor = policeBlue;
-            twitter_number_of_new_tweets_panel.BackColor = policeGold;
-            twitter_panel.BackColor = policeGold;
-            main_menu_selected_district_panel.BackColor = policeBlue;
-            //Zoek button
-            history_search_button.BackColor = policeBlue;
-            history_search_button.ForeColor = Color.White;
-            history_search_button.Font = mainFont;
-
-            //history button
-            go_to_history_panel_button_from_main_menu_tab.BackColor = policeBlue;
-            go_to_history_panel_button_from_main_menu_tab.ForeColor = Color.White;
-            go_to_history_panel_button_from_main_menu_tab.Font = mainFont;
-
-            //selecteer wijk
-            go_to_province_panel_button_from_main_menu_tab.BackColor = policeBlue;
-            go_to_province_panel_button_from_main_menu_tab.ForeColor = Color.White;
-            go_to_province_panel_button_from_main_menu_tab.Font = mainFont;
-
-            go_to_main_menu_panel_button.BackColor = policeBlue;
-            go_to_main_menu_panel_button.ForeColor = Color.White;
-            go_to_main_menu_panel_button.Font = mainFont;
-
-            go_to_province_panel_button_from_city_tab.BackColor = policeBlue;
-            go_to_province_panel_button_from_city_tab.ForeColor = Color.White;
-            go_to_province_panel_button_from_city_tab.Font = mainFont;
-
-            go_to_city_panel_button_from_district_tab.BackColor = policeBlue;
-            go_to_city_panel_button_from_district_tab.ForeColor = Color.White;
-            go_to_city_panel_button_from_district_tab.Font = mainFont;
-
-            save_incedents_button.BackColor = policeBlue;
-            save_incedents_button.ForeColor = Color.White;
-            save_incedents_button.Font = mainFont;
-            
-            view_logOut_button.BackColor = policeBlue;
-            view_logOut_button.ForeColor = Color.White;
-            view_logOut_button.Font = mainFont;
-            #endregion
         }
         #endregion
 
@@ -358,7 +312,7 @@ namespace WijkAgent
             _button.Font = mainFont;
             _button.FlatStyle = FlatStyle.Flat;
             _button.FlatAppearance.BorderColor = policeGold;
-            _button.FlatAppearance.BorderSize = 1;
+            _button.FlatAppearance.BorderSize = 2;
         }
         #endregion
 
@@ -538,9 +492,6 @@ namespace WijkAgent
         #endregion
 
         #region TwitterTrending
-
-        
-
         public void TwitterTrending()
         {
             //twitterTrendingList
