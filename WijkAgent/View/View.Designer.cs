@@ -738,8 +738,8 @@
             this.history_view_table_layout_panel.Location = new System.Drawing.Point(3, 3);
             this.history_view_table_layout_panel.Name = "history_view_table_layout_panel";
             this.history_view_table_layout_panel.RowCount = 2;
-            this.history_view_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.history_view_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.history_view_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.history_view_table_layout_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.history_view_table_layout_panel.Size = new System.Drawing.Size(845, 666);
             this.history_view_table_layout_panel.TabIndex = 0;
             // 
@@ -752,7 +752,7 @@
             this.history_header_panel.Location = new System.Drawing.Point(0, 0);
             this.history_header_panel.Margin = new System.Windows.Forms.Padding(0);
             this.history_header_panel.Name = "history_header_panel";
-            this.history_header_panel.Size = new System.Drawing.Size(845, 133);
+            this.history_header_panel.Size = new System.Drawing.Size(845, 166);
             this.history_header_panel.TabIndex = 0;
             // 
             // history_header_results_label
@@ -761,7 +761,7 @@
             this.history_header_results_label.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.history_header_results_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.history_header_results_label.ForeColor = System.Drawing.Color.White;
-            this.history_header_results_label.Location = new System.Drawing.Point(0, 107);
+            this.history_header_results_label.Location = new System.Drawing.Point(0, 140);
             this.history_header_results_label.Name = "history_header_results_label";
             this.history_header_results_label.Size = new System.Drawing.Size(167, 26);
             this.history_header_results_label.TabIndex = 1;
@@ -784,10 +784,10 @@
             this.history_scroll_panel.AutoScroll = true;
             this.history_scroll_panel.BackColor = System.Drawing.SystemColors.Window;
             this.history_scroll_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.history_scroll_panel.Location = new System.Drawing.Point(0, 133);
+            this.history_scroll_panel.Location = new System.Drawing.Point(0, 166);
             this.history_scroll_panel.Margin = new System.Windows.Forms.Padding(0);
             this.history_scroll_panel.Name = "history_scroll_panel";
-            this.history_scroll_panel.Size = new System.Drawing.Size(845, 533);
+            this.history_scroll_panel.Size = new System.Drawing.Size(845, 500);
             this.history_scroll_panel.TabIndex = 1;
             // 
             // twitter_tabcontrol

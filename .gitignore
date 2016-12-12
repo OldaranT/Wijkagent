@@ -34,4 +34,5 @@ WijkAgent/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.
 .vs/WijkAgent/v14/.suo
 WijkAgent/obj/Debug/WijkAgent.IncidentScreen.resources
 WijkAgentTests/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-WijkAgent/bin/Release/WijkAgent.vshost.exe
+WijkAgent/obj/Release/WijkAgent.csprojResolveAssemblyReference.cache
+WijkAgentTests/obj/Debug/build.force
