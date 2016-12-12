@@ -22,8 +22,6 @@ namespace WijkAgent
         private bool provinceButtonsCreated = false;
         private int buttonSizeX;
         private int buttonSizeY;
-        private int panelSizeX;
-        private int panelSizeY;
         private Color policeBlue;
         private Color policeGold;
         private Font mainFont;
@@ -49,8 +47,6 @@ namespace WijkAgent
             mainFont = new Font("Calibri", 16, FontStyle.Bold);
             buttonSizeX = 300;
             buttonSizeY = 75;
-            panelSizeX = 300;
-            panelSizeY = 250;
             InitializeComponent();
             this.SetTopLevel(true);
             this.FormBorderStyle = FormBorderStyle.Sizable;
@@ -95,6 +91,8 @@ namespace WijkAgent
                 try
                 {
                     save_incedents_button.Show();
+                    main_menu_area_district_scrollable_panel.Show();
+                    main_menu_selected_district_panel.Show();
                 }
                 catch (Exception ex)
                 {
@@ -315,7 +313,7 @@ namespace WijkAgent
         #region GeneratedPanelStyle_Method
         private void panelLayout(Panel _panel)
         {
-            _panel.Size = new Size(panelSizeX, panelSizeY);
+            _panel.AutoSize = true;
             _panel.Dock = DockStyle.Top;
             _panel.BackColor = Color.White;
             _panel.BorderStyle = BorderStyle.Fixed3D;
@@ -325,6 +323,7 @@ namespace WijkAgent
         #region GeneratedLabelStyle_Method
         private void labelLayout(Label _label)
         {
+            _label.AutoSize = true;
             _label.Dock = DockStyle.Fill;
             _label.ForeColor = policeBlue;
             _label.Font = mainFont;
@@ -614,6 +613,10 @@ namespace WijkAgent
             string categoryInput = history_category_combobox.Text;
             string keyWordInput = history_keyword_textbox.Text;
             string stm = "";
+            string headerResults = "Aantal resultaten: ";
+            string historyHeaderDefault = "Geschiedenis van: ";
+            string nothingFoundMessage = "Geen resultaten gevonden.";
+            string noFilterSelectedMessage = "U heeft geen filter gekozen.";
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
 
@@ -753,11 +756,10 @@ namespace WijkAgent
 
                     }
 
-
                     if (resultsCount == 0)
                     {
                         Label createNoResultAlert = new Label();
-                        createNoResultAlert.Text = "Geen resultaten gevonden.";
+                        createNoResultAlert.Text = nothingFoundMessage;
                         labelLayout(createNoResultAlert);
                         history_scroll_panel.Controls.Add(createNoResultAlert);
                     }
@@ -780,7 +782,9 @@ namespace WijkAgent
             else
             {
                 Label createEmptyAlert = new Label();
-                createEmptyAlert.Text = "U heeft geen filter gekozen.";
+                createEmptyAlert.Text = noFilterSelectedMessage;
+                History_header_label.Text = historyHeaderDefault;
+                history_header_results_label.Text = headerResults;
                 labelLayout(createEmptyAlert);
                 history_scroll_panel.Controls.Add(createEmptyAlert);
 
