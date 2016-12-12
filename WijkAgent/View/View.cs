@@ -617,7 +617,6 @@ namespace WijkAgent
             string historyHeaderDefault = "Geschiedenis van: ";
             string nothingFoundMessage = "Geen resultaten gevonden.";
             string noFilterSelectedMessage = "U heeft geen filter gekozen.";
-            string teststring;
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
 
