@@ -133,7 +133,7 @@ namespace WijkAgent.Model
                     if (word.Key.Length > wordLength)
                     {
                         string splittedTweetWord = "";
-                        var wordSplit = word.Key.SplitInParts(wordLength);
+                        var wordSplit = Split(word.Key, wordLength);
                         foreach (string split in wordSplit)
                         {
                             splittedTweetWord += split + " ";
@@ -208,7 +208,7 @@ namespace WijkAgent.Model
                     if (tag.Key.Length > tagLength)
                     {
                         string splittedTag = "";
-                        var tagSplit = tag.Key.SplitInParts(tagLength);
+                        var tagSplit = Split(tag.Key, tagLength);
                         foreach (string split in tagSplit)
                         {
                             splittedTag += split + " ";
@@ -240,5 +240,15 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        public List<string> Split(string s, int partLength)
+        {
+            var ListOut = new List<string>();
+
+            for (var i = 0; i < s.Length; i += partLength)
+            {
+                ListOut.Add(s.Substring(i, Math.Min(partLength, s.Length - i)));
+            }
+            return ListOut;
+        }
     }
 }

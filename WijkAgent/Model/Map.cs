@@ -41,7 +41,7 @@ namespace WijkAgent.Model
             this.wb = new WebBrowser();
             //goede format voor een lokaal bestand zodat je het kan gebruiken in de navigate van webbrowser
             string _curDir = Directory.GetCurrentDirectory();
-            var _url = new Uri(String.Format("file:///{0}/{1}", _curDir, "Resource/Map.html"));
+            var _url = new Uri(String.Format("file:///{0}/{1}", _curDir, "../../Resource/Map.html"));
 
             //url openen
             this.wb.Navigate(_url);
