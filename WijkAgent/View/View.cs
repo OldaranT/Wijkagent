@@ -613,10 +613,6 @@ namespace WijkAgent
             string categoryInput = history_category_combobox.Text;
             string keyWordInput = history_keyword_textbox.Text;
             string stm = "";
-            string headerResults = "Aantal resultaten: ";
-            string historyHeaderDefault = "Geschiedenis van: ";
-            string nothingFoundMessage = "Geen resultaten gevonden.";
-            string noFilterSelectedMessage = "U heeft geen filter gekozen.";
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
 
@@ -756,10 +752,11 @@ namespace WijkAgent
 
                     }
 
+
                     if (resultsCount == 0)
                     {
                         Label createNoResultAlert = new Label();
-                        createNoResultAlert.Text = nothingFoundMessage;
+                        createNoResultAlert.Text = "Geen resultaten gevonden.";
                         labelLayout(createNoResultAlert);
                         history_scroll_panel.Controls.Add(createNoResultAlert);
                     }
@@ -782,9 +779,7 @@ namespace WijkAgent
             else
             {
                 Label createEmptyAlert = new Label();
-                createEmptyAlert.Text = noFilterSelectedMessage;
-                History_header_label.Text = historyHeaderDefault;
-                history_header_results_label.Text = headerResults;
+                createEmptyAlert.Text = "U heeft geen filter gekozen.";
                 labelLayout(createEmptyAlert);
                 history_scroll_panel.Controls.Add(createEmptyAlert);
 
