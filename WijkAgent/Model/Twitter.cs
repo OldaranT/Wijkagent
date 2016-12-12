@@ -18,8 +18,7 @@ namespace WijkAgent.Model
     {
         public List<Tweet> tweetsList = new List<Tweet>();
         public event TwitterSearch startTwitterSearch;
-        private int wordLength = 14;
-        private int tagLength = 14;
+        private int trendingLenght = 14;
 
         //Twitter API user
         private string consumerKey = "fNPtDmFBih08YN8q79VQkGWwO";
@@ -130,10 +129,10 @@ namespace WijkAgent.Model
             {
                 foreach (var word in words)
                 {
-                    if (word.Key.Length > wordLength)
+                    if (word.Key.Length > trendingLenght)
                     {
                         string splittedTweetWord = "";
-                        var wordSplit = Split(word.Key, wordLength);
+                        var wordSplit = Split(word.Key, trendingLenght);
                         foreach (string split in wordSplit)
                         {
                             splittedTweetWord += split + " ";
@@ -205,10 +204,10 @@ namespace WijkAgent.Model
                 //Zo nee, voeg het wooord alleen toe, zonder aanpassing
                 foreach (var tag in tags)
                 {
-                    if (tag.Key.Length > tagLength)
+                    if (tag.Key.Length > trendingLenght)
                     {
                         string splittedTag = "";
-                        var tagSplit = Split(tag.Key, tagLength);
+                        var tagSplit = Split(tag.Key, trendingLenght);
                         foreach (string split in tagSplit)
                         {
                             splittedTag += split + " ";
