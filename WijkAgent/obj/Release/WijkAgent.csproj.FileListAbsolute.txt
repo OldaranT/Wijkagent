@@ -26,4 +26,3 @@ C:\Users\Tim Baak\Documents\Visual Studio 2015\Projects\Wijkagentsourcetree\Wijk
 C:\Users\Tim Baak\Documents\Visual Studio 2015\Projects\Wijkagentsourcetree\WijkAgent\obj\Release\WijkAgent.csproj.GenerateResource.Cache
 C:\Users\Tim Baak\Documents\Visual Studio 2015\Projects\Wijkagentsourcetree\WijkAgent\obj\Release\WijkAgent.exe
 C:\Users\Tim Baak\Documents\Visual Studio 2015\Projects\Wijkagentsourcetree\WijkAgent\obj\Release\WijkAgent.pdb
-C:\Users\Tim Baak\Documents\Visual Studio 2015\Projects\Wijkagentsourcetree\WijkAgent\obj\Release\WijkAgent.csprojResolveAssemblyReference.cache

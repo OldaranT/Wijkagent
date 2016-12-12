@@ -18,7 +18,8 @@ namespace WijkAgent.Model
     {
         public List<Tweet> tweetsList = new List<Tweet>();
         public event TwitterSearch startTwitterSearch;
-        private int trendingLenght = 14;
+        private int wordLengte = 14;
+        private int tagLengte = 14;
 
         //Twitter API user
         private string consumerKey = "fNPtDmFBih08YN8q79VQkGWwO";
@@ -129,10 +130,10 @@ namespace WijkAgent.Model
             {
                 foreach (var word in words)
                 {
-                    if (word.Key.Length > trendingLenght)
+                    if (word.Key.Length > wordLengte)
                     {
                         string splittedTweetWord = "";
-                        var wordSplit = Split(word.Key, trendingLenght);
+                        var wordSplit = word.Key.SplitInParts(wordLengte);
                         foreach (string split in wordSplit)
                         {
                             splittedTweetWord += split + " ";
@@ -204,10 +205,10 @@ namespace WijkAgent.Model
                 //Zo nee, voeg het wooord alleen toe, zonder aanpassing
                 foreach (var tag in tags)
                 {
-                    if (tag.Key.Length > trendingLenght)
+                    if (tag.Key.Length > tagLengte)
                     {
                         string splittedTag = "";
-                        var tagSplit = Split(tag.Key, trendingLenght);
+                        var tagSplit = tag.Key.SplitInParts(tagLengte);
                         foreach (string split in tagSplit)
                         {
                             splittedTag += split + " ";
@@ -239,15 +240,5 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        public List<string> Split(string s, int partLength)
-        {
-            var ListOut = new List<string>();
-
-            for (var i = 0; i < s.Length; i += partLength)
-            {
-                ListOut.Add(s.Substring(i, Math.Min(partLength, s.Length - i)));
-            }
-            return ListOut;
-        }
     }
 }

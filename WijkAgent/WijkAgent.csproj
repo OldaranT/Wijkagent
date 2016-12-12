@@ -99,6 +99,7 @@
     <Compile Include="View\IncidentScreen.Designer.cs">
       <DependentUpon>IncidentScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Extensions.cs" />
     <Compile Include="View\LogInScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +171,10 @@
     <None Include="Resources\labelbackground.png" />
     <None Include="Resources\twitter.png" />
     <None Include="Resources\politie-categorie.jpg" />
+    <Content Include="Resource\icons\blue-marker.png" />
+    <Content Include="Resource\icons\blue-pushpin.png" />
+    <Content Include="Resource\icons\green-marker.png" />
+    <Content Include="Resource\icons\red-marker.png" />
     <Content Include="Resource\Map.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
