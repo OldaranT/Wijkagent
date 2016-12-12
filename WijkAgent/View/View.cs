@@ -613,6 +613,7 @@ namespace WijkAgent
             string categoryInput = history_category_combobox.Text;
             string keyWordInput = history_keyword_textbox.Text;
             string stm = "";
+            string teststring;
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
 
