@@ -580,12 +580,12 @@ namespace WijkAgent
             modelClass.databaseConnectie.conn.Open();
 
             //Haal idAccount op
-            string stm = "SELECT * FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
+            string stm = "SELECT person.naam, person.achternaam FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
             cmd.Parameters.AddWithValue("@username", modelClass.username);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
             modelClass.databaseConnectie.rdr.Read();
-            string fullName = modelClass.databaseConnectie.rdr.GetString(6) + " " + modelClass.databaseConnectie.rdr.GetString(7);
+            string fullName = modelClass.databaseConnectie.rdr.GetString(0) + " " + modelClass.databaseConnectie.rdr.GetString(1);
 
             //Sluit database connectie
             modelClass.databaseConnectie.conn.Close();
