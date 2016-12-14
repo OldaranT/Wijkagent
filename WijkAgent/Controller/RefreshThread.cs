@@ -9,20 +9,22 @@ namespace WijkAgent.Controller
 {
     class RefreshThread
     {
-        //View view;
         ViewController controller;
 
+        #region Constructor
         public RefreshThread(ViewController _controller)
         {
             controller = _controller;
         }
+        #endregion
 
+        #region Run
         public void Run()
         {
             // variabele voor het aantal miliseconden dat de thread wacht
             int sleepfor = 5000;
             
-            // de thread wacht hier voor het aantal miliseconden dat is opgegeven
+            // de thread wacht hier op het aantal miliseconden dat is opgegeven
             Thread.Sleep(sleepfor);
 
             // unhide de refresh knop door een delegate te invoken
@@ -30,5 +32,6 @@ namespace WijkAgent.Controller
             // aanroept van een andere thread zonder een exception te veroorzaken
             controller.view.Invoke(controller.ThreadDelegate);
         }
+        #endregion
     }
 }
