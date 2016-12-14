@@ -47,7 +47,6 @@ namespace WijkAgent.Controller
             // update nieuwe tweets label            
             view.UpdateTwitterpanel();
 
-
             myThread = new Thread(new ThreadStart(ThreadFunction));
             myThread.Start();
         }

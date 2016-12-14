@@ -271,7 +271,7 @@ namespace WijkAgent
             ResetClickEventTwitterTag();
 
             twitter_messages_scroll_panel.Controls.Clear();
-            
+
             Button clickedButton = (Button)sender;
 
             // id van wijk ophalen
@@ -288,7 +288,7 @@ namespace WijkAgent
 
             // laat zien wat nodig is(refresh knop)
             ShowWhatsNeeded();
-            
+
             // creeert een button van de omliggende wijken
             add_buttons_for_adjacent_districts();
 
@@ -429,7 +429,7 @@ namespace WijkAgent
         {
             //HIER MICHELLA!!!!! <-------
 
-            Environment.Exit(0);     
+            Environment.Exit(0);
         }
         #endregion
 
@@ -535,7 +535,7 @@ namespace WijkAgent
                     {
                         twitter_taglabel2.Text = "2: " + tag;
                         twitter_taglabel3.Text = emptyString;
-                        
+
                     }
                     else if (trendingTagCounter == 3)
                     {
@@ -889,7 +889,6 @@ namespace WijkAgent
 
                 //Check of twitter tags zijn.
                 TwitterTrending();
-
             }
             else
             {

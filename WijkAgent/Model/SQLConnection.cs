@@ -88,10 +88,11 @@ namespace WijkAgent.Model
 
             if (effectedRows > 0)
             {
-                 message += "Er zijn " + effectedRows + " tweets verwijderd.";
-            } else
+                message += "Er zijn " + effectedRows + " tweets verwijderd.";
+            }
+            else
             {
-                 message += "Er is niets om schoon te maken";
+                message += "Er is niets om schoon te maken";
             }
 
             MessageBox.Show(message);
@@ -372,27 +373,19 @@ namespace WijkAgent.Model
         public int GetRefreshButtonHide(int _idDistrict)
         {
             int seconds = 60;
-            try
-            {
-                this.conn.Open();
-                string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict";
-                MySqlCommand command = new MySqlCommand(stm, this.conn);
-                command.Parameters.AddWithValue("@iddistrict", _idDistrict);
-                this.rdr = command.ExecuteReader();
+            conn.Open();
+            string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict AND refreshTime IS NOT NULL";
+            MySqlCommand command = new MySqlCommand(stm, this.conn);
+            command.Parameters.AddWithValue("@iddistrict", _idDistrict);
+            this.rdr = command.ExecuteReader();
 
-                while (rdr.Read())
-                {
-                    seconds = rdr.GetInt32(0);
-                }
-                this.conn.Close();
-
-                return seconds;
-            }
-            catch (Exception e)
+            while (rdr.Read())
             {
-                Console.WriteLine("Error bericht(GetRefreshButtonHide): " + e.Message + Environment.NewLine + "tijd was niet gevonden!" );
-                return seconds;
+                seconds = rdr.GetInt32(0);
             }
+
+            conn.Close();
+            return seconds;
         }
         #endregion
     }
