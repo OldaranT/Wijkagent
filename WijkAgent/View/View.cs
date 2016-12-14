@@ -355,7 +355,6 @@ namespace WijkAgent
             {
                 doneTwitterSearch();
             }
-
             refresh_waypoints_button.Hide();
 
         }
