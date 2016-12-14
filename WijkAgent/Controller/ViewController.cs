@@ -29,7 +29,8 @@ namespace WijkAgent.Controller
         private void ThreadFunction()
         {
             RefreshThread RefreshThread = new RefreshThread(this);
-            RefreshThread.Run();
+            int sleepfor = view.modelClass.databaseConnectie.GetRefreshButtonHide(view.modelClass.idDistrict) * 1000;
+            RefreshThread.Run(sleepfor);
         }
         #endregion
 
