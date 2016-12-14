@@ -39,6 +39,7 @@
             this.main_menu_selected_district_panel = new System.Windows.Forms.Panel();
             this.main_menu_selected_district_label = new System.Windows.Forms.Label();
             this.main_menu_area_district_scrollable_panel = new System.Windows.Forms.Panel();
+            this.clean_district_tweets_button = new System.Windows.Forms.Button();
             this.save_incedents_button = new System.Windows.Forms.Button();
             this.go_to_history_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
             this.go_to_province_panel_button_from_main_menu_tab = new System.Windows.Forms.Button();
@@ -109,7 +110,6 @@
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_keyword_checkbox = new System.Windows.Forms.CheckBox();
             this.history_search_button = new System.Windows.Forms.Button();
-            this.clean_district_tweets_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -284,6 +284,22 @@
             this.main_menu_area_district_scrollable_panel.Size = new System.Drawing.Size(171, 182);
             this.main_menu_area_district_scrollable_panel.TabIndex = 3;
             this.main_menu_area_district_scrollable_panel.Visible = false;
+            // 
+            // clean_district_tweets_button
+            // 
+            this.clean_district_tweets_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
+            this.clean_district_tweets_button.Dock = System.Windows.Forms.DockStyle.Top;
+            this.clean_district_tweets_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.clean_district_tweets_button.ForeColor = System.Drawing.Color.White;
+            this.clean_district_tweets_button.Location = new System.Drawing.Point(0, 225);
+            this.clean_district_tweets_button.Margin = new System.Windows.Forms.Padding(0);
+            this.clean_district_tweets_button.Name = "clean_district_tweets_button";
+            this.clean_district_tweets_button.Size = new System.Drawing.Size(177, 75);
+            this.clean_district_tweets_button.TabIndex = 5;
+            this.clean_district_tweets_button.Text = "Database opschonen";
+            this.clean_district_tweets_button.UseVisualStyleBackColor = false;
+            this.clean_district_tweets_button.Visible = false;
+            this.clean_district_tweets_button.Click += new System.EventHandler(this.clean_district_tweets_button_Click);
             // 
             // save_incedents_button
             // 
@@ -1215,22 +1231,6 @@
             this.history_search_button.Text = "Zoek";
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
-            // 
-            // clean_district_tweets_button
-            // 
-            this.clean_district_tweets_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
-            this.clean_district_tweets_button.Dock = System.Windows.Forms.DockStyle.Top;
-            this.clean_district_tweets_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
-            this.clean_district_tweets_button.ForeColor = System.Drawing.Color.White;
-            this.clean_district_tweets_button.Location = new System.Drawing.Point(0, 225);
-            this.clean_district_tweets_button.Margin = new System.Windows.Forms.Padding(0);
-            this.clean_district_tweets_button.Name = "clean_district_tweets_button";
-            this.clean_district_tweets_button.Size = new System.Drawing.Size(177, 75);
-            this.clean_district_tweets_button.TabIndex = 5;
-            this.clean_district_tweets_button.Text = "Wijk Opschonen";
-            this.clean_district_tweets_button.UseVisualStyleBackColor = false;
-            this.clean_district_tweets_button.Visible = false;
-            this.clean_district_tweets_button.Click += new System.EventHandler(this.clean_district_tweets_button_Click);
             // 
             // View
             // 

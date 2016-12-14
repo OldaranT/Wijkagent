@@ -84,8 +84,17 @@ namespace WijkAgent.Model
 
             //Sluit database connectie
             conn.Close();
+            string message = "Succes! ";
 
-            MessageBox.Show("Succes! Er zijn " + effectedRows + " tweets verwijderd.");
+            if (effectedRows > 0)
+            {
+                 message += "Er zijn " + effectedRows + " tweets verwijderd.";
+            } else
+            {
+                 message += "Er is niets om schoon te maken";
+            }
+
+            MessageBox.Show(message);
         }
         #endregion
 
