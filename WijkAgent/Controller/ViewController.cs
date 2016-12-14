@@ -38,11 +38,15 @@ namespace WijkAgent.Controller
         #region RefreshButtonController_Clicked
         public void RefreshButton_Clicked()
         {
+            //Reset selected tag.
+            view.ResetClickEventTwitterTag();
+
             // refreshed alles in de laatst geselecteerd wijk om nieuwe tweets weer te geven.
             view.modelClass.map.changeDistrict(view.modelClass.map.currentLatitudePoints, view.modelClass.map.currentLongitudePoints);
 
             // update nieuwe tweets label            
             view.UpdateTwitterpanel();
+
 
             myThread = new Thread(new ThreadStart(ThreadFunction));
             myThread.Start();

@@ -1017,7 +1017,6 @@ namespace WijkAgent
         }
         #endregion
 
-
         #region TagLabel Clickevents
         //Deze events zorgen er voor dat elk label gekleurt wordt en twitter overzicht geupdate word.
         private void twitter_taglabel1_Click(object sender, EventArgs e)
@@ -1117,6 +1116,7 @@ namespace WijkAgent
         }
         #endregion
 
+        #region Filter String to tag
         public string filterStringToTag(string _stringWithTag)
         {
             string returntag = "";
@@ -1131,5 +1131,6 @@ namespace WijkAgent
 
             return returntag;
         }
+        #endregion
     }
 }
