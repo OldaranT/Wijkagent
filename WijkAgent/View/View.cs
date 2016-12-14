@@ -261,6 +261,7 @@ namespace WijkAgent
         public void DistrictButton_Click(object sender, EventArgs e)
         {
             twitter_messages_scroll_panel.Controls.Clear();
+            main_menu_area_district_scrollable_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
 
             // id van wijk ophalen
@@ -276,7 +277,19 @@ namespace WijkAgent
             UpdateTwitterpanel();
 
             // laat zien wat nodig is(refresh knop)
-            ShowWhatsNeeded();  
+            ShowWhatsNeeded();
+
+            Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
+            foreach (KeyValuePair<int, string> entry in test)
+            {
+                Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
+                Button buttonCreate = new Button();
+                buttonCreate.Text = entry.Value;
+                buttonCreate.Name = entry.Key.ToString();
+                buttonLayout(buttonCreate);
+                main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
+                buttonCreate.Click += DistrictButton_Click;
+            }
 
             main_menu_tabcontrol.SelectTab(0);
         }
