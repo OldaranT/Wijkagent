@@ -20,6 +20,7 @@ namespace WijkAgent.Controller
         {
             view = new View(_username);
             view.OnRefreshButtonClick += RefreshButton_Clicked;
+            view.OnCleanDistrictTweetsButtonClick += CleanDistrictTweetsButtonController_clicked;
 
             ThreadDelegate = new ThreadActionRefresh(view.RefreshThreatAction);
         }
@@ -48,6 +49,13 @@ namespace WijkAgent.Controller
 
             myThread = new Thread(new ThreadStart(ThreadFunction));
             myThread.Start();
+        }
+        #endregion
+
+        #region CleanDistrictTweetsButton_Clicked
+        public void CleanDistrictTweetsButtonController_clicked()
+        {
+            view.modelClass.databaseConnectie.DeleteUnSavedTweetsForDistrict(view.modelClass.map.idDistrict);
         }
         #endregion
     }

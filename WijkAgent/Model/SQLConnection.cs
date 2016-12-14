@@ -63,6 +63,28 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        #region DeleteNotSavedTweetsForDistrict
+        public void DeleteUnSavedTweetsForDistrict(int _iddistrict)
+        {
+            //Open database connectie
+            conn.Open();
+
+            string deletestm = "DELETE FROM twitter WHERE iddistrict = @iddistrict AND datetime < @datetime AND save = false";
+            MySqlCommand deletecmd = new MySqlCommand();
+            deletecmd.Connection = conn;
+            deletecmd.CommandText = deletestm;
+            deletecmd.Parameters.AddWithValue("@iddistrict", _iddistrict);
+            deletecmd.Parameters.AddWithValue("@datetime", DateTime.Now.AddDays(-3));
+
+            int effectedRows = deletecmd.ExecuteNonQuery();
+
+            //Sluit database connectie
+            conn.Close();
+
+            MessageBox.Show("Succes! Er zijn " + effectedRows + " tweets verwijderd.");
+        }
+        #endregion
+
         #region QueryVoorGeschiedenis.
         public string AddSelectTwitterToQuery(string _stm)
         {
