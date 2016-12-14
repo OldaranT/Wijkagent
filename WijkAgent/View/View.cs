@@ -279,9 +279,7 @@ namespace WijkAgent
             // laat zien wat nodig is(refresh knop)
             ShowWhatsNeeded();
 
-            Console.WriteLine("testid: " + modelClass.idDistrict);
-
-            Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.idDistrict);
+            Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
             foreach (KeyValuePair<int, string> entry in test)
             {
                 Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
