@@ -11,13 +11,15 @@ namespace WijkAgent.Controller
         public LogInScreen logInScreen;
         public ViewController viewController;
 
+        #region Constructor
         public LogInScreenController(LogInScreen _logInScreen)
         {
             logInScreen = _logInScreen;
             logInScreen.OnLogInButtonClick += LogInButtonClicked;
         }
+        #endregion
 
-        #region LogIn_Button_Passed_Click
+        #region LogInButtonClicked
         public void LogInButtonClicked(string _username)
         {      
             if (logInScreen.Visible)
@@ -30,7 +32,7 @@ namespace WijkAgent.Controller
         }
         #endregion
 
-        #region LogOut_Button_Clicked
+        #region LogOutButtonClicked
         public void LogOutButtonClicked()
         {
             viewController.view.Hide();
