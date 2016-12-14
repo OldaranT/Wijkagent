@@ -57,7 +57,6 @@ namespace WijkAgent.Controller
         public void CleanDistrictTweetsButtonController_clicked()
         {
             view.modelClass.databaseConnectie.DeleteUnSavedTweetsForDistrict(view.modelClass.map.idDistrict);
-            Console.WriteLine("DAPH");
         }
         #endregion
     }

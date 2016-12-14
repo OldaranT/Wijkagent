@@ -66,7 +66,6 @@ namespace WijkAgent.Model
         #region DeleteNotSavedTweetsForDistrict
         public void DeleteUnSavedTweetsForDistrict(int _iddistrict)
         {
-            Console.WriteLine("Boop");
             //Open database connectie
             conn.Open();
 
