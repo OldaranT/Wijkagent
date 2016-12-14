@@ -35,7 +35,7 @@ namespace WijkAgent.Model
             currentLongitudePoints = new List<double>();
         }
 
-        #region Intitialize
+        #region Initialize
         public void initialize()
         {
             this.wb = new WebBrowser();

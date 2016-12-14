@@ -303,6 +303,33 @@ namespace WijkAgent.Model
             return cordinates;
         }
         #endregion
+
+        #region Haal alle aanliggende wijken op
+        public Dictionary<int, string> GetAllAdjacentDistricts(int _idDistrict)
+        {
+            Dictionary<int, string> adjecentDistricts = new Dictionary<int, string>();
+            try
+            {
+                this.conn.Open();
+                string stmt = "SELECT district.iddistrict, district.name FROM district JOIN neighbordistrict ON neighbordistrict.idneighbordistrict = district.iddistrict WHERE neighbordistrict.iddistrict = @idDistrict";
+                MySqlCommand command = new MySqlCommand(stmt, this.conn);
+                command.Parameters.AddWithValue("@idDistrict", _idDistrict);
+                this.rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    adjecentDistricts.Add(Int32.Parse(rdr.GetString(0)), rdr.GetString(1));
+                }
+
+                this.conn.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error bericht: " + e.Message);
+            }
+
+            return adjecentDistricts;
+        }
+        #endregion
     }
 
 }

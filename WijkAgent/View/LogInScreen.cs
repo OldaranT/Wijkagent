@@ -32,6 +32,12 @@ namespace WijkAgent
             labelFont = new Font("Calibri", 12, FontStyle.Bold);
             InitializeComponent();
             GetLastUsedUsername();
+
+            //als er al een keer een gebr.naam is onthouden is de checkbox auto checked
+            if(Properties.Settings.Default.LastUsername.Length > 0)
+            {
+                stayLoggedIn_checkbox.Checked = true;
+            }
         }
         #endregion
 
@@ -82,6 +88,10 @@ namespace WijkAgent
                     if (stayLoggedIn_checkbox.Checked)
                     {
                         SetLastUsedUsername();
+                    }else
+                    {
+                        Properties.Settings.Default.LastUsername = "";
+                        Properties.Settings.Default.Save();
                     }
 
                     //Open applicatie, sluit inlogscherm
