@@ -17,6 +17,7 @@ namespace WijkAgent.Model
         public MySqlCommand cmd;
         public string myConnectionString;
 
+        #region Constructor
         public SQLConnection()
         {
             myConnectionString = "server=michelvaartjes.nl;uid=micheic28_agent;" +
@@ -34,11 +35,12 @@ namespace WijkAgent.Model
                 Console.WriteLine(ex.Message);
             }
         }
+        #endregion
 
         #region SaveDefaultDistrictUser
         public void SaveDefaultDistrictUser(string _username, int _iddistrict)
         {
-            //Open database connectie
+            // open database connectie
             conn.Open();
 
             string insertstm = "UPDATE account SET iddistrict = @iddistrict WHERE username = @username";
@@ -56,7 +58,7 @@ namespace WijkAgent.Model
             {
                 Console.WriteLine(ex.Message);
             }
-            //Sluit database connectie
+            // sluit database connectie
             conn.Close();
         }
         #endregion
@@ -166,10 +168,10 @@ namespace WijkAgent.Model
         {
             Dictionary<int, string> twitterMessages = new Dictionary<int, string>();
 
-            //goede format die ook in de database staat
-            //24 uur geleden vanaf nu
+            // goede format die ook in de database staat
+            // 24 uur geleden vanaf nu
             string startDate = DateTime.Now.Subtract(new TimeSpan(24, 0, 0)).ToString("yyyy-MM-dd HH:mm:ss");
-            //hoelaat het nu is
+            // hoe laat het nu is
             string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             try
@@ -222,7 +224,7 @@ namespace WijkAgent.Model
         #region Get_Latest_Selected_Iddistrict_From_User
         public int GetLatestSelectedDisctrictFromUser(string _username)
         {
-            //wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
+            // wanneer er geen iddistrict wordt gevonden zal deze functie -1 returnen! 
             int idDisctrict = -1;
             this.conn.Open();
 
@@ -248,7 +250,7 @@ namespace WijkAgent.Model
         #region Get_Selected_DistrictName
         public string GetSelectedDistrictName(int _idDistrict)
         {
-            //wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
+            // wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
             string districtName = "";
             try
             {
@@ -287,19 +289,19 @@ namespace WijkAgent.Model
             cmd.Parameters.AddWithValue("@iddistrict", _idDistrict);
             rdr = cmd.ExecuteReader();
 
-            // Hier word de database lijst uitgelezen
+            // hier wordt de database lijst uitgelezen
             while (rdr.Read())
             {
                 latitudeList.Add(Convert.ToDouble(rdr.GetString(2)));
                 longtitudeList.Add(Convert.ToDouble(rdr.GetString(3)));
             }
-            //Databse connectie sluiten
+            // database connectie sluiten
             conn.Close();
 
             cordinates.Add("latitudes", latitudeList);
             cordinates.Add("longitudes", longtitudeList);
 
-            //coordinaten returnen
+            // coordinaten returnen
             return cordinates;
         }
         #endregion

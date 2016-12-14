@@ -20,7 +20,7 @@ namespace WijkAgent.Model
         public event TwitterSearch startTwitterSearch;
         private int trendingLenght = 14;
 
-        //Twitter API user
+        // twitter API user
         private string consumerKey = "fNPtDmFBih08YN8q79VQkGWwO";
         private string consumerSecret = "O1sud0fJ4z5V7oOUrwTNcUegRbFo75JmjucDw8hYGkxSicOXui";
         private string UserAccessToken = "235252497-UuElQ941bwmHQAFkvDrIlMA336CPU9btbJWmczcJ";
@@ -29,7 +29,7 @@ namespace WijkAgent.Model
         #region Constructor
         public Twitter()
         {
-            //Inloggen bij Twitter
+            // inloggen bij Twitter
             Auth.SetUserCredentials(consumerKey, consumerSecret, UserAccessToken, userAccessSecret);
         }
         #endregion
@@ -37,17 +37,17 @@ namespace WijkAgent.Model
         #region SearchTweets_Method
         public void SearchResults(double latitude, double longitude, double radius, int maxResults)
         {
-            //Laad scherm laten zien
+            // laad scherm laten zien
             if (startTwitterSearch != null)
                 startTwitterSearch();
 
-            //Pak de datum van gisteren
+            // pak de datum van gisteren
             DateTime today = DateTime.Now.AddDays(-1);
             int todayDay = today.Day;
             int todayMonth = today.Month;
             int todayYear = today.Year;
 
-            //Zoeken op tweets met het onderstaande filter
+            // zoeken op tweets met het onderstaande filter
             var searchParameter = new SearchTweetsParameters("")
             {
                 GeoCode = new GeoCode(latitude, longitude, radius, DistanceMeasure.Kilometers),
@@ -70,7 +70,7 @@ namespace WijkAgent.Model
                     double tweetLongitude = matchingtweets.Coordinates.Longitude;
                     var limitTime = DateTime.Now.AddHours(-24);
 
-                    //Voeg tweets toe aan lijst
+                    // voeg tweets toe aan lijst
                     AddTweets(new Tweet(counter, tweetLatitude, tweetLongitude, user, message, date, limitTime));
 
                     counter++;
@@ -82,7 +82,7 @@ namespace WijkAgent.Model
         #region Hier worden de tweets toegevoegd aan een list
         public void AddTweets(Tweet _tweet)
         {
-            //controleren of de tweet wel van de afgelopen 24 uur is
+            // controleren of de tweet wel van de afgelopen 24 uur is
             if (_tweet.date > _tweet.limitTime)
             {
                 tweetsList.Add(_tweet);
@@ -93,7 +93,7 @@ namespace WijkAgent.Model
         #region PlaceTwitterWaypointOnMap_method
         public void setTwitterMarkers(WebBrowser _wb)
         {
-            //Voor elke tweet wordt een marker toegevoegd aan de map
+            // voor elke tweet wordt een marker toegevoegd aan de map
             foreach (Tweet t in this.tweetsList)
             {
                 Marker _m = new Marker(t.id, t.latitude, t.longitude, "blue-marker");
@@ -110,23 +110,29 @@ namespace WijkAgent.Model
 
             var _tekst = "";
 
+            // maak een lange string van alle berichten
             foreach (var tweet in tweetsList)
             {
                 _tekst += tweet.message + " ";
             }
 
+            // maak lijst van woorden nadat je alle woorden apart pakt
+            // mits de woorden groter zijn dan 3
             var words =
             Regex.Split(_tekst.ToLower(), @"\W+")
             .Where(s => s.Length > 3)
             .GroupBy(s => s)
             .OrderByDescending(g => g.Count());
 
+            // als er geen woorden zijn gevonden, return: Er zijn geen trending topics.
             if (words.Count() < 1)
             {
                 output = "Er zijn geen trending topics.";
             }
             else
             {
+                // als het woord langer is dan de opgegeven lengte, plaats er een spatie tussen
+                // zodat het woord op de volgende regel komt
                 foreach (var word in words)
                 {
                     if (word.Key.Length > trendingLenght)
@@ -145,6 +151,8 @@ namespace WijkAgent.Model
                     }
                 }
 
+                // als het aantal trending woorden kleiner is dan 3, dan print hij de hele lijst
+                // als het aantal trending woorden 3 of meer is, print hij de eerste drie
                 int _wordCount = trendingTweetWord.Count();
                 if (_wordCount < 3)
                 {
@@ -164,44 +172,45 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region TredingTags
+        #region TrendingTags
         public string TrendingTags()
         {
             string output = "";
 
             List<string> trendingTags = new List<string>();
 
+            // haal alle berichten met een hashtag er uit, hij maakt hier een lijst van
             var tagsMessage =
                 from tweet in tweetsList
                 where tweet.message.Contains("#")
                 select tweet.message;
 
-
+            // als het aantal 0 is, dan print hij: Er zijn geen tags getweet!
             if (tagsMessage.Count() < 1)
             {
                 output = "Er zijn geen tags getweet!";
             }
             else
             {
-                //Initialiseren van messageTagsString
+                // initialiseren van messageTagsString
                 string messageTagsString = "";
 
-                //Maak een lange string van alle woorden
+                // maak een lange string van alle woorden
                 foreach (string tagMessageWord in tagsMessage)
                 {
                     messageTagsString += tagMessageWord + " ";
                 }
 
-                //Stop alle hashtags in een array
+                // stop alle hashtags in een array
                 var tags = Regex.Split(messageTagsString.ToLower(), @"\s+")
                     .Where(a => a.StartsWith("#"))
                     .GroupBy(s => s)
                     .OrderByDescending(g => g.Count());
 
-                //Controleer of het woord langer is dan een specifiek aantal karakters
-                //Voor de hashtags
-                //Zo ja, split het woord en voeg het woord toe
-                //Zo nee, voeg het wooord alleen toe, zonder aanpassing
+                // controleer of het woord langer is dan een specifiek aantal karakters
+                // voor de hashtags
+                // zo ja, split het woord en voeg het woord toe
+                // zo nee, voeg het wooord alleen toe, zonder aanpassing
                 foreach (var tag in tags)
                 {
                     if (tag.Key.Length > trendingLenght)
@@ -220,7 +229,7 @@ namespace WijkAgent.Model
                     }
                 }
 
-                //Print de trending hashtags op het scherm in een label
+                // print de trending hashtags op het scherm in een label
                 int _tagCount = trendingTags.Count();
                 if (_tagCount < 3)
                 {
@@ -239,8 +248,10 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        #region Split
         public List<string> Split(string s, int partLength)
         {
+            // split de meegegeven string in twee of meerdere delen, met de lengte van de meegegeven int
             var ListOut = new List<string>();
 
             for (var i = 0; i < s.Length; i += partLength)
@@ -249,5 +260,6 @@ namespace WijkAgent.Model
             }
             return ListOut;
         }
+        #endregion
     }
 }
