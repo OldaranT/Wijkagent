@@ -26,10 +26,10 @@ namespace WijkAgent
         private Color policeGold;
         private Font mainFont;
         private LoadingScreen loadingScreen;
-        //laats geklikte label
+        // laats geklikte label
         private Label lastClickedLabel;
 
-        //placeholders
+        // placeholders
         private string searchDistrict = "Zoek een wijk . . .";
         private string searchUser = "Zoek een gebruiker . . .";
         private string searchKeyWord = "Zoek een trefwoord . . .";
@@ -40,11 +40,13 @@ namespace WijkAgent
         private int lastTagLabelSelected;
         private string selectedTagLebelText;
 
-        //events
+        // events
         public event VoidWithNoArguments OnRefreshButtonClick;
         public event VoidWithNoArguments OnLogOutButtonClick;
+        public event VoidWithNoArguments OnCleanDistrictTweetsButtonClick;
         public event TwitterSearch doneTwitterSearch;
 
+        #region Constructor
         public View(string _username)
         {
             selectedTagLebelText = emptyString;
@@ -59,26 +61,28 @@ namespace WijkAgent
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.WindowState = FormWindowState.Maximized;
 
-            //init funcite aanroepen
+            // init functie aanroepen
             modelClass.map.initialize();
 
-            //wb is de webbrowser waar de map in staat. Ook even dezelfde breedte/hoogte geven ;)
+            // wb is de webbrowser waar de map in staat
+            // Ook even dezelfde breedte/hoogte geven
             modelClass.map.wb.Dock = DockStyle.Fill;
             map_panel.Controls.Add(modelClass.map.wb);
 
-            //Voegt methodes van Loading class toe aan de events in de Twitter class
+            // voegt methodes van Loading class toe aan de events in de Twitter class
             loadingScreen = new LoadingScreen();
             modelClass.map.twitter.startTwitterSearch += loadingScreen.ShowLoadingScreen;
             doneTwitterSearch += loadingScreen.HideLoadingScreen;
 
             refresh_waypoints_button.Hide();
 
-            //Welkombericht voor gebruiker
+            // welkomstbericht voor gebruiker
             main_menu_label.Text = "Welkom, \n" + getUser();
 
-            //Laatst geselecteerde wijk openen
+            // laatst geselecteerde wijk openen
             GoToLatestDistrictFromUser();
         }
+        #endregion
 
         #region View Load
         private void View_Load(object sender, EventArgs e)
@@ -100,6 +104,7 @@ namespace WijkAgent
                     save_incedents_button.Show();
                     main_menu_area_district_scrollable_panel.Show();
                     main_menu_selected_district_panel.Show();
+                    clean_district_tweets_button.Show();
                 }
                 catch (Exception ex)
                 {
@@ -111,15 +116,15 @@ namespace WijkAgent
             {
                 try
                 {
-                    //Open database connectie
+                    // open database connectie
                     modelClass.databaseConnectie.conn.Open();
 
-                    //Selectie Query die de namen van alle province selecteer en ordered.
+                    // selectie query die de namen van alle province selecteer en ordered.
                     string stm = "SELECT * FROM province ORDER BY name DESC";
                     MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
                     modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
-                    // Hier word de database lijst uitgelezen
+                    // hier word de database lijst uitgelezen
                     while (modelClass.databaseConnectie.rdr.Read())
                     {
                         Button buttonCreate = new Button();
@@ -134,7 +139,7 @@ namespace WijkAgent
                 }
                 catch (Exception ex)
                 {
-                    //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                    // laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
                     Console.WriteLine(ex.Message);
                     Label labelCreate = new Label();
                     labelCreate.Width = 200;
@@ -147,7 +152,7 @@ namespace WijkAgent
         }
         #endregion
 
-        #region backToMainMenuPanelButton_Clicked
+        #region BackToMainMenuPanelButton_Clicked
         private void go_to_main_menu_panel_button_Click(object sender, EventArgs e)
         {
             main_menu_tabcontrol.SelectTab(0);
@@ -155,10 +160,10 @@ namespace WijkAgent
         #endregion
 
         #region GeneratedProvinceButton_Clicked
-        //Kijkt of er een ProvinceGenerated Button is ingedrukt.
+        // kijkt of er een ProvinceGenerated button is ingedrukt.
         public void ProvinceButton_Click(object sender, EventArgs e)
         {
-            //Alles opschonen
+            // alles opschonen
             city_scroll_panel.Controls.Clear();
 
             Button clickedButton = (Button)sender;
@@ -166,16 +171,16 @@ namespace WijkAgent
             {
                 int idProvince = Convert.ToInt32(clickedButton.Name);
 
-                //Open database connectie
+                // open database connectie
                 modelClass.databaseConnectie.conn.Open();
 
-                //Selectie Query die de namen van allke province selecteer en ordered.
+                // selectie query die de namen van alle provincies selecteert en ordered.
                 string stm = "SELECT * FROM city WHERE idprovince = @idprovince ORDER BY name DESC";
                 MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
                 cmd.Parameters.AddWithValue("@idprovince", idProvince);
                 modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
-                // Hier word de database lijst uitgelezen
+                // hier word de database lijst uitgelezen
                 while (modelClass.databaseConnectie.rdr.Read())
                 {
                     Button buttonCreate = new Button();
@@ -198,7 +203,7 @@ namespace WijkAgent
             }
             catch (Exception ex)
             {
-                //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                // laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
                 Console.WriteLine(ex.Message);
                 Label labelCreate = new Label();
                 labelCreate.Width = 200;
@@ -212,7 +217,7 @@ namespace WijkAgent
         #endregion
 
         #region GeneratedCityButton_Clicked
-        //Kijkt of er een CityGenerated Button is ingedrukt.
+        // kijkt of er een CityGenerated button is ingedrukt.
         public void CityButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
@@ -222,16 +227,16 @@ namespace WijkAgent
             {
                 int idCity = Convert.ToInt32(clickedButton.Name);
 
-                //Open database connectie
+                // open database connectie
                 modelClass.databaseConnectie.conn.Open();
 
-                //Selectie Query die de namen van allke province selecteer en ordered.
+                // selectie query die de namen van alle provincies selecteert en ordered.
                 string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
                 MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
                 cmd.Parameters.AddWithValue("@idcity", idCity);
                 modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
-                // Hier word de database lijst uitgelezen
+                // hier wordt de database lijst uitgelezen
                 while (modelClass.databaseConnectie.rdr.Read())
                 {
                     Button buttonCreate = new Button();
@@ -245,7 +250,7 @@ namespace WijkAgent
             }
             catch (Exception ex)
             {
-                //Laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
+                // laat een bericht zien wanneer er GEEN connectie met de database is gemaakt
                 Console.WriteLine(ex.Message);
                 Label labelCreate = new Label();
                 labelCreate.Width = 200;
@@ -259,39 +264,52 @@ namespace WijkAgent
         #endregion
 
         #region GeneratedDistrictButton_Clicked
-        //Kijkt of er een DistrictGenerated Button is ingedrukt.
+        // kijkt of er een DistrictGenerated button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
 
             ResetClickEventTwitterTag();
 
             twitter_messages_scroll_panel.Controls.Clear();
+            main_menu_area_district_scrollable_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
 
-            //ID van wijk ophalen
+            // id van wijk ophalen
             modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
 
-            //Van wijk veranderen
+            // wijk veranderen
             modelClass.ChangeDistrict();
 
-            //Verander geselecteerde label text.
+            // verander geselecteerde label text
             ChangeSelectedDistrictText(clickedButton.Text);
 
-            //Twitter panel updaten
+            // twitter panel updaten
             UpdateTwitterpanel();
 
-            //Laat zien wat nodig is(refresh knop)
+            // laat zien wat nodig is(refresh knop)
             ShowWhatsNeeded();
+
+            Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
+            foreach (KeyValuePair<int, string> entry in test)
+            {
+                Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
+                Button buttonCreate = new Button();
+                buttonCreate.Text = entry.Value;
+                buttonCreate.Name = entry.Key.ToString();
+                buttonLayout(buttonCreate);
+                main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
+                buttonCreate.Click += DistrictButton_Click;
+            }
 
             main_menu_tabcontrol.SelectTab(0);
         }
         #endregion
 
         #region BackToProvincePanelFromCityPanelButton_Clicked
-        //Als de terug button wordt ingedruk op de city tab
+        // als de terug button wordt ingedruk op de city tab
         private void go_to_province_panel_button_from_city_tab_Click(object sender, EventArgs e)
         {
-            //cleared alles in city scroll panel
+            // cleared alles in city scroll panel
             city_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(1);
         }
@@ -300,7 +318,7 @@ namespace WijkAgent
         #region BackToCityPanelFromDistrictPanelButton_Clicked
         private void go_to_city_panel_button_from_district_tab_Click(object sender, EventArgs e)
         {
-            //cleared alles in stad scroll panel
+            // cleared alles in stad scroll panel
             district_scroll_panel.Controls.Clear();
             main_menu_tabcontrol.SelectTab(2);
         }
@@ -361,11 +379,11 @@ namespace WijkAgent
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
+
             if (doneTwitterSearch != null)
             {
                 doneTwitterSearch();
             }
-
             refresh_waypoints_button.Hide();
 
         }
@@ -405,9 +423,12 @@ namespace WijkAgent
             Label _label = (Label)sender;
             lastClickedLabel = _label;
             lastClickedLabel.BackColor = policeGold;
-            //label naam is het id van de tweet maar ik wil het in een int hebben dus parse ik hem
+
+            // label naam is het id van de tweet,
+            // maar ik wil het in een int hebben, dus zet ik hem om
             int _labelId = Int32.Parse(_label.Name);
-            //kleur veranderen van de label
+
+            // kleur veranderen van de label
             modelClass.map.hightlightMarker(_labelId);
         }
         #endregion
@@ -415,12 +436,13 @@ namespace WijkAgent
         #region View_Closed
         private void View_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //Zorgt er voor dat alles voor gesloten
-            Environment.Exit(0);
+            //HIER MICHELLA!!!!! <-------
+
+            Environment.Exit(0);     
         }
         #endregion
 
-        #region go_to_history_panel_button_from_main_menu_tab_Click
+        #region Go_to_history_panel_button_from_main_menu_tab_Click
         private void go_to_history_panel_button_from_main_menu_tab_Click(object sender, EventArgs e)
         {
             map_tabcontrol.SelectTab(1);
@@ -431,6 +453,7 @@ namespace WijkAgent
                 save_incedents_button.Hide();
                 main_menu_area_district_scrollable_panel.Hide();
                 main_menu_selected_district_panel.Hide();
+                clean_district_tweets_button.Hide();
             }
             catch (Exception ex)
             {
@@ -521,7 +544,7 @@ namespace WijkAgent
                     {
                         twitter_taglabel2.Text = "2: " + tag;
                         twitter_taglabel3.Text = emptyString;
-
+                        
                     }
                     else if (trendingTagCounter == 3)
                     {
@@ -538,69 +561,71 @@ namespace WijkAgent
                 twitter_taglabel2.Text = emptyString;
                 twitter_taglabel3.Text = emptyString;
             }
-
         }
         #endregion
 
         #region Create suggetions for all filters
         public void fillSearchSuggestions()
         {
-            //Roep districte naam suggeties aan.
-            //Open database connectie
+            // roep district naam suggeties aan.
+            // open database connectie
             modelClass.databaseConnectie.conn.Open();
 
-            //Selectie Query die de namen van ellke province selecteer en ordered.
+            // selectie query die de namen van elke provincie selecteert en ordered.
             string stm = "SELECT DISTINCT name FROM district";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
             modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
-            // Hier word de database lijst uitgelezen
+            // hier wordt de database lijst uitgelezen
             while (modelClass.databaseConnectie.rdr.Read())
             {
                 history_district_textbox.AutoCompleteCustomSource.Add(modelClass.databaseConnectie.rdr.GetString(0));
             }
 
-            //sluit database connectie
+            // sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
-            //Roep twitter user suggeties aan.
-            //Open database connectie
+            // roep twitter user suggeties aan
+            // open database connectie
             modelClass.databaseConnectie.conn.Open();
-            //Selectie Query die de namen van allke province selecteer en ordered.
+
+            // selectie query die de namen van elke provincie selecteert en ordered.
             string stm2 = "SELECT DISTINCT user FROM twitter";
             MySqlCommand cmd2 = new MySqlCommand(stm2, modelClass.databaseConnectie.conn);
             modelClass.databaseConnectie.rdr = cmd2.ExecuteReader();
 
-            // Hier word de database lijst uitgelezen
+            // hier wordt de database lijst uitgelezen
             while (modelClass.databaseConnectie.rdr.Read())
             {
                 history_user_textbox.AutoCompleteCustomSource.Add(modelClass.databaseConnectie.rdr.GetString(0));
             }
 
-            //sluit database connectie
+            // sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
             history_category_combobox.Text = "test";
-            //Roep twitter user suggeties aan.
-            //Open database connectie
+
+            // roep twitter user suggeties aan
+            // open database connectie
             modelClass.databaseConnectie.conn.Open();
-            //Selectie Query die de namen van allke province selecteer en ordered.
+
+            // selectie query die de namen van elke provincie selecteert en ordered
             string stm3 = "SELECT DISTINCT name FROM category ORDER BY name";
             MySqlCommand cmd3 = new MySqlCommand(stm3, modelClass.databaseConnectie.conn);
             modelClass.databaseConnectie.rdr = cmd3.ExecuteReader();
 
-            // Hier word de database lijst uitgelezen
+            // hier wordt de database lijst uitgelezen
             while (modelClass.databaseConnectie.rdr.Read())
             {
                 history_category_combobox.Items.Add(modelClass.databaseConnectie.rdr.GetString(0).First().ToString().ToUpper() + String.Join("", modelClass.databaseConnectie.rdr.GetString(0).Skip(1)));
             }
 
-            //sluit database connectie
+            // sluit database connectie
             modelClass.databaseConnectie.conn.Close();
         }
         #endregion
 
-        #region min/max for datepicker
+        #region Min/max for datepicker
         private void history_from_datetimepicker_ValueChanged(object sender, EventArgs e)
         {
             history_till_datetimepicker.MinDate = history_from_datetimepicker.Value;
@@ -615,10 +640,10 @@ namespace WijkAgent
         #region GetNameOfUser
         public string getUser()
         {
-            //Open database connectie
+            // open database connectie
             modelClass.databaseConnectie.conn.Open();
 
-            //Haal idAccount op
+            // haal idAccount op
             string stm = "SELECT person.naam, person.achternaam FROM account JOIN person ON account.idaccount = person.idaccount WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
             cmd.Parameters.AddWithValue("@username", modelClass.username);
@@ -626,7 +651,7 @@ namespace WijkAgent
             modelClass.databaseConnectie.rdr.Read();
             string fullName = modelClass.databaseConnectie.rdr.GetString(0) + " " + modelClass.databaseConnectie.rdr.GetString(1);
 
-            //Sluit database connectie
+            // sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
             return fullName;
@@ -636,7 +661,7 @@ namespace WijkAgent
         #region UpdateLatestSelectedDisctrictUser
         public void UpdateLatestSelectedDisctrictUser()
         {
-            //Default wijk opslaan van gebruiker
+            // default wijk opslaan van gebruiker
             modelClass.databaseConnectie.SaveDefaultDistrictUser(modelClass.username, modelClass.map.idDistrict);
         }
         #endregion
@@ -659,17 +684,19 @@ namespace WijkAgent
             DateTime fromDateInput = history_from_datetimepicker.Value;
             DateTime tillDateInput = history_till_datetimepicker.Value;
 
-            //Hier word standaar search query aangemaakt
+            // hier wordt een standaard search query aangemaakt
             stm = modelClass.databaseConnectie.AddSelectTwitterToQuery(stm);
             string tempSearch = "Geschiedenis van: " + Environment.NewLine + Environment.NewLine;
 
-            //Als District checkbox checked is word er een join gemaakt naar de collum van district
+            // als district checkbox checked is
+            // wordt er een join gemaakt naar de collumn van district
             if (history_district_checkbox.Checked)
             {
                 stm = modelClass.databaseConnectie.JoinDistrictQuery(stm);
             }
 
-            //Als catgorie checkbox checked is word er een join gemaakt naar de collum van categorie
+            // als categorie checkbox checked is 
+            // wordt er een join gemaakt naar de collumn van categorie
             if (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1)
             {
                 stm = modelClass.databaseConnectie.JoinCatgoryQuery(stm);
@@ -680,14 +707,14 @@ namespace WijkAgent
                 stm = modelClass.databaseConnectie.AddWhereToQuery(stm);
             }
 
-            //Als District checkbox checked is word input van district toegevoegd aan de query.
+            // als district checkbox checked is wordt input van district toegevoegd aan de query
             if (history_district_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Wijk: " + districtInput + Environment.NewLine;
                 stm = modelClass.databaseConnectie.WhereDistrictQuery(stm);
             }
 
-            //Als District checkbox checked is word input van user toegevoegd aan de query.
+            // als district checkbox checked is wordt input van user toegevoegd aan de query
             if (history_user_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Gebruiker: " + userInput + Environment.NewLine;
@@ -698,7 +725,7 @@ namespace WijkAgent
                 stm = modelClass.databaseConnectie.WhereUserQuery(stm);
             }
 
-            //Als District checkbox checked is word input van catgorie toegevoegd aan de query.
+            // als district checkbox checked is word input van catgorie toegevoegd aan de query
             if (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1)
             {
                 if (history_district_checkbox.Checked || history_user_checkbox.Checked)
@@ -722,7 +749,7 @@ namespace WijkAgent
                 stm = modelClass.databaseConnectie.WhereKeyWordQuery(stm);
             }
 
-            //Als District checkbox checked is word input van date toegevoegd aan de query.
+            // als district checkbox checked is wordt input van date toegevoegd aan de query
             if (history_date_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Datum van: " + fromDateInput.ToString("yyyy-MM-dd 00:00:0001") + " tot: " + tillDateInput.ToString("yyyy-MM-dd 23:59:0000");
@@ -735,20 +762,20 @@ namespace WijkAgent
                 stm = stm + tempDateWhereQuery;
             }
 
-            //Hier wordt alles georderd op datum zodat nieuwste datum boven aan komt.
+            // hier wordt alles geordent op datum zodat de nieuwste datum bovenaan komt
             stm = modelClass.databaseConnectie.AddOrderByTimeToQuery(stm);
             stm = modelClass.databaseConnectie.AddLimitToQeury(stm, resultMax);
 
-            //Check of er ubehoud een checkbox gecheckt is.
+            // check of er uberhaupt een checkbox gecheckt is
             if (history_district_checkbox.Checked || history_user_checkbox.Checked || (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1) || history_date_checkbox.Checked || history_keyword_checkbox.Checked)
             {
                 try
                 {
-                    //Roep districte naam suggeties aan.
-                    //Open database connectie
+                    // roep districte naam suggeties aan
+                    // open database connectie
                     modelClass.databaseConnectie.conn.Open();
 
-                    //Selectie Query die de namen van allke province selecteer en ordered.
+                    // selectie query die de namen van allke province selecteer en ordered
                     MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
                     cmd.Parameters.AddWithValue("@districtInput", districtInput);
                     cmd.Parameters.AddWithValue("@userInput", userInput);
@@ -765,32 +792,33 @@ namespace WijkAgent
                     cmd.Parameters.AddWithValue("@tillDateInput", tillDateInput.ToString("yyyy-MM-dd 23:59:0000"));
                     modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
 
-                    // Hier word de database lijst uitgelezen
+                    // hier wordt de database lijst uitgelezen
                     while (modelClass.databaseConnectie.rdr.Read())
                     {
-                        //Teller wordt geupdate per resultaat.
+                        // teller wordt geupdate per resultaat
                         resultsCount++;
 
-                        //Text wordt hier aangemaakt voor elke label.
+                        // text wordt hier aangemaakt voor elke label
                         string tempLabelText;
                         tempLabelText = ("Gebruiker: " + modelClass.databaseConnectie.rdr.GetString(3) + Environment.NewLine
                                         + "Twitter bericht: " + Environment.NewLine + modelClass.databaseConnectie.rdr.GetString(6) + Environment.NewLine
                                         + Environment.NewLine + "Datum: " + modelClass.databaseConnectie.rdr.GetString(7) + Environment.NewLine);
-                        //Panel om straks de labels in te bewaren.
+
+                        // maak panel om straks de labels in te bewaren
                         Panel createHistoryPanel = new Panel();
                         createHistoryPanel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
                         panelLayout(createHistoryPanel);
 
-                        //Panel word toegevoegd aan scroll panel van history.
+                        // panel wordt toegevoegd aan scroll panel van history
                         history_scroll_panel.Controls.Add(createHistoryPanel);
 
-                        //Hier word de label aangemaakt om alle info van database in te printen.
+                        // hier wordt de label aangemaakt om alle info van database in te printen
                         Label createHistorylabel = new Label();
                         createHistorylabel.Name = modelClass.databaseConnectie.rdr.GetString(0).ToString();
                         createHistorylabel.Text = tempLabelText;
                         labelLayout(createHistorylabel);
 
-                        //Label wordt toegevoegd aan panel
+                        // label wordt toegevoegd aan panel
                         createHistoryPanel.Controls.Add(createHistorylabel);
 
                     }
@@ -803,10 +831,10 @@ namespace WijkAgent
                         history_scroll_panel.Controls.Add(createNoResultAlert);
                     }
 
-                    //Hier word de resultaat label geupdate met het aantal resultaten.
+                    // hier wordt de resultaat label geupdate met het aantal resultaten
                     history_header_results_label.Text = "Aantal resultaten: " + resultsCount.ToString();
 
-                    //sluit database connectie
+                    // sluit database connectie
                     modelClass.databaseConnectie.conn.Close();
                 }
                 catch (MySqlException ex)
@@ -814,7 +842,7 @@ namespace WijkAgent
                     Console.WriteLine(ex);
                 }
 
-                //header label word geupdate met de zoek resultaten die zijn gebruikt.
+                // header label wordt geupdate met de zoek resultaten die zijn gebruikt
                 History_header_label.Text = tempSearch;
 
             }
@@ -826,7 +854,6 @@ namespace WijkAgent
                 history_header_results_label.Text = headerResults;
                 labelLayout(createEmptyAlert);
                 history_scroll_panel.Controls.Add(createEmptyAlert);
-
             }
 
         }
@@ -935,37 +962,38 @@ namespace WijkAgent
                 }
             }
 
-            //Twitter berichten in database opslaan 
+            // twitter berichten in database opslaan 
             modelClass.TweetsToDb();
 
-            //Standaart wijk van gebruiker updaten
-            UpdateLatestSelectedDisctrictUser();
-
-            //Aantal nieuwe tweets updaten
+            // aantal nieuwe tweets updaten
             UpdateNewTweetsLabel();
+
+            // standaard wijk van gebruiker updaten
+            UpdateLatestSelectedDisctrictUser();
         }
         #endregion
 
         #region Show_all_whats_needed
         public void ShowWhatsNeeded()
         {
-            //Controleerd of er een wijk is geselecteerd
+            // controleerd of er een wijk is geselecteerd
             if (modelClass.map.districtSelected)
                 refresh_waypoints_button.Show();
 
-            //laat voorvallen/dichtbij liggende wijken knop/panel zien
+            // laat voorvallen/dichtbij liggende wijken knop/panel zien
             try
             {
                 save_incedents_button.Show();
                 main_menu_area_district_scrollable_panel.Show();
                 main_menu_selected_district_panel.Show();
+                clean_district_tweets_button.Show();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
 
-            //Laad scherm verbergen
+            // laad scherm verbergen
             if (doneTwitterSearch != null)
                 doneTwitterSearch();
         }
@@ -974,11 +1002,12 @@ namespace WijkAgent
         #region Go_to_latest_selected_district_from_user
         public void GoToLatestDistrictFromUser()
         {
-            //Ophalen van idDistrict
+            // ophalen van idDistrict
             int idDistrict = modelClass.databaseConnectie.GetLatestSelectedDisctrictFromUser(modelClass.username);
             string districtName = modelClass.databaseConnectie.GetSelectedDistrictName(idDistrict);
 
-            //Als idDistrict lager is dan 0 betekend dit dat er geen iddisctrict is opgeslagen bij deze gebruiker
+            // als idDistrict lager is dan 0 
+            // betekend dit dat er geen iddisctrict is opgeslagen bij deze gebruiker
             if (idDistrict > 0)
             {
                 modelClass.ChangeDistrict(idDistrict);
@@ -995,6 +1024,7 @@ namespace WijkAgent
             main_menu_selected_district_label.Text = "Laatste geselecteerde wijk: " + Environment.NewLine + _districtName;
         }
         #endregion
+
 
         #region TagLabel Clickevents
         //Deze events zorgen er voor dat elk label gekleurt wordt en twitter overzicht geupdate word.
@@ -1013,7 +1043,6 @@ namespace WijkAgent
                 twitter_taglabel3.ForeColor = Color.Black;
                 lastTagLabelSelected = 1;
                 selectedTagLebelText = filterStringToTag(clickedLabel.Text);
-                Console.WriteLine(selectedTagLebelText);
             }
 
             UpdateTwitterpanel();
@@ -1034,7 +1063,6 @@ namespace WijkAgent
                 twitter_taglabel3.ForeColor = Color.Black;
                 lastTagLabelSelected = 2;
                 selectedTagLebelText = filterStringToTag(clickedLabel.Text);
-                Console.WriteLine(selectedTagLebelText);
             }
 
             UpdateTwitterpanel();
@@ -1055,7 +1083,6 @@ namespace WijkAgent
                 twitter_taglabel3.ForeColor = policeGold;
                 lastTagLabelSelected = 3;
                 selectedTagLebelText = filterStringToTag(clickedLabel.Text);
-                Console.WriteLine(selectedTagLebelText);
             }
 
             UpdateTwitterpanel();
@@ -1068,6 +1095,14 @@ namespace WijkAgent
             twitter_taglabel3.ForeColor = Color.Black;
             lastTagLabelSelected = 0;
             selectedTagLebelText = emptyString;
+        }
+        #endregion
+
+        #region Clean_district_button_clicked
+        private void clean_district_tweets_button_Click(object sender, EventArgs e)
+        {
+            if (OnCleanDistrictTweetsButtonClick != null)
+                OnCleanDistrictTweetsButtonClick();
         }
         #endregion
 

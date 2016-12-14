@@ -18,7 +18,7 @@ namespace WijkAgent
             this.ControlBox = false;
         }
 
-        //Methode om scherm te laten zien
+        #region ShowLoadingScreen
         public void ShowLoadingScreen()
         {
             try
@@ -30,8 +30,9 @@ namespace WijkAgent
                 Console.WriteLine(ex);
             }
         }
+        #endregion
 
-        //Methode om scherm te verbergen
+        #region HideLoadingScreen
         public void HideLoadingScreen()
         {
             try
@@ -43,5 +44,6 @@ namespace WijkAgent
                 Console.WriteLine(ex);
             }
         }
+        #endregion
     }
 }

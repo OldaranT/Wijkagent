@@ -20,6 +20,7 @@ namespace WijkAgent.Controller
         {
             view = new View(_username);
             view.OnRefreshButtonClick += RefreshButton_Clicked;
+            view.OnCleanDistrictTweetsButtonClick += CleanDistrictTweetsButtonController_clicked;
 
             ThreadDelegate = new ThreadActionRefresh(view.RefreshThreatAction);
         }
@@ -29,7 +30,8 @@ namespace WijkAgent.Controller
         private void ThreadFunction()
         {
             RefreshThread RefreshThread = new RefreshThread(this);
-            RefreshThread.Run();
+            int sleepfor = view.modelClass.databaseConnectie.GetRefreshButtonHide(view.modelClass.idDistrict) * 1000;
+            RefreshThread.Run(sleepfor);
         }
         #endregion
 
@@ -38,13 +40,19 @@ namespace WijkAgent.Controller
         {
             // refreshed alles in de laatst geselecteerd wijk om nieuwe tweets weer te geven.
             view.modelClass.map.changeDistrict(view.modelClass.map.currentLatitudePoints, view.modelClass.map.currentLongitudePoints);
-            view.modelClass.TweetsToDb();
-            
-            // update nieuwe tweets label
-            view.UpdateNewTweetsLabel();
+
+            // update nieuwe tweets label            
+            view.UpdateTwitterpanel();
 
             myThread = new Thread(new ThreadStart(ThreadFunction));
             myThread.Start();
+        }
+        #endregion
+
+        #region CleanDistrictTweetsButton_Clicked
+        public void CleanDistrictTweetsButtonController_clicked()
+        {
+            view.modelClass.databaseConnectie.DeleteUnSavedTweetsForDistrict(view.modelClass.map.idDistrict);
         }
         #endregion
     }

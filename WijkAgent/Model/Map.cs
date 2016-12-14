@@ -36,7 +36,7 @@ namespace WijkAgent.Model
         }
         #endregion
 
-        #region Intitialize
+        #region Initialize
         public void initialize()
         {
             this.wb = new WebBrowser();

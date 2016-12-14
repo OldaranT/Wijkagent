@@ -16,17 +16,18 @@ namespace WijkAgent.Model
         private string user;
         private double lat;
         private double lon;
-        private int idDistrict;
+        public int idDistrict;
         private string message;
         private DateTime datetime;
 
+        #region Constructor
         public ModelClass(string _username)
         {
             databaseConnectie = new SQLConnection();
             map = new Map();
             username = _username;
-            newTweets = 0;
         }
+        #endregion
 
         #region InsertNewTweetsIntoDatabase
         public void TweetsToDb()
@@ -50,11 +51,10 @@ namespace WijkAgent.Model
                 cmd.Parameters.AddWithValue("@iddistrict", idDistrict);
                 databaseConnectie.rdr = cmd.ExecuteReader();
 
-                //Controleert of het twitter bericht al in de database staat
+                // controleert of het twitter bericht al in de database staat
                 if (!databaseConnectie.rdr.Read())
                 {
                     inDatabase = false;
-                    Console.WriteLine("Twitter bericht staat niet in database. Bericht is opgeslagen.");
                     newTweets++;
                 }
 
@@ -62,7 +62,7 @@ namespace WijkAgent.Model
 
                 if (!inDatabase)
                 {
-                    //Twitter bericht in database opslaan
+                    // twitter bericht in database opslaan
                     databaseConnectie.conn.Open();
                     string insertstm = "INSERT INTO twitter(iddistrict, user, latitude, longitude, message, datetime) VALUES (@iddistrict, @user, @lat, @lon, @message, @datetime)";
                     MySqlCommand insertcmd = new MySqlCommand();
@@ -93,7 +93,7 @@ namespace WijkAgent.Model
         {
             map.idDistrict = _idDistrict;
 
-            //Alle coordinaten(latitude en longitude) vekrijgen
+            // alle coordinaten(latitude en longitude) verkrijgen
             Dictionary<string, List<double>> allCoordinates = databaseConnectie.GetAllCoordinatesFromDistrict(_idDistrict);
 
             map.changeDistrict(allCoordinates["latitudes"], allCoordinates["longitudes"]);
