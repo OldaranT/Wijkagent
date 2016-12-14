@@ -19,6 +19,7 @@ namespace WijkAgent.Model
 
         public List<string> links { get; set; }
 
+        #region Constructor
         public Tweet(int _id, double _latitude, double _longitude, string _user, string _message, DateTime _date, DateTime _limitTime)
         {
             id = _id;
@@ -28,11 +29,11 @@ namespace WijkAgent.Model
             date = _date;
             limitTime = _limitTime;
 
-            //quotes verwijderen
+            // quotes verwijderen
             user = _user.Replace("\"", "");
             links = new List<string>();
 
-            //het woord http uit de resultaten filteren
+            // het woord http uit de resultaten filteren
             foreach (string word in _message.Split(' '))
             {
                 if (word.StartsWith("http"))
@@ -41,5 +42,6 @@ namespace WijkAgent.Model
                 }
             }
         }
+        #endregion
     }
 }

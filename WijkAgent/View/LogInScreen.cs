@@ -44,16 +44,16 @@ namespace WijkAgent
         #region Inloggen
         private void logIn_button_Click(object sender, EventArgs e)
         {
-            //Variabel maken van ingevoerde waardes
+            // variabel maken van ingevoerde waardes
             string textbox_password = getSHA512(logIn_password_textbox.Text);
             string textbox_username = logIn_username_textbox.Text;
 
-            //Open database connectie voor 1e query
+            // open database connectie voor 1e query
             sqlConn.conn.Open();
 
-            //Kijk of gebruikersnaam voorkomt in de database.
-            //Als aantal 0 is, dan is username incorrect.
-            //Als aantal 1 is, dan is username correct en wordt het wachtwoord gecontroleerd.
+            // kijk of gebruikersnaam voorkomt in de database.
+            // als aantal 0 is, dan is username incorrect.
+            // als aantal 1 is, dan is username correct en wordt het wachtwoord gecontroleerd.
             string stm = "SELECT count(idaccount) FROM account WHERE username = @username";
             MySqlCommand cmd = new MySqlCommand(stm, sqlConn.conn);
             cmd.Parameters.AddWithValue("@username", textbox_username);
@@ -61,16 +61,16 @@ namespace WijkAgent
             sqlConn.rdr.Read();
             int amount = Convert.ToInt32(sqlConn.rdr.GetString(0));
 
-            //Sluit verbinding voor 1e query
+            // sluit verbinding voor 1e query
             sqlConn.conn.Close();
 
-            //Als gebruikernsaam voorkomt, controleer dan wachtwoord
+            // als gebruikernsaam voorkomt, controleer dan wachtwoord
             if (amount != 0)
             {
-                //Open database connectie voor 2e query
+                // open database connectie voor 2e query
                 sqlConn.conn.Open();
 
-                //Haal wachtwoord op uit de database
+                // haal wachtwoord op uit de database
                 stm = "SELECT password FROM account WHERE username = @username";
                 cmd = new MySqlCommand(stm, sqlConn.conn);
                 cmd.Parameters.AddWithValue("@username", textbox_username);
@@ -78,13 +78,13 @@ namespace WijkAgent
                 sqlConn.rdr.Read();
                 string dbPassword = sqlConn.rdr.GetString(0).ToLower();
 
-                //Sluit verbinding voor 1e query
+                // sluit verbinding voor 1e query
                 sqlConn.conn.Close();
 
-                //Als wachtwoord gelijk is aan wachtwoord uit de database, kan er worden ingelogd
+                // als wachtwoord gelijk is aan het opgehaalde wachtwoord uit de database, kan er worden ingelogd
                 if (dbPassword == textbox_password)
                 {
-                    //als de checkbox is aangevinkt, voer de functie uit
+                    // als de checkbox is aangevinkt, voer de functie uit
                     if (stayLoggedIn_checkbox.Checked)
                     {
                         SetLastUsedUsername();
@@ -94,7 +94,7 @@ namespace WijkAgent
                         Properties.Settings.Default.Save();
                     }
 
-                    //Open applicatie, sluit inlogscherm
+                    // open applicatie, sluit inlogscherm
                     if (OnLogInButtonClick != null)
                     {
                         OnLogInButtonClick(textbox_username);
@@ -102,13 +102,13 @@ namespace WijkAgent
                 }
                 else
                 {
-                    //Geef foutmelding omdat wachtwoord verkeerd is
+                    // geef foutmelding omdat wachtwoord verkeerd is
                     PrintErrorLabel();
                 }
             }
             else
             {
-                //Geef foutmelding omdat gebruikersnaam verkeerd is
+                // geef foutmelding omdat gebruikersnaam verkeerd is
                 PrintErrorLabel();
             }
         }
@@ -117,6 +117,7 @@ namespace WijkAgent
         #region Hashen van password(SHA-512)
         public string getSHA512(string text)
         {
+            // sha512 hash
             SHA512CryptoServiceProvider sh = new SHA512CryptoServiceProvider();
             sh.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
             byte[] re = sh.Hash;
@@ -143,6 +144,7 @@ namespace WijkAgent
         #region GetLastUsedUsername
         public void GetLastUsedUsername()
         {
+            // haal gebruikersnaam uit de settings
             logIn_username_textbox.Text = Properties.Settings.Default.LastUsername;
         }
         #endregion
@@ -150,6 +152,7 @@ namespace WijkAgent
         #region SetLastUsedUsername
         public void SetLastUsedUsername()
         {
+            // sla laatst gebruikte gebruikersnaam op in de settings
             Properties.Settings.Default.LastUsername = logIn_username_textbox.Text;
             Properties.Settings.Default.Save();
         }

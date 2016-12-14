@@ -14,6 +14,7 @@ namespace WijkAgent.Model
         public double longtitude;
         public string icon;
 
+        #region Constructor
         public Marker(int _id, double _latitude, double _longtitude, string _icon )
         {
             this.id = _id;
@@ -21,6 +22,7 @@ namespace WijkAgent.Model
             this.longtitude = _longtitude;
             this.icon = _icon;
         }
+        #endregion
 
         #region AddMarkerToMap
         public void addMarkerToMap(WebBrowser _wb)
@@ -30,7 +32,7 @@ namespace WijkAgent.Model
             _markerArgs[1] = this.longtitude;
             _markerArgs[2] = this.icon;
             _markerArgs[3] = this.id;
-            //invokescript heeft voor de argumenten een object nodig waar deze in staan
+            // invokescript heeft voor de argumenten een object nodig waar deze in staan
             _wb.Document.InvokeScript("AddMarker", _markerArgs);
         }
         #endregion

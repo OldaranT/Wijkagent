@@ -15,6 +15,7 @@ namespace WijkAgent.Controller
         public ThreadActionRefresh ThreadDelegate;
         private Thread myThread;
 
+        #region Constructor
         public ViewController(string _username)
         {
             view = new View(_username);
@@ -22,22 +23,25 @@ namespace WijkAgent.Controller
 
             ThreadDelegate = new ThreadActionRefresh(view.RefreshThreatAction);
         }
+        #endregion
 
-        #region Thread Function
+        #region ThreadFunction
         private void ThreadFunction()
         {
             RefreshThread RefreshThread = new RefreshThread(this);
-            RefreshThread.Run();
+            int sleepfor = view.modelClass.databaseConnectie.GetRefreshButtonHide(view.modelClass.idDistrict) * 1000;
+            RefreshThread.Run(sleepfor);
         }
         #endregion
 
         #region RefreshButtonController_Clicked
         public void RefreshButton_Clicked()
         {
-            //refreshed alles in de laatst geselecteerd wijk om nieuwe tweets weer te geven.
+            // refreshed alles in de laatst geselecteerd wijk om nieuwe tweets weer te geven.
             view.modelClass.map.changeDistrict(view.modelClass.map.currentLatitudePoints, view.modelClass.map.currentLongitudePoints);
             view.modelClass.TweetsToDb();
-            //update nieuwe tweets label
+            
+            // update nieuwe tweets label
             view.UpdateNewTweetsLabel();
 
             myThread = new Thread(new ThreadStart(ThreadFunction));
@@ -45,8 +49,4 @@ namespace WijkAgent.Controller
         }
         #endregion
     }
-
-    #region ThreadClass
-    
-    #endregion
 }
