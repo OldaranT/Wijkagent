@@ -16,7 +16,7 @@ namespace WijkAgent.Model
         private string user;
         private double lat;
         private double lon;
-        private int idDistrict;
+        public int idDistrict;
         private string message;
         private DateTime datetime;
 

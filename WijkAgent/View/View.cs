@@ -275,6 +275,7 @@ namespace WijkAgent
 
             // laat zien wat nodig is(refresh knop)
             ShowWhatsNeeded();
+            
 
             main_menu_tabcontrol.SelectTab(0);
         }
