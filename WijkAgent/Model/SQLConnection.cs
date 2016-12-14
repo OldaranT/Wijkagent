@@ -332,6 +332,7 @@ namespace WijkAgent.Model
             return adjecentDistricts;
         }
         #endregion
+
         public int GetRefreshButtonHide(int _idDistrict)
         {
             int seconds = 60;
