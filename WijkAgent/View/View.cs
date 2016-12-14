@@ -261,7 +261,7 @@ namespace WijkAgent
         public void DistrictButton_Click(object sender, EventArgs e)
         {
             twitter_messages_scroll_panel.Controls.Clear();
-            main_menu_area_district_scrollable_panel.Controls.Clear();
+            
             Button clickedButton = (Button)sender;
 
             // id van wijk ophalen
@@ -278,18 +278,9 @@ namespace WijkAgent
 
             // laat zien wat nodig is(refresh knop)
             ShowWhatsNeeded();
-
-            Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
-            foreach (KeyValuePair<int, string> entry in test)
-            {
-                Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
-                Button buttonCreate = new Button();
-                buttonCreate.Text = entry.Value;
-                buttonCreate.Name = entry.Key.ToString();
-                buttonLayout(buttonCreate);
-                main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
-                buttonCreate.Click += DistrictButton_Click;
-            }
+            
+            // creeert een button van de omliggende wijken
+            add_buttons_for_adjacent_districts();
 
             main_menu_tabcontrol.SelectTab(0);
         }
@@ -935,6 +926,7 @@ namespace WijkAgent
                 ChangeSelectedDistrictText(districtName);
                 UpdateTwitterpanel();
                 ShowWhatsNeeded();
+                add_buttons_for_adjacent_districts();
             }
         }
         #endregion
@@ -951,6 +943,24 @@ namespace WijkAgent
         {
             if (OnCleanDistrictTweetsButtonClick != null)
                 OnCleanDistrictTweetsButtonClick();
+        }
+        #endregion
+        #region Buttons for adjacent districts
+        public void add_buttons_for_adjacent_districts()
+        {
+            main_menu_area_district_scrollable_panel.Controls.Clear();
+
+            Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
+            foreach (KeyValuePair<int, string> entry in test)
+            {
+                Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
+                Button buttonCreate = new Button();
+                buttonCreate.Text = entry.Value;
+                buttonCreate.Name = entry.Key.ToString();
+                buttonLayout(buttonCreate);
+                main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
+                buttonCreate.Click += DistrictButton_Click;
+            }
         }
         #endregion
     }
