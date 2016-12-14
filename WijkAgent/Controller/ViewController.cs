@@ -40,12 +40,9 @@ namespace WijkAgent.Controller
         {
             // refreshed alles in de laatst geselecteerd wijk om nieuwe tweets weer te geven.
             view.modelClass.map.changeDistrict(view.modelClass.map.currentLatitudePoints, view.modelClass.map.currentLongitudePoints);
-            view.modelClass.TweetsToDb();
 
             // update nieuwe tweets label            
             view.UpdateTwitterpanel();
-            view.UpdateNewTweetsLabel();
-
 
             myThread = new Thread(new ThreadStart(ThreadFunction));
             myThread.Start();

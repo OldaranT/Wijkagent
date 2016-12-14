@@ -360,6 +360,7 @@ namespace WijkAgent
         {
             if (OnRefreshButtonClick != null)
                 OnRefreshButtonClick();
+
             if (doneTwitterSearch != null)
             {
                 doneTwitterSearch();
@@ -877,11 +878,11 @@ namespace WijkAgent
             // twitter berichten in database opslaan 
             modelClass.TweetsToDb();
 
-            // standaard wijk van gebruiker updaten
-            UpdateLatestSelectedDisctrictUser();
-
             // aantal nieuwe tweets updaten
             UpdateNewTweetsLabel();
+
+            // standaard wijk van gebruiker updaten
+            UpdateLatestSelectedDisctrictUser();
         }
         #endregion
 
