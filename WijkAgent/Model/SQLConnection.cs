@@ -303,6 +303,34 @@ namespace WijkAgent.Model
             return cordinates;
         }
         #endregion
+
+        public int GetRefreshButtonHide(int _idDistrict)
+        {
+            int seconds = 60;
+            try
+            {
+                this.conn.Open();
+                string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict";
+                MySqlCommand command = new MySqlCommand(stm, this.conn);
+                command.Parameters.AddWithValue("@iddistrict", _idDistrict);
+                this.rdr = command.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    seconds = rdr.GetInt32(0);
+                }
+                this.conn.Close();
+
+                return seconds;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error bericht(GetSelectedDistrictName): " + e.Message + Environment.NewLine + "Dit was gevonden: " );
+                return seconds;
+            }
+        }
+
+
     }
 
 }

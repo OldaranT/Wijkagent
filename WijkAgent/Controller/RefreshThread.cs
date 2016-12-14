@@ -17,10 +17,10 @@ namespace WijkAgent.Controller
             controller = _controller;
         }
 
-        public void Run()
+        public void Run(int _sleepfor)
         {
             // variabele voor het aantal miliseconden dat de thread wacht
-            int sleepfor = 5000;
+            int sleepfor = _sleepfor;
             
             // de thread wacht hier voor het aantal miliseconden dat is opgegeven
             Thread.Sleep(sleepfor);
