@@ -83,6 +83,9 @@
             this.twitter_panel = new System.Windows.Forms.Panel();
             this.twitter_table_layout_panel = new System.Windows.Forms.TableLayoutPanel();
             this.twitter_trending_tags_panel = new System.Windows.Forms.Panel();
+            this.twitter_taglabel3 = new System.Windows.Forms.Label();
+            this.twitter_taglabel2 = new System.Windows.Forms.Label();
+            this.twitter_taglabel1 = new System.Windows.Forms.Label();
             this.twitter_trending_tag_label = new System.Windows.Forms.Label();
             this.twitter_number_of_new_tweets_panel = new System.Windows.Forms.Panel();
             this.twitter_number_of_new_tweets_label = new System.Windows.Forms.Label();
@@ -110,11 +113,6 @@
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_keyword_checkbox = new System.Windows.Forms.CheckBox();
             this.history_search_button = new System.Windows.Forms.Button();
-
-            this.twitter_taglabel1 = new System.Windows.Forms.Label();
-            this.twitter_taglabel2 = new System.Windows.Forms.Label();
-            this.twitter_taglabel3 = new System.Windows.Forms.Label();
-            this.clean_district_tweets_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -889,6 +887,45 @@
             this.twitter_trending_tags_panel.Size = new System.Drawing.Size(202, 66);
             this.twitter_trending_tags_panel.TabIndex = 2;
             // 
+            // twitter_taglabel3
+            // 
+            this.twitter_taglabel3.AutoSize = true;
+            this.twitter_taglabel3.BackColor = System.Drawing.Color.Transparent;
+            this.twitter_taglabel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.twitter_taglabel3.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
+            this.twitter_taglabel3.Location = new System.Drawing.Point(0, 69);
+            this.twitter_taglabel3.Margin = new System.Windows.Forms.Padding(0);
+            this.twitter_taglabel3.Name = "twitter_taglabel3";
+            this.twitter_taglabel3.Size = new System.Drawing.Size(0, 23);
+            this.twitter_taglabel3.TabIndex = 5;
+            this.twitter_taglabel3.Click += new System.EventHandler(this.twitter_taglabel3_Click);
+            // 
+            // twitter_taglabel2
+            // 
+            this.twitter_taglabel2.AutoSize = true;
+            this.twitter_taglabel2.BackColor = System.Drawing.Color.Transparent;
+            this.twitter_taglabel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.twitter_taglabel2.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
+            this.twitter_taglabel2.Location = new System.Drawing.Point(0, 46);
+            this.twitter_taglabel2.Margin = new System.Windows.Forms.Padding(0);
+            this.twitter_taglabel2.Name = "twitter_taglabel2";
+            this.twitter_taglabel2.Size = new System.Drawing.Size(0, 23);
+            this.twitter_taglabel2.TabIndex = 4;
+            this.twitter_taglabel2.Click += new System.EventHandler(this.twitter_taglabel2_Click);
+            // 
+            // twitter_taglabel1
+            // 
+            this.twitter_taglabel1.AutoSize = true;
+            this.twitter_taglabel1.BackColor = System.Drawing.Color.Transparent;
+            this.twitter_taglabel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.twitter_taglabel1.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
+            this.twitter_taglabel1.Location = new System.Drawing.Point(0, 23);
+            this.twitter_taglabel1.Margin = new System.Windows.Forms.Padding(0);
+            this.twitter_taglabel1.Name = "twitter_taglabel1";
+            this.twitter_taglabel1.Size = new System.Drawing.Size(0, 23);
+            this.twitter_taglabel1.TabIndex = 3;
+            this.twitter_taglabel1.Click += new System.EventHandler(this.twitter_taglabel1_Click);
+            // 
             // twitter_trending_tag_label
             // 
             this.twitter_trending_tag_label.AutoSize = true;
@@ -1238,61 +1275,6 @@
             this.history_search_button.Text = "Zoek";
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
-            // 
-            // twitter_taglabel1
-            // 
-            this.twitter_taglabel1.AutoSize = true;
-            this.twitter_taglabel1.BackColor = System.Drawing.Color.Transparent;
-            this.twitter_taglabel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.twitter_taglabel1.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            this.twitter_taglabel1.Location = new System.Drawing.Point(0, 23);
-            this.twitter_taglabel1.Margin = new System.Windows.Forms.Padding(0);
-            this.twitter_taglabel1.Name = "twitter_taglabel1";
-            this.twitter_taglabel1.Size = new System.Drawing.Size(0, 23);
-            this.twitter_taglabel1.TabIndex = 3;
-            this.twitter_taglabel1.Click += new System.EventHandler(this.twitter_taglabel1_Click);
-            // 
-            // twitter_taglabel2
-            // 
-            this.twitter_taglabel2.AutoSize = true;
-            this.twitter_taglabel2.BackColor = System.Drawing.Color.Transparent;
-            this.twitter_taglabel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.twitter_taglabel2.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            this.twitter_taglabel2.Location = new System.Drawing.Point(0, 46);
-            this.twitter_taglabel2.Margin = new System.Windows.Forms.Padding(0);
-            this.twitter_taglabel2.Name = "twitter_taglabel2";
-            this.twitter_taglabel2.Size = new System.Drawing.Size(0, 23);
-            this.twitter_taglabel2.TabIndex = 4;
-            this.twitter_taglabel2.Click += new System.EventHandler(this.twitter_taglabel2_Click);
-            // 
-            // twitter_taglabel3
-            // 
-            this.twitter_taglabel3.AutoSize = true;
-            this.twitter_taglabel3.BackColor = System.Drawing.Color.Transparent;
-            this.twitter_taglabel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.twitter_taglabel3.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            this.twitter_taglabel3.Location = new System.Drawing.Point(0, 69);
-            this.twitter_taglabel3.Margin = new System.Windows.Forms.Padding(0);
-            this.twitter_taglabel3.Name = "twitter_taglabel3";
-            this.twitter_taglabel3.Size = new System.Drawing.Size(0, 23);
-            this.twitter_taglabel3.TabIndex = 5;
-            this.twitter_taglabel3.Click += new System.EventHandler(this.twitter_taglabel3_Click);
-            //
-            // clean_district_tweets_button
-            // 
-            this.clean_district_tweets_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
-            this.clean_district_tweets_button.Dock = System.Windows.Forms.DockStyle.Top;
-            this.clean_district_tweets_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
-            this.clean_district_tweets_button.ForeColor = System.Drawing.Color.White;
-            this.clean_district_tweets_button.Location = new System.Drawing.Point(0, 225);
-            this.clean_district_tweets_button.Margin = new System.Windows.Forms.Padding(0);
-            this.clean_district_tweets_button.Name = "clean_district_tweets_button";
-            this.clean_district_tweets_button.Size = new System.Drawing.Size(177, 75);
-            this.clean_district_tweets_button.TabIndex = 5;
-            this.clean_district_tweets_button.Text = "Wijk Opschonen";
-            this.clean_district_tweets_button.UseVisualStyleBackColor = false;
-            this.clean_district_tweets_button.Visible = false;
-            this.clean_district_tweets_button.Click += new System.EventHandler(this.clean_district_tweets_button_Click);
             // 
             // View
             // 
