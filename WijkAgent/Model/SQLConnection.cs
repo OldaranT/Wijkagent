@@ -325,7 +325,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error bericht(GetSelectedDistrictName): " + e.Message + Environment.NewLine + "Dit was gevonden: " );
+                Console.WriteLine("Error bericht(GetRefreshButtonHide): " + e.Message + Environment.NewLine + "tijd was niet gevonden!" );
                 return seconds;
             }
         }
