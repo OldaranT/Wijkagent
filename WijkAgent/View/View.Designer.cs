@@ -109,6 +109,7 @@
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_keyword_checkbox = new System.Windows.Forms.CheckBox();
             this.history_search_button = new System.Windows.Forms.Button();
+            this.clean_district_tweets_button = new System.Windows.Forms.Button();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -211,6 +212,7 @@
             // 
             this.main_menu_scroll_panel.AutoScroll = true;
             this.main_menu_scroll_panel.Controls.Add(this.main_menu_area_district_panel);
+            this.main_menu_scroll_panel.Controls.Add(this.clean_district_tweets_button);
             this.main_menu_scroll_panel.Controls.Add(this.save_incedents_button);
             this.main_menu_scroll_panel.Controls.Add(this.go_to_history_panel_button_from_main_menu_tab);
             this.main_menu_scroll_panel.Controls.Add(this.go_to_province_panel_button_from_main_menu_tab);
@@ -226,9 +228,9 @@
             this.main_menu_area_district_panel.BackColor = System.Drawing.Color.Transparent;
             this.main_menu_area_district_panel.Controls.Add(this.main_menu_area_district_panel_table_layout);
             this.main_menu_area_district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_menu_area_district_panel.Location = new System.Drawing.Point(0, 225);
+            this.main_menu_area_district_panel.Location = new System.Drawing.Point(0, 300);
             this.main_menu_area_district_panel.Name = "main_menu_area_district_panel";
-            this.main_menu_area_district_panel.Size = new System.Drawing.Size(177, 309);
+            this.main_menu_area_district_panel.Size = new System.Drawing.Size(177, 234);
             this.main_menu_area_district_panel.TabIndex = 5;
             // 
             // main_menu_area_district_panel_table_layout
@@ -243,7 +245,7 @@
             this.main_menu_area_district_panel_table_layout.RowCount = 2;
             this.main_menu_area_district_panel_table_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.main_menu_area_district_panel_table_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.main_menu_area_district_panel_table_layout.Size = new System.Drawing.Size(177, 309);
+            this.main_menu_area_district_panel_table_layout.Size = new System.Drawing.Size(177, 234);
             this.main_menu_area_district_panel_table_layout.TabIndex = 0;
             // 
             // main_menu_selected_district_panel
@@ -255,7 +257,7 @@
             this.main_menu_selected_district_panel.Location = new System.Drawing.Point(0, 0);
             this.main_menu_selected_district_panel.Margin = new System.Windows.Forms.Padding(0);
             this.main_menu_selected_district_panel.Name = "main_menu_selected_district_panel";
-            this.main_menu_selected_district_panel.Size = new System.Drawing.Size(177, 61);
+            this.main_menu_selected_district_panel.Size = new System.Drawing.Size(177, 46);
             this.main_menu_selected_district_panel.TabIndex = 2;
             this.main_menu_selected_district_panel.Visible = false;
             // 
@@ -277,9 +279,9 @@
             // 
             this.main_menu_area_district_scrollable_panel.AutoScroll = true;
             this.main_menu_area_district_scrollable_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_menu_area_district_scrollable_panel.Location = new System.Drawing.Point(3, 64);
+            this.main_menu_area_district_scrollable_panel.Location = new System.Drawing.Point(3, 49);
             this.main_menu_area_district_scrollable_panel.Name = "main_menu_area_district_scrollable_panel";
-            this.main_menu_area_district_scrollable_panel.Size = new System.Drawing.Size(171, 242);
+            this.main_menu_area_district_scrollable_panel.Size = new System.Drawing.Size(171, 182);
             this.main_menu_area_district_scrollable_panel.TabIndex = 3;
             this.main_menu_area_district_scrollable_panel.Visible = false;
             // 
@@ -1214,6 +1216,22 @@
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
             // 
+            // clean_district_tweets_button
+            // 
+            this.clean_district_tweets_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
+            this.clean_district_tweets_button.Dock = System.Windows.Forms.DockStyle.Top;
+            this.clean_district_tweets_button.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.clean_district_tweets_button.ForeColor = System.Drawing.Color.White;
+            this.clean_district_tweets_button.Location = new System.Drawing.Point(0, 225);
+            this.clean_district_tweets_button.Margin = new System.Windows.Forms.Padding(0);
+            this.clean_district_tweets_button.Name = "clean_district_tweets_button";
+            this.clean_district_tweets_button.Size = new System.Drawing.Size(177, 75);
+            this.clean_district_tweets_button.TabIndex = 5;
+            this.clean_district_tweets_button.Text = "Wijk Opschonen";
+            this.clean_district_tweets_button.UseVisualStyleBackColor = false;
+            this.clean_district_tweets_button.Visible = false;
+            this.clean_district_tweets_button.Click += new System.EventHandler(this.clean_district_tweets_button_Click);
+            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1362,6 +1380,7 @@
         private System.Windows.Forms.Panel main_menu_selected_district_panel;
         private System.Windows.Forms.Label main_menu_selected_district_label;
         private System.Windows.Forms.Panel main_menu_area_district_scrollable_panel;
+        private System.Windows.Forms.Button clean_district_tweets_button;
     }
 }
 

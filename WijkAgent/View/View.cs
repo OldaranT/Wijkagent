@@ -37,6 +37,7 @@ namespace WijkAgent
         //events
         public event VoidWithNoArguments OnRefreshButtonClick;
         public event VoidWithNoArguments OnLogOutButtonClick;
+        public event VoidWithNoArguments OnCleanDistrictTweetsButtonClick;
         public event TwitterSearch doneTwitterSearch;
 
         public View(string _username)
@@ -93,6 +94,7 @@ namespace WijkAgent
                     save_incedents_button.Show();
                     main_menu_area_district_scrollable_panel.Show();
                     main_menu_selected_district_panel.Show();
+                    clean_district_tweets_button.Show();
                 }
                 catch (Exception ex)
                 {
@@ -405,8 +407,9 @@ namespace WijkAgent
         #region View_Closed
         private void View_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //Zorgt er voor dat alles voor gesloten
-            Environment.Exit(0);
+            //HIER MICHELLA!!!!! <-------
+
+            Environment.Exit(0);     
         }
         #endregion
 
@@ -421,6 +424,7 @@ namespace WijkAgent
                 save_incedents_button.Hide();
                 main_menu_area_district_scrollable_panel.Hide();
                 main_menu_selected_district_panel.Hide();
+                clean_district_tweets_button.Hide();
             }
             catch (Exception ex)
             {
@@ -883,6 +887,7 @@ namespace WijkAgent
                 save_incedents_button.Show();
                 main_menu_area_district_scrollable_panel.Show();
                 main_menu_selected_district_panel.Show();
+                clean_district_tweets_button.Show();
             }
             catch (Exception ex)
             {
@@ -917,6 +922,14 @@ namespace WijkAgent
         public void ChangeSelectedDistrictText(string _districtName)
         {
             main_menu_selected_district_label.Text = "Laatste geselecteerde wijk: "+ Environment.NewLine + _districtName;
+        }
+        #endregion
+
+        #region Clean_district_button_clicked
+        private void clean_district_tweets_button_Click(object sender, EventArgs e)
+        {
+            if (OnCleanDistrictTweetsButtonClick != null)
+                OnCleanDistrictTweetsButtonClick();
         }
         #endregion
     }
