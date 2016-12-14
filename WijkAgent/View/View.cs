@@ -33,6 +33,12 @@ namespace WijkAgent
         private string searchDistrict = "Zoek een wijk . . .";
         private string searchUser = "Zoek een gebruiker . . .";
         private string searchKeyWord = "Zoek een trefwoord . . .";
+        private string emptyString = "";
+        private string noTagsMessage = "Er zijn geen tags getweet.";
+
+
+        private int lastTagLabelSelected;
+        private string selectedTagLebelText;
 
         //events
         public event VoidWithNoArguments OnRefreshButtonClick;
@@ -41,6 +47,7 @@ namespace WijkAgent
 
         public View(string _username)
         {
+            selectedTagLebelText = emptyString;
             modelClass = new ModelClass(_username);
             policeBlue = Color.FromArgb(0, 70, 130);
             policeGold = Color.FromArgb(190, 150, 90);
@@ -255,6 +262,9 @@ namespace WijkAgent
         //Kijkt of er een DistrictGenerated Button is ingedrukt.
         public void DistrictButton_Click(object sender, EventArgs e)
         {
+
+            ResetClickEventTwitterTag();
+
             twitter_messages_scroll_panel.Controls.Clear();
             Button clickedButton = (Button)sender;
 
@@ -466,7 +476,7 @@ namespace WijkAgent
                 history_user_textbox.Text = searchUser;
             }
         }
-    
+
         private void history_keyword_textbox_Enter(object sender, EventArgs e)
         {
             if (history_keyword_textbox.Text == searchKeyWord)
@@ -490,15 +500,44 @@ namespace WijkAgent
         public void TwitterTrending()
         {
             //twitterTrendingList
-            List<string> trendingTweetWord = new List<string>();
             List<string> trendingTags = new List<string>();
 
+            //Haal tags op
+            trendingTags = modelClass.map.twitter.TrendingTags();
+            int trendingTagCounter = 0;
+            if (trendingTags.Count() > 0)
+            {
+                twitter_trending_tag_label.Text = "Trending tags:";
+                foreach (string tag in trendingTags)
+                {
+                    trendingTagCounter++;
+                    if (trendingTagCounter == 1)
+                    {
+                        twitter_taglabel1.Text = "1: " + tag;
+                        twitter_taglabel2.Text = emptyString;
+                        twitter_taglabel3.Text = emptyString;
+                    }
+                    else if (trendingTagCounter == 2)
+                    {
+                        twitter_taglabel2.Text = "2: " + tag;
+                        twitter_taglabel3.Text = emptyString;
 
-            twitter_trending_topic_label.Text = modelClass.map.twitter.TrendingTopics();
-            twitter_trending_tag_label.Text = modelClass.map.twitter.TrendingTags();
-            
+                    }
+                    else if (trendingTagCounter == 3)
+                    {
+                        twitter_taglabel3.Text = "3: " + tag;
+                    }
+                }
 
-
+            }
+            //Zet alles in default waarden.
+            else
+            {
+                twitter_trending_tag_label.Text = noTagsMessage;
+                twitter_taglabel1.Text = emptyString;
+                twitter_taglabel2.Text = emptyString;
+                twitter_taglabel3.Text = emptyString;
+            }
 
         }
         #endregion
@@ -636,7 +675,7 @@ namespace WijkAgent
                 stm = modelClass.databaseConnectie.JoinCatgoryQuery(stm);
             }
             //Van af hier begint de WHERE van de query.
-            if(history_district_checkbox.Checked || history_user_checkbox.Checked || (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1) || history_date_checkbox.Checked || history_keyword_checkbox.Checked)
+            if (history_district_checkbox.Checked || history_user_checkbox.Checked || (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1) || history_date_checkbox.Checked || history_keyword_checkbox.Checked)
             {
                 stm = modelClass.databaseConnectie.AddWhereToQuery(stm);
             }
@@ -676,7 +715,7 @@ namespace WijkAgent
             if (history_keyword_checkbox.Checked)
             {
                 tempSearch = tempSearch + "Trefwoord: " + keyWordInput + Environment.NewLine;
-                if(history_district_checkbox.Checked || history_user_checkbox.Checked || history_category_checkbox.Checked)
+                if (history_district_checkbox.Checked || history_user_checkbox.Checked || history_category_checkbox.Checked)
                 {
                     stm = modelClass.databaseConnectie.AddAndToQuery(stm);
                 }
@@ -721,7 +760,7 @@ namespace WijkAgent
                     {
                         cmd.Parameters.AddWithValue("@categoryInput", "Er is geen catgorie geselecteert.");
                     }
-                    cmd.Parameters.AddWithValue("@keyWordInput","%" + keyWordInput + "%");
+                    cmd.Parameters.AddWithValue("@keyWordInput", "%" + keyWordInput + "%");
                     cmd.Parameters.AddWithValue("@fromDateInput", fromDateInput.ToString("yyyy-MM-dd 00:00:0001"));
                     cmd.Parameters.AddWithValue("@tillDateInput", tillDateInput.ToString("yyyy-MM-dd 23:59:0000"));
                     modelClass.databaseConnectie.rdr = cmd.ExecuteReader();
@@ -770,7 +809,7 @@ namespace WijkAgent
                     //sluit database connectie
                     modelClass.databaseConnectie.conn.Close();
                 }
-                catch(MySqlException ex)
+                catch (MySqlException ex)
                 {
                     Console.WriteLine(ex);
                 }
@@ -819,6 +858,8 @@ namespace WijkAgent
         #region Update_Twitter_Panel
         public void UpdateTwitterpanel()
         {
+            twitter_messages_scroll_panel.Controls.Clear();
+            //twitter trending
             if (!modelClass.map.twitter.tweetsList.Any())
             {
                 string infoMessage = ("Er zijn geen tweets in deze wijk.");
@@ -826,36 +867,71 @@ namespace WijkAgent
                 tweetMessageLabel.Text = infoMessage;
                 twitterLabelLayout(tweetMessageLabel);
                 twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
-                twitter_trending_tag_label.Text = "";
-                twitter_trending_topic_label.Text = "";
+                twitter_trending_topic_label.Text = infoMessage;
+
+                //Check of twitter tags zijn.
+                TwitterTrending();
+
             }
             else
             {
-                //twitter trending
-                TwitterTrending();
-
+                twitter_trending_topic_label.Text = modelClass.map.twitter.TrendingTopics();
                 //Omdraaien van de array, zodat de nieuwste bovenaan staan
                 modelClass.map.twitter.tweetsList.Reverse();
 
-                //twitter aanroep
-                foreach (var tweets in modelClass.map.twitter.tweetsList)
+                if (selectedTagLebelText != "")
                 {
-                    string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
-                    foreach (string link in tweets.links)
+                    List<Tweet> filteredTweetList = new List<Tweet>();
+                    filteredTweetList = modelClass.map.twitter.getTweetsWithSelectedTag(selectedTagLebelText);
+                    //twitter aanroep
+                    foreach (var tweets in filteredTweetList)
                     {
-                        tweetMessage += "\n" + link;
-                    }
-                    Label tweetMessageLabel = new Label();
-                    tweetMessageLabel.Text = tweetMessage;
-                    tweetMessageLabel.Name = Convert.ToString(tweets.id);
-                    twitterLabelLayout(tweetMessageLabel);
+                        string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
 
-                    //Als de muis over twitter label hovert wordt die goud.
-                    tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
-                    tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
-                    //onclick label voor de marker highlight
-                    tweetMessageLabel.Click += TweetMessageOnClick;
-                    twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+                        foreach (string link in tweets.links)
+                        {
+                            tweetMessage += "\n" + link;
+                        }
+                        Label tweetMessageLabel = new Label();
+                        tweetMessageLabel.Text = tweetMessage;
+                        tweetMessageLabel.Name = Convert.ToString(tweets.id);
+                        twitterLabelLayout(tweetMessageLabel);
+
+                        //Als de muis over twitter label hovert wordt die goud.
+                        tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
+                        tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+                        //onclick label voor de marker highlight
+                        tweetMessageLabel.Click += TweetMessageOnClick;
+                        twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+
+                    }
+                }
+                else
+                {
+                    //Check of twitter tags zijn.
+                    TwitterTrending();
+                    //twitter aanroep
+                    foreach (var tweets in modelClass.map.twitter.tweetsList)
+                    {
+                        string tweetMessage = tweets.user + "\n" + tweets.message + "\n" + tweets.date;
+
+                        foreach (string link in tweets.links)
+                        {
+                            tweetMessage += "\n" + link;
+                        }
+                        Label tweetMessageLabel = new Label();
+                        tweetMessageLabel.Text = tweetMessage;
+                        tweetMessageLabel.Name = Convert.ToString(tweets.id);
+                        twitterLabelLayout(tweetMessageLabel);
+
+                        //Als de muis over twitter label hovert wordt die goud.
+                        tweetMessageLabel.MouseEnter += on_enter_hover_twitter_message;
+                        tweetMessageLabel.MouseLeave += on_exit_hover_twitter_message;
+                        //onclick label voor de marker highlight
+                        tweetMessageLabel.Click += TweetMessageOnClick;
+                        twitter_messages_scroll_panel.Controls.Add(tweetMessageLabel);
+
+                    }
                 }
             }
 
@@ -916,8 +992,98 @@ namespace WijkAgent
         #region ChangeSelectedDistrictText
         public void ChangeSelectedDistrictText(string _districtName)
         {
-            main_menu_selected_district_label.Text = "Laatste geselecteerde wijk: "+ Environment.NewLine + _districtName;
+            main_menu_selected_district_label.Text = "Laatste geselecteerde wijk: " + Environment.NewLine + _districtName;
         }
         #endregion
+
+        #region TagLabel Clickevents
+        //Deze events zorgen er voor dat elk label gekleurt wordt en twitter overzicht geupdate word.
+        private void twitter_taglabel1_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = (Label)sender;
+            if (lastTagLabelSelected == 1)
+            {
+                //Reset alle labels naar zwart en laaste geselecteerde label naar default.
+                ResetClickEventTwitterTag();
+            }
+            else
+            {
+                twitter_taglabel1.ForeColor = policeGold;
+                twitter_taglabel2.ForeColor = Color.Black;
+                twitter_taglabel3.ForeColor = Color.Black;
+                lastTagLabelSelected = 1;
+                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                Console.WriteLine(selectedTagLebelText);
+            }
+
+            UpdateTwitterpanel();
+        }
+
+        private void twitter_taglabel2_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = (Label)sender;
+            if (lastTagLabelSelected == 2)
+            {
+                //Reset alle labels naar zwart en laaste geselecteerde label naar default.
+                ResetClickEventTwitterTag();
+            }
+            else
+            {
+                twitter_taglabel1.ForeColor = Color.Black;
+                twitter_taglabel2.ForeColor = policeGold;
+                twitter_taglabel3.ForeColor = Color.Black;
+                lastTagLabelSelected = 2;
+                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                Console.WriteLine(selectedTagLebelText);
+            }
+
+            UpdateTwitterpanel();
+        }
+
+        private void twitter_taglabel3_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = (Label)sender;
+            if (lastTagLabelSelected == 3)
+            {
+                //Reset alle labels naar zwart en laaste geselecteerde label naar default.
+                ResetClickEventTwitterTag();
+            }
+            else
+            {
+                twitter_taglabel1.ForeColor = Color.Black;
+                twitter_taglabel2.ForeColor = Color.Black;
+                twitter_taglabel3.ForeColor = policeGold;
+                lastTagLabelSelected = 3;
+                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                Console.WriteLine(selectedTagLebelText);
+            }
+
+            UpdateTwitterpanel();
+        }
+
+        public void ResetClickEventTwitterTag()
+        {
+            twitter_taglabel1.ForeColor = Color.Black;
+            twitter_taglabel2.ForeColor = Color.Black;
+            twitter_taglabel3.ForeColor = Color.Black;
+            lastTagLabelSelected = 0;
+            selectedTagLebelText = emptyString;
+        }
+        #endregion
+
+        public string filterStringToTag(string _stringWithTag)
+        {
+            string returntag = "";
+
+            var strings = Regex.Split(_stringWithTag, @"\s+")
+            .Where(a => a.StartsWith("#"));
+
+            foreach (var tag in strings)
+            {
+                returntag = tag;
+            }
+
+            return returntag;
+        }
     }
 }

@@ -165,11 +165,9 @@ namespace WijkAgent.Model
         #endregion
 
         #region TredingTags
-        public string TrendingTags()
+        public List<string> TrendingTags()
         {
-            string output = "";
-
-            List<string> trendingTags = new List<string>();
+            List<string> outputTrendingTags = new List<string>();
 
             var tagsMessage =
                 from tweet in tweetsList
@@ -179,7 +177,7 @@ namespace WijkAgent.Model
 
             if (tagsMessage.Count() < 1)
             {
-                output = "Er zijn geen tags getweet!";
+
             }
             else
             {
@@ -193,7 +191,7 @@ namespace WijkAgent.Model
                 }
 
                 //Stop alle hashtags in een array
-                var tags = Regex.Split(messageTagsString.ToLower(), @"\s+")
+                var tags = Regex.Split(messageTagsString, @"\s+")
                     .Where(a => a.StartsWith("#"))
                     .GroupBy(s => s)
                     .OrderByDescending(g => g.Count());
@@ -202,40 +200,17 @@ namespace WijkAgent.Model
                 //Voor de hashtags
                 //Zo ja, split het woord en voeg het woord toe
                 //Zo nee, voeg het wooord alleen toe, zonder aanpassing
+                int tagCount = 0;
                 foreach (var tag in tags)
                 {
-                    if (tag.Key.Length > trendingLenght)
+                    if (tagCount < 4)
                     {
-                        string splittedTag = "";
-                        var tagSplit = Split(tag.Key, trendingLenght);
-                        foreach (string split in tagSplit)
-                        {
-                            splittedTag += split + " ";
-                        }
-                        trendingTags.Add(splittedTag);
+                        outputTrendingTags.Add(tag.Key);
+                        tagCount++;
                     }
-                    else
-                    {
-                        trendingTags.Add(tag.Key);
-                    }
-                }
-
-                //Print de trending hashtags op het scherm in een label
-                int _tagCount = trendingTags.Count();
-                if (_tagCount < 3)
-                {
-                    output = "Trending tags:\n";
-                    for (int i = 0; i < _tagCount; i++)
-                    {
-                        output += (i + 1) + ": " + trendingTags[i] + "\n";
-                    }
-                }
-                else
-                {
-                    output = "Trending tags:\n" + "1: " + trendingTags[0] + "\n2: " + trendingTags[1] + "\n3: " + trendingTags[2];
                 }
             }
-            return output;
+            return outputTrendingTags;
         }
         #endregion
 
@@ -248,6 +223,23 @@ namespace WijkAgent.Model
                 ListOut.Add(s.Substring(i, Math.Min(partLength, s.Length - i)));
             }
             return ListOut;
+        }
+
+        public List<Tweet> getTweetsWithSelectedTag(string _usedTag)
+        {
+            List<Tweet> tweetsWithTag = new List<Tweet>();
+
+            var tweets =
+                from tweet in tweetsList
+                where tweet.message.Contains(_usedTag)
+                select tweet;
+
+            foreach(var tweet in tweets)
+            {
+                tweetsWithTag.Add(tweet);
+            }
+
+            return tweetsWithTag;
         }
     }
 }
