@@ -69,13 +69,17 @@ namespace WijkAgent.Model
             //Open database connectie
             conn.Open();
 
+            //statement voor verwijderen van twitter berichten van desbetrefende wijk. 
             string deletestm = "DELETE FROM twitter WHERE iddistrict = @iddistrict AND datetime < @datetime AND save = false";
             MySqlCommand deletecmd = new MySqlCommand();
             deletecmd.Connection = conn;
             deletecmd.CommandText = deletestm;
             deletecmd.Parameters.AddWithValue("@iddistrict", _iddistrict);
+
+            //Drie dagen terug tellen van de huidige dag.
             deletecmd.Parameters.AddWithValue("@datetime", DateTime.Now.AddDays(-3));
 
+            //Onthouden hoeveel rijen zijn verwijderd.
             int effectedRows = deletecmd.ExecuteNonQuery();
 
             //Sluit database connectie
@@ -354,6 +358,8 @@ namespace WijkAgent.Model
             return adjecentDistricts;
         }
         #endregion
+
+        #region haal verberg tijd op van wijk
         public int GetRefreshButtonHide(int _idDistrict)
         {
             int seconds = 60;
@@ -379,6 +385,7 @@ namespace WijkAgent.Model
                 return seconds;
             }
         }
+        #endregion
     }
 
 }
