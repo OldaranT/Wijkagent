@@ -96,7 +96,7 @@ namespace WijkAgent.Model
             // voor elke tweet wordt een marker toegevoegd aan de map
             foreach (Tweet t in this.tweetsList)
             {
-                Marker _m = new Marker(t.id, t.latitude, t.longitude, "blue-marker");
+                Marker _m = new Marker(t.id, t.latitude, t.longitude, "blue-marker", "twitter");
                 _m.addMarkerToMap(_wb);
             }
         }

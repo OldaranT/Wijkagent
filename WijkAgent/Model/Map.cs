@@ -16,7 +16,9 @@ namespace WijkAgent.Model
         public double defaultZoom = 8;
         public int idDistrict;
         public WebBrowser wb;
-
+        public SQLConnection sql = new SQLConnection();
+        //gebr.naam van degene die is ingelogd
+        public string username;
         // voor eigen locatie mits locatie aan staat op laptop
         GeoCoordinateWatcher watcher;
 
@@ -33,12 +35,7 @@ namespace WijkAgent.Model
             twitter = new Twitter();
             currentLatitudePoints = new List<double>();
             currentLongitudePoints = new List<double>();
-        }
-        #endregion
 
-        #region Initialize
-        public void initialize()
-        {
             this.wb = new WebBrowser();
             // goede format voor een lokaal bestand zodat je het kan gebruiken in de navigate van webbrowser
             string _curDir = Directory.GetCurrentDirectory();
@@ -55,6 +52,25 @@ namespace WijkAgent.Model
             }
 
             // nu kan je dingen op de map doen
+
+
+            // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
+            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+            watcher.MovementThreshold = 20;
+
+            // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
+            watcher.StatusChanged += GetCurrentLocation;
+
+            // watcher starten
+            watcher.Start();
+
+            
+        }
+        #endregion
+
+        #region Initialize
+        public void initialize()
+        {
             // map aanroepen
             Object[] _initArgs = new Object[3] { defaultLatitude, defaultLongtitude, defaultZoom };
 
@@ -67,14 +83,6 @@ namespace WijkAgent.Model
         #region ChangeDistrict
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
-            // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
-            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-
-            // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
-            watcher.StatusChanged += GetCurrentLocation;
-
-            // watcher starten
-            watcher.Start();
 
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
@@ -99,9 +107,6 @@ namespace WijkAgent.Model
                 double _centerLat = (currentLatitudePoints.Max() + currentLatitudePoints.Min()) / 2;
                 double _centerLong = (currentLongitudePoints.Max() + currentLongitudePoints.Min()) / 2;
 
-                Marker test = new Marker(500, _centerLat, _centerLong, "blue-pushpin");
-                test.addMarkerToMap(this.wb);
-
                 Object[] _initArgs = new Object[3] { _centerLat, _centerLong, _zoom };
                 // invokescript heeft voor de argumenten een object nodig waar deze in staan
                 this.wb.Document.InvokeScript("initialize", _initArgs);
@@ -123,8 +128,27 @@ namespace WijkAgent.Model
                 this.wb.Document.InvokeScript("SetCircle", _circleArgs);
 
                 // er is een wijk geselecteerd
+                ShowColleagues();
                 districtSelected = true;
             }
+        }
+        #endregion
+
+        #region GetChangedPosition
+        private void GeoPositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        {
+            Object[] args = new Object[3] { twitter.tweetsList.Count + 1, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude };
+            Console.WriteLine(watcher.Position.Location.Latitude + "  " + watcher.Position.Location.Longitude + "  " + this.username);
+            wb.Document.InvokeScript("changeMarkerLocation", args);
+            try
+            {
+                sql.ChangeAccountLocation(this.username, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
         #endregion
 
@@ -178,16 +202,43 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        #region ShowColleagues
+        public void ShowColleagues()
+        {
+            //elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
+            int markerId = twitter.tweetsList.Count + 2;
+
+            Dictionary<int, string> _adjecentDistricts = sql.GetAllAdjacentDistricts(6);
+
+            foreach (KeyValuePair<int, string> district in _adjecentDistricts)
+            {
+                //voor elke aanliggende district kijken wie het is en zijn locatie. district.key is de id van een district
+                Dictionary<string, List<double>> _colleagueDic = sql.GetColleagueLocation(district.Key);
+                //nu markers maken van elke collega
+                foreach(var colleague in _colleagueDic)
+                {
+                    Marker colleagueMarker = new Marker(markerId, colleague.Value[0], colleague.Value[1], "pink-pushpin", colleague.Key);
+                    colleagueMarker.addMarkerToMap(this.wb);
+                    markerId = markerId + 1;
+                }
+                    
+            }
+        }
+        #endregion
+
         #region GetCurrentLocation
         private void GetCurrentLocation(object sender, GeoPositionStatusChangedEventArgs e)
         {
+            //als de status is veranderd wil ik elke keer dat de positie veranderd weer de gegevens ophalen
+            watcher.PositionChanged += GeoPositionChanged;
+
             // als de status ready is
             if (e.Status == GeoPositionStatus.Ready)
             {
+                Console.WriteLine("id: " + twitter.tweetsList.Count + 1);
                 // nieuwe marker toevoegen met het id dat 1 hoger is dan de twitter list lengte 
-                Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin");
+                Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin", "Eigen locatie");
                 _m.addMarkerToMap(this.wb);
-                watcher.Stop();
             }
         }
         #endregion

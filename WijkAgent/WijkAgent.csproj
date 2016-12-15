@@ -173,6 +173,7 @@
     <Content Include="Resource\icons\blue-marker.png" />
     <Content Include="Resource\icons\blue-pushpin.png" />
     <Content Include="Resource\icons\green-marker.png" />
+    <Content Include="Resource\icons\pink-pushpin.png" />
     <Content Include="Resource\icons\red-marker.png" />
     <Content Include="Resource\Map.html" />
   </ItemGroup>
