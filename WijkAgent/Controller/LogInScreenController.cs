@@ -35,11 +35,9 @@ namespace WijkAgent.Controller
         #region LogOutButtonClicked
         public void LogOutButtonClicked()
         {
-            viewController.view.Close();
-            logInScreen.Show();
             viewController.view.modelClass.databaseConnectie.ChangeAccountLocation(viewController.view.modelClass.username, null, null);
-            viewController = null;
-            
+            viewController.view.Dispose();
+            logInScreen.Show();       
         }
         #endregion
 

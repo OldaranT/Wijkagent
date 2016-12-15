@@ -35,10 +35,11 @@ namespace WijkAgent
         private string searchKeyWord = "Zoek een trefwoord . . .";
         private string emptyString = "";
         private string noTagsMessage = "Er zijn geen tags getweet.";
+        private string emptyAdjacentDistrict = "Er zijn geen omliggende \nwijken beschikbaar.";
 
 
         private int lastTagLabelSelected;
-        private string selectedTagLebelText;
+        private string selectedTagLabelText;
 
         // events
         public event VoidWithNoArguments OnRefreshButtonClick;
@@ -49,7 +50,7 @@ namespace WijkAgent
         #region Constructor
         public View(string _username)
         {
-            selectedTagLebelText = emptyString;
+            selectedTagLabelText = emptyString;
             modelClass = new ModelClass(_username);
             policeBlue = Color.FromArgb(0, 70, 130);
             policeGold = Color.FromArgb(190, 150, 90);
@@ -896,10 +897,10 @@ namespace WijkAgent
                 //Omdraaien van de array, zodat de nieuwste bovenaan staan
                 modelClass.map.twitter.tweetsList.Reverse();
 
-                if (selectedTagLebelText != "")
+                if (selectedTagLabelText != "")
                 {
                     List<Tweet> filteredTweetList = new List<Tweet>();
-                    filteredTweetList = modelClass.map.twitter.getTweetsWithSelectedTag(selectedTagLebelText);
+                    filteredTweetList = modelClass.map.twitter.getTweetsWithSelectedTag(selectedTagLabelText);
                     //twitter aanroep
                     foreach (var tweets in filteredTweetList)
                     {
@@ -1032,7 +1033,7 @@ namespace WijkAgent
                 twitter_taglabel2.ForeColor = Color.Black;
                 twitter_taglabel3.ForeColor = Color.Black;
                 lastTagLabelSelected = 1;
-                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
             UpdateTwitterpanel();
@@ -1052,7 +1053,7 @@ namespace WijkAgent
                 twitter_taglabel2.ForeColor = policeGold;
                 twitter_taglabel3.ForeColor = Color.Black;
                 lastTagLabelSelected = 2;
-                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
             UpdateTwitterpanel();
@@ -1072,7 +1073,7 @@ namespace WijkAgent
                 twitter_taglabel2.ForeColor = Color.Black;
                 twitter_taglabel3.ForeColor = policeGold;
                 lastTagLabelSelected = 3;
-                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
             UpdateTwitterpanel();
@@ -1084,7 +1085,7 @@ namespace WijkAgent
             twitter_taglabel2.ForeColor = Color.Black;
             twitter_taglabel3.ForeColor = Color.Black;
             lastTagLabelSelected = 0;
-            selectedTagLebelText = emptyString;
+            selectedTagLabelText = emptyString;
         }
         #endregion
 
@@ -1102,15 +1103,25 @@ namespace WijkAgent
             main_menu_area_district_scrollable_panel.Controls.Clear();
 
             Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
-            foreach (KeyValuePair<int, string> entry in test)
+            if (test.Count != 0)
             {
-                Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
-                Button buttonCreate = new Button();
-                buttonCreate.Text = entry.Value;
-                buttonCreate.Name = entry.Key.ToString();
-                buttonLayout(buttonCreate);
-                main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
-                buttonCreate.Click += DistrictButton_Click;
+                foreach (KeyValuePair<int, string> entry in test)
+                {
+                    Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
+                    Button buttonCreate = new Button();
+                    buttonCreate.Text = entry.Value;
+                    buttonCreate.Name = entry.Key.ToString();
+                    buttonLayout(buttonCreate);
+                    main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
+                    buttonCreate.Click += DistrictButton_Click;
+                }
+            }else
+            {
+                Console.WriteLine(1);
+                Label lab = new Label();
+                lab.Text = emptyAdjacentDistrict;
+                labelLayout(lab);
+                main_menu_area_district_scrollable_panel.Controls.Add(lab);
             }
         }
         #endregion
