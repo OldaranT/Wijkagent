@@ -63,6 +63,42 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        #region DeleteNotSavedTweetsForDistrict
+        public void DeleteUnSavedTweetsForDistrict(int _iddistrict)
+        {
+            //Open database connectie
+            conn.Open();
+
+            //statement voor verwijderen van twitter berichten van desbetrefende wijk. 
+            string deletestm = "DELETE FROM twitter WHERE iddistrict = @iddistrict AND datetime < @datetime AND save = false";
+            MySqlCommand deletecmd = new MySqlCommand();
+            deletecmd.Connection = conn;
+            deletecmd.CommandText = deletestm;
+            deletecmd.Parameters.AddWithValue("@iddistrict", _iddistrict);
+
+            //Drie dagen terug tellen van de huidige dag.
+            deletecmd.Parameters.AddWithValue("@datetime", DateTime.Now.AddDays(-3));
+
+            //Onthouden hoeveel rijen zijn verwijderd.
+            int effectedRows = deletecmd.ExecuteNonQuery();
+
+            //Sluit database connectie
+            conn.Close();
+            string message = "Succes! ";
+
+            if (effectedRows > 0)
+            {
+                message += "Er zijn " + effectedRows + " tweets verwijderd.";
+            }
+            else
+            {
+                message += "Er is niets om schoon te maken";
+            }
+
+            MessageBox.Show(message);
+        }
+        #endregion
+
         #region QueryVoorGeschiedenis.
         public string AddSelectTwitterToQuery(string _stm)
         {
@@ -248,9 +284,9 @@ namespace WijkAgent.Model
         {
             // wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
             string districtName = "";
+            this.conn.Open();
             try
             {
-                this.conn.Open();
                 string stm = "SELECT name FROM district WHERE iddistrict = @iddistrict";
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 command.Parameters.AddWithValue("@iddistrict", _idDistrict);
@@ -261,7 +297,6 @@ namespace WijkAgent.Model
                     districtName = rdr.GetString(0);
                 }
 
-                return districtName;
             }
             catch (Exception e)
             {
@@ -269,6 +304,7 @@ namespace WijkAgent.Model
                 return districtName;
             }
             this.conn.Close();
+            return districtName;
         }
         #endregion
 
@@ -306,9 +342,10 @@ namespace WijkAgent.Model
         public Dictionary<int, string> GetAllAdjacentDistricts(int _idDistrict)
         {
             Dictionary<int, string> adjecentDistricts = new Dictionary<int, string>();
+
+            conn.Open();
             try
             {
-                this.conn.Open();
                 string stmt = "SELECT district.iddistrict, district.name FROM district JOIN neighbordistrict ON neighbordistrict.idneighbordistrict = district.iddistrict WHERE neighbordistrict.iddistrict = @idDistrict";
                 MySqlCommand command = new MySqlCommand(stmt, this.conn);
                 command.Parameters.AddWithValue("@idDistrict", _idDistrict);
@@ -317,13 +354,13 @@ namespace WijkAgent.Model
                 {
                     adjecentDistricts.Add(Int32.Parse(rdr.GetString(0)), rdr.GetString(1));
                 }
-
-                this.conn.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error bericht: " + e.Message);
             }
+
+            conn.Close();
 
             return adjecentDistricts;
         }
@@ -384,31 +421,26 @@ namespace WijkAgent.Model
             return colleagueLocation;
         }
         #endregion
+
+        #region haal verberg tijd op van wijk
         public int GetRefreshButtonHide(int _idDistrict)
         {
             int seconds = 60;
-            try
-            {
-                this.conn.Open();
-                string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict";
-                MySqlCommand command = new MySqlCommand(stm, this.conn);
-                command.Parameters.AddWithValue("@iddistrict", _idDistrict);
-                this.rdr = command.ExecuteReader();
+            conn.Open();
+            string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict AND refreshTime IS NOT NULL";
+            MySqlCommand command = new MySqlCommand(stm, this.conn);
+            command.Parameters.AddWithValue("@iddistrict", _idDistrict);
+            this.rdr = command.ExecuteReader();
 
-                while (rdr.Read())
-                {
-                    seconds = rdr.GetInt32(0);
-                }
-                this.conn.Close();
-
-                return seconds;
-            }
-            catch (Exception e)
+            while (rdr.Read())
             {
-                Console.WriteLine("Error bericht(GetRefreshButtonHide): " + e.Message + Environment.NewLine + "tijd was niet gevonden!" );
-                return seconds;
+                seconds = rdr.GetInt32(0);
             }
+
+            conn.Close();
+            return seconds;
         }
+        #endregion
     }
 
 }

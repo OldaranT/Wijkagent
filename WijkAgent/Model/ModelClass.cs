@@ -26,9 +26,11 @@ namespace WijkAgent.Model
             databaseConnectie = new SQLConnection();
             map = new Map();
             username = _username;
+
             newTweets = 0;
 
             map.username = this.username;
+
         }
         #endregion
 
@@ -58,7 +60,6 @@ namespace WijkAgent.Model
                 if (!databaseConnectie.rdr.Read())
                 {
                     inDatabase = false;
-                    Console.WriteLine("Twitter bericht staat niet in database. Bericht is opgeslagen.");
                     newTweets++;
                 }
 
