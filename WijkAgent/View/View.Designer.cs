@@ -37,6 +37,7 @@
             this.main_menu_area_district_panel = new System.Windows.Forms.Panel();
             this.main_menu_area_district_panel_table_layout = new System.Windows.Forms.TableLayoutPanel();
             this.main_menu_selected_district_panel = new System.Windows.Forms.Panel();
+            this.main_menu_area_district_label = new System.Windows.Forms.Label();
             this.main_menu_selected_district_label = new System.Windows.Forms.Label();
             this.main_menu_area_district_scrollable_panel = new System.Windows.Forms.Panel();
             this.clean_district_tweets_button = new System.Windows.Forms.Button();
@@ -113,7 +114,6 @@
             this.history_till_datetimepicker = new System.Windows.Forms.DateTimePicker();
             this.history_keyword_checkbox = new System.Windows.Forms.CheckBox();
             this.history_search_button = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.main_menu_panel.SuspendLayout();
             this.main_menu_table_layout_panel.SuspendLayout();
             this.main_menu_panel_for_label.SuspendLayout();
@@ -255,7 +255,7 @@
             // main_menu_selected_district_panel
             // 
             this.main_menu_selected_district_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
-            this.main_menu_selected_district_panel.Controls.Add(this.label1);
+            this.main_menu_selected_district_panel.Controls.Add(this.main_menu_area_district_label);
             this.main_menu_selected_district_panel.Controls.Add(this.main_menu_selected_district_label);
             this.main_menu_selected_district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_selected_district_panel.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -265,6 +265,20 @@
             this.main_menu_selected_district_panel.Size = new System.Drawing.Size(177, 46);
             this.main_menu_selected_district_panel.TabIndex = 2;
             this.main_menu_selected_district_panel.Visible = false;
+            // 
+            // main_menu_area_district_label
+            // 
+            this.main_menu_area_district_label.AutoSize = true;
+            this.main_menu_area_district_label.BackColor = System.Drawing.Color.Transparent;
+            this.main_menu_area_district_label.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.main_menu_area_district_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.main_menu_area_district_label.ForeColor = System.Drawing.Color.White;
+            this.main_menu_area_district_label.Location = new System.Drawing.Point(0, -6);
+            this.main_menu_area_district_label.Margin = new System.Windows.Forms.Padding(0);
+            this.main_menu_area_district_label.Name = "main_menu_area_district_label";
+            this.main_menu_area_district_label.Size = new System.Drawing.Size(185, 26);
+            this.main_menu_area_district_label.TabIndex = 1;
+            this.main_menu_area_district_label.Text = "Omliggende wijken:";
             // 
             // main_menu_selected_district_label
             // 
@@ -1278,20 +1292,6 @@
             this.history_search_button.UseVisualStyleBackColor = false;
             this.history_search_button.Click += new System.EventHandler(this.history_search_button_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, -6);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 26);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Omliggende wijken:";
-            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1445,7 +1445,7 @@
         private System.Windows.Forms.Label twitter_taglabel2;
         private System.Windows.Forms.Label twitter_taglabel1;
         private System.Windows.Forms.Button clean_district_tweets_button;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label main_menu_area_district_label;
     }
 }
 
