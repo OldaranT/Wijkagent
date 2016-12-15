@@ -23,9 +23,9 @@ namespace WijkAgent.Model
         //collega marker id's
         public List<int> colleagueIdList = new List<int>();
         // voor eigen locatie mits locatie aan staat op laptop
-        GeoCoordinateWatcher watcher;
+        public GeoCoordinateWatcher watcher;
         //de thread voor colega
-        Thread mapThread;
+        public Thread mapThread;
 
         // onthouden wat de laatst geselecteerd wijk was
         public List<double> currentLatitudePoints;
@@ -145,8 +145,7 @@ namespace WijkAgent.Model
         private void GeoPositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
             Object[] args = new Object[3] { twitter.tweetsList.Count + 1, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude };
-            Console.WriteLine(watcher.Position.Location.Latitude + "  " + watcher.Position.Location.Longitude + "  " + this.username);
-            wb.Document.InvokeScript("changeMarkerLocation", args);
+            this.wb.Document.InvokeScript("changeMarkerLocation", args);
             try
             {
                 sql.ChangeAccountLocation(this.username, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude);
@@ -244,19 +243,15 @@ namespace WijkAgent.Model
 
             }
 
-            if (colleagueIdList.Count > 0)
-            {
-                //start een thread die 5 sec duurt als er collega's op de kaart zijn
-                this.mapThread = new Thread(new ThreadStart(ColleagueThread));
-                mapThread.Start();
-            }
+            //start een thread die 5 sec duurt als er collega's op de kaart zijn
+            this.mapThread = new Thread(new ThreadStart(ColleagueThread));
+            mapThread.Start();
         }
         #endregion
 
         #region GetCurrentLocation
         private void GetCurrentLocation(object sender, GeoPositionStatusChangedEventArgs e)
         {
-            Console.WriteLine("eerst"); 
             //als de status is veranderd wil ik elke keer dat de positie veranderd weer de gegevens ophalen
             watcher.PositionChanged += GeoPositionChanged;
 
@@ -273,7 +268,6 @@ namespace WijkAgent.Model
         public void ColleagueThread()
         {
             //wacht 5 seconden en haal opnieuw de  collega's locatie op
-            Console.WriteLine("aangevraagd");
             Thread.Sleep(10000);
             ShowColleagues();
         }
