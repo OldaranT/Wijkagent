@@ -428,7 +428,7 @@ namespace WijkAgent
         private void View_FormClosed(object sender, FormClosedEventArgs e)
         {
             //HIER MICHELLA!!!!! <-------
-
+            modelClass.databaseConnectie.ChangeAccountLocation(modelClass.username, null, null);
             Environment.Exit(0);
         }
         #endregion

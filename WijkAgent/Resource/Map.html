@@ -114,7 +114,13 @@
     function clearMarkers(){
       for(i=0; i<markers.length; i++){
         markers[i].setMap(null);
-      } 
+      }
+      markers = [];
+    }
+
+    function removeMarker(id) {
+        markers[id].setMap(null);
+        markers.splice(id, id + 1);
     }
 
     </script>

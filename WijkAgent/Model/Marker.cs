@@ -36,7 +36,8 @@ namespace WijkAgent.Model
             _markerArgs[3] = this.id;
             _markerArgs[4] = this.title;
             // invokescript heeft voor de argumenten een object nodig waar deze in staan
-            _wb.Document.InvokeScript("AddMarker", _markerArgs);
+            //_wb.Document.InvokeScript("AddMarker", _markerArgs);
+            _wb.Invoke(new Action(() => { _wb.Document.InvokeScript("AddMarker", _markerArgs); }));
         }
         #endregion
     }

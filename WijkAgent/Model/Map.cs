@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Device.Location;
+using System.Threading;
 
 namespace WijkAgent.Model
 {
@@ -19,8 +20,12 @@ namespace WijkAgent.Model
         public SQLConnection sql = new SQLConnection();
         //gebr.naam van degene die is ingelogd
         public string username;
+        //collega marker id's
+        public List<int> colleagueIdList = new List<int>();
         // voor eigen locatie mits locatie aan staat op laptop
         GeoCoordinateWatcher watcher;
+        //de thread voor colega
+        Thread mapThread;
 
         // onthouden wat de laatst geselecteerd wijk was
         public List<double> currentLatitudePoints;
@@ -44,6 +49,7 @@ namespace WijkAgent.Model
             // url openen
             this.wb.Navigate(_url);
             this.wb.ScriptErrorsSuppressed = true;
+            Console.WriteLine("tst1 " + this.wb.InvokeRequired);
 
             // kijken of het geladen is, zo nee blijf doorladen
             while (this.wb.ReadyState != WebBrowserReadyState.Complete)
@@ -64,7 +70,7 @@ namespace WijkAgent.Model
             // watcher starten
             watcher.Start();
 
-            
+
         }
         #endregion
 
@@ -148,7 +154,7 @@ namespace WijkAgent.Model
             {
                 Console.WriteLine(ex.Message);
             }
-            
+
         }
         #endregion
 
@@ -205,9 +211,19 @@ namespace WijkAgent.Model
         #region ShowColleagues
         public void ShowColleagues()
         {
+            //reset alle collega's
+            if (colleagueIdList.Count > 0)
+            {
+                for (int i = 0; i < colleagueIdList.Count; i++)
+                {
+                    Console.WriteLine("id: " + colleagueIdList[i]);
+                    this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueIdList[i] }); }));
+                }
+                colleagueIdList.Clear();
+            }
+
             //elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
             int markerId = twitter.tweetsList.Count + 2;
-
             Dictionary<int, string> _adjecentDistricts = sql.GetAllAdjacentDistricts(6);
 
             foreach (KeyValuePair<int, string> district in _adjecentDistricts)
@@ -215,13 +231,21 @@ namespace WijkAgent.Model
                 //voor elke aanliggende district kijken wie het is en zijn locatie. district.key is de id van een district
                 Dictionary<string, List<double>> _colleagueDic = sql.GetColleagueLocation(district.Key);
                 //nu markers maken van elke collega
-                foreach(var colleague in _colleagueDic)
+                foreach (var colleague in _colleagueDic)
                 {
                     Marker colleagueMarker = new Marker(markerId, colleague.Value[0], colleague.Value[1], "pink-pushpin", colleague.Key);
                     colleagueMarker.addMarkerToMap(this.wb);
+                    colleagueIdList.Add(markerId);
                     markerId = markerId + 1;
                 }
-                    
+
+            }
+
+            if (colleagueIdList.Count > 0)
+            {
+                //start een thread die 5 sec duurt als er collega's op de kaart zijn
+                this.mapThread = new Thread(new ThreadStart(ColleagueThread));
+                mapThread.Start();
             }
         }
         #endregion
@@ -243,5 +267,12 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        public void ColleagueThread()
+        {
+            //wacht 5 seconden en haal opnieuw de  collega's locatie op
+            Thread.Sleep(5000);
+            ShowColleagues();
+            mapThread.Abort();
+        }
     }
 }

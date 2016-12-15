@@ -37,7 +37,9 @@ namespace WijkAgent.Controller
         {
             viewController.view.Hide();
             logInScreen.Show();
+            viewController.view.modelClass.databaseConnectie.ChangeAccountLocation(viewController.view.modelClass.username, null, null);
             viewController = null;
+            
         }
         #endregion
 
