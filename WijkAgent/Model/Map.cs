@@ -244,12 +244,9 @@ namespace WijkAgent.Model
 
             }
 
-            if (colleagueIdList.Count > 0)
-            {
-                //start een thread die 5 sec duurt als er collega's op de kaart zijn
-                this.mapThread = new Thread(new ThreadStart(ColleagueThread));
-                mapThread.Start();
-            }
+            //start een thread die 5 sec duurt als er collega's op de kaart zijn
+            this.mapThread = new Thread(new ThreadStart(ColleagueThread));
+            mapThread.Start();
         }
         #endregion
 
