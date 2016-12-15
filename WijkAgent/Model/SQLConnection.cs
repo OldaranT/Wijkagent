@@ -369,10 +369,9 @@ namespace WijkAgent.Model
         #region reset de eigen locatie coordinaten
         public void ChangeAccountLocation(string _username, double? _latitude, double? _longitude)
         {
+            this.conn.Open();
             try
             {
-                
-                this.conn.Open();
                 string stm = "UPDATE account SET latitude = @latitude, longitude = @longitude WHERE username = @username";
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 command.Parameters.AddWithValue("@username", _username);
@@ -389,7 +388,7 @@ namespace WijkAgent.Model
         #endregion
 
         #region GetColleaguesLocation
-        public Dictionary<string, List<double>> GetColleagueLocation(int _idDisctrict)
+        public Dictionary<string, List<double>> GetColleagueLocation(int _idDisctrict, string _ownUsername)
         {
             Dictionary<string, List<double>> colleagueLocation = new Dictionary<string, List<double>>();
 
@@ -397,9 +396,10 @@ namespace WijkAgent.Model
             {
                 this.conn.Open();
                 //will iedereen hebben die een lat en een long hebben. als ze deze niet hebbe zijn ze offline
-                string stmt = "SELECT username, latitude, longitude FROM account WHERE iddistrict = @idDistrict AND latitude IS NOT NULL AND longitude IS NOT NULL";
+                string stmt = "SELECT username, latitude, longitude FROM account WHERE iddistrict = @idDistrict AND latitude IS NOT NULL AND longitude IS NOT NULL AND username != @ownUsername";
                 MySqlCommand command = new MySqlCommand(stmt, this.conn);
                 command.Parameters.AddWithValue("@idDistrict", _idDisctrict);
+                command.Parameters.AddWithValue("@ownUsername", _ownUsername);
                 this.rdr = command.ExecuteReader();
                 while (rdr.Read())
                 {

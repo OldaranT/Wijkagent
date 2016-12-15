@@ -62,7 +62,7 @@ namespace WijkAgent.Model
 
             // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
             watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-            watcher.MovementThreshold = 20;
+            //watcher.MovementThreshold = 20;
 
             // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
             watcher.StatusChanged += GetCurrentLocation;
@@ -214,25 +214,27 @@ namespace WijkAgent.Model
             //reset alle collega's
             if (colleagueIdList.Count > 0)
             {
-                for (int i = 0; i < colleagueIdList.Count; i++)
+                Console.WriteLine("count: " + colleagueIdList.Count);
+                foreach(int colleagueid in colleagueIdList)
                 {
-                    Console.WriteLine("id: " + colleagueIdList[i]);
-                    this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueIdList[i] }); }));
+                    Console.WriteLine("idas ada: " + colleagueid);
+                    this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueid }); }));
                 }
                 colleagueIdList.Clear();
             }
 
             //elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
             int markerId = twitter.tweetsList.Count + 2;
-            Dictionary<int, string> _adjecentDistricts = sql.GetAllAdjacentDistricts(6);
+            Dictionary<int, string> _adjecentDistricts = sql.GetAllAdjacentDistricts(23);
 
             foreach (KeyValuePair<int, string> district in _adjecentDistricts)
             {
                 //voor elke aanliggende district kijken wie het is en zijn locatie. district.key is de id van een district
-                Dictionary<string, List<double>> _colleagueDic = sql.GetColleagueLocation(district.Key);
+                Dictionary<string, List<double>> _colleagueDic = sql.GetColleagueLocation(district.Key, this.username);
                 //nu markers maken van elke collega
                 foreach (var colleague in _colleagueDic)
                 {
+                    Console.WriteLine( colleague.Key + " " + markerId);
                     Marker colleagueMarker = new Marker(markerId, colleague.Value[0], colleague.Value[1], "pink-pushpin", colleague.Key);
                     colleagueMarker.addMarkerToMap(this.wb);
                     colleagueIdList.Add(markerId);
@@ -259,7 +261,6 @@ namespace WijkAgent.Model
             // als de status ready is
             if (e.Status == GeoPositionStatus.Ready)
             {
-                Console.WriteLine("id: " + twitter.tweetsList.Count + 1);
                 // nieuwe marker toevoegen met het id dat 1 hoger is dan de twitter list lengte 
                 Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin", "Eigen locatie");
                 _m.addMarkerToMap(this.wb);
@@ -270,9 +271,9 @@ namespace WijkAgent.Model
         public void ColleagueThread()
         {
             //wacht 5 seconden en haal opnieuw de  collega's locatie op
-            Thread.Sleep(5000);
+            Console.WriteLine("aangevraagd");
+            Thread.Sleep(10000);
             ShowColleagues();
-            mapThread.Abort();
         }
     }
 }
