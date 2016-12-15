@@ -26,6 +26,11 @@ namespace WijkAgent.Model
             databaseConnectie = new SQLConnection();
             map = new Map();
             username = _username;
+
+            newTweets = 0;
+
+            map.username = this.username;
+
         }
         #endregion
 
