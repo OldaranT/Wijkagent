@@ -37,6 +37,7 @@
             this.main_menu_area_district_panel = new System.Windows.Forms.Panel();
             this.main_menu_area_district_panel_table_layout = new System.Windows.Forms.TableLayoutPanel();
             this.main_menu_selected_district_panel = new System.Windows.Forms.Panel();
+            this.main_menu_area_district_label = new System.Windows.Forms.Label();
             this.main_menu_selected_district_label = new System.Windows.Forms.Label();
             this.main_menu_area_district_scrollable_panel = new System.Windows.Forms.Panel();
             this.clean_district_tweets_button = new System.Windows.Forms.Button();
@@ -254,6 +255,7 @@
             // main_menu_selected_district_panel
             // 
             this.main_menu_selected_district_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
+            this.main_menu_selected_district_panel.Controls.Add(this.main_menu_area_district_label);
             this.main_menu_selected_district_panel.Controls.Add(this.main_menu_selected_district_label);
             this.main_menu_selected_district_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_selected_district_panel.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -263,6 +265,20 @@
             this.main_menu_selected_district_panel.Size = new System.Drawing.Size(177, 46);
             this.main_menu_selected_district_panel.TabIndex = 2;
             this.main_menu_selected_district_panel.Visible = false;
+            // 
+            // main_menu_area_district_label
+            // 
+            this.main_menu_area_district_label.AutoSize = true;
+            this.main_menu_area_district_label.BackColor = System.Drawing.Color.Transparent;
+            this.main_menu_area_district_label.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.main_menu_area_district_label.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.main_menu_area_district_label.ForeColor = System.Drawing.Color.White;
+            this.main_menu_area_district_label.Location = new System.Drawing.Point(0, -6);
+            this.main_menu_area_district_label.Margin = new System.Windows.Forms.Padding(0);
+            this.main_menu_area_district_label.Name = "main_menu_area_district_label";
+            this.main_menu_area_district_label.Size = new System.Drawing.Size(185, 26);
+            this.main_menu_area_district_label.TabIndex = 1;
+            this.main_menu_area_district_label.Text = "Omliggende wijken:";
             // 
             // main_menu_selected_district_label
             // 
@@ -1429,6 +1445,7 @@
         private System.Windows.Forms.Label twitter_taglabel2;
         private System.Windows.Forms.Label twitter_taglabel1;
         private System.Windows.Forms.Button clean_district_tweets_button;
+        private System.Windows.Forms.Label main_menu_area_district_label;
     }
 }
 
