@@ -18,13 +18,17 @@ namespace WijkAgent.Model
         public int idDistrict;
         public WebBrowser wb;
         public SQLConnection sql = new SQLConnection();
-        //gebr.naam van degene die is ingelogd
+        
+        // gebruikersnaam van degene die is ingelogd
         public string username;
-        //collega marker id's
+        
+        // collega marker id's
         public List<int> colleagueIdList = new List<int>();
-        // voor eigen locatie mits locatie aan staat op laptop
+        
+        // voor eigen locatie, mits locatie aan staat op laptop
         public GeoCoordinateWatcher watcher;
-        //de thread voor colega
+        
+        // de thread voor collega
         public Thread mapThread;
 
         // onthouden wat de laatst geselecteerd wijk was
@@ -79,6 +83,15 @@ namespace WijkAgent.Model
         #region ChangeDistrict
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
+            // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
+            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+            watcher.MovementThreshold = 15;
+
+            // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
+            watcher.StatusChanged += GetCurrentLocation;
+
+            // watcher starten
+            watcher.Start();
 
             // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
             watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
@@ -102,7 +115,7 @@ namespace WijkAgent.Model
 
             // kijken of de goede coordinaten er zijn
             // ze moeten dezelfde lengte hebben en allebij minimaal 3 punten, 
-            //anders is het geen geldige polygoon
+            // anders is het geen geldige polygoon
             if (currentLatitudePoints.Count != currentLongitudePoints.Count || currentLatitudePoints.Count < 3 || currentLongitudePoints.Count < 3)
             {
                 MessageBox.Show("Er zijn geen geldige coordinaten voor deze wijk bekend");
@@ -217,13 +230,13 @@ namespace WijkAgent.Model
         {
 
             this.mapThread = new Thread(new ThreadStart(ColleagueThread));
-            //kijken of de thrad leeft zo ja abort de thread
+            // kijken of de thread leeft, zo ja abort de thread
             if (mapThread.IsAlive)
             {
                 mapThread.Abort();
             }
 
-            //reset alle collega's
+            // reset alle collega's
             if (colleagueIdList.Count > 0)
             {
                 foreach(int colleagueid in colleagueIdList)
@@ -234,15 +247,15 @@ namespace WijkAgent.Model
                 colleagueIdList.Clear();
             }
 
-            //elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
+            // elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
             int markerId = twitter.tweetsList.Count + 2;
             Dictionary<int, string> _adjecentDistricts = _sql.GetAllAdjacentDistricts(idDistrict);
 
             foreach (KeyValuePair<int, string> district in _adjecentDistricts)
             {
-                //voor elke aanliggende district kijken wie het is en zijn locatie. district.key is de id van een district
+                // voor elke aanliggende district kijken wie het is en zijn locatie. district.key is de id van een district
                 Dictionary<string, List<double>> _colleagueDic = _sql.GetColleagueLocation(district.Key, this.username);
-                //nu markers maken van elke collega
+                // nu markers maken van elke collega
                 foreach (var colleague in _colleagueDic)
                 {
                     Marker colleagueMarker = new Marker(markerId, colleague.Value[0], colleague.Value[1], "pink-pushpin", colleague.Key);
@@ -253,7 +266,7 @@ namespace WijkAgent.Model
 
             }
 
-            //start een thread die 5 sec duurt als er collega's op de kaart zijn
+            // start een thread die 5 sec duurt als er collega's op de kaart zijn
             mapThread.Start();
         }
         #endregion
@@ -261,7 +274,7 @@ namespace WijkAgent.Model
         #region GetCurrentLocation
         private void GetCurrentLocation(object sender, GeoPositionStatusChangedEventArgs e)
         {
-            //als de status is veranderd wil ik elke keer dat de positie veranderd weer de gegevens ophalen
+            // als de status is veranderd wil ik elke keer dat de positie veranderd weer de gegevens ophalen
             watcher.PositionChanged += GeoPositionChanged;
 
             // als de status ready is
@@ -274,13 +287,15 @@ namespace WijkAgent.Model
         }
         #endregion
 
+        #region ColleagueThread
         public void ColleagueThread()
         {
             Console.WriteLine("thread gestart");
-            //wacht 15 seconden en haal opnieuw de  collega's locatie op
+            // wacht 15 seconden en haal opnieuw de collega's locatie op
             Thread.Sleep(5000);
             SQLConnection _connection = new SQLConnection();
             ShowColleagues(_connection);
         }
+        #endregion
     }
 }

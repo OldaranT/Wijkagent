@@ -26,6 +26,7 @@ namespace WijkAgent
         private Color policeGold;
         private Font mainFont;
         private LoadingScreen loadingScreen;
+
         // laats geklikte label
         private Label lastClickedLabel;
 
@@ -1103,14 +1104,16 @@ namespace WijkAgent
         #region Buttons for adjacent districts
         public void add_buttons_for_adjacent_districts()
         {
+            // maak de lijst met aanliggende wijken leeg
             main_menu_area_district_scrollable_panel.Controls.Clear();
 
-            Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
-            if (test.Count != 0)
+            // haal alle aanliggende wijken op
+            Dictionary<int, string> adjacentDistricts = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
+            if (adjacentDistricts.Count != 0)
             {
-                foreach (KeyValuePair<int, string> entry in test)
+                foreach (KeyValuePair<int, string> entry in adjacentDistricts)
                 {
-                    Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
+                    // maak buttons aan als er aanliggende wijken zijn
                     Button buttonCreate = new Button();
                     buttonCreate.Text = entry.Value;
                     buttonCreate.Name = entry.Key.ToString();
@@ -1121,7 +1124,7 @@ namespace WijkAgent
             }
             else
             {
-                Console.WriteLine(1);
+                // maak een label met een melding als er geen aanliggende wijken zijn
                 Label lab = new Label();
                 lab.Text = emptyAdjacentDistrict;
                 labelLayout(lab);
