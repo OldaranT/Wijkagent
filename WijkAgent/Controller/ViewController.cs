@@ -21,6 +21,7 @@ namespace WijkAgent.Controller
             view = new View(_username);
             view.OnRefreshButtonClick += RefreshButton_Clicked;
             view.OnCleanDistrictTweetsButtonClick += CleanDistrictTweetsButtonController_clicked;
+            view.modelClass.map.OnDistrictChanged += view.add_buttons_for_adjacent_districts;
 
             ThreadDelegate = new ThreadActionRefresh(view.RefreshThreatAction);
         }

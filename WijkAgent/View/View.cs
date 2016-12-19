@@ -289,9 +289,6 @@ namespace WijkAgent
             // laat zien wat nodig is(refresh knop)
             ShowWhatsNeeded();
 
-            // creeert een button van de omliggende wijken
-            add_buttons_for_adjacent_districts();
-
             main_menu_tabcontrol.SelectTab(0);
         }
         #endregion

@@ -34,6 +34,8 @@ namespace WijkAgent.Model
         public Twitter twitter;
         public bool districtSelected = false;
 
+        public event VoidWithNoArguments OnDistrictChanged;
+
         #region Constructor
         public Map()
         {
@@ -49,7 +51,6 @@ namespace WijkAgent.Model
             // url openen
             this.wb.Navigate(_url);
             this.wb.ScriptErrorsSuppressed = true;
-            Console.WriteLine("tst1 " + this.wb.InvokeRequired);
 
             // kijken of het geladen is, zo nee blijf doorladen
             while (this.wb.ReadyState != WebBrowserReadyState.Complete)
@@ -134,6 +135,11 @@ namespace WijkAgent.Model
                 Object[] _circleArgs = new Object[3] { _centerLat, _centerLong, _test };
                 this.wb.Document.InvokeScript("SetCircle", _circleArgs);
 
+                if(OnDistrictChanged != null)
+                {
+                    OnDistrictChanged();
+                }
+
                 // er is een wijk geselecteerd
                 ShowColleagues();
                 districtSelected = true;
@@ -214,10 +220,8 @@ namespace WijkAgent.Model
             //reset alle collega's
             if (colleagueIdList.Count > 0)
             {
-                Console.WriteLine("count: " + colleagueIdList.Count);
                 foreach(int colleagueid in colleagueIdList)
                 {
-                    Console.WriteLine("idas ada: " + colleagueid);
                     this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueid }); }));
                 }
                 colleagueIdList.Clear();
