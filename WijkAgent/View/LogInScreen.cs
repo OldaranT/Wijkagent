@@ -34,7 +34,7 @@ namespace WijkAgent
             GetLastUsedUsername();
 
             //als er al een keer een gebr.naam is onthouden is de checkbox auto checked
-            if(Properties.Settings.Default.LastUsername.Length > 0)
+            if (Properties.Settings.Default.LastUsername.Length > 0)
             {
                 stayLoggedIn_checkbox.Checked = true;
             }
@@ -84,21 +84,43 @@ namespace WijkAgent
                 // als wachtwoord gelijk is aan het opgehaalde wachtwoord uit de database, kan er worden ingelogd
                 if (dbPassword == textbox_password)
                 {
-                    // als de checkbox is aangevinkt, voer de functie uit
-                    if (stayLoggedIn_checkbox.Checked)
+                    sqlConn.conn.Open();
+
+                    // Controleren of er al iemand is ingelogd op dit account
+                    stm = "SELECT idaccount FROM account WHERE username = @username AND longitude is NULL";
+                    cmd = new MySqlCommand(stm, sqlConn.conn);
+                    cmd.Parameters.AddWithValue("@username", textbox_username);
+                    sqlConn.rdr = cmd.ExecuteReader();
+
+                    //Wanneer iemand al is ingelogd 
+                    if (!sqlConn.rdr.Read())
                     {
-                        SetLastUsedUsername();
-                    }else
+                        //Bericht tonen dat iemand al is ingelogd
+                        MessageBox.Show("Er is al iemand ingelogd op dit account!");
+                    }
+                    //Wanneer niemand is ingelogd op dit account
+                    else
                     {
-                        Properties.Settings.Default.LastUsername = "";
-                        Properties.Settings.Default.Save();
+                        // als de checkbox is aangevinkt, voer de functie uit
+                        if (stayLoggedIn_checkbox.Checked)
+                        {
+                            SetLastUsedUsername();
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.LastUsername = "";
+                            Properties.Settings.Default.Save();
+                        }
+
+                        // open applicatie, sluit inlogscherm
+                        if (OnLogInButtonClick != null)
+                        {
+                            OnLogInButtonClick(textbox_username);
+                        }
                     }
 
-                    // open applicatie, sluit inlogscherm
-                    if (OnLogInButtonClick != null)
-                    {
-                        OnLogInButtonClick(textbox_username);
-                    }
+                    // sluit verbinding voor 1e query
+                    sqlConn.conn.Close();               
                 }
                 else
                 {
@@ -137,7 +159,7 @@ namespace WijkAgent
             string errorMessage = "Inloggegevens zijn incorrect!";
             string headerMessage = "Fout Melding!";
             logIn_password_textbox.Text = "";
-            MessageBox.Show(errorMessage, headerMessage, MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
+            MessageBox.Show(errorMessage, headerMessage, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
         }
         #endregion
 
