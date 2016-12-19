@@ -244,7 +244,7 @@ namespace WijkAgent.Model
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message + " " + ex.Data);
+                    Console.WriteLine("Collega error bericht: " + ex.Message);
                 }
                 colleagueIdList.Clear();
             }
