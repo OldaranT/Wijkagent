@@ -886,6 +886,8 @@ namespace WijkAgent
         {
             twitter_messages_scroll_panel.Controls.Clear();
             //twitter trending
+
+            //controlleren of er twitter berichten zijn gevonden
             if (!modelClass.map.twitter.tweetsList.Any())
             {
                 string infoMessage = ("Er zijn geen tweets in deze wijk.");

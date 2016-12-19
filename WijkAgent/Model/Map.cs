@@ -286,8 +286,7 @@ namespace WijkAgent.Model
                 Console.WriteLine("thread gestart");
                 // wacht 15 seconden en haal opnieuw de collega's locatie op
                 Thread.Sleep(8000);
-                SQLConnection _connection = new SQLConnection();
-                ShowColleagues(_connection);
+                ShowColleagues(new SQLConnection());
             }
         }
         #endregion
