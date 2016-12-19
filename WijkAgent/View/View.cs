@@ -1104,7 +1104,6 @@ namespace WijkAgent
             Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
             foreach (KeyValuePair<int, string> entry in test)
             {
-                Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
                 Button buttonCreate = new Button();
                 buttonCreate.Text = entry.Value;
                 buttonCreate.Name = entry.Key.ToString();
