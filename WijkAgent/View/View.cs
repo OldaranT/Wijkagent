@@ -147,6 +147,7 @@ namespace WijkAgent
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
                     province_scroll_panel.Controls.Add(labelCreate);
                 }
+                // sluit database connectie
                 modelClass.databaseConnectie.conn.Close();
             }
             main_menu_tabcontrol.SelectTab(1);
@@ -210,6 +211,7 @@ namespace WijkAgent
                 labelCreate.Text = "Kon geen verbinding maken met de database.";
                 province_scroll_panel.Controls.Add(labelCreate);
             }
+            // sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
             main_menu_tabcontrol.SelectTab(2);
@@ -257,6 +259,7 @@ namespace WijkAgent
                 labelCreate.Text = "Kon geen verbinding maken met de database.";
                 province_scroll_panel.Controls.Add(labelCreate);
             }
+            // sluit database connectie
             modelClass.databaseConnectie.conn.Close();
 
             main_menu_tabcontrol.SelectTab(3);
@@ -760,11 +763,12 @@ namespace WijkAgent
             // check of er uberhaupt een checkbox gecheckt is
             if (history_district_checkbox.Checked || history_user_checkbox.Checked || (history_category_checkbox.Checked && history_category_combobox.SelectedIndex > -1) || history_date_checkbox.Checked || history_keyword_checkbox.Checked)
             {
+
+                // open database connectie
+                modelClass.databaseConnectie.conn.Open();
                 try
                 {
                     // roep districte naam suggeties aan
-                    // open database connectie
-                    modelClass.databaseConnectie.conn.Open();
 
                     // selectie query die de namen van allke province selecteer en ordered
                     MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
@@ -825,14 +829,14 @@ namespace WijkAgent
                     // hier wordt de resultaat label geupdate met het aantal resultaten
                     history_header_results_label.Text = "Aantal resultaten: " + resultsCount.ToString();
 
-                    // sluit database connectie
-                    modelClass.databaseConnectie.conn.Close();
                 }
                 catch (MySqlException ex)
                 {
                     Console.WriteLine(ex);
                 }
 
+                // sluit database connectie
+                modelClass.databaseConnectie.conn.Close();
                 // header label wordt geupdate met de zoek resultaten die zijn gebruikt
                 History_header_label.Text = tempSearch;
 
