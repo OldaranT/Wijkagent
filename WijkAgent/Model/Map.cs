@@ -49,7 +49,6 @@ namespace WijkAgent.Model
             // url openen
             this.wb.Navigate(_url);
             this.wb.ScriptErrorsSuppressed = true;
-            Console.WriteLine("tst1 " + this.wb.InvokeRequired);
 
             // kijken of het geladen is, zo nee blijf doorladen
             while (this.wb.ReadyState != WebBrowserReadyState.Complete)
