@@ -216,17 +216,11 @@ namespace WijkAgent.Model
         #region ShowColleagues
         public void ShowColleagues(SQLConnection _sql)
         {
+            this.mapThread = new Thread(new ThreadStart(ColleagueThread));
             //kijken of de thrad leeft zo ja abort de thread
-            try
+            if (mapThread.IsAlive)
             {
-                if (mapThread.IsAlive)
-                {
-                    mapThread.Abort();
-                }
-            }
-            catch (Exception ex)
-            {
-                
+                mapThread.Join();
             }
 
             //reset alle collega's
@@ -234,6 +228,7 @@ namespace WijkAgent.Model
             {
                 foreach(int colleagueid in colleagueIdList)
                 {
+                    Console.WriteLine("Deleted coll");
                     this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueid }); }));
                 }
                 colleagueIdList.Clear();
@@ -259,7 +254,6 @@ namespace WijkAgent.Model
             }
 
             //start een thread die 5 sec duurt als er collega's op de kaart zijn
-            this.mapThread = new Thread(new ThreadStart(ColleagueThread));
             mapThread.Start();
         }
         #endregion
@@ -282,8 +276,9 @@ namespace WijkAgent.Model
 
         public void ColleagueThread()
         {
+            Console.WriteLine("thread gestart");
             //wacht 15 seconden en haal opnieuw de  collega's locatie op
-            Thread.Sleep(15000);
+            Thread.Sleep(5000);
             SQLConnection _connection = new SQLConnection();
             ShowColleagues(_connection);
         }
