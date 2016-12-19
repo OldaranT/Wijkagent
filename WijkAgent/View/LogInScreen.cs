@@ -185,6 +185,10 @@ namespace WijkAgent
         {
             this.BackColor = policeBlue;
             logIn_password_textbox.Clear();
+            if (Properties.Settings.Default.LastUsername.Length == 0)
+            {
+                logIn_username_textbox.Clear();
+            }
         }
         #endregion
     }
