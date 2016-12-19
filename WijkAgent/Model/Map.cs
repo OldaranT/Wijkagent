@@ -61,17 +61,6 @@ namespace WijkAgent.Model
             // nu kan je dingen op de map doen
 
 
-            // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
-            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-            watcher.MovementThreshold = 15;
-
-            // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
-            watcher.StatusChanged += GetCurrentLocation;
-
-            // watcher starten
-            watcher.Start();
-
-
         }
         #endregion
 
@@ -90,6 +79,16 @@ namespace WijkAgent.Model
         #region ChangeDistrict
         public void changeDistrict(List<double> _latitudePoints, List<double> _longitudePoints)
         {
+
+            // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
+            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+            watcher.MovementThreshold = 15;
+
+            // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
+            watcher.StatusChanged += GetCurrentLocation;
+
+            // watcher starten
+            watcher.Start();
 
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
@@ -216,11 +215,12 @@ namespace WijkAgent.Model
         #region ShowColleagues
         public void ShowColleagues(SQLConnection _sql)
         {
+
             this.mapThread = new Thread(new ThreadStart(ColleagueThread));
             //kijken of de thrad leeft zo ja abort de thread
             if (mapThread.IsAlive)
             {
-                mapThread.Join();
+                mapThread.Abort();
             }
 
             //reset alle collega's

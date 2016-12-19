@@ -279,7 +279,7 @@ namespace WijkAgent
 
             // id van wijk ophalen
             modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
-
+            modelClass.map.mapThread.Abort();
             // wijk veranderen
             modelClass.ChangeDistrict();
 
