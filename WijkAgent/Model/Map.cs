@@ -90,16 +90,6 @@ namespace WijkAgent.Model
             // watcher starten
             watcher.Start();
 
-            // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
-            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-            watcher.MovementThreshold = 15;
-
-            // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
-            watcher.StatusChanged += GetCurrentLocation;
-
-            // watcher starten
-            watcher.Start();
-
             // nu kan je dingen op de map doen
             this.mapThread = new Thread(new ThreadStart(ColleagueThread));
 
@@ -169,6 +159,7 @@ namespace WijkAgent.Model
             try
             {
                 sql.ChangeAccountLocation(this.username, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude);
+                Console.WriteLine("locatie veranderd");
             }
             catch (Exception ex)
             {
@@ -273,16 +264,17 @@ namespace WijkAgent.Model
         #region GetCurrentLocation
         private void GetCurrentLocation(object sender, GeoPositionStatusChangedEventArgs e)
         {
-            // als de status is veranderd wil ik elke keer dat de positie veranderd weer de gegevens ophalen
-            watcher.PositionChanged += GeoPositionChanged;
-
             // als de status ready is
             if (e.Status == GeoPositionStatus.Ready)
             {
                 // nieuwe marker toevoegen met het id dat 1 hoger is dan de twitter list lengte 
                 Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin", "Eigen locatie");
                 _m.addMarkerToMap(this.wb);
+
+                // als de status is veranderd wil ik elke keer dat de positie veranderd weer de gegevens ophalen
+                watcher.PositionChanged += GeoPositionChanged;
             }
+
         }
         #endregion
 
@@ -294,8 +286,7 @@ namespace WijkAgent.Model
                 Console.WriteLine("thread gestart");
                 // wacht 15 seconden en haal opnieuw de collega's locatie op
                 Thread.Sleep(8000);
-                SQLConnection _connection = new SQLConnection();
-                ShowColleagues(_connection);
+                ShowColleagues(new SQLConnection());
             }
         }
         #endregion
