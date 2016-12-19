@@ -1122,6 +1122,7 @@ namespace WijkAgent
                     // maak buttons aan als er aanliggende wijken zijn
                     Button buttonCreate = new Button();
                     buttonCreate.Text = entry.Value;
+                    Console.WriteLine(entry.Key.ToString());
                     buttonCreate.Name = entry.Key.ToString();
                     buttonLayout(buttonCreate);
                     main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);

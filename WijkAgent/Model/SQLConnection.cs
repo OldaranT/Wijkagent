@@ -429,14 +429,20 @@ namespace WijkAgent.Model
         {
             int seconds = 60;
             conn.Open();
-            string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict AND refreshTime IS NOT NULL";
-            MySqlCommand command = new MySqlCommand(stm, this.conn);
-            command.Parameters.AddWithValue("@iddistrict", _idDistrict);
-            this.rdr = command.ExecuteReader();
-
-            while (rdr.Read())
+            try
             {
-                seconds = rdr.GetInt32(0);
+                string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict";
+                MySqlCommand command = new MySqlCommand(stm, this.conn);
+                command.Parameters.AddWithValue("@iddistrict", _idDistrict);
+                this.rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    seconds = rdr.GetInt32(0);
+                }
+            }
+            catch(Exception e)
+            {
+
             }
             conn.Close();
             return seconds;

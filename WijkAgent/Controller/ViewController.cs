@@ -32,7 +32,7 @@ namespace WijkAgent.Controller
         {
             RefreshThread RefreshThread = new RefreshThread(this);
             //x 1000 voor milseconden 
-            int sleepfor = view.modelClass.databaseConnectie.GetRefreshButtonHide(view.modelClass.idDistrict) * 1000;
+            int sleepfor = view.modelClass.databaseConnectie.GetRefreshButtonHide(view.modelClass.map.idDistrict) * 1000;
             RefreshThread.Run(sleepfor);
         }
         #endregion
