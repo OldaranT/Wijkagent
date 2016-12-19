@@ -63,7 +63,7 @@ namespace WijkAgent.Model
 
             // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
             watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-            watcher.MovementThreshold = 5;
+            watcher.MovementThreshold = 15;
 
             // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
             watcher.StatusChanged += GetCurrentLocation;
@@ -228,7 +228,7 @@ namespace WijkAgent.Model
 
             //elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
             int markerId = twitter.tweetsList.Count + 2;
-            Dictionary<int, string> _adjecentDistricts = sql.GetAllAdjacentDistricts(23);
+            Dictionary<int, string> _adjecentDistricts = sql.GetAllAdjacentDistricts(idDistrict);
 
             foreach (KeyValuePair<int, string> district in _adjecentDistricts)
             {
@@ -237,7 +237,6 @@ namespace WijkAgent.Model
                 //nu markers maken van elke collega
                 foreach (var colleague in _colleagueDic)
                 {
-                    Console.WriteLine( colleague.Key + " " + markerId);
                     Marker colleagueMarker = new Marker(markerId, colleague.Value[0], colleague.Value[1], "pink-pushpin", colleague.Key);
                     colleagueMarker.addMarkerToMap(this.wb);
                     colleagueIdList.Add(markerId);
@@ -270,8 +269,8 @@ namespace WijkAgent.Model
 
         public void ColleagueThread()
         {
-            //wacht 5 seconden en haal opnieuw de  collega's locatie op
-            Thread.Sleep(10000);
+            //wacht 15 seconden en haal opnieuw de  collega's locatie op
+            Thread.Sleep(15000);
             ShowColleagues();
         }
     }
