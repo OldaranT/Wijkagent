@@ -62,7 +62,7 @@ namespace WijkAgent.Model
 
             // watcher aanmaken zodat elke keer als je van wijk veranderd je coordinaten worden opgehaald
             watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-            watcher.MovementThreshold = 20;
+            watcher.MovementThreshold = 5;
 
             // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
             watcher.StatusChanged += GetCurrentLocation;
