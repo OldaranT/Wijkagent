@@ -109,6 +109,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.categoryCombo);
             this.Controls.Add(this.selectAllCheck);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "IncidentScreen";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

@@ -123,6 +123,7 @@
             // 
             // logIn_input_panel
             // 
+            this.logIn_input_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(70)))), ((int)(((byte)(130)))));
             this.logIn_input_panel.Controls.Add(this.logIn_tabeLayout_panel);
             this.logIn_input_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logIn_input_panel.Location = new System.Drawing.Point(180, 0);
@@ -181,7 +182,6 @@
             this.logIn_username_textbox.Name = "logIn_username_textbox";
             this.logIn_username_textbox.Size = new System.Drawing.Size(118, 27);
             this.logIn_username_textbox.TabIndex = 2;
-            this.logIn_username_textbox.Text = "a";
             // 
             // logIn_password_textbox
             // 
@@ -192,7 +192,6 @@
             this.logIn_password_textbox.PasswordChar = '•';
             this.logIn_password_textbox.Size = new System.Drawing.Size(117, 27);
             this.logIn_password_textbox.TabIndex = 3;
-            this.logIn_password_textbox.Text = "1";
             // 
             // LogInScreen
             // 
@@ -204,6 +203,7 @@
             this.Controls.Add(this.logIn_input_panel);
             this.Controls.Add(this.logIn_picterbox_panel);
             this.Controls.Add(this.logIn_button_panel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
