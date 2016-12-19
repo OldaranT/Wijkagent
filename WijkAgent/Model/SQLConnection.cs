@@ -301,7 +301,6 @@ namespace WijkAgent.Model
             catch (Exception e)
             {
                 Console.WriteLine("Error bericht(GetSelectedDistrictName): " + e.Message + Environment.NewLine + "Dit was gevonden: " + districtName);
-                return districtName;
             }
             this.conn.Close();
             return districtName;

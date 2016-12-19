@@ -65,7 +65,6 @@ namespace WijkAgent.Model
             watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
             watcher.MovementThreshold = 5;
 
-
             // als de status van de watcher is veranderd  ga naar de methode: getcurrentlocation
             watcher.StatusChanged += GetCurrentLocation;
 
