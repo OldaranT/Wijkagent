@@ -115,11 +115,10 @@ namespace WijkAgent
 
             if (!provinceButtonsCreated)
             {
+                // open database connectie
+                modelClass.databaseConnectie.conn.Open();
                 try
-                {
-                    // open database connectie
-                    modelClass.databaseConnectie.conn.Open();
-
+                {                   
                     // selectie query die de namen van alle province selecteer en ordered.
                     string stm = "SELECT * FROM province ORDER BY name DESC";
                     MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
@@ -135,7 +134,7 @@ namespace WijkAgent
                         province_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += ProvinceButton_Click;
                     }
-                    modelClass.databaseConnectie.conn.Close();
+
                     provinceButtonsCreated = true;
                 }
                 catch (Exception ex)
@@ -148,6 +147,7 @@ namespace WijkAgent
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
                     province_scroll_panel.Controls.Add(labelCreate);
                 }
+                modelClass.databaseConnectie.conn.Close();
             }
             main_menu_tabcontrol.SelectTab(1);
         }
@@ -168,12 +168,12 @@ namespace WijkAgent
             city_scroll_panel.Controls.Clear();
 
             Button clickedButton = (Button)sender;
+
+            // open database connectie
+            modelClass.databaseConnectie.conn.Open();
             try
             {
                 int idProvince = Convert.ToInt32(clickedButton.Name);
-
-                // open database connectie
-                modelClass.databaseConnectie.conn.Open();
 
                 // selectie query die de namen van alle provincies selecteert en ordered.
                 string stm = "SELECT * FROM city WHERE idprovince = @idprovince ORDER BY name DESC";
@@ -199,8 +199,6 @@ namespace WijkAgent
                     city_scroll_panel.Controls.Add(label);
                     label.Dock = DockStyle.Top;
                 }
-
-                modelClass.databaseConnectie.conn.Close();
             }
             catch (Exception ex)
             {
@@ -212,6 +210,7 @@ namespace WijkAgent
                 labelCreate.Text = "Kon geen verbinding maken met de database.";
                 province_scroll_panel.Controls.Add(labelCreate);
             }
+            modelClass.databaseConnectie.conn.Close();
 
             main_menu_tabcontrol.SelectTab(2);
         }
@@ -224,12 +223,12 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
 
             district_scroll_panel.Controls.Clear();
+
+            // open database connectie
+            modelClass.databaseConnectie.conn.Open();
             try
             {
                 int idCity = Convert.ToInt32(clickedButton.Name);
-
-                // open database connectie
-                modelClass.databaseConnectie.conn.Open();
 
                 // selectie query die de namen van alle provincies selecteert en ordered.
                 string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
@@ -247,7 +246,6 @@ namespace WijkAgent
                     district_scroll_panel.Controls.Add(buttonCreate);
                     buttonCreate.Click += DistrictButton_Click;
                 }
-                modelClass.databaseConnectie.conn.Close();
             }
             catch (Exception ex)
             {
@@ -259,6 +257,7 @@ namespace WijkAgent
                 labelCreate.Text = "Kon geen verbinding maken met de database.";
                 province_scroll_panel.Controls.Add(labelCreate);
             }
+            modelClass.databaseConnectie.conn.Close();
 
             main_menu_tabcontrol.SelectTab(3);
         }
@@ -1115,7 +1114,8 @@ namespace WijkAgent
                     main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
                     buttonCreate.Click += DistrictButton_Click;
                 }
-            }else
+            }
+            else
             {
                 Console.WriteLine(1);
                 Label lab = new Label();
