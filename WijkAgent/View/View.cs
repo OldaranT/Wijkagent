@@ -280,6 +280,7 @@ namespace WijkAgent
 
             // id van wijk ophalen
             modelClass.map.idDistrict = Convert.ToInt32(clickedButton.Name);
+
             //mag alleen aborten als er al een district geselecteerd is
             if(modelClass.map.districtSelected == true)
             {
