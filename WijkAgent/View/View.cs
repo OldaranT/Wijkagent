@@ -118,7 +118,7 @@ namespace WijkAgent
                 // open database connectie
                 modelClass.databaseConnectie.conn.Open();
                 try
-                {                   
+                {
                     // selectie query die de namen van alle province selecteer en ordered.
                     string stm = "SELECT * FROM province ORDER BY name DESC";
                     MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
@@ -1036,6 +1036,7 @@ namespace WijkAgent
                 selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
+            //Getoonde twitter bericten updaten
             UpdateTwitterpanel();
         }
 
@@ -1056,6 +1057,7 @@ namespace WijkAgent
                 selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
+            //Getoonde twitter bericten updaten
             UpdateTwitterpanel();
         }
 
@@ -1076,6 +1078,7 @@ namespace WijkAgent
                 selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
+            //Getoonde twitter bericten updaten
             UpdateTwitterpanel();
         }
 
