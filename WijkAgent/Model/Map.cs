@@ -140,7 +140,7 @@ namespace WijkAgent.Model
                 }
 
                 // er is een wijk geselecteerd
-                ShowColleagues();
+                ShowColleagues(this.sql);
                 districtSelected = true;
             }
         }
@@ -214,8 +214,21 @@ namespace WijkAgent.Model
         #endregion
 
         #region ShowColleagues
-        public void ShowColleagues()
+        public void ShowColleagues(SQLConnection _sql)
         {
+            //kijken of de thrad leeft zo ja abort de thread
+            try
+            {
+                if (mapThread.IsAlive)
+                {
+                    mapThread.Abort();
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
             //reset alle collega's
             if (colleagueIdList.Count > 0)
             {
@@ -228,12 +241,12 @@ namespace WijkAgent.Model
 
             //elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
             int markerId = twitter.tweetsList.Count + 2;
-            Dictionary<int, string> _adjecentDistricts = sql.GetAllAdjacentDistricts(idDistrict);
+            Dictionary<int, string> _adjecentDistricts = _sql.GetAllAdjacentDistricts(idDistrict);
 
             foreach (KeyValuePair<int, string> district in _adjecentDistricts)
             {
                 //voor elke aanliggende district kijken wie het is en zijn locatie. district.key is de id van een district
-                Dictionary<string, List<double>> _colleagueDic = sql.GetColleagueLocation(district.Key, this.username);
+                Dictionary<string, List<double>> _colleagueDic = _sql.GetColleagueLocation(district.Key, this.username);
                 //nu markers maken van elke collega
                 foreach (var colleague in _colleagueDic)
                 {
@@ -271,7 +284,8 @@ namespace WijkAgent.Model
         {
             //wacht 15 seconden en haal opnieuw de  collega's locatie op
             Thread.Sleep(15000);
-            ShowColleagues();
+            SQLConnection _connection = new SQLConnection();
+            ShowColleagues(_connection);
         }
     }
 }
