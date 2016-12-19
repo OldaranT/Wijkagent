@@ -234,10 +234,17 @@ namespace WijkAgent.Model
             // reset alle collega's
             if (colleagueIdList.Count > 0)
             {
-                foreach(int colleagueid in colleagueIdList)
+                try
                 {
-                    Console.WriteLine("Deleted coll");
-                    this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueid }); }));
+                    foreach (int colleagueid in colleagueIdList)
+                    {
+                        Console.WriteLine("Deleted coll");
+                        this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueid }); }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + " " + ex.Data);
                 }
                 colleagueIdList.Clear();
             }
