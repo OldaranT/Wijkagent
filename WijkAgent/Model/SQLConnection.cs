@@ -428,17 +428,27 @@ namespace WijkAgent.Model
         public int GetRefreshButtonHide(int _idDistrict)
         {
             int seconds = 60;
+            Console.WriteLine(_idDistrict);
             conn.Open();
-            string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict AND refreshTime IS NOT NULL";
-            MySqlCommand command = new MySqlCommand(stm, this.conn);
-            command.Parameters.AddWithValue("@iddistrict", _idDistrict);
-            this.rdr = command.ExecuteReader();
-
-            while (rdr.Read())
+            try
             {
-                seconds = rdr.GetInt32(0);
+                string stm = "SELECT refreshTime FROM district WHERE iddistrict = @iddistrict";
+                MySqlCommand command = new MySqlCommand(stm, this.conn);
+                command.Parameters.AddWithValue("@iddistrict", _idDistrict);
+                this.rdr = command.ExecuteReader();
+                Console.WriteLine("command.executereader");
+                while (rdr.Read())
+                {
+                    Console.WriteLine("rdr.read");
+                    seconds = rdr.GetInt32(0);
+                }
+            }
+            catch(Exception e)
+            {
+
             }
             conn.Close();
+            Console.WriteLine(seconds);
             return seconds;
         }
         #endregion
