@@ -39,13 +39,13 @@
        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
      }
 
-    function AddMarker(Latitude, Longitude, icon, id) {
+    function AddMarker(Latitude, Longitude, icon, id, title) {
       var latlng = new google.maps.LatLng(Latitude, Longitude);
 
       var marker = new google.maps.Marker({
           position: latlng,
           map: map,
-          title: id,
+          title: title,
           icon: 'icons/'+icon+'.png',
       });
       markers[id] = marker;
@@ -107,10 +107,18 @@
 
     }
 
+    function changeMarkerLocation(id, lat, long) {
+        markers[id].setPosition(new google.maps.LatLng(lat, long));
+    }
+
     function clearMarkers(){
       for(i=0; i<markers.length; i++){
         markers[i].setMap(null);
-      } 
+      }
+    }
+
+    function removeMarker(id) {
+        markers[id].setMap(null);
     }
 
     </script>

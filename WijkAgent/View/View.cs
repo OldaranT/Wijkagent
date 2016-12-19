@@ -35,10 +35,11 @@ namespace WijkAgent
         private string searchKeyWord = "Zoek een trefwoord . . .";
         private string emptyString = "";
         private string noTagsMessage = "Er zijn geen tags getweet.";
+        private string emptyAdjacentDistrict = "Er zijn geen omliggende \nwijken beschikbaar.";
 
 
         private int lastTagLabelSelected;
-        private string selectedTagLebelText;
+        private string selectedTagLabelText;
 
         // events
         public event VoidWithNoArguments OnRefreshButtonClick;
@@ -49,7 +50,7 @@ namespace WijkAgent
         #region Constructor
         public View(string _username)
         {
-            selectedTagLebelText = emptyString;
+            selectedTagLabelText = emptyString;
             modelClass = new ModelClass(_username);
             policeBlue = Color.FromArgb(0, 70, 130);
             policeGold = Color.FromArgb(190, 150, 90);
@@ -114,11 +115,10 @@ namespace WijkAgent
 
             if (!provinceButtonsCreated)
             {
+                // open database connectie
+                modelClass.databaseConnectie.conn.Open();
                 try
-                {
-                    // open database connectie
-                    modelClass.databaseConnectie.conn.Open();
-
+                {                   
                     // selectie query die de namen van alle province selecteer en ordered.
                     string stm = "SELECT * FROM province ORDER BY name DESC";
                     MySqlCommand cmd = new MySqlCommand(stm, modelClass.databaseConnectie.conn);
@@ -134,7 +134,7 @@ namespace WijkAgent
                         province_scroll_panel.Controls.Add(buttonCreate);
                         buttonCreate.Click += ProvinceButton_Click;
                     }
-                    modelClass.databaseConnectie.conn.Close();
+
                     provinceButtonsCreated = true;
                 }
                 catch (Exception ex)
@@ -147,6 +147,7 @@ namespace WijkAgent
                     labelCreate.Text = "Kon geen verbinding maken met de database.";
                     province_scroll_panel.Controls.Add(labelCreate);
                 }
+                modelClass.databaseConnectie.conn.Close();
             }
             main_menu_tabcontrol.SelectTab(1);
         }
@@ -167,12 +168,12 @@ namespace WijkAgent
             city_scroll_panel.Controls.Clear();
 
             Button clickedButton = (Button)sender;
+
+            // open database connectie
+            modelClass.databaseConnectie.conn.Open();
             try
             {
                 int idProvince = Convert.ToInt32(clickedButton.Name);
-
-                // open database connectie
-                modelClass.databaseConnectie.conn.Open();
 
                 // selectie query die de namen van alle provincies selecteert en ordered.
                 string stm = "SELECT * FROM city WHERE idprovince = @idprovince ORDER BY name DESC";
@@ -198,8 +199,6 @@ namespace WijkAgent
                     city_scroll_panel.Controls.Add(label);
                     label.Dock = DockStyle.Top;
                 }
-
-                modelClass.databaseConnectie.conn.Close();
             }
             catch (Exception ex)
             {
@@ -211,6 +210,7 @@ namespace WijkAgent
                 labelCreate.Text = "Kon geen verbinding maken met de database.";
                 province_scroll_panel.Controls.Add(labelCreate);
             }
+            modelClass.databaseConnectie.conn.Close();
 
             main_menu_tabcontrol.SelectTab(2);
         }
@@ -223,12 +223,12 @@ namespace WijkAgent
             Button clickedButton = (Button)sender;
 
             district_scroll_panel.Controls.Clear();
+
+            // open database connectie
+            modelClass.databaseConnectie.conn.Open();
             try
             {
                 int idCity = Convert.ToInt32(clickedButton.Name);
-
-                // open database connectie
-                modelClass.databaseConnectie.conn.Open();
 
                 // selectie query die de namen van alle provincies selecteert en ordered.
                 string stm = "SELECT * FROM district WHERE idcity = @idcity ORDER BY name DESC";
@@ -246,7 +246,6 @@ namespace WijkAgent
                     district_scroll_panel.Controls.Add(buttonCreate);
                     buttonCreate.Click += DistrictButton_Click;
                 }
-                modelClass.databaseConnectie.conn.Close();
             }
             catch (Exception ex)
             {
@@ -258,6 +257,7 @@ namespace WijkAgent
                 labelCreate.Text = "Kon geen verbinding maken met de database.";
                 province_scroll_panel.Controls.Add(labelCreate);
             }
+            modelClass.databaseConnectie.conn.Close();
 
             main_menu_tabcontrol.SelectTab(3);
         }
@@ -428,7 +428,7 @@ namespace WijkAgent
         private void View_FormClosed(object sender, FormClosedEventArgs e)
         {
             //HIER MICHELLA!!!!! <-------
-
+            modelClass.databaseConnectie.ChangeAccountLocation(modelClass.username, null, null);
             Environment.Exit(0);
         }
         #endregion
@@ -896,10 +896,10 @@ namespace WijkAgent
                 //Omdraaien van de array, zodat de nieuwste bovenaan staan
                 modelClass.map.twitter.tweetsList.Reverse();
 
-                if (selectedTagLebelText != "")
+                if (selectedTagLabelText != "")
                 {
                     List<Tweet> filteredTweetList = new List<Tweet>();
-                    filteredTweetList = modelClass.map.twitter.getTweetsWithSelectedTag(selectedTagLebelText);
+                    filteredTweetList = modelClass.map.twitter.getTweetsWithSelectedTag(selectedTagLabelText);
                     //twitter aanroep
                     foreach (var tweets in filteredTweetList)
                     {
@@ -1032,7 +1032,7 @@ namespace WijkAgent
                 twitter_taglabel2.ForeColor = Color.Black;
                 twitter_taglabel3.ForeColor = Color.Black;
                 lastTagLabelSelected = 1;
-                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
             UpdateTwitterpanel();
@@ -1052,7 +1052,7 @@ namespace WijkAgent
                 twitter_taglabel2.ForeColor = policeGold;
                 twitter_taglabel3.ForeColor = Color.Black;
                 lastTagLabelSelected = 2;
-                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
             UpdateTwitterpanel();
@@ -1072,7 +1072,7 @@ namespace WijkAgent
                 twitter_taglabel2.ForeColor = Color.Black;
                 twitter_taglabel3.ForeColor = policeGold;
                 lastTagLabelSelected = 3;
-                selectedTagLebelText = filterStringToTag(clickedLabel.Text);
+                selectedTagLabelText = filterStringToTag(clickedLabel.Text);
             }
 
             UpdateTwitterpanel();
@@ -1084,7 +1084,7 @@ namespace WijkAgent
             twitter_taglabel2.ForeColor = Color.Black;
             twitter_taglabel3.ForeColor = Color.Black;
             lastTagLabelSelected = 0;
-            selectedTagLebelText = emptyString;
+            selectedTagLabelText = emptyString;
         }
         #endregion
 
@@ -1102,14 +1102,26 @@ namespace WijkAgent
             main_menu_area_district_scrollable_panel.Controls.Clear();
 
             Dictionary<int, string> test = modelClass.databaseConnectie.GetAllAdjacentDistricts(modelClass.map.idDistrict);
-            foreach (KeyValuePair<int, string> entry in test)
+            if (test.Count != 0)
             {
-                Button buttonCreate = new Button();
-                buttonCreate.Text = entry.Value;
-                buttonCreate.Name = entry.Key.ToString();
-                buttonLayout(buttonCreate);
-                main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
-                buttonCreate.Click += DistrictButton_Click;
+                foreach (KeyValuePair<int, string> entry in test)
+                {
+                    Console.WriteLine("id: " + entry.Key + " value: " + entry.Value);
+                    Button buttonCreate = new Button();
+                    buttonCreate.Text = entry.Value;
+                    buttonCreate.Name = entry.Key.ToString();
+                    buttonLayout(buttonCreate);
+                    main_menu_area_district_scrollable_panel.Controls.Add(buttonCreate);
+                    buttonCreate.Click += DistrictButton_Click;
+                }
+            }
+            else
+            {
+                Console.WriteLine(1);
+                Label lab = new Label();
+                lab.Text = emptyAdjacentDistrict;
+                labelLayout(lab);
+                main_menu_area_district_scrollable_panel.Controls.Add(lab);
             }
         }
         #endregion

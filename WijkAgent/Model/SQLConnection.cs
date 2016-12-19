@@ -178,9 +178,9 @@ namespace WijkAgent.Model
         public Dictionary<int, string> GetAllCategory()
         {
             Dictionary<int, string> category = new Dictionary<int, string>();
+            this.conn.Open();
             try
             {
-                this.conn.Open();
                 string stm = "SELECT * FROM category ORDER BY name";
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 this.rdr = command.ExecuteReader();
@@ -188,13 +188,12 @@ namespace WijkAgent.Model
                 {
                     category.Add(Int32.Parse(rdr.GetString(0)), rdr.GetString(1));
                 }
-                this.conn.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error bericht: " + e.Message);
             }
-
+            this.conn.Close();
             return category;
         }
         #endregion
@@ -210,9 +209,9 @@ namespace WijkAgent.Model
             // hoe laat het nu is
             string endDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+            this.conn.Open();
             try
             {
-                this.conn.Open();
                 string stm = "SELECT idtwitter, user, message FROM twitter WHERE iddistrict = @idDistrict AND datetime between @startDate AND @endDate AND save = false";
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 command.Parameters.AddWithValue("@idDistrict", _idDistrict);
@@ -223,14 +222,13 @@ namespace WijkAgent.Model
                 {
                     twitterMessages.Add(Int32.Parse(rdr.GetString(0)), rdr.GetString(1) + "\n" + rdr.GetString(2));
                 }
-
-                this.conn.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error bericht: " + e.Message);
             }
 
+            this.conn.Close();
             return twitterMessages;
         }
         #endregion
@@ -238,22 +236,20 @@ namespace WijkAgent.Model
         #region Update Twitterberichten die nog geen categorie hebben en deze een categorie meegeven
         public void updateTwitterMessageCategory(int _twitterId, string _category)
         {
+            this.conn.Open();
             try
             {
-                this.conn.Open();
                 string stm = "UPDATE twitter SET idcategory = (SELECT idcategory FROM category WHERE name = @category), save = 1 WHERE idtwitter = @idTwitter";
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 command.Parameters.AddWithValue("@idTwitter", _twitterId);
                 command.Parameters.AddWithValue("@category", _category);
                 command.ExecuteNonQuery();
-
-                this.conn.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error: " + e.Message);
             }
-
+            this.conn.Close();
         }
         #endregion
 
@@ -288,9 +284,9 @@ namespace WijkAgent.Model
         {
             // wanneer er geen iddestrict wordt gevonden zal deze functie -1 returnen! 
             string districtName = "";
+            this.conn.Open();
             try
             {
-                this.conn.Open();
                 string stm = "SELECT name FROM district WHERE iddistrict = @iddistrict";
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 command.Parameters.AddWithValue("@iddistrict", _idDistrict);
@@ -300,15 +296,15 @@ namespace WijkAgent.Model
                 {
                     districtName = rdr.GetString(0);
                 }
-                this.conn.Close();
 
-                return districtName;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error bericht(GetSelectedDistrictName): " + e.Message + Environment.NewLine + "Dit was gevonden: " + districtName);
                 return districtName;
             }
+            this.conn.Close();
+            return districtName;
         }
         #endregion
 
@@ -325,12 +321,18 @@ namespace WijkAgent.Model
             cmd.Parameters.AddWithValue("@iddistrict", _idDistrict);
             rdr = cmd.ExecuteReader();
 
-            // hier wordt de database lijst uitgelezen
-            while (rdr.Read())
+            try
             {
-                latitudeList.Add(Convert.ToDouble(rdr.GetString(2)));
-                longtitudeList.Add(Convert.ToDouble(rdr.GetString(3)));
-            }
+                // hier wordt de database lijst uitgelezen
+                while (rdr.Read())
+                {
+                    latitudeList.Add(Convert.ToDouble(rdr.GetString(2)));
+                    longtitudeList.Add(Convert.ToDouble(rdr.GetString(3)));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            } 
             // database connectie sluiten
             conn.Close();
 
@@ -363,10 +365,63 @@ namespace WijkAgent.Model
             {
                 MessageBox.Show("Error bericht: " + e.Message);
             }
-
             conn.Close();
 
             return adjecentDistricts;
+        }
+        #endregion
+
+        #region reset de eigen locatie coordinaten
+        public void ChangeAccountLocation(string _username, double? _latitude, double? _longitude)
+        {
+            this.conn.Open();
+            try
+            {
+                string stm = "UPDATE account SET latitude = @latitude, longitude = @longitude WHERE username = @username";
+                MySqlCommand command = new MySqlCommand(stm, this.conn);
+                command.Parameters.AddWithValue("@username", _username);
+                command.Parameters.AddWithValue("@latitude", _latitude);
+                command.Parameters.AddWithValue("@longitude", _longitude);
+                this.rdr = command.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error bericht: " + e.Message);
+            }
+            this.conn.Close();
+        }
+        #endregion
+
+        #region GetColleaguesLocation
+        public Dictionary<string, List<double>> GetColleagueLocation(int _idDisctrict, string _ownUsername)
+        {
+            Dictionary<string, List<double>> colleagueLocation = new Dictionary<string, List<double>>();
+            this.conn.Open();
+            try
+            {
+                //will iedereen hebben die een lat en een long hebben. als ze deze niet hebbe zijn ze offline
+                string stmt = "SELECT username, latitude, longitude FROM account WHERE iddistrict = @idDistrict AND latitude IS NOT NULL AND longitude IS NOT NULL AND username != @ownUsername";
+                MySqlCommand command = new MySqlCommand(stmt, this.conn);
+                command.Parameters.AddWithValue("@idDistrict", _idDisctrict);
+                command.Parameters.AddWithValue("@ownUsername", _ownUsername);
+                this.rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    List<double> _coordinates = new List<double>();
+                    //zijn strings moeten doubles zijn
+                    _coordinates.Add(double.Parse(rdr.GetString(1)));
+                    _coordinates.Add(double.Parse(rdr.GetString(2)));
+
+                    colleagueLocation.Add(rdr.GetString(0), _coordinates);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error bericht: " + e.Message);
+            }
+            this.conn.Close();
+
+            return colleagueLocation;
         }
         #endregion
 
@@ -384,7 +439,6 @@ namespace WijkAgent.Model
             {
                 seconds = rdr.GetInt32(0);
             }
-
             conn.Close();
             return seconds;
         }
