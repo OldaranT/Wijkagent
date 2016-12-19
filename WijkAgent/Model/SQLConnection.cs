@@ -428,7 +428,6 @@ namespace WijkAgent.Model
         public int GetRefreshButtonHide(int _idDistrict)
         {
             int seconds = 60;
-            Console.WriteLine(_idDistrict);
             conn.Open();
             try
             {
@@ -436,10 +435,8 @@ namespace WijkAgent.Model
                 MySqlCommand command = new MySqlCommand(stm, this.conn);
                 command.Parameters.AddWithValue("@iddistrict", _idDistrict);
                 this.rdr = command.ExecuteReader();
-                Console.WriteLine("command.executereader");
                 while (rdr.Read())
                 {
-                    Console.WriteLine("rdr.read");
                     seconds = rdr.GetInt32(0);
                 }
             }
@@ -448,7 +445,6 @@ namespace WijkAgent.Model
 
             }
             conn.Close();
-            Console.WriteLine(seconds);
             return seconds;
         }
         #endregion

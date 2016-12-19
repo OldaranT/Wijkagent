@@ -1013,7 +1013,6 @@ namespace WijkAgent
                 UpdateTwitterpanel();
                 ShowWhatsNeeded();
                 add_buttons_for_adjacent_districts();
-                modelClass.idDistrict = idDistrict;
             }
         }
         #endregion
