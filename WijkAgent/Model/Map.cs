@@ -62,9 +62,6 @@ namespace WijkAgent.Model
                 Application.DoEvents();
             }
 
-            // nu kan je dingen op de map doen
-
-
         }
         #endregion
 
@@ -102,6 +99,12 @@ namespace WijkAgent.Model
 
             // watcher starten
             watcher.Start();
+
+            // nu kan je dingen op de map doen
+            this.mapThread = new Thread(new ThreadStart(ColleagueThread));
+
+            // start een thread die 5 sec duurt als er collega's op de kaart zijn
+            mapThread.Start();
 
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
@@ -228,14 +231,6 @@ namespace WijkAgent.Model
         #region ShowColleagues
         public void ShowColleagues(SQLConnection _sql)
         {
-
-            this.mapThread = new Thread(new ThreadStart(ColleagueThread));
-            // kijken of de thread leeft, zo ja abort de thread
-            if (mapThread.IsAlive)
-            {
-                mapThread.Abort();
-            }
-
             // reset alle collega's
             if (colleagueIdList.Count > 0)
             {
@@ -265,9 +260,6 @@ namespace WijkAgent.Model
                 }
 
             }
-
-            // start een thread die 5 sec duurt als er collega's op de kaart zijn
-            mapThread.Start();
         }
         #endregion
 
@@ -290,11 +282,14 @@ namespace WijkAgent.Model
         #region ColleagueThread
         public void ColleagueThread()
         {
-            Console.WriteLine("thread gestart");
-            // wacht 15 seconden en haal opnieuw de collega's locatie op
-            Thread.Sleep(5000);
-            SQLConnection _connection = new SQLConnection();
-            ShowColleagues(_connection);
+            while (true)
+            {
+                Console.WriteLine("thread gestart");
+                // wacht 15 seconden en haal opnieuw de collega's locatie op
+                Thread.Sleep(5000);
+                SQLConnection _connection = new SQLConnection();
+                ShowColleagues(_connection);
+            }
         }
         #endregion
     }
