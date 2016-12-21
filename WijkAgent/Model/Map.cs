@@ -90,12 +90,6 @@ namespace WijkAgent.Model
             // watcher starten
             watcher.Start();
 
-            // nu kan je dingen op de map doen
-            this.mapThread = new Thread(new ThreadStart(ColleagueThread));
-
-            // start een thread die 5 sec duurt als er collega's op de kaart zijn
-            mapThread.Start();
-
             currentLatitudePoints = _latitudePoints;
             currentLongitudePoints = _longitudePoints;
 
@@ -141,12 +135,18 @@ namespace WijkAgent.Model
 
                 if(OnDistrictChanged != null)
                 {
+
                     OnDistrictChanged();
                 }
 
                 // er is een wijk geselecteerd
                 ShowColleagues(this.sql);
                 districtSelected = true;
+
+                this.mapThread = new Thread(new ThreadStart(ColleagueThread));
+
+                // start een thread die 5 sec duurt als er collega's op de kaart zijn
+                mapThread.Start();
             }
         }
         #endregion
@@ -155,7 +155,7 @@ namespace WijkAgent.Model
         private void GeoPositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
             Object[] args = new Object[3] { twitter.tweetsList.Count + 1, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude };
-            this.wb.Document.InvokeScript("changeMarkerLocation", args);
+            this.wb.Document.InvokeScript("changeOwnLocation", args);
             try
             {
                 sql.ChangeAccountLocation(this.username, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude);
@@ -230,7 +230,7 @@ namespace WijkAgent.Model
                     foreach (int colleagueid in colleagueIdList)
                     {
                         Console.WriteLine("Deleted coll: " + colleagueid);
-                        this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueid }); }));
+                        this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarkerColleague", new Object[1] { colleagueid }); }));
                     }
                     colleagueIdList.Clear();
                 }
@@ -240,8 +240,8 @@ namespace WijkAgent.Model
                 }
             }
 
-            // elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
-            int _markerId = twitter.tweetsList.Count + 2;
+            // elke marker heeft een id nodig deze worden gesplits in twitter markers, eigen locatie en collega markers
+            int _markerId = 1;
             Dictionary<int, string> _adjecentDistricts = _sql.GetAllAdjacentDistricts(idDistrict);
 
             foreach (KeyValuePair<int, string> district in _adjecentDistricts)
@@ -267,8 +267,8 @@ namespace WijkAgent.Model
             // als de status ready is
             if (e.Status == GeoPositionStatus.Ready)
             {
-                // nieuwe marker toevoegen met het id dat 1 hoger is dan de twitter list lengte 
-                Marker _m = new Marker(twitter.tweetsList.Count + 1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin", "Eigen locatie");
+                // nieuwe marker toevoegen
+                Marker _m = new Marker(1, watcher.Position.Location.Latitude, watcher.Position.Location.Longitude, "blue-pushpin", "Eigen locatie");
                 _m.addMarkerToMap(this.wb);
 
                 // als de status is veranderd wil ik elke keer dat de positie veranderd weer de gegevens ophalen

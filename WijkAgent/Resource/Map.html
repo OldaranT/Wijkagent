@@ -26,6 +26,8 @@
 
      var map;
      var markers = {};
+     var colleagueMarkers = {};
+     var ownLocation;
      //alles van het laats geklikte marker zodat het weer terug gezet kan worden
      var lastId = null;
      var lastIcon;
@@ -48,7 +50,14 @@
           title: title,
           icon: 'icons/'+icon+'.png',
       });
-      markers[id] = marker;
+      if (title == "twitter") {
+          markers[id] = marker;
+      } else if (title == "Eigen locatie") {
+          ownLocation = marker
+      } else {
+          colleagueMarkers[id] = marker;
+      }
+      
     }
 
     //om de radius te testen
@@ -107,8 +116,8 @@
 
     }
 
-    function changeMarkerLocation(id, lat, long) {
-        markers[id].setPosition(new google.maps.LatLng(lat, long));
+    function changeOwnLocation(id, lat, long) {
+        ownLocation.setPosition(new google.maps.LatLng(lat, long));
     }
 
     function clearMarkers(){
@@ -118,10 +127,10 @@
       markers = {};
     }
 
-    function removeMarker(id) {
-        markers[id].setMap(null);
+    function removeMarkerColleague(id) {
+        colleagueMarkers[id].setMap(null);
         //verwijderd het element uit het object
-        delete markers[id];
+        delete colleagueMarkers[id];
     }
 
     </script>
