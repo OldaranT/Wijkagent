@@ -115,10 +115,13 @@
       for(i=0; i<markers.length; i++){
         markers[i].setMap(null);
       }
+      markers = {};
     }
 
     function removeMarker(id) {
         markers[id].setMap(null);
+        //verwijderd het element uit het object
+        delete markers[id];
     }
 
     </script>

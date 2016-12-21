@@ -50,7 +50,7 @@ namespace WijkAgent.Model
             this.wb = new WebBrowser();
             // goede format voor een lokaal bestand zodat je het kan gebruiken in de navigate van webbrowser
             string _curDir = Directory.GetCurrentDirectory();
-            var _url = new Uri(String.Format("file:///{0}/{1}", _curDir, "Resource/Map.html"));
+            var _url = new Uri(String.Format("file:///{0}/{1}", _curDir, "../../Resource/Map.html"));
 
             // url openen
             this.wb.Navigate(_url);
@@ -163,7 +163,7 @@ namespace WijkAgent.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Eigen locatie" + ex.Message);
             }
 
         }
@@ -229,19 +229,19 @@ namespace WijkAgent.Model
                 {
                     foreach (int colleagueid in colleagueIdList)
                     {
-                        Console.WriteLine("Deleted coll");
+                        Console.WriteLine("Deleted coll: " + colleagueid);
                         this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarker", new Object[1] { colleagueid }); }));
                     }
+                    colleagueIdList.Clear();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Collega error bericht: " + ex.Message);
                 }
-                colleagueIdList.Clear();
             }
 
             // elke marker heeft een id nodig de tweet list heeft een id en je eigen locatie heeft de tweetlist + 1. Begin dus 1 verder dan dat
-            int markerId = twitter.tweetsList.Count + 2;
+            int _markerId = twitter.tweetsList.Count + 2;
             Dictionary<int, string> _adjecentDistricts = _sql.GetAllAdjacentDistricts(idDistrict);
 
             foreach (KeyValuePair<int, string> district in _adjecentDistricts)
@@ -251,10 +251,10 @@ namespace WijkAgent.Model
                 // nu markers maken van elke collega
                 foreach (var colleague in _colleagueDic)
                 {
-                    Marker colleagueMarker = new Marker(markerId, colleague.Value[0], colleague.Value[1], "pink-pushpin", colleague.Key);
+                    Marker colleagueMarker = new Marker(_markerId, colleague.Value[0], colleague.Value[1], "pink-pushpin", colleague.Key);
                     colleagueMarker.addMarkerToMap(this.wb);
-                    colleagueIdList.Add(markerId);
-                    markerId = markerId + 1;
+                    colleagueIdList.Add(_markerId);
+                    _markerId = _markerId + 1;
                 }
 
             }
