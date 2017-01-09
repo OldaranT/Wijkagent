@@ -191,7 +191,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error bericht: " + e.Message);
+                Console.WriteLine("Error bericht: " + e.Message);
             }
             this.conn.Close();
             return category;
@@ -225,7 +225,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error bericht: " + e.Message);
+                Console.WriteLine("Error bericht: " + e.Message);
             }
 
             this.conn.Close();
@@ -247,7 +247,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                Console.WriteLine("Error: " + e.Message);
             }
             this.conn.Close();
         }
@@ -362,7 +362,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error bericht: " + e.Message);
+                Console.WriteLine("Error bericht: " + e.Message);
             }
             conn.Close();
 
@@ -385,7 +385,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error bericht: " + e.Message);
+                Console.WriteLine("Error bericht: " + e.Message);
             }
             this.conn.Close();
         }
@@ -416,7 +416,7 @@ namespace WijkAgent.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error bericht: " + e.Message);
+                Console.WriteLine("Error bericht: " + e.Message);
             }
             this.conn.Close();
 
