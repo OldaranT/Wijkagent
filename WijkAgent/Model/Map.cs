@@ -159,13 +159,11 @@ namespace WijkAgent.Model
             try
             {
                 sql.ChangeAccountLocation(this.username, this.watcher.Position.Location.Latitude, this.watcher.Position.Location.Longitude);
-                Console.WriteLine("locatie veranderd");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Eigen locatie" + ex.Message);
             }
-
         }
         #endregion
 
@@ -229,7 +227,6 @@ namespace WijkAgent.Model
                 {
                     foreach (int colleagueid in colleagueIdList)
                     {
-                        Console.WriteLine("Deleted coll: " + colleagueid);
                         this.wb.Invoke(new Action(() => { this.wb.Document.InvokeScript("removeMarkerColleague", new Object[1] { colleagueid }); }));
                     }
                     colleagueIdList.Clear();
@@ -283,7 +280,6 @@ namespace WijkAgent.Model
         {
             while (true)
             {
-                Console.WriteLine("thread gestart");
                 // wacht 15 seconden en haal opnieuw de collega's locatie op
                 Thread.Sleep(8000);
                 ShowColleagues(new SQLConnection());
