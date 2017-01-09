@@ -84,7 +84,7 @@ namespace WijkAgent.Model
 
             //Sluit database connectie
             conn.Close();
-            string message = "Succes! ";
+            string message = "Succesvol uitgevoerd! ";
 
             if (effectedRows > 0)
             {
